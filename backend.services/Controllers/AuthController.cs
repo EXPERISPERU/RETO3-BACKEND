@@ -44,10 +44,10 @@ namespace backend.services.Controllers
                 var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(tokenConfig);
 
-                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = false, data = token, errMsj = "" });
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = true, data = token, errMsj = "" });
             }
             else {
-                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> {success = false, data = "", errMsj = rsp.sMsj });
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = false, data = "", errMsj = rsp.sMsj });
             }
         }
     }
