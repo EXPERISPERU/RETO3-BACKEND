@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.repository.Interfaces
+namespace backend.businesslogic.Interfaces
 {
-    public interface IUsuarioRepository
+    public interface IAuthBL
     {
-        public Task<IList<PerfilDTO>> GetPerfilAll();
+        public Task<SqlRspDTO> AuthUser(authLoginDTO authLogin);
     }
 }

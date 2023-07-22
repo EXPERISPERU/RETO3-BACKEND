@@ -1,5 +1,6 @@
 ﻿using backend.businesslogic.Interfaces;
 using backend.domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace backend.services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
         public readonly IUsuarioBL service;
@@ -17,16 +19,16 @@ namespace backend.services.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<UsuarioDTO>>>> GetUsersAll()
+        public async Task<ActionResult<ApiResponse<List<PerfilDTO>>>> GetPerfilAll()
         {
-            ApiResponse<List<UsuarioDTO>> response = new ApiResponse<List<UsuarioDTO>>();
+            ApiResponse<List<PerfilDTO>> response = new ApiResponse<List<PerfilDTO>>();
 
             try
             {
-                var result = await service.GetUsersAll();
+                var result = await service.GetPerfilAll();
 
                 response.success = true;
-                response.data = (List<UsuarioDTO>)result;
+                response.data = (List<PerfilDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

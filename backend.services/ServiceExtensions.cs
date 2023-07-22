@@ -13,11 +13,13 @@ namespace backend.services
         public static void ConfigureRepositoryManager(this IServiceCollection services, string connectionString)
         {
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
         {
             services.AddScoped<IUsuarioBL, UsuarioBL>();
+            services.AddScoped<IAuthBL, AuthBL>();
         }
     }
 }

@@ -21,17 +21,17 @@ namespace backend.repository
             _configuration = configuration;
         }
 
-        public async Task<IList<UsuarioDTO>> GetUsersAll()
+        public async Task<IList<PerfilDTO>> GetPerfilAll()
         {
-            IEnumerable<UsuarioDTO> list = new List<UsuarioDTO>();
+            IEnumerable<PerfilDTO> list = new List<PerfilDTO>();
 
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnPostulacion")))
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[dbo].[pa_registrar]", 1);
+                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_registrar_usuario]", 1);
                 //parameters.Add("nIdEmp", nIdEmp);
 
-                list = await connection.QueryAsync<UsuarioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<PerfilDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();

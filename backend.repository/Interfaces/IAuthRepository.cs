@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace backend.repository.Interfaces
 {
-    public interface IUsuarioRepository
+    public interface IAuthRepository
     {
-        public Task<IList<PerfilDTO>> GetPerfilAll();
+        public Task<SqlRspDTO> AuthUser(authLoginDTO authLogin);
     }
 }

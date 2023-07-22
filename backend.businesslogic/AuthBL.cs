@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace backend.businesslogic
 {
-    public class UsuarioBL : IUsuarioBL
+    public class AuthBL : IAuthBL
     {
-        IUsuarioRepository repository;
-        public UsuarioBL(IUsuarioRepository _repository) 
-        { 
+        IAuthRepository repository;
+        public AuthBL(IAuthRepository _repository)
+        {
             repository = _repository;
         }
 
-        public async Task<IList<PerfilDTO>> GetPerfilAll()
+        public async Task<SqlRspDTO> AuthUser(authLoginDTO authLogin)
         {
-            return await repository.GetPerfilAll();
+            return await repository.AuthUser(authLogin);
         }
     }
 }

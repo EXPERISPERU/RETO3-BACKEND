@@ -9,6 +9,6 @@ namespace backend.businesslogic.Interfaces
 {
     public interface IUsuarioBL
     {
-        public Task<IList<UsuarioDTO>> GetUsersAll();
+        public Task<IList<PerfilDTO>> GetPerfilAll();
     }
 }
