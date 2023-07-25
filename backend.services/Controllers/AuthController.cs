@@ -1,5 +1,6 @@
 ﻿using backend.businesslogic.Interfaces;
 using backend.domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +12,7 @@ namespace backend.services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class AuthController : ControllerBase
     {
         private readonly string secretKey;
@@ -22,7 +24,8 @@ namespace backend.services.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<String>>> AuthLogin([FromBody] authLoginDTO request) {
+        public async Task<ActionResult<ApiResponse<String>>> AuthLogin([FromBody] authLoginDTO request) 
+        {
 
             SqlRspDTO rsp = await service.AuthUser(request);
 
@@ -48,6 +51,29 @@ namespace backend.services.Controllers
             }
             else {
                 return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = false, data = "", errMsj = rsp.sMsj });
+            }
+        }
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcionByIdUsuario(int nIdUsuario)
+        {
+
+            ApiResponse<List<OpcionDTO>> response = new ApiResponse<List<OpcionDTO>>();
+
+            try
+            {
+                var result = await service.ListOpcionByIdUsuario(nIdUsuario);
+
+                response.success = true;
+                response.data = (List<OpcionDTO>) result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
             }
         }
     }

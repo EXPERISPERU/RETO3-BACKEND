@@ -10,5 +10,6 @@ namespace backend.repository.Interfaces
     public interface IAuthRepository
     {
         public Task<SqlRspDTO> AuthUser(authLoginDTO authLogin);
+        public Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario);
     }
 }

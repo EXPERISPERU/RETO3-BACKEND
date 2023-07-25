@@ -23,15 +23,15 @@ builder.Services.AddAuthentication("Bearer").AddJwtBearer(config => {
 });
 
 // Agregar acceso de FrontEnd
-var CorsConfiguration = "_corsConfiguration";
+var CorsConfiguration = "corspolicy";
 builder.Services.AddCors(options => {
     options.AddPolicy(
         name: CorsConfiguration,
         builder =>
         {
             builder.WithOrigins("http://localhost:4200", "http://localhost:4201")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowAnyHeader();
         });
 });
 
@@ -55,11 +55,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(CorsConfiguration);
+
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors(CorsConfiguration);
 
 app.MapControllers();
 

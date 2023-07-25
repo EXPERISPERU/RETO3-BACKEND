@@ -21,5 +21,10 @@ namespace backend.businesslogic
         {
             return await repository.AuthUser(authLogin);
         }
+
+        public async Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario)
+        {
+            return await repository.ListOpcionByIdUsuario(nIdUsuario);
+        }
     }
 }

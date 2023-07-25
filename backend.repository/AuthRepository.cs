@@ -37,5 +37,21 @@ namespace backend.repository
 
             return resp;
         }
+
+        public async Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario)
+        {
+            IEnumerable<OpcionDTO> list = new List<OpcionDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = String.Format("{0};{1}", "[seguridad].[autentication]", 2);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<OpcionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }
