@@ -8,7 +8,7 @@ namespace backend.domain
 {
     public class UsuarioDTO
     {
-        public int nIdUsuario { get; set; }
+        public int? nIdUsuario { get; set; }
         public string sUsuario { get; set; }
         public string sPassword { get; set; }
         public bool bActivo { get; set; }

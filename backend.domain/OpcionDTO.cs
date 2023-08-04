@@ -8,10 +8,10 @@ namespace backend.domain
 {
     public class OpcionDTO
     {
-        public int nIdOpcion { get; set; }
-        public int nIdOpcionP { get; set; }
-        public string? sOpcion { get; set; }
+        public int? nIdOpcion { get; set; }
+        public int? nIdOpcionP { get; set; }
+        public string sOpcion { get; set; }
         public string? sDescripcion { get; set; } 
-        public string? sRuta { get; set; } 
+        public string sRuta { get; set; } 
     }
 }

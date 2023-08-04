@@ -8,8 +8,8 @@ namespace backend.domain
 {
     public class PerfilDTO
     {
-        public int nIdPerfil { get; set; }
-        public string? sNombre { get; set; }
+        public int? nIdPerfil { get; set; }
+        public string sNombre { get; set; }
         public string? sDescripcion { get; set; }
     }
 }
