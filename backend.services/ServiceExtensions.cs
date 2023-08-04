@@ -14,12 +14,16 @@ namespace backend.services
         {
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IPerfilRepository, PerfilRepository>();
+            services.AddScoped<IOpcionRepository, OpcionRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
         {
             services.AddScoped<IUsuarioBL, UsuarioBL>();
             services.AddScoped<IAuthBL, AuthBL>();
+            services.AddScoped<IPerfilBL, PerfilBL>();
+            services.AddScoped<IOpcionBL, OpcionBL>();
         }
     }
 }
