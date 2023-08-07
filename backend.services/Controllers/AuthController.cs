@@ -39,6 +39,7 @@ namespace backend.services.Controllers
                 var claims = new ClaimsIdentity();
 
                 claims.AddClaim(new Claim("userId", rsp.nCod.ToString()));
+                claims.AddClaim(new Claim("userName", rsp.sMsj));
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -60,17 +61,40 @@ namespace backend.services.Controllers
 
         [HttpGet("[action]")]
         [Authorize]
-        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcionByIdUsuario(int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcionByIdUsuarioComp(int nIdUsuario, int nIdCompania)
         {
 
             ApiResponse<List<OpcionDTO>> response = new ApiResponse<List<OpcionDTO>>();
 
             try
             {
-                var result = await service.ListOpcionByIdUsuario(nIdUsuario);
+                var result = await service.ListOpcionByIdUsuario(nIdUsuario, nIdCompania);
 
                 response.success = true;
                 response.data = (List<OpcionDTO>) result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        [Authorize]
+        public async Task<ActionResult<ApiResponse<List<CompaniaDTO>>>> getListCompaniaByIdUsuario(int nIdUsuario)
+        {
+
+            ApiResponse<List<CompaniaDTO>> response = new ApiResponse<List<CompaniaDTO>>();
+
+            try
+            {
+                var result = await service.ListCompaniaByIdUsuario(nIdUsuario);
+
+                response.success = true;
+                response.data = (List<CompaniaDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

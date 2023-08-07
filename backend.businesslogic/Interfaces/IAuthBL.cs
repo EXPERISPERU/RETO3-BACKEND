@@ -10,6 +10,7 @@ namespace backend.businesslogic.Interfaces
     public interface IAuthBL
     {
         public Task<SqlRspDTO> AuthUser(authLoginDTO authLogin);
-        public Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario);
+        public Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania);
+        public Task<IList<CompaniaDTO>> ListCompaniaByIdUsuario(int nIdUsuario);
     }
 }
