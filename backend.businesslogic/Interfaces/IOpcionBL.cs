@@ -12,5 +12,9 @@ namespace backend.businesslogic.Interfaces
         Task<IList<OpcionDTO>> ListOpcion();
         Task<SqlRspDTO> InsOpcionPerfil(PerfilOpcionDTO perfilOpcion);
         Task<SqlRspDTO> DelOpcionPerfil(PerfilOpcionDTO perfilOpcion);
+        Task<IList<SelectDTO>> ListTipoOpcionByIdOpcionP(int nIdOpcion);
+        Task<int> CantOpcionHijo(int nIdOpcion);
+        Task<SqlRspDTO> InsOpcion(OpcionDTO opcion);
+        Task<SqlRspDTO> UpdOpcion(OpcionDTO opcion);
     }
 }

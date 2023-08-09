@@ -12,6 +12,8 @@ namespace backend.domain
         public int? nIdOpcionP { get; set; }
         public string sOpcion { get; set; }
         public string? sDescripcion { get; set; } 
-        public string sRuta { get; set; } 
+        public string? sRuta { get; set; } 
+        public int nIdTipoOpcion { get; set; }
+        public bool bActivo { get; set; }
     }
 }

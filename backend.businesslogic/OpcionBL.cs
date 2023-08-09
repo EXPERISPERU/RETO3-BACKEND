@@ -31,5 +31,25 @@ namespace backend.businesslogic
         {
             return await repository.DelOpcionPerfil(perfilOpcion);
         }
+
+        public async Task<IList<SelectDTO>> ListTipoOpcionByIdOpcionP(int nIdOpcion) 
+        {
+            return await repository.ListTipoOpcionByIdOpcionP(nIdOpcion);
+        }
+
+        public async Task<int> CantOpcionHijo(int nIdOpcion)
+        {
+            return await repository.CantOpcionHijo(nIdOpcion);
+        }
+
+        public async Task<SqlRspDTO> InsOpcion(OpcionDTO opcion)
+        { 
+            return await repository.InsOpcion(opcion);
+        }
+
+        public async Task<SqlRspDTO> UpdOpcion(OpcionDTO opcion)
+        {
+            return await repository.UpdOpcion(opcion);
+        }
     }
 }

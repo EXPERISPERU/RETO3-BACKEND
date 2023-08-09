@@ -69,5 +69,80 @@ namespace backend.repository
 
             return resp;
         }
+
+        public async Task<IList<SelectDTO>> ListTipoOpcionByIdOpcionP(int nIdOpcion)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_opcion]", 4);
+                parameters.Add("nIdOpcion", nIdOpcion);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<int> CantOpcionHijo(int nIdOpcion)
+        {
+            int resp;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_opcion]", 5);
+                parameters.Add("nIdOpcion", nIdOpcion);
+
+                resp = await connection.ExecuteScalarAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<SqlRspDTO> InsOpcion(OpcionDTO opcion)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_opcion]", 6);
+                parameters.Add("nIdOpcionP", opcion.nIdOpcionP);
+                parameters.Add("sOpcion", opcion.sOpcion);
+                parameters.Add("sDescripcion", opcion.sDescripcion);
+                parameters.Add("sRuta", opcion.sRuta);
+                parameters.Add("nIdTipoOpcion", opcion.nIdTipoOpcion);
+                parameters.Add("bActivo", opcion.bActivo);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<SqlRspDTO> UpdOpcion(OpcionDTO opcion)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_opcion]", 7);
+                parameters.Add("nIdOpcion", opcion.nIdOpcion);
+                parameters.Add("nIdOpcionP", opcion.nIdOpcionP);
+                parameters.Add("sOpcion", opcion.sOpcion);
+                parameters.Add("sDescripcion", opcion.sDescripcion);
+                parameters.Add("sRuta", opcion.sRuta);
+                parameters.Add("nIdTipoOpcion", opcion.nIdTipoOpcion);
+                parameters.Add("bActivo", opcion.bActivo);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }
