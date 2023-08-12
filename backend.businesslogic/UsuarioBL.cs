@@ -17,9 +17,54 @@ namespace backend.businesslogic
             repository = _repository;
         }
 
-        public async Task<IList<PerfilDTO>> GetPerfilAll()
+        public async Task<IList<UsuarioDTO>> getAllUsuario()
         {
-            return await repository.GetPerfilAll();
+            return await repository.getAllUsuario();
+        }
+
+        public async Task<IList<SelectDTO>> getTipoUsuario()
+        {
+            return await repository.getTipoUsuario();
+        }
+
+        public async Task<IList<SelectDTO>> getPersonaByTipoUsuario(int nIdTipoUsuario)
+        { 
+            return await repository.getPersonaByTipoUsuario(nIdTipoUsuario);
+        }
+
+        public async Task<SqlRspDTO> InsUsuario(UsuarioDTO usuario)
+        {
+            return await repository.InsUsuario(usuario);
+        }
+
+        public async Task<SqlRspDTO> UpdUsuario(UsuarioDTO usuario)
+        {
+            return await repository.UpdUsuario(usuario);
+        }
+
+        public async Task<SqlRspDTO> InsUsuPerCom(PerfilUsuarioDTO perusu)
+        {
+            return await repository.InsUsuPerCom(perusu);
+        }
+
+        public async Task<SqlRspDTO> DelUsuPerCom(PerfilUsuarioDTO perusu)
+        {
+            return await repository.DelUsuPerCom(perusu);
+        }
+
+        public async Task<IList<SelectDTO>> getCompanias()
+        {
+            return await repository.getCompanias();
+        }
+
+        public async Task<IList<SelectDTO>> getPerfilDispByUsuComp(int nIdUsuario, int nIdCompania)
+        {
+            return await repository.getPerfilDispByUsuComp(nIdUsuario, nIdCompania);
+        }
+
+        public async Task<IList<PerfilUsuarioDTO>> getPerfilByUsu(int nIdUsuario)
+        {
+            return await repository.getPerfilByUsu(nIdUsuario);
         }
     }
 }

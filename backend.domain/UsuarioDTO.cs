@@ -10,10 +10,12 @@ namespace backend.domain
     {
         public int? nIdUsuario { get; set; }
         public string sUsuario { get; set; }
-        public string sPassword { get; set; }
+        public string? sPassword { get; set; }
         public bool bActivo { get; set; }
-        public int nIdTipoPersona { get; set;}
-        public int nIdPerDet { get; set; }
+        public int nIdTipoUsuario { get; set;}
+        public string? sTipoUsuario { get; set; }
+        public int? nIdPerDet { get; set; }
+        public string? sNombreCompleto { get; set; }
     }
 
     public class authLoginDTO

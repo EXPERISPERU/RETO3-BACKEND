@@ -9,6 +9,15 @@ namespace backend.repository.Interfaces
 {
     public interface IUsuarioRepository
     {
-        public Task<IList<PerfilDTO>> GetPerfilAll();
+        Task<IList<UsuarioDTO>> getAllUsuario();
+        Task<IList<SelectDTO>> getTipoUsuario();
+        Task<IList<SelectDTO>> getPersonaByTipoUsuario(int nIdTipoUsuario);
+        Task<SqlRspDTO> InsUsuario(UsuarioDTO usuario);
+        Task<SqlRspDTO> UpdUsuario(UsuarioDTO usuario);
+        Task<SqlRspDTO> InsUsuPerCom(PerfilUsuarioDTO perusu);
+        Task<SqlRspDTO> DelUsuPerCom(PerfilUsuarioDTO perusu);
+        Task<IList<SelectDTO>> getCompanias();
+        Task<IList<SelectDTO>> getPerfilDispByUsuComp(int nIdUsuario, int nIdCompania);
+        Task<IList<PerfilUsuarioDTO>> getPerfilByUsu(int nIdUsuario);
     }
 }
