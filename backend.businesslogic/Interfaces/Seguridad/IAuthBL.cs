@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.repository.Interfaces
+namespace backend.businesslogic.Interfaces.Seguridad
 {
-    public interface IAuthRepository
+    public interface IAuthBL
     {
         public Task<SqlRspDTO> AuthUser(authLoginDTO authLogin);
         public Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania);

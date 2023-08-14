@@ -1,13 +1,13 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
-using backend.repository.Interfaces;
+using backend.repository.Interfaces.Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.businesslogic
+namespace backend.businesslogic.Seguridad
 {
     public class AuthBL : IAuthBL
     {

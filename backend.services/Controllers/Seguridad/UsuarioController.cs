@@ -1,10 +1,10 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.services.Controllers
+namespace backend.services.Controllers.Seguridad
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +15,7 @@ namespace backend.services.Controllers
 
         public UsuarioController(IUsuarioBL _service)
         {
-            this.service = _service;
+            service = _service;
         }
 
         [HttpGet("[action]")]
@@ -90,7 +90,7 @@ namespace backend.services.Controllers
             {
                 var result = await service.InsUsuario(usuario);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -111,7 +111,7 @@ namespace backend.services.Controllers
             {
                 var result = await service.UpdUsuario(usuario);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -132,7 +132,7 @@ namespace backend.services.Controllers
             {
                 var result = await service.InsUsuPerCom(perusu);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -151,9 +151,10 @@ namespace backend.services.Controllers
 
             try
             {
-                var result = await service.DelUsuPerCom(perusu);
+                var result = await service.DelUsuPerCom
+                    (perusu);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -219,7 +220,29 @@ namespace backend.services.Controllers
                 var result = await service.getPerfilByUsu(nIdUsuario);
 
                 response.success = true;
-                response.data = (List<PerfilUsuarioDTO>) result;
+                response.data = (List<PerfilUsuarioDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania)
+        {
+            ApiResponse<List<OpcionDTO>> response = new ApiResponse<List<OpcionDTO>>();
+
+            try
+            {
+                var result = await service.getOpcionByUsuComp(nIdUsuario, nIdCompania);
+
+                response.success = true;
+                response.data = (List<OpcionDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

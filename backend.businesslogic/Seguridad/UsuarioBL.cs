@@ -1,19 +1,19 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
-using backend.repository.Interfaces;
+using backend.repository.Interfaces.Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.businesslogic
+namespace backend.businesslogic.Seguridad
 {
     public class UsuarioBL : IUsuarioBL
     {
         IUsuarioRepository repository;
-        public UsuarioBL(IUsuarioRepository _repository) 
-        { 
+        public UsuarioBL(IUsuarioRepository _repository)
+        {
             repository = _repository;
         }
 
@@ -28,7 +28,7 @@ namespace backend.businesslogic
         }
 
         public async Task<IList<SelectDTO>> getPersonaByTipoUsuario(int nIdTipoUsuario)
-        { 
+        {
             return await repository.getPersonaByTipoUsuario(nIdTipoUsuario);
         }
 
@@ -65,6 +65,11 @@ namespace backend.businesslogic
         public async Task<IList<PerfilUsuarioDTO>> getPerfilByUsu(int nIdUsuario)
         {
             return await repository.getPerfilByUsu(nIdUsuario);
+        }
+
+        public async Task<IList<OpcionDTO>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania)
+        {
+            return await repository.getOpcionByUsuComp(nIdUsuario, nIdCompania);
         }
     }
 }

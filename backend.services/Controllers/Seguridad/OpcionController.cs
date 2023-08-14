@@ -1,10 +1,10 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.services.Controllers
+namespace backend.services.Controllers.Seguridad
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +15,7 @@ namespace backend.services.Controllers
 
         public OpcionController(IOpcionBL _service)
         {
-            this.service = _service;
+            service = _service;
         }
 
         [HttpGet("[action]")]
@@ -49,7 +49,7 @@ namespace backend.services.Controllers
             {
                 var result = await service.InsOpcionPerfil(perfilOpcion);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -70,7 +70,7 @@ namespace backend.services.Controllers
             {
                 var result = await service.DelOpcionPerfil(perfilOpcion);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -135,7 +135,7 @@ namespace backend.services.Controllers
             {
                 var result = await service.InsOpcion(opcion);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -156,7 +156,49 @@ namespace backend.services.Controllers
             {
                 var result = await service.UpdOpcion(opcion);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsOpcionUsuario([FromBody] UsuarioOpcionDTO usuarioOpcion)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsOpcionUsuario(usuarioOpcion);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postDelOpcionUsuario([FromBody] UsuarioOpcionDTO usuarioOpcion)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.DelOpcionUsuario(usuarioOpcion);
+
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }

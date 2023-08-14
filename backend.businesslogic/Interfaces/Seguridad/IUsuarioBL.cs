@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.repository.Interfaces
+namespace backend.businesslogic.Interfaces.Seguridad
 {
-    public interface IUsuarioRepository
+    public interface IUsuarioBL
     {
         Task<IList<UsuarioDTO>> getAllUsuario();
         Task<IList<SelectDTO>> getTipoUsuario();
@@ -19,5 +19,6 @@ namespace backend.repository.Interfaces
         Task<IList<SelectDTO>> getCompanias();
         Task<IList<SelectDTO>> getPerfilDispByUsuComp(int nIdUsuario, int nIdCompania);
         Task<IList<PerfilUsuarioDTO>> getPerfilByUsu(int nIdUsuario);
+        Task<IList<OpcionDTO>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania);
     }
 }

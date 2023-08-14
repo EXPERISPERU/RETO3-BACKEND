@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.businesslogic.Interfaces
+namespace backend.repository.Interfaces.Seguridad
 {
-    public interface IOpcionBL
+    public interface IOpcionRepository
     {
         Task<IList<OpcionDTO>> ListOpcion();
         Task<SqlRspDTO> InsOpcionPerfil(PerfilOpcionDTO perfilOpcion);
@@ -16,5 +16,7 @@ namespace backend.businesslogic.Interfaces
         Task<int> CantOpcionHijo(int nIdOpcion);
         Task<SqlRspDTO> InsOpcion(OpcionDTO opcion);
         Task<SqlRspDTO> UpdOpcion(OpcionDTO opcion);
+        Task<SqlRspDTO> InsOpcionUsuario(UsuarioOpcionDTO usuarioOpcion);
+        Task<SqlRspDTO> DelOpcionUsuario(UsuarioOpcionDTO usuarioOpcion);
     }
 }

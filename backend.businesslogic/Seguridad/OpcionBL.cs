@@ -1,13 +1,13 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
-using backend.repository.Interfaces;
+using backend.repository.Interfaces.Seguridad;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.businesslogic
+namespace backend.businesslogic.Seguridad
 {
     public class OpcionBL : IOpcionBL
     {
@@ -18,21 +18,21 @@ namespace backend.businesslogic
         }
 
         public async Task<IList<OpcionDTO>> ListOpcion()
-        { 
+        {
             return await repository.ListOpcion();
         }
 
-        public async Task<SqlRspDTO> InsOpcionPerfil(PerfilOpcionDTO perfilOpcion) 
+        public async Task<SqlRspDTO> InsOpcionPerfil(PerfilOpcionDTO perfilOpcion)
         {
             return await repository.InsOpcionPerfil(perfilOpcion);
         }
 
-        public async Task<SqlRspDTO> DelOpcionPerfil(PerfilOpcionDTO perfilOpcion) 
+        public async Task<SqlRspDTO> DelOpcionPerfil(PerfilOpcionDTO perfilOpcion)
         {
             return await repository.DelOpcionPerfil(perfilOpcion);
         }
 
-        public async Task<IList<SelectDTO>> ListTipoOpcionByIdOpcionP(int nIdOpcion) 
+        public async Task<IList<SelectDTO>> ListTipoOpcionByIdOpcionP(int nIdOpcion)
         {
             return await repository.ListTipoOpcionByIdOpcionP(nIdOpcion);
         }
@@ -43,13 +43,23 @@ namespace backend.businesslogic
         }
 
         public async Task<SqlRspDTO> InsOpcion(OpcionDTO opcion)
-        { 
+        {
             return await repository.InsOpcion(opcion);
         }
 
         public async Task<SqlRspDTO> UpdOpcion(OpcionDTO opcion)
         {
             return await repository.UpdOpcion(opcion);
+        }
+
+        public async Task<SqlRspDTO> InsOpcionUsuario(UsuarioOpcionDTO usuarioOpcion)
+        {
+            return await repository.InsOpcionUsuario(usuarioOpcion);
+        }
+
+        public async Task<SqlRspDTO> DelOpcionUsuario(UsuarioOpcionDTO usuarioOpcion)
+        {
+            return await repository.DelOpcionUsuario(usuarioOpcion);
         }
     }
 }

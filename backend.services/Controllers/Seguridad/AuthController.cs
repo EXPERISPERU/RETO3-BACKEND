@@ -1,4 +1,4 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace backend.services.Controllers
+namespace backend.services.Controllers.Seguridad
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,14 +21,15 @@ namespace backend.services.Controllers
         private readonly IAuthBL service;
         private readonly int expirationMin;
 
-        public AuthController(IConfiguration _configuration, IAuthBL _service) {
+        public AuthController(IConfiguration _configuration, IAuthBL _service)
+        {
             secretKey = _configuration["JWTConfig:secretKey"];
             service = _service;
             expirationMin = 10;
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<String>>> AuthLogin([FromBody] authLoginDTO request) 
+        public async Task<ActionResult<ApiResponse<string>>> AuthLogin([FromBody] authLoginDTO request)
         {
 
             SqlRspDTO rsp = await service.AuthUser(request);
@@ -52,10 +53,11 @@ namespace backend.services.Controllers
                 var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(tokenConfig);
 
-                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = true, data = token, errMsj = "" });
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<string> { success = true, data = token, errMsj = "" });
             }
-            else {
-                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = false, data = "", errMsj = rsp.sMsj });
+            else
+            {
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<string> { success = false, data = "", errMsj = rsp.sMsj });
             }
         }
 
@@ -71,7 +73,7 @@ namespace backend.services.Controllers
                 var result = await service.ListOpcionByIdUsuario(nIdUsuario, nIdCompania);
 
                 response.success = true;
-                response.data = (List<OpcionDTO>) result;
+                response.data = (List<OpcionDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -107,19 +109,19 @@ namespace backend.services.Controllers
 
         [HttpPost("[action]")]
         [Authorize]
-        public async Task<ActionResult<ApiResponse<String>>> AuthRefresh()
+        public async Task<ActionResult<ApiResponse<string>>> AuthRefresh()
         {
-            ApiResponse<String> response = new ApiResponse<String>();
+            ApiResponse<string> response = new ApiResponse<string>();
 
             try
             {
-                var token = this.Request.Headers.Authorization.First(x => x.StartsWith("Bearer")).Split(' ')[1];
+                var token = Request.Headers.Authorization.First(x => x.StartsWith("Bearer")).Split(' ')[1];
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var tokenSecurity = tokenHandler.ReadToken(token.ToString());
 
-                if (tokenSecurity.ValidTo.AddMinutes(-5) < DateTime.UtcNow) 
-                { 
+                if (tokenSecurity.ValidTo.AddMinutes(-5) < DateTime.UtcNow)
+                {
 
                     var keyBytes = Encoding.ASCII.GetBytes(secretKey);
                     var claims = new ClaimsIdentity();
@@ -137,7 +139,7 @@ namespace backend.services.Controllers
                     token = tokenHandler.WriteToken(tokenConfig);
                 }
 
-                return StatusCode(StatusCodes.Status200OK, new ApiResponse<String> { success = true, data = token, errMsj = "" });
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<string> { success = true, data = token, errMsj = "" });
             }
             catch (Exception ex)
             {

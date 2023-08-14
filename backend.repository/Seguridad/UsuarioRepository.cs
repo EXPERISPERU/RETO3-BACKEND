@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using backend.domain;
-using backend.repository.Interfaces;
+using backend.repository.Interfaces.Seguridad;
 
-namespace backend.repository
+namespace backend.repository.Seguridad
 {
     public class UsuarioRepository : IUsuarioRepository
     {
@@ -28,7 +28,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 1);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 1);
 
                 list = await connection.QueryAsync<UsuarioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -43,7 +43,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 2);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 2);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -58,7 +58,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 3);
                 parameters.Add("nIdTipoUsuario", nIdTipoUsuario);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -74,7 +74,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 4);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 4);
                 parameters.Add("sUsuario", usuario.sUsuario);
                 parameters.Add("sPassword", usuario.sPassword);
                 parameters.Add("bActivo", usuario.bActivo);
@@ -94,7 +94,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 5);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 5);
                 parameters.Add("nIdUsuario", usuario.nIdUsuario);
                 parameters.Add("sPassword", usuario.sPassword);
                 parameters.Add("bActivo", usuario.bActivo);
@@ -112,7 +112,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 8);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 8);
                 parameters.Add("nIdPerfil", perusu.nIdPerfil);
                 parameters.Add("nIdUsuario", perusu.nIdUsuario);
                 parameters.Add("nIdCompania", perusu.nIdCompania);
@@ -130,7 +130,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 9);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 9);
                 parameters.Add("nIdPerfil", perusu.nIdPerfil);
                 parameters.Add("nIdUsuario", perusu.nIdUsuario);
                 parameters.Add("nIdCompania", perusu.nIdCompania);
@@ -148,7 +148,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 10);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 10);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -163,7 +163,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 11);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 11);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
 
@@ -180,10 +180,27 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_usuario]", 12);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 12);
                 parameters.Add("nIdUsuario", nIdUsuario);
 
                 list = await connection.QueryAsync<PerfilUsuarioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<OpcionDTO>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania)
+        {
+            IEnumerable<OpcionDTO> list = new List<OpcionDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 13);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<OpcionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
