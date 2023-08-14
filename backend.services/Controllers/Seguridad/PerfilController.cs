@@ -1,32 +1,54 @@
-﻿using backend.businesslogic.Interfaces;
+﻿using backend.businesslogic.Interfaces.Seguridad;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.services.Controllers
+namespace backend.services.Controllers.Seguridad
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class OpcionController : ControllerBase
+    public class PerfilController : ControllerBase
     {
-        public readonly IOpcionBL service;
+        public readonly IPerfilBL service;
 
-        public OpcionController(IOpcionBL _service)
+        public PerfilController(IPerfilBL _service)
         {
-            this.service = _service;
+            service = _service;
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcion()
+        public async Task<ActionResult<ApiResponse<List<PerfilDTO>>>> getListPerfil()
+        {
+
+            ApiResponse<List<PerfilDTO>> response = new ApiResponse<List<PerfilDTO>>();
+
+            try
+            {
+                var result = await service.ListPerfil();
+
+                response.success = true;
+                response.data = (List<PerfilDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcionByIdPerfil(int nIdPerfil)
         {
 
             ApiResponse<List<OpcionDTO>> response = new ApiResponse<List<OpcionDTO>>();
 
             try
             {
-                var result = await service.ListOpcion();
+                var result = await service.ListOpcionByIdPerfil(nIdPerfil);
 
                 response.success = true;
                 response.data = (List<OpcionDTO>)result;
@@ -41,15 +63,15 @@ namespace backend.services.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsOpcionPerfil([FromBody] PerfilOpcionDTO perfilOpcion)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsPerfil([FromBody] PerfilDTO perfil)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsOpcionPerfil(perfilOpcion);
+                var result = await service.InsertPerfil(perfil);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -62,15 +84,15 @@ namespace backend.services.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postDelOpcionPerfil([FromBody] PerfilOpcionDTO perfilOpcion)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdPerfil([FromBody] PerfilDTO perfil)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.DelOpcionPerfil(perfilOpcion);
+                var result = await service.UpdatePerfil(perfil);
 
-                response.success = (result.nCod == 0 ? false : true);
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -81,6 +103,5 @@ namespace backend.services.Controllers
                 return StatusCode(500, response);
             }
         }
-
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.repository.Interfaces
+namespace backend.repository.Interfaces.Seguridad
 {
     public interface IPerfilRepository
     {

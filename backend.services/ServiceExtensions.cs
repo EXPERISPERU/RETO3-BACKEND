@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-
-using backend.businesslogic;
-using backend.businesslogic.Interfaces;
-using backend.repository;
-using backend.repository.Interfaces;
+using backend.businesslogic.Seguridad;
+using backend.businesslogic.Interfaces.Seguridad;
+using backend.repository.Seguridad;
+using backend.repository.Interfaces.Seguridad;
 
 namespace backend.services
 {

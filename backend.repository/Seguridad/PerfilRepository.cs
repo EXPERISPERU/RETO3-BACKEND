@@ -1,5 +1,4 @@
 ﻿using backend.domain;
-using backend.repository.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,8 +8,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using backend.repository.Interfaces.Seguridad;
 
-namespace backend.repository
+namespace backend.repository.Seguridad
 {
     public class PerfilRepository : IPerfilRepository
     {
@@ -28,7 +28,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_perfil]", 1);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_perfil]", 1);
 
                 list = await connection.QueryAsync<PerfilDTO>(storedProcedure, commandType: CommandType.StoredProcedure);
             }
@@ -43,7 +43,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_perfil]", 2);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_perfil]", 2);
                 parameters.Add("nIdPerfil", nIdPerfil);
 
                 list = await connection.QueryAsync<OpcionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -59,7 +59,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_perfil]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_perfil]", 3);
                 parameters.Add("sNombre", perfil.sNombre);
                 parameters.Add("sDescripcion", perfil.sDescripcion);
 
@@ -76,7 +76,7 @@ namespace backend.repository
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = String.Format("{0};{1}", "[seguridad].[pa_perfil]", 4);
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_perfil]", 4);
                 parameters.Add("nIdPerfil", perfil.nIdPerfil);
                 parameters.Add("sNombre", perfil.sNombre);
                 parameters.Add("sDescripcion", perfil.sDescripcion);
