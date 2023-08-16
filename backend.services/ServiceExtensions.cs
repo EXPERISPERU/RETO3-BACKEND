@@ -1,9 +1,11 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using backend.businesslogic.Seguridad;
+﻿using backend.businesslogic.Interfaces.Maestros;
 using backend.businesslogic.Interfaces.Seguridad;
-using backend.repository.Seguridad;
+using backend.businesslogic.Maestros;
+using backend.businesslogic.Seguridad;
+using backend.repository.Interfaces.Maestros;
 using backend.repository.Interfaces.Seguridad;
+using backend.repository.Maestros;
+using backend.repository.Seguridad;
 
 namespace backend.services
 {
@@ -15,6 +17,9 @@ namespace backend.services
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IPerfilRepository, PerfilRepository>();
             services.AddScoped<IOpcionRepository, OpcionRepository>();
+
+            services.AddScoped<IElementoSistemaRepository, ElementoSistemaRepository>();
+            services.AddScoped<IUbigeoRepository, UbigeoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -23,6 +28,9 @@ namespace backend.services
             services.AddScoped<IAuthBL, AuthBL>();
             services.AddScoped<IPerfilBL, PerfilBL>();
             services.AddScoped<IOpcionBL, OpcionBL>();
+
+            services.AddScoped<IElementoSistemaBL, ElementoSistemaBL>();
+            services.AddScoped<IUbigeoBL, UbigeoBL>();
         }
     }
 }

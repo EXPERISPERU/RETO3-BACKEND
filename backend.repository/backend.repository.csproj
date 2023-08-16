@@ -16,9 +16,4 @@
     <ProjectReference Include="..\backend.domain\backend.domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Maestros\" />
-    <Folder Include="Maestros\" />
-  </ItemGroup>
-
 </Project>

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\backend.repository\backend.repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Maestros\" />
-  </ItemGroup>
-
 </Project>
