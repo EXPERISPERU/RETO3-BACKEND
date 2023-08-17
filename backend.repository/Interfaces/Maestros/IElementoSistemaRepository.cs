@@ -14,5 +14,6 @@ namespace backend.repository.Interfaces.Maestros
         Task<SqlRspDTO> InsElementoSistema(ElementoSistemaDTO elemento);
         Task<SqlRspDTO> UpdElementoSistema(ElementoSistemaDTO elemento);
         Task<IList<SelectDTO>> getCompanias();
+        Task<IList<SelectDTO>> getPaises();
     }
 }

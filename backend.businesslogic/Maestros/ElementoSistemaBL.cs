@@ -42,5 +42,10 @@ namespace backend.businesslogic.Maestros
         { 
             return await repository.getCompanias();
         }
+
+        public async Task<IList<SelectDTO>> getPaises()
+        {
+            return await repository.getPaises();
+        }
     }
 }

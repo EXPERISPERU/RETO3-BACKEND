@@ -41,5 +41,15 @@ namespace backend.businesslogic.Maestros
         {
             return await repository.UpdPais(pais);
         }
+
+        public async Task<SqlRspDTO> InsUbigeo(UbigeoDTO ubigeo)
+        {
+            return await repository.InsUbigeo(ubigeo);
+        }
+
+        public async Task<SqlRspDTO> UpdUbigeo(UbigeoDTO ubigeo)
+        {
+            return await repository.UpdUbigeo(ubigeo);
+        }
     }
 }

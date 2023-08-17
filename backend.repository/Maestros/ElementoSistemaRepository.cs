@@ -67,6 +67,7 @@ namespace backend.repository.Maestros
                 parameters.Add("nTipoElemento", elemento.nTipoElemento);
                 parameters.Add("nIdCompania", elemento.nIdCompania);
                 parameters.Add("bActivo", elemento.bActivo);
+                parameters.Add("nIdPais", elemento.nIdPais);
                 parameters.Add("nIdElementoP", elemento.nIdElementoP);
 
                 resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -90,6 +91,7 @@ namespace backend.repository.Maestros
                 parameters.Add("nTipoElemento", elemento.nTipoElemento);
                 parameters.Add("nIdCompania", elemento.nIdCompania);
                 parameters.Add("bActivo", elemento.bActivo);
+                parameters.Add("nIdPais", elemento.nIdPais);
                 parameters.Add("nIdElementoP", elemento.nIdElementoP);
 
                 resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -106,6 +108,21 @@ namespace backend.repository.Maestros
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_elemento_sistema]", 5);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getPaises()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_elemento_sistema]", 6);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

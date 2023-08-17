@@ -18,5 +18,7 @@ namespace backend.domain
         public string? sTipoElemento { get; set; }
         public int? nIdCompania { get; set; }
         public string? sCompania { get; set; }
+        public int? nIdPais { get; set; }
+        public string? sPais { get; set; }
     }
 }

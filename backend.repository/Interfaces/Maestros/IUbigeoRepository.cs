@@ -14,5 +14,7 @@ namespace backend.repository.Interfaces.Maestros
         Task<IList<SelectDTO>> ListTipoUbigeoByPais(int nIdPais);
         Task<SqlRspDTO> InsPais(PaisDTO pais);
         Task<SqlRspDTO> UpdPais(PaisDTO pais);
+        Task<SqlRspDTO> InsUbigeo(UbigeoDTO ubigeo);
+        Task<SqlRspDTO> UpdUbigeo(UbigeoDTO ubigeo);
     }
 }

@@ -105,5 +105,43 @@ namespace backend.repository.Maestros
 
             return resp;
         }
+
+        public async Task<SqlRspDTO> InsUbigeo(UbigeoDTO ubigeo)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_ubigeo]", 6);
+                parameters.Add("sCodigo", ubigeo.sCodigo);
+                parameters.Add("sUbigeo", ubigeo.sUbigeo);
+                parameters.Add("nIdUbigeoP", ubigeo.nIdUbigeoP);
+                parameters.Add("nIdTipoUbigeo", ubigeo.nIdTipoUbigeo);
+                parameters.Add("nIdPais", ubigeo.nIdPais);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<SqlRspDTO> UpdUbigeo(UbigeoDTO ubigeo)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_ubigeo]", 7);
+                parameters.Add("sCodigo", ubigeo.sCodigo);
+                parameters.Add("sUbigeo", ubigeo.sUbigeo);
+                parameters.Add("nIdUbigeo", ubigeo.nIdUbigeo);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }
