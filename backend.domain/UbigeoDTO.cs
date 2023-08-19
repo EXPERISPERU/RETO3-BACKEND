@@ -11,6 +11,7 @@ namespace backend.domain
         public int nIdUbigeo { get; set; }
         public string sCodigo { get; set; }
         public string sUbigeo { get; set; }
+        public string? sUbigeoP { get; set; }
         public int? nIdUbigeoP { get; set; }
         public int nIdTipoUbigeo { get; set; }
         public int nIdPais { get; set; }
