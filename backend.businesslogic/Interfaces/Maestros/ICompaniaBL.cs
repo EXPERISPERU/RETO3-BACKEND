@@ -12,5 +12,6 @@ namespace backend.businesslogic.Interfaces.Maestros
         Task<IList<CompaniaDTO>> getListCompania();
         Task<SqlRspDTO> InsCompania(CompaniaDTO compania);
         Task<SqlRspDTO> UpdCompania(CompaniaDTO compania);
+        Task<CompaniaDTO> getCompaniaByID(int nIdCompania);
     }
 }

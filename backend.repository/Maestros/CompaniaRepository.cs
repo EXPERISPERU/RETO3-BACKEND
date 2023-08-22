@@ -78,5 +78,22 @@ namespace backend.repository.Maestros
 
             return res;
         }
+
+        public async Task<CompaniaDTO> getCompaniaByID(int nIdCompania)
+        {
+            CompaniaDTO res = new CompaniaDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_compania]", 4);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                res = await connection.QuerySingleAsync<CompaniaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
     }
 }

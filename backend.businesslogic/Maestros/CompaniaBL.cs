@@ -31,5 +31,10 @@ namespace backend.businesslogic.Maestros
         {
             return await repository.UpdCompania(compania);
         }
+
+        public async Task<CompaniaDTO> getCompaniaByID(int nIdCompania)
+        {
+            return await repository.getCompaniaByID(nIdCompania);
+        }
     }
 }
