@@ -21,5 +21,25 @@ namespace backend.businesslogic.Maestros
         { 
             return await repository.getListOficinaByCompania(nIdCompania);
         }
+
+        public async Task<IList<SelectDTO>> getTipoOficina()
+        {
+            return await repository.getTipoOficina();
+        }
+
+        public async Task<IList<SelectDTO>> getListOficinaPByTipo(int nIdCompania, int nIdTipoOficina)
+        {
+            return await repository.getListOficinaPByTipo(nIdCompania, nIdTipoOficina);
+        }
+
+        public async Task<SqlRspDTO> InsOficina(OficinaDTO oficina)
+        {
+            return await repository.InsOficina(oficina);
+        }
+
+        public async Task<SqlRspDTO> UpdOficina(OficinaDTO oficina)
+        {
+            return await repository.UpdOficina(oficina);
+        }
     }
 }
