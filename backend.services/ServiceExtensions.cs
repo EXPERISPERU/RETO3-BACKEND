@@ -22,6 +22,7 @@ namespace backend.services
             services.AddScoped<IUbigeoRepository, UbigeoRepository>();
             services.AddScoped<ICompaniaRepository, CompaniaRepository>();
             services.AddScoped<IOficinaRepository, OficinaRepository>();
+            services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -35,6 +36,7 @@ namespace backend.services
             services.AddScoped<IUbigeoBL, UbigeoBL>();
             services.AddScoped<ICompaniaBL, CompaniaBL>();
             services.AddScoped<IOficinaBL, OficinaBL>();
+            services.AddScoped<IEmpleadoBL, EmpleadoBL>();
         }
     }
 }
