@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
-    public class EmpleadoDTO
+    public class AgenteDealerDTO
     {
-        public int? nIdEmpleado { get; set; }
+        public int? nIdAgenteDealer { get; set; }
         public int? nIdPersona { get; set; }
         public string sPriNombre { get; set; }
         public string? sSegNombre { get; set; }
@@ -28,7 +28,7 @@ namespace backend.domain
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
-        public string? sCompania { get; set; }
+        public string? sEmpresaDealer { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }

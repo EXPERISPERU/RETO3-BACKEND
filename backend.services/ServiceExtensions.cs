@@ -31,6 +31,8 @@ namespace backend.services
             services.AddScoped<IPersonaRepository, PersonaRepository>();
 
             services.AddScoped<IEmpresaDealerRepository, EmpresaDealerRepository>();
+            services.AddScoped<IAgenteDealerRepository, AgenteDealerRepository>();
+            services.AddScoped<IEmpresaDealerAgenteRepository, EmpresaDealerAgenteRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -49,6 +51,8 @@ namespace backend.services
             services.AddScoped<IPersonaBL, PersonaBL>();
 
             services.AddScoped<IEmpresaDealerBL, EmpresaDealerBL>();
+            services.AddScoped<IAgenteDealerBL, AgenteDealerBL>();
+            services.AddScoped<IEmpresaDealerAgenteBL, EmpresaDealerAgenteBL>();
         }
     }
 }
