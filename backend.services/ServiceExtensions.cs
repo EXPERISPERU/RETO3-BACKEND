@@ -1,10 +1,14 @@
-﻿using backend.businesslogic.Dealers;
+﻿using backend.businesslogic.Comercial;
+using backend.businesslogic.Dealers;
+using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
 using backend.businesslogic.Interfaces.Seguridad;
 using backend.businesslogic.Maestros;
 using backend.businesslogic.Seguridad;
+using backend.repository.Comercial;
 using backend.repository.Dealers;
+using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
 using backend.repository.Interfaces.Seguridad;
@@ -33,6 +37,8 @@ namespace backend.services
             services.AddScoped<IEmpresaDealerRepository, EmpresaDealerRepository>();
             services.AddScoped<IAgenteDealerRepository, AgenteDealerRepository>();
             services.AddScoped<IEmpresaDealerAgenteRepository, EmpresaDealerAgenteRepository>();
+
+            services.AddScoped<IClienteRepository, ClienteRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -53,6 +59,8 @@ namespace backend.services
             services.AddScoped<IEmpresaDealerBL, EmpresaDealerBL>();
             services.AddScoped<IAgenteDealerBL, AgenteDealerBL>();
             services.AddScoped<IEmpresaDealerAgenteBL, EmpresaDealerAgenteBL>();
+
+            services.AddScoped<IClienteBL, ClienteBL>();
         }
     }
 }
