@@ -61,16 +61,16 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<AgenteDealerDTO>>> findClienteByDoc(string? sDNI, string? sCE, string? sRUC)
+        public async Task<ActionResult<ApiResponse<ClienteDTO>>> findClienteByDoc(string? sDNI, string? sCE, string? sRUC)
         {
-            ApiResponse<AgenteDealerDTO> response = new ApiResponse<AgenteDealerDTO>();
+            ApiResponse<ClienteDTO> response = new ApiResponse<ClienteDTO>();
 
             try
             {
                 var result = await service.findClienteByDoc(sDNI, sCE, sRUC);
 
                 response.success = (result == null ? false : true);
-                response.data = (AgenteDealerDTO)result;
+                response.data = (ClienteDTO) result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

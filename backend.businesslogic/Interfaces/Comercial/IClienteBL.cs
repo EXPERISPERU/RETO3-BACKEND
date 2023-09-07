@@ -11,7 +11,7 @@ namespace backend.businesslogic.Interfaces.Comercial
     {
         Task<IList<ClienteDTO>> getListCliente(int nIdUsuario);
         Task<ClienteDTO> getClienteByID(int nIdCliente);
-        Task<AgenteDealerDTO> findClienteByDoc(string? sDNI, string? sCE, string? sRUC);
+        Task<ClienteDTO> findClienteByDoc(string? sDNI, string? sCE, string? sRUC);
         Task<IList<SelectDTO>> getListTiposPersona();
         Task<IList<SelectDTO>> getListGeneros();
         Task<IList<SelectDTO>> getListEstadoCivil();

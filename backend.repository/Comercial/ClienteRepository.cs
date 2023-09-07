@@ -53,9 +53,9 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<AgenteDealerDTO> findClienteByDoc(string? sDNI, string? sCE, string? sRUC)
+        public async Task<ClienteDTO> findClienteByDoc(string? sDNI, string? sCE, string? sRUC)
         {
-            AgenteDealerDTO resp = new AgenteDealerDTO();
+            ClienteDTO resp = new ClienteDTO();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -65,7 +65,7 @@ namespace backend.repository.Comercial
                 parameters.Add("sCE", sCE);
                 parameters.Add("sRUC", sRUC);
 
-                resp = await connection.QuerySingleOrDefaultAsync<AgenteDealerDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp = await connection.QuerySingleOrDefaultAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;
