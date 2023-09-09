@@ -3,16 +3,20 @@ using backend.businesslogic.Dealers;
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
+using backend.businesslogic.Interfaces.Proyectos;
 using backend.businesslogic.Interfaces.Seguridad;
 using backend.businesslogic.Maestros;
+using backend.businesslogic.Proyectos;
 using backend.businesslogic.Seguridad;
 using backend.repository.Comercial;
 using backend.repository.Dealers;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
+using backend.repository.Interfaces.Proyectos;
 using backend.repository.Interfaces.Seguridad;
 using backend.repository.Maestros;
+using backend.repository.Proyectos;
 using backend.repository.Seguridad;
 
 namespace backend.services
@@ -40,6 +44,8 @@ namespace backend.services
             services.AddScoped<IReferidoRepository, ReferidoRepository>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
+
+            services.AddScoped<IProyectoRepository, ProyectoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -63,6 +69,8 @@ namespace backend.services
             services.AddScoped<IReferidoBL, ReferidoBL>();
 
             services.AddScoped<IClienteBL, ClienteBL>();
+
+            services.AddScoped<IProyectoBL, ProyectoBL>();
         }
     }
 }
