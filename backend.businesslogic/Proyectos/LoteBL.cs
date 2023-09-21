@@ -33,6 +33,33 @@ namespace backend.businesslogic.Proyectos
             return await repository.getSelectEstadosEdicion();
         }
 
+        public async Task<IList<SelectDTO>> getSelectUbicaciones()
+        {
+            return await repository.getSelectUbicaciones();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTerrenos()
+        {
+            return await repository.getSelectTerrenos();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectGrupos()
+        {
+            return await repository.getSelectGrupos();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectZonificacion()
+        {
+
+            return await repository.getSelectZonificacion();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectDescripcion()
+        {
+
+            return await repository.getSelectDescripcion();
+        }
+
         public async Task<SqlRspDTO> InsLote(LoteDTO lote)
         {
             return await repository.InsLote(lote);

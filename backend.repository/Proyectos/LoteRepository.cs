@@ -66,6 +66,81 @@ namespace backend.repository.Proyectos
             return list.ToList();
         }
 
+        public async Task<IList<SelectDTO>> getSelectUbicaciones()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 4);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTerrenos()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 5);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectGrupos()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 6);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectZonificacion()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 7);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectDescripcion()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 8);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
         public async Task<SqlRspDTO> InsLote(LoteDTO lote)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
@@ -73,11 +148,16 @@ namespace backend.repository.Proyectos
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 4);
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 9);
                 parameters.Add("nIdManzana", lote.nIdManzana);
                 parameters.Add("sLote", lote.sLote);
                 parameters.Add("nIdEstado", lote.nIdEstado);
                 parameters.Add("nMetraje", lote.nMetraje);
+                parameters.Add("nIdTipoUbicacion", lote.nIdTipoUbicacion);
+                parameters.Add("nIdTipoTerreno", lote.nIdTipoTerreno);
+                parameters.Add("nIdGrupo", lote.nIdGrupo);
+                parameters.Add("nIdTipoZonificacion", lote.nIdTipoZonificacion);
+                parameters.Add("nIdDescripcion", lote.nIdDescripcion);
                 parameters.Add("nIdUsuario_crea", lote.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -93,12 +173,17 @@ namespace backend.repository.Proyectos
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 5);
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 10);
                 parameters.Add("nIdLote", lote.nIdLote);
                 parameters.Add("nIdManzana", lote.nIdManzana);
                 parameters.Add("sLote", lote.sLote);
                 parameters.Add("nIdEstado", lote.nIdEstado);
                 parameters.Add("nMetraje", lote.nMetraje);
+                parameters.Add("nIdTipoUbicacion", lote.nIdTipoUbicacion);
+                parameters.Add("nIdTipoTerreno", lote.nIdTipoTerreno);
+                parameters.Add("nIdGrupo", lote.nIdGrupo);
+                parameters.Add("nIdTipoZonificacion", lote.nIdTipoZonificacion);
+                parameters.Add("nIdDescripcion", lote.nIdDescripcion);
                 parameters.Add("nIdUsuario_mod", lote.nIdUsuario_mod);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
