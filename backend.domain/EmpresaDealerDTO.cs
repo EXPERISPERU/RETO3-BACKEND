@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
-    public class CompaniaDTO
+    public class EmpresaDealerDTO
     {
-        public int? nIdCompania { get; set; }
+        public int? nIdEmpresaDealer { get; set; }
+        public int? nIdPersona { get; set; }
         public string sRUC { get; set; }
-        public string sRazonSocial { get; set; }
-        public string sAbrev { get; set; }
-        public int nIdUbigeo { get; set; }
-        public string? sUbigeo { get; set; }
-        public string sDireccion { get; set; }
+        public string sNombreCompleto { get; set; }
+        public string sCorreo { get; set; }
+        public string sCelular { get; set; }
+        public string sTelefono { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
