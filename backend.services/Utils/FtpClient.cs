@@ -1,0 +1,91 @@
+﻿using System.Net;
+using System;
+using System.IO;
+using System.Security.Cryptography;
+
+namespace backend.services.Utils
+{
+    public class imbFile {
+        public string sRutaFile { get; set; }
+        public byte[] data { get; set; }
+    }
+
+    public class FtpClient
+    {
+        private string ftpUrlServer = "ftp://10.48.0.13/";
+        private string ftpUser = "imbftp";
+        private string ftpPassword = "$1mbftpcl1";
+
+        public string sContentType(string sFileExtension)
+        {
+            switch (sFileExtension)
+            {
+                case "pdf":
+                    return "application/pdf";
+                case "jpeg":
+                    return "image/jpeg";
+                case "jpg":
+                    return "image/jpeg";
+                case "png":
+                    return "image/png";
+                default:
+                    return "";
+            }
+        }
+
+        public ApiResponse<string> UploadFile(imbFile file)
+        {
+            try
+            {
+                FtpWebRequest request = (FtpWebRequest) WebRequest.Create(ftpUrlServer+file.sRutaFile);
+                request.UsePassive = false;
+                request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
+                request.Method = WebRequestMethods.Ftp.UploadFile;
+
+                byte[] bytes = file.data;
+
+                request.ContentLength = bytes.Length;
+                using (Stream request_stream = request.GetRequestStream())
+                {
+                    request_stream.Write(bytes, 0, bytes.Length);
+                    request_stream.Close();
+                }
+
+                return new ApiResponse<string> { success = true, data = "OK", errMsj = "" };
+            }
+            catch (Exception e)
+            {
+                return new ApiResponse<string> { success = false, data = "", errMsj = e.Message };
+            }
+        }
+
+        public byte[] DownloadFile(string sArchivo)
+        {
+            try
+            {
+                FtpWebRequest request = (FtpWebRequest) WebRequest.Create(ftpUrlServer + sArchivo);
+                request.UsePassive = false;
+                request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
+                request.Method = WebRequestMethods.Ftp.DownloadFile;
+
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+                Stream responseStream = response.GetResponseStream();
+
+                MemoryStream ms = new MemoryStream();
+                byte[] chunk = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = responseStream.Read(chunk, 0, chunk.Length)) > 0)
+                {
+                    ms.Write(chunk, 0, bytesRead);
+                }
+
+                return ms.ToArray();
+            }
+            catch (Exception e)
+            {
+                return new byte[0];
+            }
+        }
+    }
+}
