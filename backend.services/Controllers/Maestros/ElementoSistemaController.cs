@@ -52,7 +52,7 @@ namespace backend.services.Controllers.Maestros
                 var result = await service.ElementoById(nIdElemento);
 
                 response.success = true;
-                response.data = (ElementoSistemaDTO) result;
+                response.data = (ElementoSistemaDTO)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
