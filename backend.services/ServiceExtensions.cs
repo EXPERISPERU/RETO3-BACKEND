@@ -49,6 +49,8 @@ namespace backend.services
             services.AddScoped<ISectorRepository, SectorRepository>();
             services.AddScoped<IManzanaRepository, ManzanaRepository>();
             services.AddScoped<ILoteRepository, LoteRepository>();
+
+            services.AddScoped<IItemRepository, ItemRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -77,6 +79,8 @@ namespace backend.services
             services.AddScoped<ISectorBL, SectorBL>();
             services.AddScoped<IManzanaBL, ManzanaBL>();
             services.AddScoped<ILoteBL, LoteBL>();
+
+            services.AddScoped<IItemBL, ItemBL>();
         }
     }
 }
