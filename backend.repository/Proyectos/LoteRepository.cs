@@ -153,10 +153,10 @@ namespace backend.repository.Proyectos
                 parameters.Add("sLote", lote.sLote);
                 parameters.Add("nIdEstado", lote.nIdEstado);
                 parameters.Add("nMetraje", lote.nMetraje);
-                parameters.Add("nIdTipoUbicacion", lote.nIdTipoUbicacion);
-                parameters.Add("nIdTipoTerreno", lote.nIdTipoTerreno);
                 parameters.Add("nIdGrupo", lote.nIdGrupo);
-                parameters.Add("nIdTipoZonificacion", lote.nIdTipoZonificacion);
+                parameters.Add("nIdUbicacion", lote.nIdUbicacion);
+                parameters.Add("nIdTerreno", lote.nIdTerreno);
+                parameters.Add("nIdZonificacion", lote.nIdZonificacion);
                 parameters.Add("nIdDescripcion", lote.nIdDescripcion);
                 parameters.Add("nIdUsuario_crea", lote.nIdUsuario_crea);
 
@@ -179,10 +179,10 @@ namespace backend.repository.Proyectos
                 parameters.Add("sLote", lote.sLote);
                 parameters.Add("nIdEstado", lote.nIdEstado);
                 parameters.Add("nMetraje", lote.nMetraje);
-                parameters.Add("nIdTipoUbicacion", lote.nIdTipoUbicacion);
-                parameters.Add("nIdTipoTerreno", lote.nIdTipoTerreno);
                 parameters.Add("nIdGrupo", lote.nIdGrupo);
-                parameters.Add("nIdTipoZonificacion", lote.nIdTipoZonificacion);
+                parameters.Add("nIdUbicacion", lote.nIdUbicacion);
+                parameters.Add("nIdTerreno", lote.nIdTerreno);
+                parameters.Add("nIdZonificacion", lote.nIdZonificacion);
                 parameters.Add("nIdDescripcion", lote.nIdDescripcion);
                 parameters.Add("nIdUsuario_mod", lote.nIdUsuario_mod);
 

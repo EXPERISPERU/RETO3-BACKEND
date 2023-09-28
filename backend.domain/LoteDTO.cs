@@ -19,13 +19,13 @@ namespace backend.domain
         public int nIdEstado { get; set; }
         public string? sEstado { get; set; }
         public decimal nMetraje { get; set; }
-        public int nIdTipoUbicacion { get; set; }
-        public string? sUbicacion { get; set; }
-        public int nIdTipoTerreno { get; set; }
-        public string? sTerreno { get; set; }
         public int nIdGrupo { get; set; }
         public string? sGrupo { get; set; }
-        public int nIdTipoZonificacion { get; set; }
+        public int nIdUbicacion { get; set; }
+        public string? sUbicacion { get; set; }
+        public int nIdTerreno { get; set; }
+        public string? sTerreno { get; set; }
+        public int nIdZonificacion { get; set; }
         public string? sZonificacion { get; set; }
         public int nIdDescripcion { get; set; }
         public string? sDescripcion { get; set; }
