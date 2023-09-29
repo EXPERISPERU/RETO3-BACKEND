@@ -12,6 +12,7 @@ namespace backend.businesslogic.Interfaces.Proyectos
         Task<IList<SelectDTO>> getSelectCompanias();
         Task<IList<SelectDTO>> getSelectProyectoByCompania(int nIdCompania);
         Task<IList<SectorDTO>> getListSectorByProyecto(int nIdProyecto);
+        Task<IList<SelectDTO>> getSelectEstado();
         Task<SqlRspDTO> InsSector(SectorDTO sector);
         Task<SqlRspDTO> UpdSector(SectorDTO sector);
     }

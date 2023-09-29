@@ -68,6 +68,21 @@ namespace backend.repository.Proyectos
             return list.ToList();
         }
 
+        public async Task<IList<SelectDTO>> getSelectEstado()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_sector]", 4);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
         public async Task<SqlRspDTO> InsSector(SectorDTO sector)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
@@ -75,10 +90,11 @@ namespace backend.repository.Proyectos
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_sector]", 4);
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_sector]", 5);
                 parameters.Add("nIdProyecto", sector.nIdProyecto);
                 parameters.Add("sSector", sector.sSector);
                 parameters.Add("nManzanas", sector.nManzanas);
+                parameters.Add("nIdEstado", sector.nIdEstado);
                 parameters.Add("bActivo", sector.bActivo);
                 parameters.Add("nIdUsuario_crea", sector.nIdUsuario_crea);
 
@@ -95,11 +111,12 @@ namespace backend.repository.Proyectos
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_sector]", 5);
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_sector]", 6);
                 parameters.Add("nIdSector", sector.nIdSector);
                 parameters.Add("nIdProyecto", sector.nIdProyecto);
                 parameters.Add("sSector", sector.sSector);
                 parameters.Add("nManzanas", sector.nManzanas);
+                parameters.Add("nIdEstado", sector.nIdEstado);
                 parameters.Add("bActivo", sector.bActivo);
                 parameters.Add("nIdUsuario_mod", sector.nIdUsuario_mod);
 

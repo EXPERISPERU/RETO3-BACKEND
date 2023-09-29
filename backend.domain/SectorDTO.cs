@@ -12,6 +12,8 @@ namespace backend.domain
         public int nIdProyecto { get; set; } 
         public string sSector { get; set; }
         public int nManzanas { get; set; }
+        public int nIdEstado { get; set; }
+        public string? sEstado { get; set; }
         public bool bActivo { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }

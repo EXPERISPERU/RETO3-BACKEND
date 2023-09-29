@@ -83,6 +83,28 @@ namespace backend.services.Controllers.Proyectos
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectEstado()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectEstado();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsSector([FromBody] SectorDTO sector)
         {

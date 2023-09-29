@@ -33,6 +33,11 @@ namespace backend.businesslogic.Proyectos
             return await repository.getListSectorByProyecto(nIdProyecto);
         }
 
+        public async Task<IList<SelectDTO>> getSelectEstado() 
+        {
+            return await repository.getSelectEstado();
+        }
+
         public async Task<SqlRspDTO> InsSector(SectorDTO sector)
         {
             return await repository.InsSector(sector);
