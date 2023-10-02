@@ -44,6 +44,8 @@ namespace backend.services
             services.AddScoped<IReferidoRepository, ReferidoRepository>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IListaPrecioRepository, ListaPrecioRepository>();
+            services.AddScoped<IPrecioRepository, PrecioRepository>();
 
             services.AddScoped<IProyectoRepository, ProyectoRepository>();
             services.AddScoped<ISectorRepository, SectorRepository>();
@@ -74,6 +76,8 @@ namespace backend.services
             services.AddScoped<IReferidoBL, ReferidoBL>();
 
             services.AddScoped<IClienteBL, ClienteBL>();
+            services.AddScoped<IListaPrecioBL, ListaPrecioBL>();
+            services.AddScoped<IPrecioBL, PrecioBL>();
 
             services.AddScoped<IProyectoBL, ProyectoBL>();
             services.AddScoped<ISectorBL, SectorBL>();
