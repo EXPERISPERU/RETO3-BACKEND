@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.repository.Interfaces.Comercial
+namespace backend.repository.Interfaces.Comercial.Precio
 {
     public interface IListaPrecioRepository
     {

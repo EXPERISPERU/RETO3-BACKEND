@@ -1,10 +1,10 @@
-﻿using backend.businesslogic.Interfaces.Comercial;
+﻿using backend.businesslogic.Interfaces.Comercial.Precio;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.services.Controllers.Comercial
+namespace backend.services.Controllers.Comercial.Precio
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -15,7 +15,7 @@ namespace backend.services.Controllers.Comercial
 
         public ListaPrecioController(IListaPrecioBL _service)
         {
-            this.service = _service;
+            service = _service;
         }
 
         [HttpGet("[action]")]
@@ -48,8 +48,8 @@ namespace backend.services.Controllers.Comercial
             {
                 var result = await service.getListaPrecio(nIdListaPrecio);
 
-                response.success = (result != null);
-                response.data = (ListaPrecioDTO) result;
+                response.success = result != null;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

@@ -1,5 +1,4 @@
 ﻿using backend.domain;
-using backend.repository.Interfaces.Comercial;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,8 +8,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using backend.repository.Interfaces.Comercial.Precio;
 
-namespace backend.repository.Comercial
+namespace backend.repository.Comercial.Precio
 {
     public class ListaPrecioRepository : IListaPrecioRepository
     {

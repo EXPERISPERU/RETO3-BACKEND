@@ -1,13 +1,13 @@
-﻿using backend.businesslogic.Interfaces.Comercial;
-using backend.domain;
+﻿using backend.domain;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using backend.businesslogic.Interfaces.Comercial.Precio;
 
-namespace backend.services.Controllers.Comercial
+namespace backend.services.Controllers.Comercial.Precio
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -17,7 +17,7 @@ namespace backend.services.Controllers.Comercial
 
         public PrecioController(IPrecioBL _service)
         {
-            this.service = _service;
+            service = _service;
         }
 
         [HttpGet("[action]")]

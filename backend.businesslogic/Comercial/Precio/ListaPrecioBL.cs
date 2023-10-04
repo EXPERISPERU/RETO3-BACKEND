@@ -1,13 +1,13 @@
-﻿using backend.businesslogic.Interfaces.Comercial;
+﻿using backend.businesslogic.Interfaces.Comercial.Precio;
 using backend.domain;
-using backend.repository.Interfaces.Comercial;
+using backend.repository.Interfaces.Comercial.Precio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace backend.businesslogic.Comercial
+namespace backend.businesslogic.Comercial.Precio
 {
     public class ListaPrecioBL : IListaPrecioBL
     {
@@ -15,7 +15,7 @@ namespace backend.businesslogic.Comercial
 
         public ListaPrecioBL(IListaPrecioRepository _repository)
         {
-            this.repository = _repository;
+            repository = _repository;
         }
 
         public async Task<IList<ListaPrecioDTO>> getListListaPrecio()
@@ -23,7 +23,7 @@ namespace backend.businesslogic.Comercial
             return await repository.getListListaPrecio();
         }
 
-        public async Task<ListaPrecioDTO> getListaPrecio(int nIdListaPrecio) 
+        public async Task<ListaPrecioDTO> getListaPrecio(int nIdListaPrecio)
         {
             return await repository.getListaPrecio(nIdListaPrecio);
         }
@@ -43,13 +43,13 @@ namespace backend.businesslogic.Comercial
             return await repository.getSelectOficinaByCompania(nIdCompania);
         }
 
-        public async Task<SqlRspDTO> InsListaPrecio(ListaPrecioDTO listaPrecio) 
-        { 
+        public async Task<SqlRspDTO> InsListaPrecio(ListaPrecioDTO listaPrecio)
+        {
             return await repository.InsListaPrecio(listaPrecio);
         }
 
         public async Task<SqlRspDTO> UpdListaPrecio(ListaPrecioDTO listaPrecio)
-        { 
+        {
             return await repository.UpdListaPrecio(listaPrecio);
         }
     }
