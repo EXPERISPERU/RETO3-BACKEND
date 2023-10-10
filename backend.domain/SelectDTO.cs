@@ -10,5 +10,6 @@ namespace backend.domain
     {
         public int nCod { get; set; }
         public string sDesc { get; set; }
+        public string? sCod { get; set; }
     }
 }

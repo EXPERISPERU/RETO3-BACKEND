@@ -1,7 +1,9 @@
 ﻿using backend.businesslogic.Comercial;
+using backend.businesslogic.Comercial.Descuento;
 using backend.businesslogic.Comercial.Precio;
 using backend.businesslogic.Dealers;
 using backend.businesslogic.Interfaces.Comercial;
+using backend.businesslogic.Interfaces.Comercial.Descuento;
 using backend.businesslogic.Interfaces.Comercial.Precio;
 using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
@@ -11,9 +13,11 @@ using backend.businesslogic.Maestros;
 using backend.businesslogic.Proyectos;
 using backend.businesslogic.Seguridad;
 using backend.repository.Comercial;
+using backend.repository.Comercial.Descuento;
 using backend.repository.Comercial.Precio;
 using backend.repository.Dealers;
 using backend.repository.Interfaces.Comercial;
+using backend.repository.Interfaces.Comercial.Descuento;
 using backend.repository.Interfaces.Comercial.Precio;
 using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
@@ -51,6 +55,7 @@ namespace backend.services
             services.AddScoped<IListaPrecioRepository, ListaPrecioRepository>();
             services.AddScoped<IPrecioRepository, PrecioRepository>();
             services.AddScoped<IAsignacionPrecioRepository, AsignacionPrecioRepository>();
+            services.AddScoped<IDescuentoLoteRepository, DescuentoLoteRepository>();
 
             services.AddScoped<IProyectoRepository, ProyectoRepository>();
             services.AddScoped<ISectorRepository, SectorRepository>();
@@ -84,6 +89,7 @@ namespace backend.services
             services.AddScoped<IListaPrecioBL, ListaPrecioBL>();
             services.AddScoped<IPrecioBL, PrecioBL>();
             services.AddScoped<IAsignacionPrecioBL, AsignacionPrecioBL>();
+            services.AddScoped<IDescuentoLoteBL, DescuentoLoteBL>();
 
             services.AddScoped<IProyectoBL, ProyectoBL>();
             services.AddScoped<ISectorBL, SectorBL>();
