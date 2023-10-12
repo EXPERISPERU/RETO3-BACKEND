@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace backend.domain
+{
+    public class LotesDisponiblesDTO
+    {
+        public int nIdProyecto { get; set; }
+        public string sProyecto { get; set; }
+        public int nIdSector { get; set; }
+        public string sSector { get; set; }
+        public int nIdManzana { get; set; }
+        public string sManzana { get; set; }
+        public int nIdLote { get; set; }
+        public string sLote { get; set; }
+        public int nIdEstado { get; set; }
+        public string sEstado { get; set; }
+        public int nIdGrupo { get; set; }
+        public string sGrupo { get; set; }
+        public int nIdUbicacion { get; set; }
+        public string sUbicacion { get; set; }
+        public int nIdTerreno { get; set; }
+        public string? sTerreno { get; set; }
+        public int nIdZonificacion { get; set; }
+        public string? sZonificacion { get; set; }
+        public int nIdDescripcion { get; set; }
+        public string? sDescripcion { get; set; }
+        public decimal? nPrecioVentaM2 { get; set; }
+        public decimal nMetraje { get; set; }
+        public decimal? nPrecioVenta { get; set; }
+        public decimal? nIdInicial { get; set; }
+        public string? nValorInicial { get; set; }
+        public decimal? nInicial { get; set; }
+        public decimal? nIdDescuentoFin { get; set; }
+        public string? nValorDescuentoFin { get; set; }
+        public decimal? nDescuentoFin { get; set; }
+        public decimal? nValorFinanciado { get; set; }
+        public decimal? nCuotas { get; set; }
+        public decimal? nValorCuota { get; set; }
+        public decimal? nIdDescuentoCon { get; set; }
+        public string? nValorDescuentoCon { get; set; }
+        public decimal? nDescuentoCon { get; set; }
+        public decimal? nValorContado { get; set; }
+    }
+
+    public class InicialDescuentoDTO
+    {
+        public int nId { get; set; }
+        public string sDescripcion { get; set; }
+        public decimal nValor { get; set; }
+        public int nIdTipo { get; set; }
+        public int nIdProyecto { get; set; }
+    }
+}
