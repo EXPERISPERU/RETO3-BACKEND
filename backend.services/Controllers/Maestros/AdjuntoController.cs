@@ -35,7 +35,7 @@ namespace backend.services.Controllers.Maestros
         {
             try
             {
-                var sCuerpo = "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <title></title>\r\n    </head>\r\n    <body>\r\n        <h1>#sNombres#</h1>\r\n        <p>This is my first web page.</p>\r\n        <p>It contains a \r\n             <strong>main heading</strong> and <em> paragraph </em>.\r\n        </p>\r\n    </body>\r\n</html>";
+                var sCuerpo = "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <title></title>\r\n    </head>\r\n    <body>\r\n        <h1>#sNombres#</h1>\r\n        <p>This is my first web page.</p>\r\n        <p>It contains a \r\n             <strong>main heading</strong> and <em> paragraph </em>.\r\n        </p>\r\n    <img src=\"https://www.w3schools.com/html/img_chania.jpg\"\r\nwidth=\"460\" height=\"345\" /></body>\r\n</html>";
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
 
