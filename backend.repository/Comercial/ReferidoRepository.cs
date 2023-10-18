@@ -1,16 +1,11 @@
 ﻿using backend.domain;
-using backend.repository.Interfaces.Dealers;
+using backend.repository.Interfaces.Comercial;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace backend.repository.Dealers
+namespace backend.repository.Comercial
 {
     public class ReferidoRepository : IReferidoRepository
     {
@@ -28,7 +23,7 @@ namespace backend.repository.Dealers
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_referido]", 1);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 1);
 
                 list = await connection.QueryAsync<ReferidoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -43,7 +38,7 @@ namespace backend.repository.Dealers
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_referido]", 2);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 2);
                 parameters.Add("nIdCliente", nIdCliente);
 
                 list = await connection.QueryAsync<ReferidoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -52,15 +47,16 @@ namespace backend.repository.Dealers
             return list.ToList();
         }
 
-        public async Task<int> getIdAgenteDealer(int nIdUsuario)
+        public async Task<int> getValidAgregarReferido(int nIdUsuario, int nIdCompania)
         {
             int resp;
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_referido]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 3);
                 parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 resp = await connection.ExecuteScalarAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -68,16 +64,16 @@ namespace backend.repository.Dealers
             return resp;
         }
 
-        public async Task<SqlRspDTO> InsReferido(ReferidoDTO referido)
+        public async Task<SqlRspDTO> InsReferido(int nIdCliente, int nIdUsuario)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_referido]", 4);
-                parameters.Add("nIdCliente", referido.nIdCliente);
-                parameters.Add("nIdAgenteDealer", referido.nIdAgenteDealer);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 4);
+                parameters.Add("nIdCliente", nIdCliente);
+                parameters.Add("nIdUsuario", nIdUsuario);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

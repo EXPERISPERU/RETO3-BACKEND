@@ -11,7 +11,11 @@ namespace backend.domain
         public int? nIdReferido { get; set; }
         public int nIdCliente { get; set; }
         public string? sCliente { get; set; }
-        public int nIdAgenteDealer { get; set; }
+        public int nIdTipo { get; set; }
+        public string? sTipo { get; set; }
+        public int? nIdEmpleado { get; set; }
+        public string? sEmpleado { get; set; }
+        public int? nIdAgenteDealer { get; set; }
         public string? sAgenteDealer { get; set; }
         public int? nIdEmpresaDealer { get; set; }
         public string? sEmpresaDealer { get; set; }

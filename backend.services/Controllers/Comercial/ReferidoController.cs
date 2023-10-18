@@ -1,10 +1,10 @@
-﻿using backend.businesslogic.Interfaces.Dealers;
+﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.services.Controllers.Dealers
+namespace backend.services.Controllers.Comercial
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -61,16 +61,16 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<int>>> getIdAgenteDealer(int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<int>>> getValidAgregarReferido(int nIdUsuario, int nIdCompania)
         {
             ApiResponse<int> response = new ApiResponse<int>();
 
             try
             {
-                var result = await service.getIdAgenteDealer(nIdUsuario);
+                var result = await service.getValidAgregarReferido(nIdUsuario, nIdCompania);
 
-                response.success = true;
-                response.data = (int)result;
+                response.success = (int) result == 1;
+                response.data = (int) result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -82,13 +82,13 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsReferido([FromBody] ReferidoDTO referido)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsReferido(int nIdCliente, int nIdUsuario)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsReferido(referido);
+                var result = await service.InsReferido(nIdCliente, nIdUsuario);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
