@@ -1,4 +1,5 @@
 ﻿using backend.domain;
+using backend.repository.Interfaces.Dealers;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -8,43 +9,42 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using backend.repository.Interfaces.Dealers;
 
 namespace backend.repository.Dealers
 {
-    public class EmpresaDealerAgenteRepository : IEmpresaDealerAgenteRepository
+    public class ProveedorAgenteDealerRepository : IProveedorAgenteDealerRepository
     {
         private readonly IConfiguration _configuration;
 
-        public EmpresaDealerAgenteRepository(IConfiguration configuration)
+        public ProveedorAgenteDealerRepository(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public async Task<IList<EmpresaDealerAgenteDTO>> getListEmpresaDealerAgente(int nIdAgenteDealer)
+        public async Task<IList<ProveedorAgenteDealerDTO>> getListProveedorAgente(int nIdAgenteDealer)
         {
-            IEnumerable<EmpresaDealerAgenteDTO> list = new List<EmpresaDealerAgenteDTO>();
+            IEnumerable<ProveedorAgenteDealerDTO> list = new List<ProveedorAgenteDealerDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_empresa_dealer_agente]", 1);
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_proveedor_agente_dealer]", 1);
                 parameters.Add("nIdAgenteDealer", nIdAgenteDealer);
 
-                list = await connection.QueryAsync<EmpresaDealerAgenteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<ProveedorAgenteDealerDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
         }
 
-        public async Task<IList<SelectDTO>> getEmpresasDealer()
+        public async Task<IList<SelectDTO>> getProveedoresDealer()
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_empresa_dealer_agente]", 2);
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_proveedor_agente_dealer]", 2);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -52,14 +52,14 @@ namespace backend.repository.Dealers
             return list.ToList();
         }
 
-        public async Task<int> CantActiveEDAByAgente(int nIdAgenteDealer)
+        public async Task<int> CantActivePADByAgente(int nIdAgenteDealer)
         {
             int resp;
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_empresa_dealer_agente]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_proveedor_agente_dealer]", 3);
                 parameters.Add("nIdAgenteDealer", nIdAgenteDealer);
 
                 resp = await connection.ExecuteScalarAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -68,19 +68,19 @@ namespace backend.repository.Dealers
             return resp;
         }
 
-        public async Task<SqlRspDTO> InsEmpDeaAgente(EmpresaDealerAgenteDTO empresaDealerAgente)
+        public async Task<SqlRspDTO> InsProvAgenDealer(ProveedorAgenteDealerDTO proveedorAgenteDealer)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_empresa_dealer_agente]", 4);
-                parameters.Add("nIdEmpresaDealer", empresaDealerAgente.nIdEmpresaDealer);
-                parameters.Add("nIdAgenteDealer", empresaDealerAgente.nIdAgenteDealer);
-                parameters.Add("dFechaIni", empresaDealerAgente.dFechaIni);
-                parameters.Add("dFechaFin", empresaDealerAgente.dFechaFin);
-                parameters.Add("nIdUsuario_crea", empresaDealerAgente.nIdUsuario_crea);
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_proveedor_agente_dealer]", 4);
+                parameters.Add("nIdProveedor", proveedorAgenteDealer.nIdProveedor);
+                parameters.Add("nIdAgenteDealer", proveedorAgenteDealer.nIdAgenteDealer);
+                parameters.Add("dFechaIni", proveedorAgenteDealer.dFechaIni);
+                parameters.Add("dFechaFin", proveedorAgenteDealer.dFechaFin);
+                parameters.Add("nIdUsuario_crea", proveedorAgenteDealer.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -88,20 +88,20 @@ namespace backend.repository.Dealers
             return res;
         }
 
-        public async Task<SqlRspDTO> UpdEmpDeaAgente(EmpresaDealerAgenteDTO empresaDealerAgente)
+        public async Task<SqlRspDTO> UpdProvAgenDealer(ProveedorAgenteDealerDTO proveedorAgenteDealer)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_empresa_dealer_agente]", 5);
-                parameters.Add("nIdEmpresaDealerAgente", empresaDealerAgente.nIdEmpresaDealerAgente);
-                parameters.Add("nIdEmpresaDealer", empresaDealerAgente.nIdEmpresaDealer);
-                parameters.Add("nIdAgenteDealer", empresaDealerAgente.nIdAgenteDealer);
-                parameters.Add("dFechaIni", empresaDealerAgente.dFechaIni);
-                parameters.Add("dFechaFin", empresaDealerAgente.dFechaFin);
-                parameters.Add("nIdUsuario_mod", empresaDealerAgente.nIdUsuario_mod);
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_proveedor_agente_dealer]", 5);
+                parameters.Add("nIdProveedorAgente", proveedorAgenteDealer.nIdProveedorAgente);
+                parameters.Add("nIdProveedor", proveedorAgenteDealer.nIdProveedor);
+                parameters.Add("nIdAgenteDealer", proveedorAgenteDealer.nIdAgenteDealer);
+                parameters.Add("dFechaIni", proveedorAgenteDealer.dFechaIni);
+                parameters.Add("dFechaFin", proveedorAgenteDealer.dFechaFin);
+                parameters.Add("nIdUsuario_mod", proveedorAgenteDealer.nIdUsuario_mod);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

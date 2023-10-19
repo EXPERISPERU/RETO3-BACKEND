@@ -9,27 +9,27 @@ namespace backend.services.Controllers.Dealers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class EmpresaDealerAgenteController : ControllerBase
+    public class ProveedorAgenteDealerController : ControllerBase
     {
-        public readonly IEmpresaDealerAgenteBL service;
+        public readonly IProveedorAgenteDealerBL service;
 
-        public EmpresaDealerAgenteController(IEmpresaDealerAgenteBL _service)
+        public ProveedorAgenteDealerController(IProveedorAgenteDealerBL _service)
         {
             service = _service;
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<EmpresaDealerAgenteDTO>>>> getListEmpresaDealerAgente(int nIdAgenteDealer)
+        public async Task<ActionResult<ApiResponse<List<ProveedorAgenteDealerDTO>>>> getListProveedorAgente(int nIdAgenteDealer)
         {
 
-            ApiResponse<List<EmpresaDealerAgenteDTO>> response = new ApiResponse<List<EmpresaDealerAgenteDTO>>();
+            ApiResponse<List<ProveedorAgenteDealerDTO>> response = new ApiResponse<List<ProveedorAgenteDealerDTO>>();
 
             try
             {
-                var result = await service.getListEmpresaDealerAgente(nIdAgenteDealer);
+                var result = await service.getListProveedorAgente(nIdAgenteDealer);
 
                 response.success = true;
-                response.data = (List<EmpresaDealerAgenteDTO>)result;
+                response.data = (List<ProveedorAgenteDealerDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -41,14 +41,14 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getEmpresasDealer()
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getProveedoresDealer()
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getEmpresasDealer();
+                var result = await service.getProveedoresDealer();
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -63,14 +63,14 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<int>>> getCantActiveEDAByAgente(int nIdAgenteDealer)
+        public async Task<ActionResult<ApiResponse<int>>> getCantActivePADByAgente(int nIdAgenteDealer)
         {
 
             ApiResponse<int> response = new ApiResponse<int>();
 
             try
             {
-                var result = await service.CantActiveEDAByAgente(nIdAgenteDealer);
+                var result = await service.CantActivePADByAgente(nIdAgenteDealer);
 
                 response.success = true;
                 response.data = (int)result;
@@ -85,13 +85,13 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsEmpDeaAgente([FromBody] EmpresaDealerAgenteDTO empresaDealerAgente)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsProvAgenDealer([FromBody] ProveedorAgenteDealerDTO proveedorAgenteDealer)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsEmpDeaAgente(empresaDealerAgente);
+                var result = await service.InsProvAgenDealer(proveedorAgenteDealer);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
@@ -106,13 +106,13 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdEmpDeaAgente([FromBody] EmpresaDealerAgenteDTO empresaDealerAgente)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdProvAgenDealer([FromBody] ProveedorAgenteDealerDTO proveedorAgenteDealer)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.UpdEmpDeaAgente(empresaDealerAgente);
+                var result = await service.UpdProvAgenDealer(proveedorAgenteDealer);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
