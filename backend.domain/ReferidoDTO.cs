@@ -24,4 +24,10 @@ namespace backend.domain
         public DateTime? dFechaFin { get; set; }
         public string? sFechaFin { get; set; }
     }
+
+    public class InsReferidoDTO
+    {
+        public int nIdCliente { get; set; }
+        public int nIdUsuario { get; set; }
+    }
 }

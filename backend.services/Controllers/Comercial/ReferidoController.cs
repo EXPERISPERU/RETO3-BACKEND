@@ -82,13 +82,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsReferido(int nIdCliente, int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsReferido([FromBody] InsReferidoDTO insReferido)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsReferido(nIdCliente, nIdUsuario);
+                var result = await service.InsReferido(insReferido.nIdCliente, insReferido.nIdUsuario);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
