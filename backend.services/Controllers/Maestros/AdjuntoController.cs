@@ -21,12 +21,12 @@ namespace backend.services.Controllers.Maestros
             return StatusCode(StatusCodes.Status200OK, rsp);
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult> DownloadFile(string sFile, string sFileExtension)
+        [HttpPost("[action]")]
+        public async Task<ActionResult> DownloadFile([FromBody] imbFile imbfile)
         {
             FtpClient client = new FtpClient();
-            byte[] file = client.DownloadFile(sFile);
-            return File(file, client.sContentType(sFileExtension));
+            byte[] file = client.DownloadFile(imbfile.sRutaFile);
+            return File(file, client.sContentType(imbfile.sRutaFile.Split('/').Last().Split('.').Last()));
         }
 
 
