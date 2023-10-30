@@ -21,12 +21,24 @@ namespace backend.services.Controllers.Maestros
             return StatusCode(StatusCodes.Status200OK, rsp);
         }
 
-        [HttpPost("[action]")]
-        public async Task<ActionResult> DownloadFile([FromBody] imbFile imbfile)
+        [HttpGet("[action]")]
+        public async Task<ActionResult> DownloadFile(string sRutaFile)
         {
-            FtpClient client = new FtpClient();
-            byte[] file = client.DownloadFile(imbfile.sRutaFile);
-            return File(file, client.sContentType(imbfile.sRutaFile.Split('/').Last().Split('.').Last()));
+            try
+            {
+                FtpClient client = new FtpClient();
+                byte[] file = client.DownloadFile(sRutaFile);
+                var extension = sRutaFile.Split('/')
+                                            .Last()
+                                            .Split('.')
+                                            .Last()
+                                            .ToLower();
+                return File(file, client.sContentType(extension), sRutaFile.Split('/').Last());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
         }
 
 
