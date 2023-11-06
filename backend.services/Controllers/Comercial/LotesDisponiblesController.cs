@@ -19,13 +19,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles()
+        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles(int nIdCompania)
         {
             ApiResponse<List<LotesDisponiblesDTO>> response = new ApiResponse<List<LotesDisponiblesDTO>>();
 
             try
             {
-                var result = await service.getListLotesDisponibles();
+                var result = await service.getListLotesDisponibles(nIdCompania);
 
                 response.success = true;
                 response.data = (List<LotesDisponiblesDTO>)result;
@@ -40,13 +40,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListInicialLote()
+        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListInicialLote(int nIdLote)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
 
             try
             {
-                var result = await service.getListInicialLote();
+                var result = await service.getListInicialLote(nIdLote);
 
                 response.success = true;
                 response.data = (List<InicialDescuentoDTO>)result;
@@ -61,13 +61,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoContLote()
+        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoContLote(int nIdLote)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
 
             try
             {
-                var result = await service.getListDescuentoContLote();
+                var result = await service.getListDescuentoContLote(nIdLote);
 
                 response.success = true;
                 response.data = (List<InicialDescuentoDTO>)result;
@@ -82,16 +82,37 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoFinLote()
+        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoFinLote(int nIdLote)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
 
             try
             {
-                var result = await service.getListDescuentoFinLote();
+                var result = await service.getListDescuentoFinLote(nIdLote);
 
                 response.success = true;
                 response.data = (List<InicialDescuentoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<LotesDisponiblesDTO>>> postCalculateCotizacion([FromBody] LotesDisponiblesDTO loteDisponible, int nIdCompania)
+        {
+            ApiResponse<LotesDisponiblesDTO> response = new ApiResponse<LotesDisponiblesDTO>();
+
+            try
+            {
+                var result = await service.calculateCotizacion(loteDisponible, nIdCompania);
+
+                response.success = true;
+                response.data = (LotesDisponiblesDTO)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

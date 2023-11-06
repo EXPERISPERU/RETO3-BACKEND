@@ -27,7 +27,10 @@ namespace backend.domain
         public int nIdZonificacion { get; set; }
         public string? sZonificacion { get; set; }
         public int nIdDescripcion { get; set; }
+        public int nIdMoneda { get; set; }
+        public string sSimbolo { get; set; }
         public string? sDescripcion { get; set; }
+        public int? nIdAsignacionPrecio { get; set; }
         public decimal? nPrecioVentaM2 { get; set; }
         public decimal nMetraje { get; set; }
         public decimal? nPrecioVenta { get; set; }
@@ -53,6 +56,7 @@ namespace backend.domain
         public decimal nValor { get; set; }
         public int nIdTipo { get; set; }
         public string sTipoCodigo { get; set; }
-        public int nIdProyecto { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdLote { get; set; }
     }
 }

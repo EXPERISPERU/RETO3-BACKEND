@@ -29,6 +29,8 @@ namespace backend.domain
 		public string? sFechaIni { get; set; }
         public DateTime? dFechaFin { get; set; }
         public string? sFechaFin { get; set; }
+        public int nIdMoneda { get; set; }
+        public string? sMoneda { get; set; }
         public decimal nPrecio { get; set; }
         public decimal nPrecioVenta { get; set; }
         public int nIdUsuario_crea { get; set; }

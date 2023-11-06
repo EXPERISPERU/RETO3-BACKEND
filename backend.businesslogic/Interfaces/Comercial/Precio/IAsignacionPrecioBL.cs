@@ -22,5 +22,6 @@ namespace backend.businesslogic.Interfaces.Comercial.Precio
         Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana);
         Task<IList<AsignacionPrecioLoteDTO>> getListLotesParaAsignacion(AsignacionPrecioDTO ap);
         Task<SqlRspDTO> InsAsignacionPrecio(AsignacionPrecioDTO ap);
+        Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
     }
 }

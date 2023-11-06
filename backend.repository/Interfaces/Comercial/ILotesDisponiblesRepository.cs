@@ -9,9 +9,10 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface ILotesDisponiblesRepository
     {
-        Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles();
-        Task<IList<InicialDescuentoDTO>> getListInicialLote();
-        Task<IList<InicialDescuentoDTO>> getListDescuentoContLote();
-        Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote();
+        Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania);
+        Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote);
+        Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote);
+        Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote);
+        Task<LotesDisponiblesDTO> calculateCotizacion(LotesDisponiblesDTO loteDisponible, int nIdCompania);
     }
 }
