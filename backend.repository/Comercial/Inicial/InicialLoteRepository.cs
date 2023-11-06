@@ -110,6 +110,7 @@ namespace backend.repository.Comercial.Inicial
                 parameters.Add("sDescripcion", inicialLote.sDescripcion);
                 parameters.Add("nIdTipo", inicialLote.nIdTipo);
                 parameters.Add("nValor", inicialLote.nValor);
+                parameters.Add("nIdMoneda", inicialLote.nIdMoneda);
                 parameters.Add("dFechaIni", inicialLote.dFechaIni);
                 parameters.Add("dFechaFin", inicialLote.dFechaFin);
                 parameters.Add("bActivo", inicialLote.bActivo);
@@ -140,6 +141,22 @@ namespace backend.repository.Comercial.Inicial
             }
 
             return res;
+        }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_inicial_lote]", 8);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
     }
 }

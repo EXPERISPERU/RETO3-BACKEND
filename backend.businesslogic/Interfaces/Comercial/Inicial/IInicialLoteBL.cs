@@ -16,5 +16,6 @@ namespace backend.businesslogic.Interfaces.Comercial.Inicial
         Task<IList<SelectDTO>> getSelectTipoValor();
         Task<SqlRspDTO> InsInicialLote(InicialLoteDTO inicialLote);
         Task<SqlRspDTO> UpdInicialLote(InicialLoteDTO inicialLote);
+        Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
     }
 }
