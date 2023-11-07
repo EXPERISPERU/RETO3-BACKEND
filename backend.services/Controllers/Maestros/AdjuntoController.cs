@@ -4,6 +4,9 @@ using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.Layout;
 
 namespace backend.services.Controllers.Maestros
 {
@@ -56,13 +59,26 @@ namespace backend.services.Controllers.Maestros
                 html += "</div>";
 
                 string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+                string path2 = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
                 ConverterProperties properties = new ConverterProperties();
                 properties.SetFontProvider(new DefaultFontProvider(true, true, true));
                 PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
                 pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
 
                 HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
-                byte[] file = System.IO.File.ReadAllBytes(path);
+
+                PdfDocument pdfDoc = new PdfDocument(new PdfReader(path), new PdfWriter(path2));
+                Document doc = new Document(pdfDoc);
+
+                int numberOfPages = pdfDoc.GetNumberOfPages();
+                for (int i = 1; i <= numberOfPages; i++)
+                {
+                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages), 570, 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                }
+
+                doc.Close();
+
+                byte[] file = System.IO.File.ReadAllBytes(path2);
                 return File(file, "application/pdf");
             }
             catch (Exception)
