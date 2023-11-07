@@ -58,5 +58,10 @@ namespace backend.businesslogic.Comercial.Descuento
         {
             return await repository.UpdDescuentoLote(descuentoLote);
         }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            return await repository.getSelectMonedaByCompania(nIdCompania);
+        }
     }
 }
