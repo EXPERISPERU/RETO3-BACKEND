@@ -10,6 +10,7 @@ namespace backend.businesslogic.Interfaces.Comercial
     public interface ILotesDisponiblesBL
     {
         Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania);
+        Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote);
         Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote);
         Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote);
         Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote);

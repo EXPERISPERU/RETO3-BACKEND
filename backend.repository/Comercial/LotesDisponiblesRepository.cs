@@ -37,9 +37,9 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote)
+        public async Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote)
         {
-            IEnumerable<InicialDescuentoDTO> list = new List<InicialDescuentoDTO>();
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -47,13 +47,13 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 2);
                 parameters.Add("nIdLote", nIdLote);
 
-                list = await connection.QueryAsync<InicialDescuentoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote)
+        public async Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote)
         {
             IEnumerable<InicialDescuentoDTO> list = new List<InicialDescuentoDTO>();
 
@@ -69,7 +69,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote)
+        public async Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote)
         {
             IEnumerable<InicialDescuentoDTO> list = new List<InicialDescuentoDTO>();
 
@@ -85,6 +85,22 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
+        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote)
+        {
+            IEnumerable<InicialDescuentoDTO> list = new List<InicialDescuentoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 5);
+                parameters.Add("nIdLote", nIdLote);
+
+                list = await connection.QueryAsync<InicialDescuentoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
         public async Task<LotesDisponiblesDTO> calculateCotizacion(LotesDisponiblesDTO loteDisponible, int nIdCompania)
         {
             LotesDisponiblesDTO res = new LotesDisponiblesDTO();
@@ -92,9 +108,10 @@ namespace backend.repository.Comercial
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 5);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 6);
                 parameters.Add("nIdLote", loteDisponible.nIdLote);
                 parameters.Add("nIdAsignacionPrecio", loteDisponible.nIdAsignacionPrecio);
+                parameters.Add("nIdCuota", loteDisponible.nIdCuota);
                 parameters.Add("nIdInicial", loteDisponible.nIdInicial);
                 parameters.Add("nIdDescuentoFin", loteDisponible.nIdDescuentoFin);
                 parameters.Add("nIdDescuentoCon", loteDisponible.nIdDescuentoCon);

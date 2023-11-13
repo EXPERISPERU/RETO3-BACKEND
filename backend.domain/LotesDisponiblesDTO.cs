@@ -34,16 +34,17 @@ namespace backend.domain
         public decimal? nPrecioVentaM2 { get; set; }
         public decimal nMetraje { get; set; }
         public decimal? nPrecioVenta { get; set; }
-        public decimal? nIdInicial { get; set; }
+        public int? nIdInicial { get; set; }
         public string? sValorInicial { get; set; }
         public decimal? nInicial { get; set; }
-        public decimal? nIdDescuentoFin { get; set; }
+        public int? nIdDescuentoFin { get; set; }
         public string? sValorDescuentoFin { get; set; }
         public decimal? nDescuentoFin { get; set; }
         public decimal? nValorFinanciado { get; set; }
+        public int? nIdCuota { get; set; }
         public decimal? nCuotas { get; set; }
         public decimal? nValorCuota { get; set; }
-        public decimal? nIdDescuentoCon { get; set; }
+        public int? nIdDescuentoCon { get; set; }
         public string? sValorDescuentoCon { get; set; }
         public decimal? nDescuentoCon { get; set; }
         public decimal? nValorContado { get; set; }

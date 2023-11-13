@@ -23,6 +23,11 @@ namespace backend.businesslogic.Comercial
             return await repository.getListLotesDisponibles(nIdCompania);
         }
 
+        public async Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote)
+        {
+            return await repository.getSelectCuotaLote(nIdLote);
+        }
+
         public async Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote)
         {
             return await repository.getListInicialLote(nIdLote);
