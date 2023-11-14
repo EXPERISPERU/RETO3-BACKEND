@@ -80,5 +80,26 @@ namespace backend.services.Controllers.Maestros
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<int>>> validDocumentoUsuario(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
+        {
+            ApiResponse<int> response = new ApiResponse<int>();
+
+            try
+            {
+                var result = await service.validDocumentoUsuario(nIdUsuario, sDNI, sCE, sRUC);
+
+                response.success = true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

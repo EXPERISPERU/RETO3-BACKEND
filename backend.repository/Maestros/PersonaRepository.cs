@@ -70,5 +70,24 @@ namespace backend.repository.Maestros
 
             return res;
         }
+
+        public async Task<int> validDocumentoUsuario(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
+        {
+            int resp;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 4);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("sDNI", sDNI);
+                parameters.Add("sCE", sCE);
+                parameters.Add("sRUC", sRUC);
+
+                resp = await connection.ExecuteScalarAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }

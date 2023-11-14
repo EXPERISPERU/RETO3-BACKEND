@@ -53,7 +53,7 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<ClienteDTO> findClienteByDoc(string? sDNI, string? sCE, string? sRUC)
+        public async Task<ClienteDTO> findClienteByDoc(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
         {
             ClienteDTO resp = new ClienteDTO();
 
@@ -61,6 +61,7 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 3);
+                parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("sDNI", sDNI);
                 parameters.Add("sCE", sCE);
                 parameters.Add("sRUC", sRUC);
