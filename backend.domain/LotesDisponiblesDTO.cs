@@ -49,15 +49,4 @@ namespace backend.domain
         public decimal? nDescuentoCon { get; set; }
         public decimal? nValorContado { get; set; }
     }
-
-    public class InicialDescuentoDTO
-    {
-        public int nId { get; set; }
-        public string sDescripcion { get; set; }
-        public decimal nValor { get; set; }
-        public int nIdTipo { get; set; }
-        public string sTipoCodigo { get; set; }
-        public int? nIdProyecto { get; set; }
-        public int? nIdLote { get; set; }
-    }
 }
