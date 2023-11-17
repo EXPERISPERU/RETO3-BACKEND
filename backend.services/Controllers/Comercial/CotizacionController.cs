@@ -110,13 +110,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<CotizacionDTO>>> postCalculateCotizacion([FromBody] CotizacionDTO cotizacion, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<CotizacionDTO>>> postCalculateCotizacion([FromBody] CotizacionDTO cotizacion)
         {
             ApiResponse<CotizacionDTO> response = new ApiResponse<CotizacionDTO>();
 
             try
             {
-                var result = await service.calculateCotizacion(cotizacion, nIdCompania);
+                var result = await service.calculateCotizacion(cotizacion);
 
                 response.success = true;
                 response.data = (CotizacionDTO) result;
@@ -131,13 +131,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsCotizacion([FromBody] CotizacionDTO cotizacion, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsCotizacion([FromBody] CotizacionDTO cotizacion)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsCotizacion(cotizacion, nIdCompania);
+                var result = await service.InsCotizacion(cotizacion);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;

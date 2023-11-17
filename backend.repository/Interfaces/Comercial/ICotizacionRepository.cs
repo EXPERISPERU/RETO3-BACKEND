@@ -13,8 +13,8 @@ namespace backend.repository.Interfaces.Comercial
         Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote);
         Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote);
         Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote);
-        Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion, int nIdCompania);
-        Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion, int nIdCompania);
+        Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion);
+        Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion);
         Task<CotizacionDTO> getCotizacionById(int nIdCotizacion);
         Task<string> formatoCotizacion();
     }

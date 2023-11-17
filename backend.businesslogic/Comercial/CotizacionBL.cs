@@ -38,14 +38,14 @@ namespace backend.businesslogic.Comercial
             return await repository.getListDescuentoFinLote(nIdLote);
         }
 
-        public async Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion, int nIdCompania)
+        public async Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion)
         {
-            return await repository.calculateCotizacion(cotizacion, nIdCompania);
+            return await repository.calculateCotizacion(cotizacion);
         }
 
-        public async Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion, int nIdCompania)
+        public async Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion)
         {
-            return await repository.InsCotizacion(cotizacion, nIdCompania);
+            return await repository.InsCotizacion(cotizacion);
         }
 
         public async Task<CotizacionDTO> getCotizacionById(int nIdCotizacion)

@@ -85,7 +85,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion, int nIdCompania)
+        public async Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion)
         {
             CotizacionDTO res = new CotizacionDTO();
 
@@ -99,7 +99,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdInicial", cotizacion.nIdInicial);
                 parameters.Add("nIdDescuentoFin", cotizacion.nIdDescuentoFin);
                 parameters.Add("nIdDescuentoCon", cotizacion.nIdDescuentoCon);
-                parameters.Add("nIdCompania", nIdCompania);
 
                 res = await connection.QuerySingleAsync<CotizacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -107,7 +106,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion, int nIdCompania) 
+        public async Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion) 
         {
             SqlRspDTO res = new SqlRspDTO();
 
@@ -131,7 +130,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdDescuentoCon", cotizacion.nIdDescuentoCon);
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
-                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
