@@ -15,6 +15,7 @@ namespace backend.domain
         public int nIdUbigeo { get; set; }
         public string? sUbigeo { get; set; }
         public string sDireccion { get; set; }
+        public string? sLogoData { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
