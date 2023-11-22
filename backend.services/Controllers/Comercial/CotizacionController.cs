@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Comercial;
+using backend.services.Utils;
 
 namespace backend.services.Controllers.Comercial
 {
@@ -163,8 +164,9 @@ namespace backend.services.Controllers.Comercial
 
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
+                        .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
                         .Replace("#sCorrelativo#", cotizacion.sCorrelativo)
-                        .Replace("#sFecha_crea#", cotizacion.sFecha_crea)
+                        .Replace("#sFecha#", cotizacion.sFecha_crea.Substring(0,10))
                         .Replace("#sNombreCliente#", cotizacion.sNombreCliente)
                         .Replace("#sDocumentoCliente#", cotizacion.sDocumentoCliente)
                         .Replace("#sProyecto#", cotizacion.sProyecto)
@@ -189,7 +191,8 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#nCuotas#", cotizacion.nCuotas?.ToString("N"))
                         .Replace("#nValorCuota#", cotizacion.nValorCuota?.ToString("N"))
                         .Replace("#nValorContado#", cotizacion.nValorContado?.ToString("N"))
-                        .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea);
+                        .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea)
+                        .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
                 html += "</div>";
 
                 string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");

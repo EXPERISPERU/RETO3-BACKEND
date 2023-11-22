@@ -35,6 +35,37 @@ namespace backend.repository.Maestros
             return list.ToList();
         }
 
+        public async Task<IList<SelectDTO>> getSelectTipoItem()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 2);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectSubTipoItem(int nIdTipo)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 3);
+                parameters.Add("nIdTipo", nIdTipo);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
         public async Task<SqlRspDTO> InsItem(ItemDTO item)
         {
             SqlRspDTO resp = new SqlRspDTO();
@@ -42,32 +73,17 @@ namespace backend.repository.Maestros
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 2);
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 4);
                 parameters.Add("sItem", item.sItem);
                 parameters.Add("sDescripcion", item.sDescripcion);
                 parameters.Add("nIdTipo", item.nIdTipo);
+                parameters.Add("nIdSubTipo", item.nIdSubTipo);
                 parameters.Add("nIdUsuario_crea", item.nIdUsuario_crea);
 
                 resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;
-        }
-
-
-        public async Task<IList<SelectDTO>> getListElementoSistema()
-        {
-            IEnumerable<SelectDTO> list = new List<SelectDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 4);
-
-                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
         }
 
         public async Task<SqlRspDTO> UpdItem(ItemDTO item)
@@ -77,11 +93,12 @@ namespace backend.repository.Maestros
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item]", 5);
                 parameters.Add("nIdItem", item.nIdItem);
                 parameters.Add("sItem", item.sItem);
                 parameters.Add("sDescripcion", item.sDescripcion);
                 parameters.Add("nIdTipo", item.nIdTipo);
+                parameters.Add("nIdSubTipo", item.nIdSubTipo);
                 parameters.Add("bActivo", item.bActivo);
                 parameters.Add("nIdUsuario_mod", item.nIdUsuario_mod);
 

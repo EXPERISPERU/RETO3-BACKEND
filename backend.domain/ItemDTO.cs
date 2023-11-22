@@ -12,6 +12,8 @@ namespace backend.domain
         public string? sDescripcion { get; set; }
         public int nIdTipo { get; set; }
         public string? sTipo { get; set; }
+        public int? nIdSubTipo { get; set; }
+        public string? sSubTipo { get; set; }
         public bool bActivo { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }

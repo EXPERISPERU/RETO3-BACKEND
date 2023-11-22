@@ -40,6 +40,50 @@ namespace backend.services.Controllers.Maestros
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoItem()
+        {
+
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectTipoItem();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectSubTipoItem(int nIdTipo)
+        {
+
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectSubTipoItem(nIdTipo);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
         [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsItem([FromBody] ItemDTO item)
         {
@@ -82,28 +126,5 @@ namespace backend.services.Controllers.Maestros
                 return StatusCode(500, response);
             }
         }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListElementoSistema()
-        {
-
-            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
-
-            try
-            {
-                var result = await service.getListElementoSistema();
-
-                response.success = true;
-                response.data = (List<SelectDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
     }
 }
