@@ -52,5 +52,25 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
         {
             return await repository.getSelectMonedaByCompania(nIdCompania);
         }
+
+        public async Task<IList<SelectDTO>> getSelectSectorByProyecto(int nIdProyecto)
+        {
+            return await repository.getSelectSectorByProyecto(nIdProyecto);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectManzanaBySector(int nIdSector)
+        {
+            return await repository.getSelectManzanaBySector(nIdSector);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana)
+        {
+            return await repository.getSelectLoteByManzana(nIdManzana);
+        }
+
+        public async Task<IList<InicialLoteDTO>> getListEspecificaInicialLote()
+        {
+            return await repository.getListEspecificaInicialLote();
+        }
     }
 }

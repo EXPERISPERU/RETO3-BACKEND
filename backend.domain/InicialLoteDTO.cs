@@ -13,6 +13,12 @@ namespace backend.domain
         public string? sCompania { get; set; }
         public int nIdProyecto { get; set; }
         public string? sProyecto { get; set; }
+        public int? nIdSector { get; set; }
+        public string? sSector { get; set; }
+        public int? nIdManzana { get; set; }
+        public string? sManzana { get; set; }
+        public int? nIdLote { get; set; }
+        public string? sLote { get; set; }
         public string sDescripcion { get; set; }
         public int nIdTipo { get; set; }
         public string? sTipo { get; set; }
