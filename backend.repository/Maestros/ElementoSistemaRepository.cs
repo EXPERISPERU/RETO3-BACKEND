@@ -64,6 +64,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sCodigo", elemento.sCodigo);
                 parameters.Add("sAbrev", elemento.sAbrev);
                 parameters.Add("sDescripcion", elemento.sDescripcion);
+                parameters.Add("nSubGrupo", elemento.nSubGrupo);
                 parameters.Add("nTipoElemento", elemento.nTipoElemento);
                 parameters.Add("nIdCompania", elemento.nIdCompania);
                 parameters.Add("bActivo", elemento.bActivo);
@@ -88,6 +89,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sCodigo", elemento.sCodigo);
                 parameters.Add("sAbrev", elemento.sAbrev);
                 parameters.Add("sDescripcion", elemento.sDescripcion);
+                parameters.Add("nSubGrupo", elemento.nSubGrupo);
                 parameters.Add("nTipoElemento", elemento.nTipoElemento);
                 parameters.Add("nIdCompania", elemento.nIdCompania);
                 parameters.Add("bActivo", elemento.bActivo);

@@ -13,6 +13,7 @@ namespace backend.domain
         public string? sCodigo { get; set; }
         public string sAbrev { get; set; }
         public string? sDescripcion { get; set; }
+        public int? nSubGrupo { get; set; }
         public bool bActivo { get; set; }
         public int nTipoElemento { get; set; }
         public string? sTipoElemento { get; set; }
