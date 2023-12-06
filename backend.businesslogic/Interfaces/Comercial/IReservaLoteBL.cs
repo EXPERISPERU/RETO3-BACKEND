@@ -6,5 +6,7 @@ namespace backend.businesslogic.Interfaces.Comercial
     {
         Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote);
         Task<SqlRspDTO> InsReserva(InsReservaDTO insReserva);
+        Task<ReciboIngresoReservaDTO> getReciboIngresoReserva(int nIdReservaLote);
+        Task<string> formatoReciboIngresoReserva();
     }
 }

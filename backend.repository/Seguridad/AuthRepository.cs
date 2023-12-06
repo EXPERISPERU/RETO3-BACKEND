@@ -21,9 +21,9 @@ namespace backend.repository.Seguridad
             _configuration = configuration;
         }
 
-        public async Task<SqlRspDTO> AuthUser(authLoginDTO authLogin)
+        public async Task<LoginDTO> AuthUser(authLoginDTO authLogin)
         {
-            SqlRspDTO resp = new SqlRspDTO();
+            LoginDTO resp = new LoginDTO();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -32,7 +32,7 @@ namespace backend.repository.Seguridad
                 parameters.Add("sUsuario", authLogin.sUsuario);
                 parameters.Add("sPassword", authLogin.sPassword);
 
-                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp = await connection.QuerySingleAsync<LoginDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;

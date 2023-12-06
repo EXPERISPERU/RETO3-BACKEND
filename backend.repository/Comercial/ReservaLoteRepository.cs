@@ -43,9 +43,43 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdLote", insReserva.nIdLote);
                 parameters.Add("nIdCliente", insReserva.nIdCliente);
                 parameters.Add("nIdPrecioServicio", insReserva.nIdPrecioServicio);
+                parameters.Add("nIdTipoGestionComercial", insReserva.nIdTipoGestionComercial);
+                parameters.Add("nIdEmpleado", insReserva.nIdEmpleado);
+                parameters.Add("nIdAgenteDealer", insReserva.nIdAgenteDealer);
                 parameters.Add("nIdUsuario_crea", insReserva.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<ReciboIngresoReservaDTO> getReciboIngresoReserva(int nIdReservaLote)
+        {
+            ReciboIngresoReservaDTO res = new ReciboIngresoReservaDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 3);
+                parameters.Add("nIdReservaLote", nIdReservaLote);
+
+                res = await connection.QuerySingleAsync<ReciboIngresoReservaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<string> formatoReciboIngresoReserva()
+        {
+            string res;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 4);
+
+                res = await connection.QuerySingleAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
