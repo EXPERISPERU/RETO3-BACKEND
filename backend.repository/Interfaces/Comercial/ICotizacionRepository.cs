@@ -17,5 +17,6 @@ namespace backend.repository.Interfaces.Comercial
         Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion);
         Task<CotizacionDTO> getCotizacionById(int nIdCotizacion);
         Task<string> formatoCotizacion();
+        Task<ClienteDTO> getClienteReservaByLote(int nIdLote);
     }
 }

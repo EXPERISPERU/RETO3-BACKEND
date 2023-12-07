@@ -17,6 +17,7 @@ namespace backend.domain
         public int nIdLote { get; set; }
         public string sLote { get; set; }
         public int nIdEstado { get; set; }
+        public string sCodigoEstado { get; set; }
         public string sEstado { get; set; }
         public int nIdGrupo { get; set; }
         public string sGrupo { get; set; }

@@ -168,5 +168,21 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+        public async Task<ClienteDTO> getClienteReservaByLote(int nIdLote)
+        {
+            ClienteDTO resp = new ClienteDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 9);
+                parameters.Add("nIdLote", nIdLote);
+
+                resp = await connection.QuerySingleAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }

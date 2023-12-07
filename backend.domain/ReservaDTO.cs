@@ -19,6 +19,20 @@ namespace backend.domain
 
     public class ReciboIngresoReservaDTO
     {
-        
+        public string sCorrelativo { get; set; }
+        public string sNombreCliente { get; set; }
+        public string sDocumento { get; set; }
+        public string sDireccion { get; set; }
+        public string sCelular { get; set; }
+        public string sFecha { get; set; }
+        public string sProyecto { get; set; }
+        public string sSector { get; set; }
+        public string sManzana { get; set; }
+        public string sLote { get; set; }
+        public decimal nMetraje { get; set; }
+        public string sFechaFinReserva { get; set; }
+        public string sNombrePromotor { get; set; }
+        public string sSimbolo { get; set; }
+        public string sTotal { get; set; }
     }
 }

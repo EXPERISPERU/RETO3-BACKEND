@@ -66,47 +66,34 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> getCotizacionFormato(int nIdReservaLote)
+        public async Task<ActionResult> getFormatoReciboIngresoReserva(int nIdReservaLote)
         {
             try
             {
-                ReciboIngresoReservaDTO cotizacion = await service.getReciboIngresoReserva(nIdReservaLote);
+                ReciboIngresoReservaDTO reciboIngresoReserva = await service.getReciboIngresoReserva(nIdReservaLote);
                 var sCuerpo = await service.formatoReciboIngresoReserva();
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
 
                 html += "<div class=\"page-break\">";
-                //html += sCuerpo
-                //        .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
-                //        .Replace("#sCorrelativo#", cotizacion.sCorrelativo)
-                //        .Replace("#sFecha#", cotizacion.sFecha_crea.Substring(0, 10))
-                //        .Replace("#sNombreCliente#", cotizacion.sNombreCliente)
-                //        .Replace("#sDocumentoCliente#", cotizacion.sDocumentoCliente)
-                //        .Replace("#sProyecto#", cotizacion.sProyecto)
-                //        .Replace("#sSector#", cotizacion.sSector)
-                //        .Replace("#sManzana#", cotizacion.sManzana)
-                //        .Replace("#sLote#", cotizacion.sLote)
-                //        .Replace("#nMetraje#", cotizacion.nMetraje.ToString("N"))
-                //        .Replace("#sTerreno#", cotizacion.sTerreno)
-                //        .Replace("#sZonificacion#", cotizacion.sZonificacion)
-                //        .Replace("#sUbicacion#", cotizacion.sUbicacion)
-                //        .Replace("#sDescripcion#", cotizacion.sDescripcion)
-                //        .Replace("#sEstado#", cotizacion.sEstado)
-                //        .Replace("#sSimbolo#", cotizacion.sSimbolo)
-                //        .Replace("#nPrecioVenta#", cotizacion.nPrecioVenta?.ToString("N"))
-                //        .Replace("#sValorInicial#", cotizacion.sValorInicial)
-                //        .Replace("#nInicial#", cotizacion.nInicial?.ToString("N"))
-                //        .Replace("#sValorDescuentoFin#", cotizacion.sValorDescuentoFin)
-                //        .Replace("#nDescuentoFin#", cotizacion.nDescuentoFin?.ToString("N"))
-                //        .Replace("#sValorDescuentoCon#", cotizacion.sValorDescuentoCon)
-                //        .Replace("#nDescuentoCon#", cotizacion.nDescuentoCon?.ToString("N"))
-                //        .Replace("#nValorFinanciado#", cotizacion.nValorFinanciado?.ToString("N"))
-                //        .Replace("#nCuotas#", cotizacion.nCuotas?.ToString("N"))
-                //        .Replace("#nValorCuota#", cotizacion.nValorCuota?.ToString("N"))
-                //        .Replace("#nValorContado#", cotizacion.nValorContado?.ToString("N"))
-                //        .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea)
-                //        .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
-                //html += "</div>";
+                html += sCuerpo
+                        .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
+                        .Replace("#sCorrelativo#", reciboIngresoReserva.sCorrelativo)
+                        .Replace("#sNombreCliente#", reciboIngresoReserva.sNombreCliente)
+                        .Replace("#sDocumentoCliente#", reciboIngresoReserva.sDocumento)
+                        .Replace("#sDireccionCliente#", reciboIngresoReserva.sDireccion)
+                        .Replace("#sCelularCliente#", reciboIngresoReserva.sCelular)
+                        .Replace("#sFecha#", reciboIngresoReserva.sFecha)
+                        .Replace("#sProyecto#", reciboIngresoReserva.sProyecto)
+                        .Replace("#sSector#", reciboIngresoReserva.sSector)
+                        .Replace("#sManzana#", reciboIngresoReserva.sManzana)
+                        .Replace("#sLote#", reciboIngresoReserva.sLote)
+                        .Replace("#sArea#", reciboIngresoReserva.nMetraje.ToString("N"))
+                        .Replace("#sFechaFin#", reciboIngresoReserva.sFechaFinReserva)
+                        .Replace("#sNombrePromotor#", reciboIngresoReserva.sNombrePromotor)
+                        .Replace("#sSimbolo#", reciboIngresoReserva.sSimbolo)
+                        .Replace("#sTotal#", reciboIngresoReserva.sTotal);
+                html += "</div>";
 
                 string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
                 ConverterProperties properties = new ConverterProperties();
