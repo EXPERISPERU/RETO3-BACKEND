@@ -54,9 +54,9 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<ReciboIngresoReservaDTO> getReciboIngresoReserva(int nIdReservaLote)
+        public async Task<DataReservaDTO> getDataReserva(int nIdReservaLote)
         {
-            ReciboIngresoReservaDTO res = new ReciboIngresoReservaDTO();
+            DataReservaDTO res = new DataReservaDTO();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -64,7 +64,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 3);
                 parameters.Add("nIdReservaLote", nIdReservaLote);
 
-                res = await connection.QuerySingleAsync<ReciboIngresoReservaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                res = await connection.QuerySingleAsync<DataReservaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
@@ -80,6 +80,22 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 4);
 
                 res = await connection.QuerySingleAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<DataReservaDTO> getDataReservaByLote(int nIdLote)
+        {
+            DataReservaDTO res = new DataReservaDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 6);
+                parameters.Add("nIdLote", nIdLote);
+
+                res = await connection.QuerySingleAsync<DataReservaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;

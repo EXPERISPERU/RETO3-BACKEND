@@ -17,8 +17,9 @@ namespace backend.domain
         public int nIdUsuario_crea { get; set; }
     }
 
-    public class ReciboIngresoReservaDTO
+    public class DataReservaDTO
     {
+        public int nIdReservaLote { get; set; }
         public string sCorrelativo { get; set; }
         public string sNombreCliente { get; set; }
         public string sDocumento { get; set; }

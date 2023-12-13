@@ -23,14 +23,19 @@ namespace backend.businesslogic.Comercial
             return await repository.InsReserva(insReserva);
         }
 
-        public async Task<ReciboIngresoReservaDTO> getReciboIngresoReserva(int nIdReservaLote)
+        public async Task<DataReservaDTO> getDataReserva(int nIdReservaLote)
         {
-            return await repository.getReciboIngresoReserva(nIdReservaLote);
+            return await repository.getDataReserva(nIdReservaLote);
         }
 
         public async Task<string> formatoReciboIngresoReserva()
         {
             return await repository.formatoReciboIngresoReserva();
+        }
+
+        public async Task<DataReservaDTO> getDataReservaByLote(int nIdLote)
+        {
+            return await repository.getDataReservaByLote(nIdLote);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace backend.services.Controllers.Comercial
         {
             try
             {
-                ReciboIngresoReservaDTO reciboIngresoReserva = await service.getReciboIngresoReserva(nIdReservaLote);
+                DataReservaDTO reciboIngresoReserva = await service.getDataReserva(nIdReservaLote);
                 var sCuerpo = await service.formatoReciboIngresoReserva();
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
@@ -110,6 +110,28 @@ namespace backend.services.Controllers.Comercial
             {
 
                 throw;
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<DataReservaDTO>>> getDataReservaByLote(int nIdLote)
+        {
+
+            ApiResponse<DataReservaDTO> response = new ApiResponse<DataReservaDTO>();
+
+            try
+            {
+                var result = await service.getDataReservaByLote(nIdLote);
+
+                response.success = true;
+                response.data = (DataReservaDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
             }
         }
     }
