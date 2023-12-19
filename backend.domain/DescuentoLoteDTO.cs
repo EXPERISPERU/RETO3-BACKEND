@@ -18,7 +18,7 @@ namespace backend.domain
         public string? sCondicionPago { get; set; }
         public int nIdTipo { get; set; }
         public string? sTipo { get; set; }
-        public int nIdMoneda { get; set; }
+        public int? nIdMoneda { get; set; }
         public string? sMoneda { get; set; }
         public string? sSimbolo { get; set; }
         public decimal nValor { get; set; }
