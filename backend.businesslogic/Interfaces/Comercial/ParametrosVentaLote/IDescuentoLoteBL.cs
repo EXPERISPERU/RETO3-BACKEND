@@ -13,5 +13,9 @@ namespace backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote
         Task<SqlRspDTO> InsDescuentoLote(DescuentoLoteDTO descuentoLote);
         Task<SqlRspDTO> UpdDescuentoLote(DescuentoLoteDTO descuentoLote);
         Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
+        Task<IList<DescuentoLoteDTO>> getListDescuentoLoteEspecifica();
+        Task<IList<SelectDTO>> getSelectSectorByProyecto(int nIdProyecto);
+        Task<IList<SelectDTO>> getSelectManzanaBySector(int nIdSector);
+        Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana);
     }
 }

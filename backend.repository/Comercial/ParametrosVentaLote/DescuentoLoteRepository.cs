@@ -117,6 +117,7 @@ namespace backend.repository.Comercial.ParametrosVentaLote
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 7);
                 parameters.Add("nIdProyecto", descuentoLote.nIdProyecto);
+                parameters.Add("nIdLote", descuentoLote.nIdLote);
                 parameters.Add("sDescripcion", descuentoLote.sDescripcion);
                 parameters.Add("nIdCondicionPago", descuentoLote.nIdCondicionPago);
                 parameters.Add("nIdTipo", descuentoLote.nIdTipo);
@@ -161,8 +162,71 @@ namespace backend.repository.Comercial.ParametrosVentaLote
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_inicial_lote]", 8);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 9);
                 parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<DescuentoLoteDTO>> getListDescuentoLoteEspecifica()
+        {
+            IEnumerable<DescuentoLoteDTO> list = new List<DescuentoLoteDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 10);
+
+                list = await connection.QueryAsync<DescuentoLoteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectSectorByProyecto(int nIdProyecto)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 11);
+                parameters.Add("nIdProyecto", nIdProyecto);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectManzanaBySector(int nIdSector)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 12);
+                parameters.Add("nIdSector", nIdSector);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 13);
+                parameters.Add("nIdManzana", nIdManzana);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

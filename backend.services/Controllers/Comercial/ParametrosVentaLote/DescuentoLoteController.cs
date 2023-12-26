@@ -206,5 +206,89 @@ namespace backend.services.Controllers.Comercial.ParametrosVentaLote
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<DescuentoLoteDTO>>>> getListDescuentoLoteEspecifica()
+        {
+            ApiResponse<List<DescuentoLoteDTO>> response = new ApiResponse<List<DescuentoLoteDTO>>();
+
+            try
+            {
+                var result = await service.getListDescuentoLoteEspecifica();
+
+                response.success = true;
+                response.data = (List<DescuentoLoteDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectSectorByProyecto(int nIdProyecto)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectSectorByProyecto(nIdProyecto);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectManzanaBySector(int nIdSector)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectManzanaBySector(nIdSector);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectLoteByManzana(int nIdManzana)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectLoteByManzana(nIdManzana);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
