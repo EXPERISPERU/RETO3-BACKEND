@@ -70,45 +70,65 @@ namespace backend.services.Controllers.Comercial
         {
             try
             {
-                DataReservaDTO reciboIngresoReserva = await service.getDataReserva(nIdReservaLote);
-                var sCuerpo = await service.formatoReciboIngresoReserva();
+                DataReservaDTO dataReserva = await service.getDataReserva(nIdReservaLote);
+                byte[] file;
 
-                var html = "<style>.page-break { page-break-after: always; }</style>";
+                if (dataReserva.nIdAdjunto == null)
+                {
+                    var sCuerpo = await service.formatoReciboIngresoReserva();
 
-                html += "<div class=\"page-break\">";
-                html += sCuerpo
-                        .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
-                        .Replace("#sCorrelativo#", reciboIngresoReserva.sCorrelativo)
-                        .Replace("#sNombreCliente#", reciboIngresoReserva.sNombreCliente)
-                        .Replace("#sDocumentoCliente#", reciboIngresoReserva.sDocumento)
-                        .Replace("#sDireccionCliente#", reciboIngresoReserva.sDireccion)
-                        .Replace("#sCelularCliente#", reciboIngresoReserva.sCelular)
-                        .Replace("#sFecha#", reciboIngresoReserva.sFecha)
-                        .Replace("#sProyecto#", reciboIngresoReserva.sProyecto)
-                        .Replace("#sSector#", reciboIngresoReserva.sSector)
-                        .Replace("#sManzana#", reciboIngresoReserva.sManzana)
-                        .Replace("#sLote#", reciboIngresoReserva.sLote)
-                        .Replace("#sArea#", reciboIngresoReserva.nMetraje.ToString("N"))
-                        .Replace("#sFechaFin#", reciboIngresoReserva.sFechaFinReserva)
-                        .Replace("#sNombrePromotor#", reciboIngresoReserva.sNombrePromotor)
-                        .Replace("#sSimbolo#", reciboIngresoReserva.sSimbolo)
-                        .Replace("#sTotal#", reciboIngresoReserva.sTotal);
-                html += "</div>";
+                    var html = "<style>.page-break { page-break-after: always; }</style>";
 
-                string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
-                ConverterProperties properties = new ConverterProperties();
-                properties.SetFontProvider(new DefaultFontProvider(true, true, true));
-                PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
-                pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
+                    html += "<div class=\"page-break\">";
+                    html += sCuerpo
+                            .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
+                            .Replace("#sCorrelativo#", dataReserva.sComprobante)
+                            .Replace("#sNombreCliente#", dataReserva.sNombreCliente)
+                            .Replace("#sDocumentoCliente#", dataReserva.sDocumento)
+                            .Replace("#sDireccionCliente#", dataReserva.sDireccion)
+                            .Replace("#sCelularCliente#", dataReserva.sCelular)
+                            .Replace("#sFecha#", dataReserva.sFecha)
+                            .Replace("#sProyecto#", dataReserva.sProyecto)
+                            .Replace("#sSector#", dataReserva.sSector)
+                            .Replace("#sManzana#", dataReserva.sManzana)
+                            .Replace("#sLote#", dataReserva.sLote)
+                            .Replace("#sArea#", dataReserva.nMetraje.ToString("N"))
+                            .Replace("#sFechaFin#", dataReserva.sFechaFinReserva)
+                            .Replace("#sNombrePromotor#", dataReserva.sNombrePromotor)
+                            .Replace("#sSimbolo#", dataReserva.sSimbolo)
+                            .Replace("#sTotal#", dataReserva.sTotal);
+                    html += "</div>";
 
-                HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
+                    string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+                    ConverterProperties properties = new ConverterProperties();
+                    properties.SetFontProvider(new DefaultFontProvider(true, true, true));
+                    PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
+                    pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
 
-                byte[] file = System.IO.File.ReadAllBytes(path);
+                    HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
+
+                    file = System.IO.File.ReadAllBytes(path);
+
+                    string sRutaFile = string.Format("comprobantes/{0}.pdf", dataReserva.nIdComprobante);
+
+                    ApiResponse<string> resFtp = new FtpClient().UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+
+                    if (resFtp.success)
+                    {
+                        await service.InsComprobanteAdjunto(dataReserva.nIdComprobante.GetValueOrDefault(), sRutaFile);
+                    }
+
+                }
+                else
+                {
+                    file = new FtpClient().DownloadFile(dataReserva.sRutaFtp);
+                }
+                
                 return File(file, "application/pdf");
             }
             catch (Exception)
             {
-
+      
                 throw;
             }
         }

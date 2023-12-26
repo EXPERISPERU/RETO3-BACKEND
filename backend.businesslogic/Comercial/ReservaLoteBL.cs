@@ -37,5 +37,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getDataReservaByLote(nIdLote);
         }
+
+        public async Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp)
+        {
+            return await repository.InsComprobanteAdjunto(nIdComprobante, sRutaFtp);
+        }
     }
 }

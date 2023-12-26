@@ -9,5 +9,6 @@ namespace backend.repository.Interfaces.Comercial
         Task<DataReservaDTO> getDataReserva(int nIdReservaLote);
         Task<string> formatoReciboIngresoReserva();
         Task<DataReservaDTO> getDataReservaByLote(int nIdLote);
+        Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp);
     }
 }

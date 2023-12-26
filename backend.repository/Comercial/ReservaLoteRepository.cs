@@ -100,5 +100,22 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+        public async Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 7);
+                parameters.Add("nIdComprobante", nIdComprobante);
+                parameters.Add("sRutaFtp", sRutaFtp);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }

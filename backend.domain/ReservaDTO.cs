@@ -20,7 +20,10 @@ namespace backend.domain
     public class DataReservaDTO
     {
         public int nIdReservaLote { get; set; }
-        public string sCorrelativo { get; set; }
+        public int? nIdComprobante { get; set; }
+        public int? nIdAdjunto { get; set; }
+        public string? sRutaFtp { get; set; }
+        public string sComprobante { get; set; }
         public string sNombreCliente { get; set; }
         public string sDocumento { get; set; }
         public string sDireccion { get; set; }
