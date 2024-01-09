@@ -22,5 +22,10 @@ namespace backend.businesslogic.Comercial
         { 
             return await repository.getSelectPrecioPreVentaByLoteInicial(nIdLote, nValorInicial);
         }
+
+        public async Task<SqlRspDTO> InsPreventaLote(InsPreVentaLoteDTO insPreventaLote)
+        {
+            return await repository.InsPreventaLote(insPreventaLote);
+        }
     }
 }

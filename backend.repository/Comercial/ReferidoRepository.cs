@@ -66,7 +66,7 @@ namespace backend.repository.Comercial
 
         public async Task<SqlRspDTO> InsReferido(int nIdCliente, int nIdUsuario)
         {
-            SqlRspDTO res = new SqlRspDTO(); ;
+            SqlRspDTO res = new SqlRspDTO();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
