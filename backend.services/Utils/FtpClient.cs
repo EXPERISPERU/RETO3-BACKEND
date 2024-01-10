@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using backend.domain;
 
 namespace backend.services.Utils
 {

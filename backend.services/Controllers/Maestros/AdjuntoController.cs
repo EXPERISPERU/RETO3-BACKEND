@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout;
+using backend.domain;
 
 namespace backend.services.Controllers.Maestros
 {
