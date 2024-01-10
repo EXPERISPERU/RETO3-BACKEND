@@ -62,5 +62,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getClienteReservaByLote(nIdLote);
         }
+
+        public async Task<ClienteDTO> getClientePreVentaByLote(int nIdLote)
+        { 
+            return await repository.getClientePreVentaByLote(nIdLote);
+        }
     }
 }

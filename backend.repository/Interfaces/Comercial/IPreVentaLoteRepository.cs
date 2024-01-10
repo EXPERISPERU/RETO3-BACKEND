@@ -10,5 +10,6 @@ namespace backend.repository.Interfaces.Comercial
     public interface IPreVentaLoteRepository
     {
         Task<IList<SelectDTO>> getSelectPrecioPreVentaByLoteInicial(int nIdLote, decimal nValorInicial);
+        Task<SqlRspDTO> InsPreventaLote(InsPreVentaLoteDTO insPreventaLote);
     }
 }

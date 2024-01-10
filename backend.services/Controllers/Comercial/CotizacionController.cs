@@ -233,5 +233,26 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<ClienteDTO>>> getClientePreVentaByLote(int nIdLote)
+        {
+            ApiResponse<ClienteDTO> response = new ApiResponse<ClienteDTO>();
+
+            try
+            {
+                var result = await service.getClientePreVentaByLote(nIdLote);
+
+                response.success = true;
+                response.data = (ClienteDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
