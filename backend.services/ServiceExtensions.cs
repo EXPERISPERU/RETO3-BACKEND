@@ -75,6 +75,8 @@ namespace backend.services
             services.AddScoped<ILoteRepository, LoteRepository>();
 
             services.AddScoped<IItemRepository, ItemRepository>();
+
+            services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -121,6 +123,8 @@ namespace backend.services
             services.AddScoped<ILoteBL, LoteBL>();
 
             services.AddScoped<IItemBL, ItemBL>();
+
+            services.AddScoped<IReporteVentasBL, ReporteVentasBL>();
         }
     }
 }
