@@ -200,5 +200,20 @@ namespace backend.repository.Comercial
 
             return resp;
         }
+
+        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones()
+        {
+            IEnumerable<ReporteCotizacionesDTO> list = new List<ReporteCotizacionesDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 12);
+
+                list = await connection.QueryAsync<ReporteCotizacionesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }

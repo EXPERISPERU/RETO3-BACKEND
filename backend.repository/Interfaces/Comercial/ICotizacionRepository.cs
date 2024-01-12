@@ -19,5 +19,6 @@ namespace backend.repository.Interfaces.Comercial
         Task<string> formatoCotizacion();
         Task<ClienteDTO> getClienteReservaByLote(int nIdLote);
         Task<ClienteDTO> getClientePreVentaByLote(int nIdLote);
+        Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones();
     }
 }
