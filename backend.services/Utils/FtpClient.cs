@@ -16,6 +16,7 @@ namespace backend.services.Utils
         private string ftpUrlServer = "ftp://10.48.0.13/";
         private string ftpUser = "imbftp";
         private string ftpPassword = "$1mbftpcl1";
+        private bool ftpOpen = true;  /* PARA PRUEBAS : false, PARA PRODUCCION : true*/
 
         public string sContentType(string sFileExtension)
         {
@@ -41,7 +42,7 @@ namespace backend.services.Utils
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrlServer + ftpPath);
                 request.Method = WebRequestMethods.Ftp.ListDirectory;
                 request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
-                request.UsePassive = false;  // Para pruebas locales
+                request.UsePassive = ftpOpen;  // Para pruebas locales
                 //request.UsePassive = true;
 
                 using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
@@ -70,7 +71,7 @@ namespace backend.services.Utils
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrlServer + ftpPath);
                 request.Method = WebRequestMethods.Ftp.MakeDirectory;
                 request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
-                request.UsePassive = false;  // Para pruebas locales
+                request.UsePassive = ftpOpen;  // Para pruebas locales
                 //request.UsePassive = true;
 
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
@@ -101,7 +102,7 @@ namespace backend.services.Utils
                 FtpWebRequest request = (FtpWebRequest) WebRequest.Create(ftpUrlServer+file.sRutaFile);
                 request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
                 request.Method = WebRequestMethods.Ftp.UploadFile;
-                request.UsePassive = false;  // Para pruebas locales
+                request.UsePassive = ftpOpen;  // Para pruebas locales
                 //request.UsePassive = true;
 
                 byte[] bytes = file.data;
@@ -128,7 +129,7 @@ namespace backend.services.Utils
                 FtpWebRequest request = (FtpWebRequest) WebRequest.Create(ftpUrlServer + sArchivo);
                 request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
-                request.UsePassive = false;  // Para pruebas locales
+                request.UsePassive = ftpOpen;  // Para pruebas locales
                 //request.UsePassive = true;
 
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
