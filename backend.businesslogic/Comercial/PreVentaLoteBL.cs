@@ -27,5 +27,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.InsPreventaLote(insPreventaLote);
         }
+
+        public async Task<IList<SelectDTO>> getSelectMedioPago(int nIdUsuario)
+        {
+            return await repository.getSelectMedioPago(nIdUsuario);
+        }
     }
 }

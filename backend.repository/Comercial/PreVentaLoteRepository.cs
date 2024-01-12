@@ -70,5 +70,21 @@ namespace backend.repository.Comercial
             return res;
         }
 
+        public async Task<IList<SelectDTO>> getSelectMedioPago(int nIdUsuario)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_preventa_lote]", 3);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

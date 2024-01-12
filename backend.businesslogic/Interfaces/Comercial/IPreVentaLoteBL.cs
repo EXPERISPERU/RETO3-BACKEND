@@ -11,5 +11,6 @@ namespace backend.businesslogic.Interfaces.Comercial
     {
         Task<IList<SelectDTO>> getSelectPrecioPreVentaByLoteInicial(int nIdLote, decimal nValorInicial);
         Task<SqlRspDTO> InsPreventaLote(InsPreVentaLoteDTO insPreventaLote);
+        Task<IList<SelectDTO>> getSelectMedioPago(int nIdUsuario);
     }
 }
