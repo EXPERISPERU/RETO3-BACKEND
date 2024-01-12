@@ -189,5 +189,24 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<ClienteDTO>>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE)
+        {
+            ApiResponse<ClienteDTO> response = new ApiResponse<ClienteDTO>();
+
+            try
+            {
+                response = await service.findClienteGCByDoc(nIdUsuario, sDNI, sCE);
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }

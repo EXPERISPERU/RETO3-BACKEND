@@ -17,5 +17,7 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SelectDTO>> getListEstadoCivil();
         Task<SqlRspDTO> InsCliente(ClienteDTO cliente);
         Task<SqlRspDTO> UpdCliente(ClienteDTO cliente);
+        Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE);
+
     }
 }

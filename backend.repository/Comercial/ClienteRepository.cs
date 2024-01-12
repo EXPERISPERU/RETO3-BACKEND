@@ -182,5 +182,27 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE)
+        {
+            ApiResponse<ClienteDTO> resp = new ApiResponse<ClienteDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 9);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("sDNI", sDNI);
+                parameters.Add("sCE", sCE);
+                parameters.Add("success", resp.success, direction: ParameterDirection.Output);
+                parameters.Add("errMsj", resp.errMsj, direction: ParameterDirection.Output, size : int.MaxValue);
+
+                resp.data = await connection.QuerySingleOrDefaultAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp.success = parameters.Get<bool>("success");
+                resp.errMsj = parameters.Get<string>("errMsj");
+            }
+
+            return resp;
+        }
     }
 }
