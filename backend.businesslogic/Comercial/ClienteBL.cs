@@ -57,5 +57,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.UpdCliente(cliente);
         }
+
+        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE)
+        {
+            return await repository.findClienteGCByDoc(nIdUsuario, sDNI, sCE);
+        }
     }
 }
