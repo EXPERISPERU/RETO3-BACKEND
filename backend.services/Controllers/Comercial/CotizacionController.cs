@@ -254,5 +254,26 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReporteCotizacionesDTO>>>> getListReporteCotizaciones()
+        {
+            ApiResponse<List<ReporteCotizacionesDTO>> response = new ApiResponse<List<ReporteCotizacionesDTO>>();
+
+            try
+            {
+                var result = await service.getListReporteCotizaciones();
+
+                response.success = true;
+                response.data = (List<ReporteCotizacionesDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
