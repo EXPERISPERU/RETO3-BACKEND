@@ -185,7 +185,7 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<ClienteDTO> getClientePreVentaByLote(int nIdLote)
+        public async Task<ClienteDTO> getClientePreContratoByLote(int nIdLote)
         {
             ClienteDTO resp = new ClienteDTO();
 

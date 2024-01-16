@@ -235,13 +235,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ClienteDTO>>> getClientePreVentaByLote(int nIdLote)
+        public async Task<ActionResult<ApiResponse<ClienteDTO>>> getClientePreContratoByLote(int nIdLote)
         {
             ApiResponse<ClienteDTO> response = new ApiResponse<ClienteDTO>();
 
             try
             {
-                var result = await service.getClientePreVentaByLote(nIdLote);
+                var result = await service.getClientePreContratoByLote(nIdLote);
 
                 response.success = true;
                 response.data = (ClienteDTO)result;
