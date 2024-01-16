@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace backend.businesslogic.Comercial
 {
-    public class PreVentaLoteBL : IPreVentaLoteBL
+    public class PreContratoLoteBL : IPreContratoLoteBL
     {
-        IPreVentaLoteRepository repository;
+        IPreContratoLoteRepository repository;
 
-        public PreVentaLoteBL(IPreVentaLoteRepository _repository)
+        public PreContratoLoteBL(IPreContratoLoteRepository _repository)
         {
             this.repository = _repository;
         }
 
-        public async Task<IList<SelectDTO>> getSelectPrecioPreVentaByLoteInicial(int nIdLote, decimal nValorInicial)
+        public async Task<IList<SelectDTO>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial)
         { 
-            return await repository.getSelectPrecioPreVentaByLoteInicial(nIdLote, nValorInicial);
+            return await repository.getSelectPrecioPreContratoByLoteInicial(nIdLote, nValorInicial);
         }
 
-        public async Task<SqlRspDTO> InsPreventaLote(InsPreVentaLoteDTO insPreventaLote)
+        public async Task<SqlRspDTO> InsPreContratoLote(InsPreContratoLoteDTO insPreContratoLote)
         {
-            return await repository.InsPreventaLote(insPreventaLote);
+            return await repository.InsPreContratoLote(insPreContratoLote);
         }
 
         public async Task<IList<SelectDTO>> getSelectMedioPago(int nIdUsuario)

@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
-    public class InsPreVentaLoteDTO
+    public class InsPreContratoLoteDTO
     {
         public int nIdLote { get; set; }
         public int nIdPrecioServicio { get; set; }
-        public decimal nValorPreventa { get; set; }
+        public decimal nValorPreContrato { get; set; }
         public int nIdCliente { get; set; }
         public int nIdTipoGestionComercial { get; set; }
         public int? nIdAgenteDealer { get; set; }
         public int? nIdEmpleado { get; set; }
         public int nIdMoneda { get; set; }
+        public int nMedioPago { get; set; }
         public int nIdAsignacionPrecio { get; set; }
         public int? nIdDescuentoLote { get; set; }
         public int nIdInicialLote { get; set; }

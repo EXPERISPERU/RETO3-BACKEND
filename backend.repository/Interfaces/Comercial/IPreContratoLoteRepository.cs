@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace backend.repository.Interfaces.Comercial
 {
-    public interface IPreVentaLoteRepository
+    public interface IPreContratoLoteRepository
     {
-        Task<IList<SelectDTO>> getSelectPrecioPreVentaByLoteInicial(int nIdLote, decimal nValorInicial);
-        Task<SqlRspDTO> InsPreventaLote(InsPreVentaLoteDTO insPreventaLote);
+        Task<IList<SelectDTO>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial);
+        Task<SqlRspDTO> InsPreContratoLote(InsPreContratoLoteDTO insPreContratoLote);
         Task<IList<SelectDTO>> getSelectMedioPago(int nIdUsuario);
     }
 }

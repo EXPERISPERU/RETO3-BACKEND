@@ -7,24 +7,24 @@ namespace backend.services.Controllers.Comercial
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PreVentaLoteController : ControllerBase
+    public class PreContratoLoteController : ControllerBase
     {
-        private readonly IPreVentaLoteBL service;
+        private readonly IPreContratoLoteBL service;
 
-        public PreVentaLoteController(IPreVentaLoteBL _service)
+        public PreContratoLoteController(IPreContratoLoteBL _service)
         {
             this.service = _service;
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioPreVentaByLoteInicial(int nIdLote, decimal nValorInicial)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectPrecioPreVentaByLoteInicial(nIdLote, nValorInicial);
+                var result = await service.getSelectPrecioPreContratoByLoteInicial(nIdLote, nValorInicial);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -39,13 +39,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsPreventaLote([FromBody] InsPreVentaLoteDTO insPreventaLote)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsPreContratoLote([FromBody] InsPreContratoLoteDTO insPreContratoLote)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsPreventaLote(insPreventaLote);
+                var result = await service.InsPreContratoLote(insPreContratoLote);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
