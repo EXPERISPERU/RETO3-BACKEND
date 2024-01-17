@@ -62,6 +62,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nMontoFinal", insPreContratoLote.nMontoFinal);
                 parameters.Add("nMontoInicial", insPreContratoLote.nMontoInicial);
                 parameters.Add("nMontoFinanciado", insPreContratoLote.nMontoFinanciado);
+                parameters.Add("nIdCuota", insPreContratoLote.nIdCuota);
                 parameters.Add("nCuotas", insPreContratoLote.nCuotas);
                 parameters.Add("nIdUsuario_crea", insPreContratoLote.nIdUsuario_crea);
 
@@ -87,5 +88,36 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
+        public async Task<ContratoDTO> getDataPreContratoByLote(int nIdLote, int nIdUsuario)
+        {
+            ContratoDTO res = new ContratoDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 4);
+                parameters.Add("nIdLote", nIdLote);
+
+                res = await connection.QuerySingleAsync<ContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato)
+        {
+            IEnumerable<OrdenPagoPreContratoDTO> list = new List<OrdenPagoPreContratoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 5);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                list = await connection.QueryAsync<OrdenPagoPreContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }

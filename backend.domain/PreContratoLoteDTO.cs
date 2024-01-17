@@ -25,7 +25,22 @@ namespace backend.domain
         public decimal nMontoFinal { get; set; }
         public decimal nMontoInicial { get; set; }
         public decimal nMontoFinanciado { get; set; }
+        public int nIdCuota { get; set; }
         public int nCuotas { get; set; }
         public int nIdUsuario_crea { get; set; }
+    }
+
+    public class OrdenPagoPreContratoDTO
+    { 
+        public DateTime dFecha_crea { get; set; }
+        public string sFecha_crea { get; set; }
+        public int nIdMoneda { get; set; }
+        public string sMoneda { get; set; }
+        public string sSimbolo { get; set; }
+        public decimal nValorTotal { get; set; }
+        public string sEstado { get; set; }
+        public DateTime dFecha_pago { get; set; }
+        public string sFecha_pago { get; set; }
+        public int nIdComprobante { get; set; }
     }
 }

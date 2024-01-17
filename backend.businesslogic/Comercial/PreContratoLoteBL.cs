@@ -32,5 +32,15 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getSelectMedioPago(nIdUsuario);
         }
+
+        public async Task<ContratoDTO> getDataPreContratoByLote(int nIdLote, int nIdUsuario)
+        {
+            return await repository.getDataPreContratoByLote(nIdLote, nIdUsuario);
+        }
+
+        public async Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato)
+        {
+            return await repository.getListOPsPreContratoByContrato(nIdContrato);
+        }
     }
 }

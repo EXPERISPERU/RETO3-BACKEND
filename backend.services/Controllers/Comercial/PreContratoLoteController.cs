@@ -62,7 +62,6 @@ namespace backend.services.Controllers.Comercial
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectMedioPago(int nIdUsuario)
         {
-
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
@@ -71,6 +70,48 @@ namespace backend.services.Controllers.Comercial
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<ContratoDTO>>> getDataPreContratoByLote(int nIdLote, int nIdUsuario)
+        {
+            ApiResponse<ContratoDTO> response = new ApiResponse<ContratoDTO>();
+
+            try
+            {
+                var result = await service.getDataPreContratoByLote(nIdLote, nIdUsuario);
+
+                response.success = true;
+                response.data = (ContratoDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<OrdenPagoPreContratoDTO>>>> getListOPsPreContratoByContrato(int nIdContrato)
+        {
+            ApiResponse<List<OrdenPagoPreContratoDTO>> response = new ApiResponse<List<OrdenPagoPreContratoDTO>>();
+
+            try
+            {
+                var result = await service.getListOPsPreContratoByContrato(nIdContrato);
+
+                response.success = true;
+                response.data = (List<OrdenPagoPreContratoDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
