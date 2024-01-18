@@ -8,11 +8,13 @@ using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.services.Controllers.Comercial
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReservaLoteController : ControllerBase
     {
         private readonly IReservaLoteBL service;

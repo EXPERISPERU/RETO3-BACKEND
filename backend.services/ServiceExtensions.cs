@@ -68,6 +68,7 @@ namespace backend.services
             services.AddScoped<IPrecioServicioRepository, PrecioServicioRepository>();
             services.AddScoped<IReservaLoteRepository, ReservaLoteRepository>();
             services.AddScoped<IPreContratoLoteRepository, PreContratoLoteRepository>();
+            services.AddScoped<IVentaLoteRepository, VentaLoteRepository>();
 
             services.AddScoped<IProyectoRepository, ProyectoRepository>();
             services.AddScoped<ISectorRepository, SectorRepository>();
@@ -116,6 +117,7 @@ namespace backend.services
             services.AddScoped<IPrecioServicioBL, PrecioServicioBL>();
             services.AddScoped<IReservaLoteBL, ReservaLoteBL>();
             services.AddScoped<IPreContratoLoteBL, PreContratoLoteBL>();
+            services.AddScoped<IVentaLoteBL, VentaLoteBL>();
 
             services.AddScoped<IProyectoBL, ProyectoBL>();
             services.AddScoped<ISectorBL, SectorBL>();

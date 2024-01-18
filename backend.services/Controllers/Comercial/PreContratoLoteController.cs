@@ -1,5 +1,6 @@
 ﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace backend.services.Controllers.Comercial
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PreContratoLoteController : ControllerBase
     {
         private readonly IPreContratoLoteBL service;

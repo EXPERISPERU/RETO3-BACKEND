@@ -43,7 +43,7 @@ namespace backend.domain
 		public DateTime? dFechaFin { get; set; }
 		public int? nIdCuota { get; set; }
 		public int? nCuotas { get; set; }
-        public int? nIdCicloFacturacion { get; set; }
+        public int? nIdCicloPago { get; set; }
 		public int nIdEstado { get; set; }
 		public string? sEstado { get; set; }
         public int nIdUsuario_crea { get; set; }
