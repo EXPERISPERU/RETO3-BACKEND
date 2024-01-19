@@ -1,10 +1,12 @@
 ﻿using backend.businesslogic.Comercial;
 using backend.businesslogic.Comercial.ParametrosVentaLote;
 using backend.businesslogic.Comercial.ParametrosVentaProducto;
+using backend.businesslogic.Contratos;
 using backend.businesslogic.Dealers;
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaProducto;
+using backend.businesslogic.Interfaces.Contratos;
 using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
 using backend.businesslogic.Interfaces.Proyectos;
@@ -15,10 +17,12 @@ using backend.businesslogic.Seguridad;
 using backend.repository.Comercial;
 using backend.repository.Comercial.ParametrosVentaLote;
 using backend.repository.Comercial.ParametrosVentaProducto;
+using backend.repository.Contratos;
 using backend.repository.Dealers;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Comercial.ParametrosVentaProducto;
+using backend.repository.Interfaces.Contratos;
 using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
 using backend.repository.Interfaces.Proyectos;
@@ -78,6 +82,8 @@ namespace backend.services
             services.AddScoped<IItemRepository, ItemRepository>();
 
             services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
+            
+            services.AddScoped<IContratoRepository, ContratoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -127,6 +133,7 @@ namespace backend.services
             services.AddScoped<IItemBL, ItemBL>();
 
             services.AddScoped<IReporteVentasBL, ReporteVentasBL>();
+            services.AddScoped<IContratoBL, ContratoBL>();
         }
     }
 }
