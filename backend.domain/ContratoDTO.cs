@@ -11,8 +11,9 @@ namespace backend.domain
 		public int nIdContrato { get; set; }
 		public int? nIdContratoO { get; set; }
 		public int nIdCondicionPago { get; set; }
+		public string? sCodigoCondicionPago { get; set; }
 		public string? sCondicionPago { get; set; }
-		public int nIdLote { get; set; }
+        public int nIdLote { get; set; }
 		public string? sLote { get; set; }
 		public int? nIdManzana { get; set; }
 		public string? sManzana { get; set; }

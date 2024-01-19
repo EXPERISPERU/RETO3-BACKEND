@@ -152,5 +152,37 @@ namespace backend.repository.Contratos
 
             return list.ToList();
         }
+
+        public async Task<ContratoDTO> getContratoById(int nIdContrato)
+        {
+            ContratoDTO res = new ContratoDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 9);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                res = await connection.QuerySingleAsync<ContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<CronogramaDTO>> getListCronogramaByContrato(int nIdContrato)
+        {
+            IEnumerable<CronogramaDTO> list = new List<CronogramaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 10);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                list = await connection.QueryAsync<CronogramaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }

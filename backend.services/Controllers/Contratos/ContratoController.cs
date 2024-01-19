@@ -186,5 +186,47 @@ namespace backend.services.Controllers.Contratos
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<ContratoDTO>>> getContratoById(int nIdContrato)
+        {
+            ApiResponse<ContratoDTO> response = new ApiResponse<ContratoDTO>();
+
+            try
+            {
+                var result = await service.getContratoById(nIdContrato);
+
+                response.success = true;
+                response.data = (ContratoDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<CronogramaDTO>>>> getListCronogramaByContrato(int nIdContrato)
+        {
+            ApiResponse<List<CronogramaDTO>> response = new ApiResponse<List<CronogramaDTO>>();
+
+            try
+            {
+                var result = await service.getListCronogramaByContrato(nIdContrato);
+
+                response.success = true;
+                response.data = (List<CronogramaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

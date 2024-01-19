@@ -17,5 +17,7 @@ namespace backend.repository.Interfaces.Contratos
         Task<IList<SelectDTO>> getSelectCondicionPago();
         Task<IList<SelectDTO>> getSelectEstadoContrato();
         Task<IList<ContratoDTO>> getListContratoByFilters(ContratoFiltrosDTO contratoFiltros);
+        Task<ContratoDTO> getContratoById(int nIdContrato);
+        Task<IList<CronogramaDTO>> getListCronogramaByContrato(int nIdContrato);
     }
 }
