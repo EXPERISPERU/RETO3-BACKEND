@@ -13,6 +13,9 @@ namespace backend.domain
         public int nIdEstado { get; set; }
         public string? sEstado { get; set; }
         public int nNroCuota { get; set; }
+        public int nIdMoneda { get; set; }
+        public string? sMoneda { get; set; }
+        public string? sSimbolo { get; set; }
         public decimal nMonto { get; set; }
         public int nMontoMora { get; set; }
         public decimal nMontoFinal { get; set; }

@@ -62,6 +62,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nMontoFinal", insPreContratoLote.nMontoFinal);
                 parameters.Add("nMontoInicial", insPreContratoLote.nMontoInicial);
                 parameters.Add("nMontoFinanciado", insPreContratoLote.nMontoFinanciado);
+                parameters.Add("nValorCuota", insPreContratoLote.nValorCuota);
                 parameters.Add("nIdCuota", insPreContratoLote.nIdCuota);
                 parameters.Add("nCuotas", insPreContratoLote.nCuotas);
                 parameters.Add("nIdUsuario_crea", insPreContratoLote.nIdUsuario_crea);

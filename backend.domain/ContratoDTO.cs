@@ -52,7 +52,8 @@ namespace backend.domain
 		public DateTime? dFechaFin { get; set; }
 		public int? nIdCuota { get; set; }
 		public int? nCuotas { get; set; }
-		public int? nIdCicloPago { get; set; }
+        public decimal? nValorCuota { get; set; }
+        public int? nIdCicloPago { get; set; }
 		public int? nDiaPago { get; set; }
 		public int nIdEstado { get; set; }
 		public string? sEstado { get; set; }
@@ -76,5 +77,21 @@ namespace backend.domain
 		public string? sDocumento { get; set; }
 		public int? nIdCondicionPago { get; set; }
 		public int? nIdEstado { get; set; }
+    }
+
+    public class OrdenPagoPreContratoDTO
+    {
+        public DateTime dFecha_crea { get; set; }
+        public string sFecha_crea { get; set; }
+        public string sItem { get; set; }
+        public int nIdMoneda { get; set; }
+        public string sMoneda { get; set; }
+        public string sSimbolo { get; set; }
+        public decimal nValorTotal { get; set; }
+        public string sEstado { get; set; }
+        public DateTime dFecha_pago { get; set; }
+        public string sFecha_pago { get; set; }
+        public int nIdComprobante { get; set; }
+        public string sComprobante { get; set; }
     }
 }

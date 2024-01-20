@@ -26,6 +26,7 @@ namespace backend.domain
         public decimal nMontoFinal { get; set; }
         public decimal? nMontoInicial { get; set; }
         public decimal? nMontoFinanciado { get; set; }
+        public decimal? nValorCuota { get; set; }
         public int? nIdCuota { get; set; }
         public int? nCuotas { get; set; }
         public int? nIdCicloPago { get; set; }

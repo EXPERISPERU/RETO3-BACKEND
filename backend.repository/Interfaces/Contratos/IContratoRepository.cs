@@ -19,5 +19,6 @@ namespace backend.repository.Interfaces.Contratos
         Task<IList<ContratoDTO>> getListContratoByFilters(ContratoFiltrosDTO contratoFiltros);
         Task<ContratoDTO> getContratoById(int nIdContrato);
         Task<IList<CronogramaDTO>> getListCronogramaByContrato(int nIdContrato);
+        Task<IList<OrdenPagoPreContratoDTO>> getListOrdenPagoByContrato(int nIdContrato);
     }
 }
