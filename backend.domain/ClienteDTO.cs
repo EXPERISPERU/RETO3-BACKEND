@@ -40,4 +40,18 @@ namespace backend.domain
         public DateTime? dFecha_mod { get; set; }
         public string? sFecha_mod { get; set; }
     }
+
+    public class SunatRQPersonaDTO
+    { 
+        public int tipDocu { get; set; }
+        public string numDocu { get; set; }
+        public string tipPers { get; set; }
+    }
+
+    public class PersonaSunatDTO
+    {
+        public string? apeMatSoli { get; set; }
+        public string? apePatSoli { get; set; }
+        public string? nombreSoli { get; set; }
+    }
 }

@@ -3,6 +3,9 @@ using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
+using System.Xml;
 
 namespace backend.services.Controllers.Comercial
 {
@@ -198,6 +201,42 @@ namespace backend.services.Controllers.Comercial
             {
                 response = await service.findClienteGCByDoc(nIdUsuario, sDNI, sCE);
 
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<PersonaSunatDTO>>> findClienteSunatByDoc(string sDNI)
+        {
+            ApiResponse<PersonaSunatDTO> response = new ApiResponse<PersonaSunatDTO>();
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var jsonRQ = new SunatRQPersonaDTO() { tipDocu = 1, numDocu = sDNI, tipPers = "natural" };
+                    var payload = JsonSerializer.Serialize(jsonRQ);
+                    var content = new StringContent(payload, Encoding.UTF8, "application/json");
+                    try
+                    {
+                        HttpResponseMessage res = await client.PostAsync("https://ww1.sunat.gob.pe/ol-ti-itatencionf5030/registro/solicitante", content);
+                        res.EnsureSuccessStatusCode();
+                        string responseBody = await res.Content.ReadAsStringAsync();
+                        response.data = JsonSerializer.Deserialize<PersonaSunatDTO>(responseBody);
+                        response.success = true;
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        response.success = false;
+                        response.errMsj = e.Message;
+                    }
+                }
                 return StatusCode(200, response);
             }
             catch (Exception ex)
