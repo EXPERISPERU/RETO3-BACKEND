@@ -19,13 +19,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles(int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles(int nIdCompania, int nIdUsuario)
         {
             ApiResponse<List<LotesDisponiblesDTO>> response = new ApiResponse<List<LotesDisponiblesDTO>>();
 
             try
             {
-                var result = await service.getListLotesDisponibles(nIdCompania);
+                var result = await service.getListLotesDisponibles(nIdCompania, nIdUsuario);
 
                 response.success = true;
                 response.data = (List<LotesDisponiblesDTO>)result;

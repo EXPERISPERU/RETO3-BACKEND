@@ -21,7 +21,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania)
+        public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania, int nIdUsuario)
         {
             IEnumerable<LotesDisponiblesDTO> list = new List<LotesDisponiblesDTO>();
 
@@ -30,6 +30,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 1);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
 
                 list = await connection.QueryAsync<LotesDisponiblesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

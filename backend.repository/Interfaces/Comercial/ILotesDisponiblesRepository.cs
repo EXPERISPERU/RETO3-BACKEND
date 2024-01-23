@@ -9,6 +9,6 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface ILotesDisponiblesRepository
     {
-        Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania);
+        Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania, int nIdUsuario);
     }
 }
