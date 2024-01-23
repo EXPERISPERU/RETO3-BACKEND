@@ -37,9 +37,13 @@ namespace backend.domain
         public decimal? nPrecioVenta { get; set; }
         public int? nIdInicial { get; set; }
         public string? sValorInicial { get; set; }
+        public string? sSimboloIni { get; set; }
+        public decimal? nValorOriIni { get; set; }
         public decimal? nInicial { get; set; }
         public int? nIdDescuentoFin { get; set; }
         public string? sValorDescuentoFin { get; set; }
+        public string? sSimboloDescuentoFin { get; set; }
+        public decimal? nValorOriDescuentoFin { get; set; }
         public decimal? nDescuentoFin { get; set; }
         public decimal? nValorFinanciado { get; set; }
         public int? nIdCuota { get; set; }
@@ -47,6 +51,8 @@ namespace backend.domain
         public decimal? nValorCuota { get; set; }
         public int? nIdDescuentoCon { get; set; }
         public string? sValorDescuentoCon { get; set; }
+        public string? sSimboloDescuentoCon { get; set; }
+        public decimal? nValorOriDescuentoCon { get; set; }
         public decimal? nDescuentoCon { get; set; }
         public decimal? nValorContado { get; set; }
     }
