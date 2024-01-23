@@ -29,8 +29,7 @@ namespace backend.domain
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
-        public string? sAgenteDealer { get; set; }
-        public string? sReferidoActual { get; set; }
+        public string? sPromotorActual { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
