@@ -36,10 +36,16 @@ namespace backend.domain
 		public string? sSimbolo { get; set; }
 		public int nIdAsignacionPrecio { get; set; }
 		public int? nIdDescuentoLote { get; set; }
-		public string? sDescuentoLote { get; set; }
+        public string? sDescuentoLote { get; set; }
+		public int? nIdMonedaDesc { get; set; }
+		public string? sSimboloDesc { get; set; }
+		public decimal? nValorDesc { get; set; }
 		public int? nIdInicialLote { get; set; }
 		public string? sInicialLote { get; set; }
-		public int? nIdReferido { get; set; }
+        public int? nIdMonedaIni { get; set; }
+        public string? sSimboloIni { get; set; }
+        public decimal? nValorIni { get; set; }
+        public int? nIdReferido { get; set; }
 		public string? sTipoGestion { get; set; }
 		public string? sPromotor { get; set; }
 		public string? sCodigo { get; set; }
