@@ -9,7 +9,7 @@ namespace backend.businesslogic.Interfaces.Comercial
 {
     public interface IClienteBL
     {
-        Task<IList<ClienteDTO>> getListCliente(int nIdUsuario);
+        Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania);
         Task<ClienteDTO> getClienteByID(int nIdCliente);
         Task<ClienteDTO> findClienteByDoc(int nIdUsuario, string? sDNI, string? sCE, string? sRUC);
         Task<IList<SelectDTO>> getListTiposPersona();
@@ -17,7 +17,7 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SelectDTO>> getListEstadoCivil();
         Task<SqlRspDTO> InsCliente(ClienteDTO cliente);
         Task<SqlRspDTO> UpdCliente(ClienteDTO cliente);
-        Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE);
+        Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, int nIdCompania, string? sDNI, string? sCE);
 
     }
 }

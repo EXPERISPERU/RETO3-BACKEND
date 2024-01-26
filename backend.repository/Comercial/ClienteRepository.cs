@@ -21,7 +21,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario)
+        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania)
         {
             IEnumerable<ClienteDTO> list = new List<ClienteDTO>();
 
@@ -30,6 +30,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -183,7 +184,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE)
+        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, int nIdCompania, string? sDNI, string? sCE)
         {
             ApiResponse<ClienteDTO> resp = new ApiResponse<ClienteDTO>();
 
@@ -192,6 +193,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 9);
                 parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("sDNI", sDNI);
                 parameters.Add("sCE", sCE);
                 parameters.Add("success", resp.success, direction: ParameterDirection.Output);

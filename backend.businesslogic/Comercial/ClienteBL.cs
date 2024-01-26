@@ -18,9 +18,9 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario)
+        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania)
         {
-            return await repository.getListCliente(nIdUsuario);
+            return await repository.getListCliente(nIdUsuario, nIdCompania);
         }
 
         public async Task<ClienteDTO> getClienteByID(int nIdCliente)
@@ -58,9 +58,9 @@ namespace backend.businesslogic.Comercial
             return await repository.UpdCliente(cliente);
         }
 
-        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE)
+        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, int nIdCompania, string? sDNI, string? sCE)
         {
-            return await repository.findClienteGCByDoc(nIdUsuario, sDNI, sCE);
+            return await repository.findClienteGCByDoc(nIdUsuario, nIdCompania, sDNI, sCE);
         }
     }
 }

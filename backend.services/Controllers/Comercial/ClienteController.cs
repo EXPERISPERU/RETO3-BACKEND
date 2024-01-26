@@ -22,13 +22,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ClienteDTO>>>> getListCliente(int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<ClienteDTO>>>> getListCliente(int nIdUsuario, int nIdCompania)
         {
             ApiResponse<List<ClienteDTO>> response = new ApiResponse<List<ClienteDTO>>();
 
             try
             {
-                var result = await service.getListCliente(nIdUsuario);
+                var result = await service.getListCliente(nIdUsuario, nIdCompania);
 
                 response.success = true;
                 response.data = (List<ClienteDTO>) result;
@@ -193,13 +193,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ClienteDTO>>> findClienteGCByDoc(int nIdUsuario, string? sDNI, string? sCE)
+        public async Task<ActionResult<ApiResponse<ClienteDTO>>> findClienteGCByDoc(int nIdUsuario, int nIdCompania, string? sDNI, string? sCE)
         {
             ApiResponse<ClienteDTO> response = new ApiResponse<ClienteDTO>();
 
             try
             {
-                response = await service.findClienteGCByDoc(nIdUsuario, sDNI, sCE);
+                response = await service.findClienteGCByDoc(nIdUsuario, nIdCompania, sDNI, sCE);
 
                 return StatusCode(200, response);
             }
