@@ -1,11 +1,13 @@
 ﻿using backend.businesslogic.Comercial;
 using backend.businesslogic.Comercial.ParametrosVentaLote;
 using backend.businesslogic.Comercial.ParametrosVentaProducto;
+using backend.businesslogic.Contabilidad;
 using backend.businesslogic.Contratos;
 using backend.businesslogic.Dealers;
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaProducto;
+using backend.businesslogic.Interfaces.Contabilidad;
 using backend.businesslogic.Interfaces.Contratos;
 using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
@@ -17,11 +19,13 @@ using backend.businesslogic.Seguridad;
 using backend.repository.Comercial;
 using backend.repository.Comercial.ParametrosVentaLote;
 using backend.repository.Comercial.ParametrosVentaProducto;
+using backend.repository.Contabilidad;
 using backend.repository.Contratos;
 using backend.repository.Dealers;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Comercial.ParametrosVentaProducto;
+using backend.repository.Interfaces.Contabilidad;
 using backend.repository.Interfaces.Contratos;
 using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
@@ -84,6 +88,8 @@ namespace backend.services
             services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
             
             services.AddScoped<IContratoRepository, ContratoRepository>();
+
+            services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -134,6 +140,8 @@ namespace backend.services
 
             services.AddScoped<IReporteVentasBL, ReporteVentasBL>();
             services.AddScoped<IContratoBL, ContratoBL>();
+
+            services.AddScoped<IComprobanteBL, ComprobanteBL>();
         }
     }
 }
