@@ -1,12 +1,6 @@
 ﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.domain;
-using backend.repository.Comercial;
 using backend.repository.Interfaces.Comercial;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.businesslogic.Comercial
 {
@@ -19,9 +13,44 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<ReporteVentasDTO>> getListReporteVentas()
+        public async Task<IList<SelectDTO>> getSelectProyectoByCompania(int nIdUsuario, int nIdCompania)
         {
-            return await repository.getListReporteVentas();
+            return await repository.getSelectProyectoByCompania(nIdUsuario, nIdCompania);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectSectorByProyecto(int nIdUsuario, int nIdProyecto)
+        {
+            return await repository.getSelectSectorByProyecto(nIdUsuario, nIdProyecto);        
+        }
+
+        public async Task<IList<SelectDTO>> getSelectManzanaByProyectoSector(int nIdUsuario, int nIdProyecto, int? nIdSector)
+        {
+            return await repository.getSelectManzanaByProyectoSector(nIdUsuario, nIdProyecto, nIdSector);            
+        }
+
+        public async Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdUsuario, int nIdManzana)
+        {
+            return await repository.getSelectLoteByManzana(nIdUsuario, nIdManzana);                
+        }
+
+        public async Task<IList<SelectDTO>> getSelectItemVentas(int nIdUsuario)
+        {
+            return await repository.getSelectItemVentas(nIdUsuario);                    
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoGestion(int nIdUsuario, int nIdCompania)
+        {
+            return await repository.getSelectTipoGestion(nIdUsuario, nIdCompania);                        
+        }
+
+        public async Task<IList<SelectDTO>> getSelectDealerEmpleadoByTipoGestion(int nIdUsuario, int nIdCompania, int nIdTipoGestion)
+        {
+            return await repository.getSelectDealerEmpleadoByTipoGestion(nIdUsuario, nIdCompania, nIdTipoGestion);                            
+        }
+
+        public async Task<IList<ReporteVentasDTO>> getListReporteVentas(ReporteVentasFiltrosDTO filtros)
+        {
+            return await repository.getListReporteVentas(filtros);
         }
     }
 }

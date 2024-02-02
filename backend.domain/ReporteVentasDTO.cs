@@ -6,35 +6,42 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
+    public class ReporteVentasFiltrosDTO
+    {
+        public string? sDocumento { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdSector { get; set; }
+        public int? nIdManzana { get; set; }
+        public int? nIdLote { get; set; }
+        public int? nIdItem { get; set; }
+        public int? nIdTipoGestion { get; set; }
+        public int? nIdPromotor { get; set; }
+        public DateTime? dFechaIni { get; set; }
+        public DateTime? dFechaFin { get; set; }
+        public int? nIdUsuario { get; set; }
+        public int? nIdCompania { get; set; }
+    }
+
     public class ReporteVentasDTO
     {
-        public int? nIdReservaLote { get; set; }
-        public int? nIdLote { get; set; }
-        public string? sLote { get; set; }
-        public int? nIdManzana { get; set; }
-        public string? sManzana { get; set; }
-        public int? nIdSector { get; set; }
-        public string? sSector { get; set; }
-        public int? nIdProyecto { get; set; }
+        public string? sDNI { get; set; }
+        public string? sCE { get; set; }
+        public string? sRUC { get; set; }
+        public string? sNombreCliente { get; set; }
         public string? sProyecto { get; set; }
-        public int? nIdCompania { get; set; }
-        public string? sRazonSocial { get; set; }
-        public int? nIdCliente { get; set; }
-        public string? sNombreCompleto { get; set; }
-        public string? sDocumento { get; set; }
-        public int? nIdTipoGestionComercial { get; set; }
+        public string? sSector { get; set; }
+        public string? sManzana { get; set; }
+        public string? sLote { get; set; }
+        public string? sItem { get; set; }
+        public string? sMoneda { get; set; }
+        public string? sSimbolo { get; set; }
+        public decimal? nValorTotal { get; set; }
+        public string? sEstado { get; set; }
         public string? sTipoGestion { get; set; }
         public string? sPromotor { get; set; }
-        public int? nIdOrdenPago { get; set; }
-        public string? sFechaPago { get; set; }
-        public int? nIdOrdenPagoDet { get; set; }
-        public decimal? nMontoReserva { get; set; }
-        public int? nIdEstado { get; set; }
-        public string? sEstadoPago { get; set; }
-        public int? nIdItem { get; set; }
-        public string? sTipo { get; set; }
-        public int? nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
-        public string? dFecha_crea { get; set; }
+        public DateTime? dFecha_crea { get; set; }
+        public DateTime? dFecha_pago { get; set; }
+        public int? nIdComprobante { get; set; }
     }
 }
