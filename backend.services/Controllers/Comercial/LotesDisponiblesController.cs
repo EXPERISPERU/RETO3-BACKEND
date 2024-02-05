@@ -19,79 +19,16 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles()
+        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles(int nIdCompania, int nIdUsuario)
         {
             ApiResponse<List<LotesDisponiblesDTO>> response = new ApiResponse<List<LotesDisponiblesDTO>>();
 
             try
             {
-                var result = await service.getListLotesDisponibles();
+                var result = await service.getListLotesDisponibles(nIdCompania, nIdUsuario);
 
                 response.success = true;
                 response.data = (List<LotesDisponiblesDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListInicialLote()
-        {
-            ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
-
-            try
-            {
-                var result = await service.getListInicialLote();
-
-                response.success = true;
-                response.data = (List<InicialDescuentoDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoContLote()
-        {
-            ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
-
-            try
-            {
-                var result = await service.getListDescuentoContLote();
-
-                response.success = true;
-                response.data = (List<InicialDescuentoDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoFinLote()
-        {
-            ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
-
-            try
-            {
-                var result = await service.getListDescuentoFinLote();
-
-                response.success = true;
-                response.data = (List<InicialDescuentoDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

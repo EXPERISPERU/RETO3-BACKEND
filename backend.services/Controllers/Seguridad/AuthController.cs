@@ -32,15 +32,18 @@ namespace backend.services.Controllers.Seguridad
         public async Task<ActionResult<ApiResponse<string>>> AuthLogin([FromBody] authLoginDTO request)
         {
 
-            SqlRspDTO rsp = await service.AuthUser(request);
+            LoginDTO rsp = await service.AuthUser(request);
 
-            if (rsp.nCod > 0)
+            if (rsp.nIdUsuario > 0)
             {
                 var keyBytes = Encoding.ASCII.GetBytes(secretKey);
                 var claims = new ClaimsIdentity();
 
-                claims.AddClaim(new Claim("userId", rsp.nCod.ToString()));
-                claims.AddClaim(new Claim("userName", rsp.sMsj));
+                claims.AddClaim(new Claim("nIdUsuario", rsp.nIdUsuario.ToString()));
+                claims.AddClaim(new Claim("sNombreCompleto", rsp.sNombreCompleto));
+                claims.AddClaim(new Claim("nIdTipoUsuario", rsp.nIdTipoUsuario.ToString()));
+                claims.AddClaim(new Claim("sCodigoTipoUsuario", rsp.sCodigoTipoUsuario));
+                claims.AddClaim(new Claim("nIdPerDet", rsp.nIdPerDet.ToString()));
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -163,7 +166,7 @@ namespace backend.services.Controllers.Seguridad
 
             ClaimsPrincipal claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(token, validationParameters, out validatedToken);
 
-            return claimsPrincipal.Claims.First(c => c.Type == "userId");
+            return claimsPrincipal.Claims.First(c => c.Type == "nIdUsuario");
         }
     }
 }

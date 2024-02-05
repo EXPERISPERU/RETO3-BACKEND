@@ -1,12 +1,14 @@
 ﻿using backend.businesslogic.Comercial;
-using backend.businesslogic.Comercial.Descuento;
-using backend.businesslogic.Comercial.Inicial;
-using backend.businesslogic.Comercial.Precio;
+using backend.businesslogic.Comercial.ParametrosVentaLote;
+using backend.businesslogic.Comercial.ParametrosVentaProducto;
+using backend.businesslogic.Contabilidad;
+using backend.businesslogic.Contratos;
 using backend.businesslogic.Dealers;
 using backend.businesslogic.Interfaces.Comercial;
-using backend.businesslogic.Interfaces.Comercial.Descuento;
-using backend.businesslogic.Interfaces.Comercial.Inicial;
-using backend.businesslogic.Interfaces.Comercial.Precio;
+using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
+using backend.businesslogic.Interfaces.Comercial.ParametrosVentaProducto;
+using backend.businesslogic.Interfaces.Contabilidad;
+using backend.businesslogic.Interfaces.Contratos;
 using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
 using backend.businesslogic.Interfaces.Proyectos;
@@ -15,14 +17,16 @@ using backend.businesslogic.Maestros;
 using backend.businesslogic.Proyectos;
 using backend.businesslogic.Seguridad;
 using backend.repository.Comercial;
-using backend.repository.Comercial.Descuento;
-using backend.repository.Comercial.Inicial;
-using backend.repository.Comercial.Precio;
+using backend.repository.Comercial.ParametrosVentaLote;
+using backend.repository.Comercial.ParametrosVentaProducto;
+using backend.repository.Contabilidad;
+using backend.repository.Contratos;
 using backend.repository.Dealers;
 using backend.repository.Interfaces.Comercial;
-using backend.repository.Interfaces.Comercial.Descuento;
-using backend.repository.Interfaces.Comercial.Inicial;
-using backend.repository.Interfaces.Comercial.Precio;
+using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
+using backend.repository.Interfaces.Comercial.ParametrosVentaProducto;
+using backend.repository.Interfaces.Contabilidad;
+using backend.repository.Interfaces.Contratos;
 using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
 using backend.repository.Interfaces.Proyectos;
@@ -47,12 +51,17 @@ namespace backend.services
             services.AddScoped<ICompaniaRepository, CompaniaRepository>();
             services.AddScoped<IOficinaRepository, OficinaRepository>();
             services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
+            services.AddScoped<IProveedorRepository, ProveedorRepository>();
+            services.AddScoped<IMonedaRepository, MonedaRepository>();
+            services.AddScoped<ICompaniaMonedaRepository, CompaniaMonedaRepository>();
+            services.AddScoped<ISerieRepository, SerieRepository>();
+            services.AddScoped<ICorrelativoRepository, CorrelativoRepository>();
 
             services.AddScoped<IPersonaRepository, PersonaRepository>();
 
             services.AddScoped<IEmpresaDealerRepository, EmpresaDealerRepository>();
             services.AddScoped<IAgenteDealerRepository, AgenteDealerRepository>();
-            services.AddScoped<IEmpresaDealerAgenteRepository, EmpresaDealerAgenteRepository>();
+            services.AddScoped<IProveedorAgenteDealerRepository, ProveedorAgenteDealerRepository>();
             services.AddScoped<IReferidoRepository, ReferidoRepository>();
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
@@ -61,7 +70,13 @@ namespace backend.services
             services.AddScoped<IAsignacionPrecioRepository, AsignacionPrecioRepository>();
             services.AddScoped<IDescuentoLoteRepository, DescuentoLoteRepository>();
             services.AddScoped<IInicialLoteRepository, InicialLoteRepository>();
+            services.AddScoped<ICuotaLoteRepository, CuotaLoteRepository>();
             services.AddScoped<ILotesDisponiblesRepository, LotesDisponiblesRepository>();
+            services.AddScoped<ICotizacionRepository, CotizacionRepository>();
+            services.AddScoped<IPrecioServicioRepository, PrecioServicioRepository>();
+            services.AddScoped<IReservaLoteRepository, ReservaLoteRepository>();
+            services.AddScoped<IPreContratoLoteRepository, PreContratoLoteRepository>();
+            services.AddScoped<IVentaLoteRepository, VentaLoteRepository>();
 
             services.AddScoped<IProyectoRepository, ProyectoRepository>();
             services.AddScoped<ISectorRepository, SectorRepository>();
@@ -69,6 +84,12 @@ namespace backend.services
             services.AddScoped<ILoteRepository, LoteRepository>();
 
             services.AddScoped<IItemRepository, ItemRepository>();
+
+            services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
+            
+            services.AddScoped<IContratoRepository, ContratoRepository>();
+
+            services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -83,12 +104,17 @@ namespace backend.services
             services.AddScoped<ICompaniaBL, CompaniaBL>();
             services.AddScoped<IOficinaBL, OficinaBL>();
             services.AddScoped<IEmpleadoBL, EmpleadoBL>();
+            services.AddScoped<IProveedorBL, ProveedorBL>();
+            services.AddScoped<IMonedaBL, MonedaBL>();
+            services.AddScoped<ICompaniaMonedaBL, CompaniaMonedaBL>();
+            services.AddScoped<ISerieBL, SerieBL>();
+            services.AddScoped<ICorrelativoBL, CorrelativoBL>();
 
             services.AddScoped<IPersonaBL, PersonaBL>();
 
             services.AddScoped<IEmpresaDealerBL, EmpresaDealerBL>();
             services.AddScoped<IAgenteDealerBL, AgenteDealerBL>();
-            services.AddScoped<IEmpresaDealerAgenteBL, EmpresaDealerAgenteBL>();
+            services.AddScoped<IProveedorAgenteDealerBL, ProveedorAgenteDealerBL>();
             services.AddScoped<IReferidoBL, ReferidoBL>();
 
             services.AddScoped<IClienteBL, ClienteBL>();
@@ -97,7 +123,13 @@ namespace backend.services
             services.AddScoped<IAsignacionPrecioBL, AsignacionPrecioBL>();
             services.AddScoped<IDescuentoLoteBL, DescuentoLoteBL>();
             services.AddScoped<IInicialLoteBL, InicialLoteBL>();
+            services.AddScoped<ICuotaLoteBL, CuotaLoteBL>();
             services.AddScoped<ILotesDisponiblesBL, LotesDisponiblesBL>();
+            services.AddScoped<ICotizacionBL, CotizacionBL>();
+            services.AddScoped<IPrecioServicioBL, PrecioServicioBL>();
+            services.AddScoped<IReservaLoteBL, ReservaLoteBL>();
+            services.AddScoped<IPreContratoLoteBL, PreContratoLoteBL>();
+            services.AddScoped<IVentaLoteBL, VentaLoteBL>();
 
             services.AddScoped<IProyectoBL, ProyectoBL>();
             services.AddScoped<ISectorBL, SectorBL>();
@@ -105,6 +137,11 @@ namespace backend.services
             services.AddScoped<ILoteBL, LoteBL>();
 
             services.AddScoped<IItemBL, ItemBL>();
+
+            services.AddScoped<IReporteVentasBL, ReporteVentasBL>();
+            services.AddScoped<IContratoBL, ContratoBL>();
+
+            services.AddScoped<IComprobanteBL, ComprobanteBL>();
         }
     }
 }

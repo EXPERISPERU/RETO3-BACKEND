@@ -18,24 +18,9 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles()
+        public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania, int nIdUsuario)
         {
-            return await repository.getListLotesDisponibles();
-        }
-
-        public async Task<IList<InicialDescuentoDTO>> getListInicialLote()
-        {
-            return await repository.getListInicialLote();
-        }
-
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoContLote()
-        {
-            return await repository.getListDescuentoContLote();
-        }
-
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote()
-        {
-            return await repository.getListDescuentoFinLote();
+            return await repository.getListLotesDisponibles(nIdCompania, nIdUsuario);
         }
     }
 }

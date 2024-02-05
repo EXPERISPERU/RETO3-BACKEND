@@ -49,6 +49,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sAbrev", compania.sAbrev);
                 parameters.Add("nIdUbigeo", compania.nIdUbigeo);
                 parameters.Add("sDireccion", compania.sDireccion);
+                parameters.Add("sLogoData", compania.sLogoData);
                 parameters.Add("nIdUsuario_crea", compania.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -71,6 +72,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sAbrev", compania.sAbrev);
                 parameters.Add("nIdUbigeo", compania.nIdUbigeo);
                 parameters.Add("sDireccion", compania.sDireccion);
+                parameters.Add("sLogoData", compania.sLogoData);
                 parameters.Add("nIdUsuario_mod", compania.nIdUsuario_mod);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);

@@ -2,12 +2,13 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using backend.domain;
 
 namespace backend.services.Utils
 {
     public class imbFile {
         public string sRutaFile { get; set; }
-        public byte[] data { get; set; }
+        public byte[]? data { get; set; }
     }
 
     public class FtpClient
@@ -15,6 +16,7 @@ namespace backend.services.Utils
         private string ftpUrlServer = "ftp://10.48.0.13/";
         private string ftpUser = "imbftp";
         private string ftpPassword = "$1mbftpcl1";
+        private bool ftpPassiveMode = true;  /* PARA PRUEBAS : false, PARA PRODUCCION : true*/
 
         public string sContentType(string sFileExtension)
         {
@@ -33,14 +35,72 @@ namespace backend.services.Utils
             }
         }
 
+        public ApiResponse<string> ValidateFtpDirectory(string ftpPath)
+        {
+            try
+            {
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrlServer + ftpPath);
+                request.Method = WebRequestMethods.Ftp.ListDirectory;
+                request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
+                request.UsePassive = ftpPassiveMode;
+
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    return new ApiResponse<string> { success = true, data = "OK", errMsj = "" };
+                }
+            }
+            catch (WebException ex)
+            {
+                if (ex.Response != null && ex.Response is FtpWebResponse ftpResponse &&
+                    ftpResponse.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable)
+                {
+                    return CreateFtpDirectory(ftpPath);
+                }
+                else
+                {
+                    return new ApiResponse<string> { success = false, data = "", errMsj = ex.Message };
+                }
+            }
+        }
+
+        private ApiResponse<string> CreateFtpDirectory(string ftpPath)
+        {
+            try
+            {
+                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpUrlServer + ftpPath);
+                request.Method = WebRequestMethods.Ftp.MakeDirectory;
+                request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
+                request.UsePassive = ftpPassiveMode;
+
+                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                response.Close();
+
+                return new ApiResponse<string> { success = true, data = "OK", errMsj = "" };
+            }
+            catch (Exception ex)
+            {
+                return new ApiResponse<string> { success = false, data = "", errMsj = ex.Message };
+            }
+        }
+
         public ApiResponse<string> UploadFile(imbFile file)
         {
             try
             {
+                string tempRes = "";
+                for (int i = 0; i < file.sRutaFile.Split("/").Length - 1; i++)
+                {
+                    ApiResponse<string> res;
+                    tempRes += file.sRutaFile.Split("/")[i] + "/";
+                    res = ValidateFtpDirectory(tempRes);
+
+                    if (!res.success) return res;
+                }
+
                 FtpWebRequest request = (FtpWebRequest) WebRequest.Create(ftpUrlServer+file.sRutaFile);
-                request.UsePassive = false;
                 request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
                 request.Method = WebRequestMethods.Ftp.UploadFile;
+                request.UsePassive = ftpPassiveMode;
 
                 byte[] bytes = file.data;
 
@@ -64,9 +124,9 @@ namespace backend.services.Utils
             try
             {
                 FtpWebRequest request = (FtpWebRequest) WebRequest.Create(ftpUrlServer + sArchivo);
-                request.UsePassive = false;
                 request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
                 request.Method = WebRequestMethods.Ftp.DownloadFile;
+                request.UsePassive = ftpPassiveMode;
 
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 

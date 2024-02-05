@@ -21,7 +21,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario)
+        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania)
         {
             IEnumerable<ClienteDTO> list = new List<ClienteDTO>();
 
@@ -30,6 +30,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -53,7 +54,7 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<ClienteDTO> findClienteByDoc(string? sDNI, string? sCE, string? sRUC)
+        public async Task<ClienteDTO> findClienteByDoc(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
         {
             ClienteDTO resp = new ClienteDTO();
 
@@ -61,6 +62,7 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 3);
+                parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("sDNI", sDNI);
                 parameters.Add("sCE", sCE);
                 parameters.Add("sRUC", sRUC);
@@ -180,6 +182,29 @@ namespace backend.repository.Comercial
             }
 
             return res;
+        }
+
+        public async Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, int nIdCompania, string? sDNI, string? sCE)
+        {
+            ApiResponse<ClienteDTO> resp = new ApiResponse<ClienteDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 9);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("sDNI", sDNI);
+                parameters.Add("sCE", sCE);
+                parameters.Add("success", resp.success, direction: ParameterDirection.Output);
+                parameters.Add("errMsj", resp.errMsj, direction: ParameterDirection.Output, size : int.MaxValue);
+
+                resp.data = await connection.QuerySingleOrDefaultAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp.success = parameters.Get<bool>("success");
+                resp.errMsj = parameters.Get<string>("errMsj");
+            }
+
+            return resp;
         }
     }
 }

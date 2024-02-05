@@ -22,10 +22,14 @@ namespace backend.businesslogic.Maestros
             return await repository.getListItem();
         }
 
-
-        public async Task<IList<SelectDTO>> getListElementoSistema()
+        public async Task<IList<SelectDTO>> getSelectTipoItem()
         {
-            return await repository.getListElementoSistema();
+            return await repository.getSelectTipoItem();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectSubTipoItem(int nIdTipo)
+        {
+            return await repository.getSelectSubTipoItem(nIdTipo);
         }
 
         public async Task<SqlRspDTO> InsItem(ItemDTO elemento)

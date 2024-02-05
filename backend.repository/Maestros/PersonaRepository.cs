@@ -44,6 +44,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sDireccion", direccion.sDireccion);
                 parameters.Add("nIdUbigeo", direccion.nIdUbigeo);
                 parameters.Add("sCodPostal", direccion.sCodPostal);
+                parameters.Add("nIdUsuario_crea", direccion.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -64,11 +65,31 @@ namespace backend.repository.Maestros
                 parameters.Add("sDireccion", direccion.sDireccion);
                 parameters.Add("nIdUbigeo", direccion.nIdUbigeo);
                 parameters.Add("sCodPostal", direccion.sCodPostal);
+                parameters.Add("nIdUsuario_mod", direccion.nIdUsuario_mod);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
+        }
+
+        public async Task<int> validDocumentoUsuario(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
+        {
+            int resp;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 4);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("sDNI", sDNI);
+                parameters.Add("sCE", sCE);
+                parameters.Add("sRUC", sRUC);
+
+                resp = await connection.ExecuteScalarAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
         }
     }
 }

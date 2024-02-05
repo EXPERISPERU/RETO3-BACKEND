@@ -26,5 +26,10 @@ namespace backend.businesslogic.Maestros
         {
             return await repository.UpdDireccion(direccion);
         }
+
+        public async Task<int> validDocumentoUsuario(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
+        {
+            return await repository.validDocumentoUsuario(nIdUsuario, sDNI, sCE, sRUC);
+        }
     }
 }

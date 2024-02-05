@@ -17,7 +17,7 @@ namespace backend.businesslogic.Seguridad
             repository = _repository;
         }
 
-        public async Task<SqlRspDTO> AuthUser(authLoginDTO authLogin)
+        public async Task<LoginDTO> AuthUser(authLoginDTO authLogin)
         {
             return await repository.AuthUser(authLogin);
         }

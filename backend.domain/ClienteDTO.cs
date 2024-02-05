@@ -29,7 +29,7 @@ namespace backend.domain
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
-        public string? sAgenteDealer { get; set; }
+        public string? sPromotorActual { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
@@ -38,5 +38,19 @@ namespace backend.domain
         public string? sUsuario_mod { get; set; }
         public DateTime? dFecha_mod { get; set; }
         public string? sFecha_mod { get; set; }
+    }
+
+    public class SunatRQPersonaDTO
+    { 
+        public int tipDocu { get; set; }
+        public string numDocu { get; set; }
+        public string tipPers { get; set; }
+    }
+
+    public class PersonaSunatDTO
+    {
+        public string? apeMatSoli { get; set; }
+        public string? apePatSoli { get; set; }
+        public string? nombreSoli { get; set; }
     }
 }
