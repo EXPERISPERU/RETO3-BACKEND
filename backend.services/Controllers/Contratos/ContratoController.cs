@@ -249,5 +249,27 @@ namespace backend.services.Controllers.Contratos
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ContratoDTO>>>> getContratosByIdCliente(int nIdCliente)
+        {
+            ApiResponse<List<ContratoByIdClientDTO>> response = new ApiResponse<List<ContratoByIdClientDTO>>();
+
+            try
+            {
+                var result = await service.getContratosByIdCliente(nIdCliente);
+
+                response.success = true;
+                response.data = (List<ContratoByIdClientDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }

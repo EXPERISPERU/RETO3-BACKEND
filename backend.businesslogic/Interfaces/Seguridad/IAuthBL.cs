@@ -10,6 +10,7 @@ namespace backend.businesslogic.Interfaces.Seguridad
     public interface IAuthBL
     {
         public Task<LoginDTO> AuthUser(authLoginDTO authLogin);
+        public Task<LoginDTO> AuthPortalUser(authLoginDTO authLogin);
         public Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania);
         public Task<IList<CompaniaDTO>> ListCompaniaByIdUsuario(int nIdUsuario);
     }

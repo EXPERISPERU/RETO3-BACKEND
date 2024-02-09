@@ -100,4 +100,12 @@ namespace backend.domain
         public int nIdComprobante { get; set; }
         public string sComprobante { get; set; }
     }
+
+    public class ContratoByIdClientDTO
+    {
+        public int nIdContrato { get; set; }
+        public string? sLote { get; set; }
+        public string? sManzana { get; set; }
+        public string? sProyecto { get; set; }
+    }
 }

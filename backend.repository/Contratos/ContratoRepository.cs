@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace backend.repository.Contratos
 {
@@ -200,5 +201,22 @@ namespace backend.repository.Contratos
 
             return list.ToList();
         }
+
+        public async Task<IList<ContratoByIdClientDTO>> getContratosByIdCliente(int nIdCliente)
+        {
+            IEnumerable<ContratoByIdClientDTO> list = new List<ContratoByIdClientDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 12);
+                parameters.Add("nIdCliente", nIdCliente);
+
+                list = await connection.QueryAsync<ContratoByIdClientDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

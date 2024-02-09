@@ -1,5 +1,6 @@
 ﻿using backend.domain;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,8 @@ namespace backend.businesslogic.Interfaces.Contratos
         Task<ContratoDTO> getContratoById(int nIdContrato);
         Task<IList<CronogramaDTO>> getListCronogramaByContrato(int nIdContrato);
         Task<IList<OrdenPagoPreContratoDTO>> getListOrdenPagoByContrato(int nIdContrato);
+
+        Task<IList<ContratoByIdClientDTO>> getContratosByIdCliente(int nIdCliente);
+
     }
 }

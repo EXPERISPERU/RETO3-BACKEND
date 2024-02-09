@@ -64,6 +64,42 @@ namespace backend.services.Controllers.Seguridad
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<string>>> AuthPortalLogin([FromBody] authLoginDTO request)
+        {
+
+            LoginDTO rsp = await service.AuthPortalUser(request);
+
+            if (rsp.nIdUsuario > 0)
+            {
+                var keyBytes = Encoding.ASCII.GetBytes(secretKey);
+                var claims = new ClaimsIdentity();
+
+                claims.AddClaim(new Claim("nIdUsuario", rsp.nIdUsuario.ToString()));
+                claims.AddClaim(new Claim("sNombreCompleto", rsp.sNombreCompleto));
+                claims.AddClaim(new Claim("nIdTipoUsuario", rsp.nIdTipoUsuario.ToString()));
+                claims.AddClaim(new Claim("sCodigoTipoUsuario", rsp.sCodigoTipoUsuario));
+                claims.AddClaim(new Claim("nIdPerDet", rsp.nIdPerDet.ToString()));
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = claims,
+                    Expires = DateTime.UtcNow.AddMinutes(expirationMin),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenConfig = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(tokenConfig);
+
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<string> { success = true, data = token, errMsj = "" });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status200OK, new ApiResponse<string> { success = false, data = "", errMsj = rsp.sMsj });
+            }
+        }
+
         [HttpGet("[action]")]
         [Authorize]
         public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcionByIdUsuarioComp(int nIdUsuario, int nIdCompania)
