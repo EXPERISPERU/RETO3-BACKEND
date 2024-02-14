@@ -100,6 +100,37 @@ namespace backend.services.Controllers.Seguridad
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<string>>> RecoverPassword([FromBody] recoverPasswordDTO request)
+        {
+
+            ApiResponse<RecoverPasswordDTO> response = new ApiResponse<RecoverPasswordDTO>();
+            try
+            {
+                var result = await service.RecoverPassword(request);
+                if (result.emailExist > 0)
+                {
+                    response.success = true;
+                    response.errMsj = result.sMsj;
+                    response.data = (RecoverPasswordDTO)result;
+                }
+                else
+                {
+                    response.success = false;
+                    response.errMsj = result.sMsj;
+                    response.data = (RecoverPasswordDTO)result;
+                }
+                
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
         [HttpGet("[action]")]
         [Authorize]
         public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getListOpcionByIdUsuarioComp(int nIdUsuario, int nIdCompania)

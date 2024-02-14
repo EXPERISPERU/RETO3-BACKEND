@@ -186,6 +186,22 @@ namespace backend.repository.Contratos
             return list.ToList();
         }
 
+        public async Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato)
+        {
+            IEnumerable<ListInicialByContrato> list = new List<ListInicialByContrato>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 13);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                list = await connection.QueryAsync<ListInicialByContrato>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
         public async Task<IList<OrdenPagoPreContratoDTO>> getListOrdenPagoByContrato(int nIdContrato)
         {
             IEnumerable<OrdenPagoPreContratoDTO> list = new List<OrdenPagoPreContratoDTO>();
@@ -217,6 +233,7 @@ namespace backend.repository.Contratos
 
             return list.ToList();
         }
+
 
     }
 }

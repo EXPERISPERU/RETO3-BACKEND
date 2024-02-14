@@ -11,6 +11,7 @@ namespace backend.businesslogic.Interfaces.Seguridad
     {
         public Task<LoginDTO> AuthUser(authLoginDTO authLogin);
         public Task<LoginDTO> AuthPortalUser(authLoginDTO authLogin);
+        public Task<RecoverPasswordDTO> RecoverPassword(recoverPasswordDTO recoverPassword);
         public Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania);
         public Task<IList<CompaniaDTO>> ListCompaniaByIdUsuario(int nIdUsuario);
     }

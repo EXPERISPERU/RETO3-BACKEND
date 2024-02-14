@@ -32,7 +32,6 @@ namespace backend.repository.Seguridad
 
                 list = await connection.QueryAsync<UsuarioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
@@ -47,7 +46,6 @@ namespace backend.repository.Seguridad
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
@@ -98,6 +96,23 @@ namespace backend.repository.Seguridad
                 parameters.Add("nIdUsuario", usuario.nIdUsuario);
                 parameters.Add("sPassword", usuario.sPassword);
                 parameters.Add("bActivo", usuario.bActivo);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<SqlRspDTO> UpdUsuarioPortal(UsuarioDTO usuario)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 6);
+                parameters.Add("nIdUsuario", usuario.nIdUsuario);
+                parameters.Add("sPassword", usuario.sPassword);
 
                 resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -205,5 +220,21 @@ namespace backend.repository.Seguridad
 
             return list.ToList();
         }
+
+        public async Task<UsuarioDTO> getUserById( int nIdUsuario )
+        {
+            UsuarioDTO resp = new UsuarioDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 14);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                resp = await connection.QuerySingleAsync<UsuarioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return resp;
+        }
+
     }
 }

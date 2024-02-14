@@ -69,6 +69,11 @@ namespace backend.businesslogic.Contratos
             return await repository.getListCronogramaByContrato(nIdContrato);
         }
 
+        public async Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato)
+        {
+            return await repository.getListInicialByContrato(nIdContrato);
+        }
+
         public async Task<IList<OrdenPagoPreContratoDTO>> getListOrdenPagoByContrato(int nIdContrato)
         {
             return await repository.getListOrdenPagoByContrato(nIdContrato);

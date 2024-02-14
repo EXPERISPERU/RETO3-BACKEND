@@ -15,4 +15,12 @@ namespace backend.domain
         public int? nIdPerDet { get; set; }
         public string? sMsj { get; set; }
     }
+
+    public class RecoverPasswordDTO
+    {
+        public int bChangePassword { get; set; }
+        public string sCorreoUser { get; set; }
+        public string? sMsj { get; set; }
+        public int emailExist { get; set; }        
+    }
 }
