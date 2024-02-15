@@ -58,6 +58,7 @@ namespace backend.services
             services.AddScoped<ICorrelativoRepository, CorrelativoRepository>();
 
             services.AddScoped<IPersonaRepository, PersonaRepository>();
+            services.AddScoped<IDireccionRepository, DireccionRepository>();
 
             services.AddScoped<IEmpresaDealerRepository, EmpresaDealerRepository>();
             services.AddScoped<IAgenteDealerRepository, AgenteDealerRepository>();
@@ -111,6 +112,7 @@ namespace backend.services
             services.AddScoped<ICorrelativoBL, CorrelativoBL>();
 
             services.AddScoped<IPersonaBL, PersonaBL>();
+            services.AddScoped<IDireccionBL, DireccionBL>();
 
             services.AddScoped<IEmpresaDealerBL, EmpresaDealerBL>();
             services.AddScoped<IAgenteDealerBL, AgenteDealerBL>();

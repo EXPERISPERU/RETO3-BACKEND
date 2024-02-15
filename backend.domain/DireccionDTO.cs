@@ -10,6 +10,19 @@ namespace backend.domain
     {
         public int? nIdDireccion { get; set; }
         public int nIdPersona { get; set; }
+        public int? nIdVia { get; set; }
+        public string? sTipoVia { get; set; }
+        public string? sNombreVia { get; set; }
+        public int? nNumeracion { get; set; }
+        public string? sBlock { get; set; }
+        public int? nPiso { get; set; }
+        public string? sDepartamento { get; set; }
+        public string? sSector { get; set; }
+        public string? sManzana { get; set; }
+        public string? sLote { get; set; }
+        public decimal? nKm { get; set; }
+        public string? sUrbanizacion { get; set; }
+        public string? sReferencia { get; set; }
         public string sDireccion { get; set; }
         public int nIdUbigeo { get; set; }
         public string? sUbigeo { get; set; }

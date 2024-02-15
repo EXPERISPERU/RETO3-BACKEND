@@ -9,9 +9,6 @@ namespace backend.repository.Interfaces.Maestros
 {
     public interface IPersonaRepository
     {
-        Task<IList<DireccionDTO>> getListDireccion(int nIdPersona);
-        Task<SqlRspDTO> InsDireccion(DireccionDTO direccion);
-        Task<SqlRspDTO> UpdDireccion(DireccionDTO direccion);
         Task<int> validDocumentoUsuario(int nIdUsuario, string? sDNI, string? sCE, string? sRUC);
     }
 }
