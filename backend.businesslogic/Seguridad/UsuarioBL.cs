@@ -42,6 +42,11 @@ namespace backend.businesslogic.Seguridad
             return await repository.UpdUsuario(usuario);
         }
 
+        public async Task<SqlRspDTO> UpdUsuarioPortal(UsuarioDTO usuario)
+        {
+            return await repository.UpdUsuarioPortal(usuario);
+        }
+
         public async Task<SqlRspDTO> InsUsuPerCom(PerfilUsuarioDTO perusu)
         {
             return await repository.InsUsuPerCom(perusu);
@@ -70,6 +75,11 @@ namespace backend.businesslogic.Seguridad
         public async Task<IList<OpcionDTO>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania)
         {
             return await repository.getOpcionByUsuComp(nIdUsuario, nIdCompania);
+        }
+
+        public async Task<UsuarioDTO> getUserById(int nIdUsuario)
+        {
+            return await repository.getUserById(nIdUsuario);
         }
     }
 }
