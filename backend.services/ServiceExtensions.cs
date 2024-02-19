@@ -1,9 +1,11 @@
-﻿using backend.businesslogic.Comercial;
+﻿using backend.businesslogic.Cobranzas;
+using backend.businesslogic.Comercial;
 using backend.businesslogic.Comercial.ParametrosVentaLote;
 using backend.businesslogic.Comercial.ParametrosVentaProducto;
 using backend.businesslogic.Contabilidad;
 using backend.businesslogic.Contratos;
 using backend.businesslogic.Dealers;
+using backend.businesslogic.Interfaces.Cobranzas;
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaProducto;
@@ -16,12 +18,14 @@ using backend.businesslogic.Interfaces.Seguridad;
 using backend.businesslogic.Maestros;
 using backend.businesslogic.Proyectos;
 using backend.businesslogic.Seguridad;
+using backend.repository.Cobranzas;
 using backend.repository.Comercial;
 using backend.repository.Comercial.ParametrosVentaLote;
 using backend.repository.Comercial.ParametrosVentaProducto;
 using backend.repository.Contabilidad;
 using backend.repository.Contratos;
 using backend.repository.Dealers;
+using backend.repository.Interfaces.Cobranzas;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Comercial.ParametrosVentaProducto;
@@ -90,6 +94,8 @@ namespace backend.services
             services.AddScoped<IContratoRepository, ContratoRepository>();
 
             services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
+
+            services.AddScoped<IAsignacionClienteRepository, AsignacionClienteRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -142,6 +148,8 @@ namespace backend.services
             services.AddScoped<IContratoBL, ContratoBL>();
 
             services.AddScoped<IComprobanteBL, ComprobanteBL>();
+
+            services.AddScoped<IAsignacionClienteBL, AsignacionClienteBL>();
         }
     }
 }
