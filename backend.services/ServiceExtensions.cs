@@ -22,6 +22,7 @@ using backend.repository.Comercial.ParametrosVentaProducto;
 using backend.repository.Contabilidad;
 using backend.repository.Contratos;
 using backend.repository.Dealers;
+using backend.repository.Interfaces;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Comercial.ParametrosVentaProducto;
@@ -79,6 +80,7 @@ namespace backend.services
             services.AddScoped<IReservaLoteRepository, ReservaLoteRepository>();
             services.AddScoped<IPreContratoLoteRepository, PreContratoLoteRepository>();
             services.AddScoped<IVentaLoteRepository, VentaLoteRepository>();
+            services.AddScoped<IBeneficiarioRepository, BeneficiarioRepository>();
 
             services.AddScoped<IProyectoRepository, ProyectoRepository>();
             services.AddScoped<ISectorRepository, SectorRepository>();
@@ -134,6 +136,7 @@ namespace backend.services
             services.AddScoped<IReservaLoteBL, ReservaLoteBL>();
             services.AddScoped<IPreContratoLoteBL, PreContratoLoteBL>();
             services.AddScoped<IVentaLoteBL, VentaLoteBL>();
+            services.AddScoped<IBeneficiarioBL, BeneficiarioBL>();
 
             services.AddScoped<IProyectoBL, ProyectoBL>();
             services.AddScoped<ISectorBL, SectorBL>();
