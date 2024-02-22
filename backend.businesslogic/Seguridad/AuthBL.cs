@@ -22,6 +22,16 @@ namespace backend.businesslogic.Seguridad
             return await repository.AuthUser(authLogin);
         }
 
+        public async Task<LoginDTO> AuthPortalUser(authLoginDTO authLogin)
+        {
+            return await repository.AuthPortalUser(authLogin);
+        }
+
+        public async Task<RecoverPasswordDTO> RecoverPassword(recoverPasswordDTO authLogin)
+        {
+            return await repository.RecoverPassword(authLogin);
+        }
+
         public async Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania)
         {
             return await repository.ListOpcionByIdUsuario(nIdUsuario, nIdCompania);

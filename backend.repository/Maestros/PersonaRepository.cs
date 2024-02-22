@@ -16,63 +16,6 @@ namespace backend.repository.Maestros
             _configuration = configuration;
         }
 
-        public async Task<IList<DireccionDTO>> getListDireccion(int nIdPersona)
-        {
-            IEnumerable<DireccionDTO> list = new List<DireccionDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 1);
-                parameters.Add("nIdPersona", nIdPersona);
-
-                list = await connection.QueryAsync<DireccionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
-        public async Task<SqlRspDTO> InsDireccion(DireccionDTO direccion)
-        {
-            SqlRspDTO res = new SqlRspDTO(); ;
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 2);
-                parameters.Add("nIdPersona", direccion.nIdPersona);
-                parameters.Add("sDireccion", direccion.sDireccion);
-                parameters.Add("nIdUbigeo", direccion.nIdUbigeo);
-                parameters.Add("sCodPostal", direccion.sCodPostal);
-                parameters.Add("nIdUsuario_crea", direccion.nIdUsuario_crea);
-
-                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return res;
-        }
-
-        public async Task<SqlRspDTO> UpdDireccion(DireccionDTO direccion)
-        {
-            SqlRspDTO res = new SqlRspDTO(); ;
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 3);
-                parameters.Add("nIdDireccion", direccion.nIdDireccion);
-                parameters.Add("nIdPersona", direccion.nIdPersona);
-                parameters.Add("sDireccion", direccion.sDireccion);
-                parameters.Add("nIdUbigeo", direccion.nIdUbigeo);
-                parameters.Add("sCodPostal", direccion.sCodPostal);
-                parameters.Add("nIdUsuario_mod", direccion.nIdUsuario_mod);
-
-                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return res;
-        }
-
         public async Task<int> validDocumentoUsuario(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)
         {
             int resp;
@@ -80,7 +23,7 @@ namespace backend.repository.Maestros
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 4);
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_persona]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("sDNI", sDNI);
                 parameters.Add("sCE", sCE);

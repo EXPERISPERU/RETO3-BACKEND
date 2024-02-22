@@ -44,7 +44,7 @@ namespace backend.services.Controllers.Contabilidad
                     {
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
-                                .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
+                                .Replace("#sLogoData#", dataImages.psViviendasDelSur)
                                 .Replace("#sCorrelativo#", comprobante.sComprobante)
                                 .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
                                 .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
@@ -59,12 +59,12 @@ namespace backend.services.Controllers.Contabilidad
                     if (comprobante.sCodigoTipoComprobante == "3")
                     {
                         html += sCuerpo
-                        .Replace("ComprobanteHeader.png", dataLogoCompania.headerBoleta)
-                        .Replace("BbvaLogo.png", dataLogoCompania.bbvaLogo)
-                        .Replace("facebookIcon.png", dataLogoCompania.facebookIcon)
-                        .Replace("youtubeIcon.png", dataLogoCompania.youtubeIcon)
-                        .Replace("linkIcon.png", dataLogoCompania.linkIcon)
-                        .Replace("ComprobanteFooter.png", dataLogoCompania.footerBoleta)                
+                        .Replace("ComprobanteHeader.png", dataImages.headerBoleta)
+                        .Replace("BbvaLogo.png", dataImages.bbvaLogo)
+                        .Replace("facebookIcon.png", dataImages.facebookIcon)
+                        .Replace("youtubeIcon.png", dataImages.youtubeIcon)
+                        .Replace("linkIcon.png", dataImages.linkIcon)
+                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)                
                         .Replace("#sComprobante#", comprobante.sComprobante)
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)
                         .Replace("#sDocumento#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)

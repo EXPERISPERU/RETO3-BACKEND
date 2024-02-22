@@ -83,7 +83,7 @@ namespace backend.services.Controllers.Comercial
 
                     html += "<div class=\"page-break\">";
                     html += sCuerpo
-                            .Replace("#sLogoData#", dataLogoCompania.psViviendasDelSur)
+                            .Replace("#sLogoData#", dataImages.psViviendasDelSur)
                             .Replace("#sCorrelativo#", dataReserva.sComprobante)
                             .Replace("#sNombreCliente#", dataReserva.sNombreCliente)
                             .Replace("#sDocumentoCliente#", dataReserva.sDocumento)

@@ -38,6 +38,41 @@ namespace backend.repository.Seguridad
             return resp;
         }
 
+        public async Task<LoginDTO> AuthPortalUser(authLoginDTO authLogin)
+        {
+            LoginDTO resp = new LoginDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 4);
+                parameters.Add("sUsuario", authLogin.sUsuario);
+                parameters.Add("sPassword", authLogin.sPassword);
+
+                resp = await connection.QuerySingleAsync<LoginDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<RecoverPasswordDTO> RecoverPassword(recoverPasswordDTO authRecover)
+        {
+            RecoverPasswordDTO resp = new RecoverPasswordDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 5);
+                parameters.Add("sCorreoUser", authRecover.sCorreoUser);
+
+                resp = await connection.QuerySingleAsync<RecoverPasswordDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+
+
         public async Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania)
         {
             IEnumerable<OpcionDTO> list = new List<OpcionDTO>();

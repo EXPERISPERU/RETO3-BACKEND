@@ -58,6 +58,10 @@ namespace backend.domain
 		public DateTime? dFechaFin { get; set; }
 		public int? nIdCuota { get; set; }
 		public int? nCuotas { get; set; }
+        public int? nCuotasPagadas { get; set; }
+        public decimal? tCuotasPagadas { get; set; }
+        public int? nCuotasPendientes { get; set; }
+        public decimal? tCuotasPendientes { get; set; }
         public decimal? nValorCuota { get; set; }
         public int? nIdCicloPago { get; set; }
 		public int? nDiaPago { get; set; }
@@ -100,4 +104,27 @@ namespace backend.domain
         public int nIdComprobante { get; set; }
         public string sComprobante { get; set; }
     }
+
+    public class ContratoByIdClientDTO
+    {
+        public int nIdContrato { get; set; }
+        public string? sLote { get; set; }
+        public string? sManzana { get; set; }
+        public string? sProyecto { get; set; }
+    }
+
+    public class ListInicialByContrato
+    {
+        public int nIdContrato { get; set; }
+        public string? sCodigoContrato { get; set; }
+        public string nIdOrdenPago { get; set; }
+        public string estadoOrdenPago { get; set; }
+		public string nIdOrdenPagoDet { get; set; }
+        public string mInicial { get; set; }
+        public string? sComprobante { get; set; }
+        public string? nIdCronograma { get; set; }
+        public string? descripEstado { get; set; }
+        public string? fechaPago { get; set; }
+    }
+
 }
