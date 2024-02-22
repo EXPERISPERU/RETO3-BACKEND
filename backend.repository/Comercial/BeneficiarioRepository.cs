@@ -148,6 +148,7 @@ namespace backend.repository.Comercial
                 parameters.Add("sCelular", beneficiario.sCelular);
                 parameters.Add("sDNI", beneficiario.sDNI);
                 parameters.Add("sCE", beneficiario.sCE);
+                parameters.Add("bActivo", beneficiario.bActivo);
                 parameters.Add("nIdUsuario_mod", beneficiario.nIdUsuario_mod);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
