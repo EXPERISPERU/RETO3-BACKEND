@@ -230,27 +230,6 @@ namespace backend.services.Controllers.Contratos
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ListInicialByContrato>>>> getListInicialByContrato(int nIdContrato)
-        {
-            ApiResponse<List<ListInicialByContrato>> response = new ApiResponse<List<ListInicialByContrato>>();
-
-            try
-            {
-                var result = await service.getListInicialByContrato(nIdContrato);
-
-                response.success = true;
-                response.data = (List<ListInicialByContrato>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-        [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<List<OrdenPagoPreContratoDTO>>>> getListOrdenPagoByContrato(int nIdContrato)
         {
             ApiResponse<List<OrdenPagoPreContratoDTO>> response = new ApiResponse<List<OrdenPagoPreContratoDTO>>();
@@ -292,5 +271,46 @@ namespace backend.services.Controllers.Contratos
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ListInicialByContrato>>>> getListInicialByContrato(int nIdContrato)
+        {
+            ApiResponse<List<ListInicialByContrato>> response = new ApiResponse<List<ListInicialByContrato>>();
+
+            try
+            {
+                var result = await service.getListInicialByContrato(nIdContrato);
+
+                response.success = true;
+                response.data = (List<ListInicialByContrato>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<DocumentosContratoDTO>>>> getListDocumentosByContrato(int nIdContrato)
+        {
+            ApiResponse<List<DocumentosContratoDTO>> response = new ApiResponse<List<DocumentosContratoDTO>>();
+
+            try
+            {
+                var result = await service.getListDocumentosByContrato(nIdContrato);
+
+                response.success = true;
+                response.data = (List<DocumentosContratoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

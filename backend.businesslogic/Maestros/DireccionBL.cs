@@ -31,5 +31,10 @@ namespace backend.businesslogic.Maestros
         {                                                  
             return await repository.getSelectVias();
         }
+
+        public async Task<SqlRspDTO> UpdDireccionPrincipal(DireccionDTO direccion)
+        {
+            return await repository.UpdDireccionPrincipal(direccion);
+        }
     }
 }

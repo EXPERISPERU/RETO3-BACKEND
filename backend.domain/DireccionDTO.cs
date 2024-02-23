@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace backend.domain
+﻿namespace backend.domain
 {
     public class DireccionDTO
     {
@@ -27,6 +21,7 @@ namespace backend.domain
         public int nIdUbigeo { get; set; }
         public string? sUbigeo { get; set; }
         public string? sCodPostal { get; set; }
+        public bool? bPrincipal { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }

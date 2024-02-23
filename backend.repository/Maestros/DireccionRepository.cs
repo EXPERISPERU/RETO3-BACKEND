@@ -2,13 +2,8 @@
 using backend.repository.Interfaces.Maestros;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.repository.Maestros
 {
@@ -115,6 +110,23 @@ namespace backend.repository.Maestros
             }
 
             return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> UpdDireccionPrincipal(DireccionDTO direccion)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_direccion]", 5);
+                parameters.Add("nIdDireccion", direccion.nIdDireccion);
+                parameters.Add("nIdUsuario_mod", direccion.nIdUsuario_mod);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
         }
     }
 }
