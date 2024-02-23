@@ -1,9 +1,4 @@
 ﻿using backend.domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.businesslogic.Interfaces.Maestros
 {
@@ -13,5 +8,6 @@ namespace backend.businesslogic.Interfaces.Maestros
         Task<SqlRspDTO> InsDireccion(DireccionDTO direccion);
         Task<SqlRspDTO> UpdDireccion(DireccionDTO direccion);
         Task<IList<SelectDTO>> getSelectVias();
+        Task<SqlRspDTO> UpdDireccionPrincipal(DireccionDTO direccion);
     }
 }

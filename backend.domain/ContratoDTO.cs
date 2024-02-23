@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace backend.domain
+﻿namespace backend.domain
 {
 	public class ContratoDTO
 	{
@@ -127,4 +121,11 @@ namespace backend.domain
         public string? fechaPago { get; set; }
     }
 
+	public class DocumentosContratoDTO
+	{ 
+		public int nIdDocumento { get; set; }
+		public string sDescripcion { get; set; }
+		public int nIdFormato { get; set; }
+		public int nIdAdjunto { get; set; }
+    }
 }
