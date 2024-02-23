@@ -53,5 +53,10 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListAsignacionClienteByFilters(AsignacionFiltros);
         }
 
+        public async Task<SqlRspDTO> InsAsignacionCliente(AsignacionClienteDTO asignacionCliente)
+        {
+            return await this.repository.InsAsignacionCliente(asignacionCliente);
+        }
+
     }
 }

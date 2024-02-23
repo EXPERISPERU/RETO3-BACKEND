@@ -129,11 +129,32 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdManzana", AsignacionFiltros.nIdManzana);
                 parameters.Add("nIdLote", AsignacionFiltros.nIdLote);
                 parameters.Add("estadoMorosidad", AsignacionFiltros.estadoMorosidad);
+                parameters.Add("estadoAsignacion", AsignacionFiltros.estadoAsignacion);
+                parameters.Add("nIdPeriodoGestion", AsignacionFiltros.nIdPeriodoGestion);
 
                 list = await connection.QueryAsync<AsignacionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> InsAsignacionCliente(AsignacionClienteDTO asignacionCliente)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_asignacion_cliente]", 8);
+                parameters.Add("nIdEmpleado", asignacionCliente.nIdEmpleado);
+                parameters.Add("nIdCliente", asignacionCliente.nIdCliente);
+                parameters.Add("nIdPeriodoGestion", asignacionCliente.nIdPeriodoGestion);
+                parameters.Add("nIdUsuario_crea", asignacionCliente.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
         }
 
 

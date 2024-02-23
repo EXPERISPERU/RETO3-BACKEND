@@ -100,6 +100,8 @@ namespace backend.services
             services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
 
             services.AddScoped<IAsignacionClienteRepository, AsignacionClienteRepository>();
+
+            services.AddScoped<IGestionSeguimientoRepository, GestionSeguimientoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -157,6 +159,8 @@ namespace backend.services
             services.AddScoped<IComprobanteBL, ComprobanteBL>();
 
             services.AddScoped<IAsignacionClienteBL, AsignacionClienteBL>();
+
+            services.AddScoped<IGestionSeguimientoBL, GestionSeguimientoBL>();
         }
     }
 }
