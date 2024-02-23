@@ -146,7 +146,7 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ContratoDTO>>>> getListAsignacionClienteByFilters([FromBody] AsignacionClienteFiltrosDTO AsignacionFiltros)
+        public async Task<ActionResult<ApiResponse<List<AsignacionClienteDTO>>>> getListAsignacionClienteByFilters([FromBody] AsignacionClienteFiltrosDTO AsignacionFiltros)
         {
             ApiResponse<List<AsignacionClienteDTO>> response = new ApiResponse<List<AsignacionClienteDTO>>();
 
@@ -156,6 +156,27 @@ namespace backend.services.Controllers.Cobranzas
 
                 response.success = true;
                 response.data = (List<AsignacionClienteDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postAsignacionCliente([FromBody] AsignacionClienteDTO asignacionCliente)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsAsignacionCliente(asignacionCliente);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
