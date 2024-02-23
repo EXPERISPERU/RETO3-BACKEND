@@ -1,4 +1,5 @@
-﻿using backend.businesslogic.Interfaces.Comercial;
+﻿using backend.businesslogic.Comercial;
+using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Contratos;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
@@ -303,6 +304,48 @@ namespace backend.services.Controllers.Contratos
 
                 response.success = true;
                 response.data = (List<DocumentosContratoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<BeneficiarioClienteDTO>>> getConyugueByCliente(int nIdCliente)
+        {
+            ApiResponse<BeneficiarioClienteDTO> response = new ApiResponse<BeneficiarioClienteDTO>();
+
+            try
+            {
+                var result = await service.getConyugueByCliente(nIdCliente);
+
+                response.success = true;
+                response.data = (BeneficiarioClienteDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdConyugueContrato([FromBody] BeneficiarioClienteDTO beneficiario, int nIdContrato)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.UpdConyugueContrato(beneficiario, nIdContrato);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

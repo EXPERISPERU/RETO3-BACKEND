@@ -249,5 +249,38 @@ namespace backend.repository.Contratos
 
             return list.ToList();
         }
+
+        public async Task<BeneficiarioClienteDTO> getConyugueByCliente(int nIdCliente)
+        {
+            BeneficiarioClienteDTO res = new BeneficiarioClienteDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 15);
+                parameters.Add("nIdCliente", nIdCliente);
+
+                res = await connection.QuerySingleOrDefaultAsync<BeneficiarioClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<SqlRspDTO> UpdConyugueContrato(BeneficiarioClienteDTO beneficiario, int nIdContrato)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 16);
+                parameters.Add("nIdContrato", nIdContrato);
+                parameters.Add("nIdBeneficiario", beneficiario.nIdBeneficiario);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
