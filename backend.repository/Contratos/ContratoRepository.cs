@@ -186,22 +186,6 @@ namespace backend.repository.Contratos
             return list.ToList();
         }
 
-        public async Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato)
-        {
-            IEnumerable<ListInicialByContrato> list = new List<ListInicialByContrato>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 13);
-                parameters.Add("nIdContrato", nIdContrato);
-
-                list = await connection.QueryAsync<ListInicialByContrato>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
         public async Task<IList<OrdenPagoPreContratoDTO>> getListOrdenPagoByContrato(int nIdContrato)
         {
             IEnumerable<OrdenPagoPreContratoDTO> list = new List<OrdenPagoPreContratoDTO>();
@@ -234,6 +218,69 @@ namespace backend.repository.Contratos
             return list.ToList();
         }
 
+        public async Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato)
+        {
+            IEnumerable<ListInicialByContrato> list = new List<ListInicialByContrato>();
 
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 13);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                list = await connection.QueryAsync<ListInicialByContrato>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<DocumentosContratoDTO>> getListDocumentosByContrato(int nIdContrato)
+        {
+            IEnumerable<DocumentosContratoDTO> list = new List<DocumentosContratoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 14);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                list = await connection.QueryAsync<DocumentosContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<BeneficiarioClienteDTO> getConyugueByCliente(int nIdCliente)
+        {
+            BeneficiarioClienteDTO res = new BeneficiarioClienteDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 15);
+                parameters.Add("nIdCliente", nIdCliente);
+
+                res = await connection.QuerySingleOrDefaultAsync<BeneficiarioClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<SqlRspDTO> UpdConyugueContrato(BeneficiarioClienteDTO beneficiario, int nIdContrato)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 16);
+                parameters.Add("nIdContrato", nIdContrato);
+                parameters.Add("nIdBeneficiario", beneficiario.nIdBeneficiario);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }

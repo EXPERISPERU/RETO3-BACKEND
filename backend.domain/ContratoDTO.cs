@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace backend.domain
+﻿namespace backend.domain
 {
 	public class ContratoDTO
 	{
@@ -31,7 +25,15 @@ namespace backend.domain
 		public string? sUbigeo { get; set; }
 		public string? sCelular { get; set; }
 		public string? sCorreo { get; set; }
-		public int nIdMoneda { get; set; }
+		public bool? bConyugue { get; set; }
+		public int? nIdBeneficiario { get; set; }
+        public string? sDNIConyugue { get; set; }
+        public string? sCEConyugue { get; set; }
+        public string? sRUCConyugue { get; set; }
+        public string? sNombreCompletoConyugue { get; set; }
+        public string? sCelularConyugue { get; set; }
+        public string? sCorreoConyugue { get; set; }
+        public int nIdMoneda { get; set; }
 		public string? sMoneda { get; set; }
 		public string? sSimbolo { get; set; }
 		public int nIdAsignacionPrecio { get; set; }
@@ -127,4 +129,11 @@ namespace backend.domain
         public string? fechaPago { get; set; }
     }
 
+	public class DocumentosContratoDTO
+	{ 
+		public int nIdDocumento { get; set; }
+		public string sDescripcion { get; set; }
+		public int nIdFormato { get; set; }
+		public int nIdAdjunto { get; set; }
+    }
 }

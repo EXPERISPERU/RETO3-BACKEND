@@ -1,9 +1,9 @@
 ﻿using backend.domain;
-using backend.repository.Interfaces;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using backend.repository.Interfaces.Comercial;
 
 namespace backend.repository.Comercial
 {

@@ -1,12 +1,6 @@
 ﻿using backend.businesslogic.Interfaces.Contratos;
 using backend.domain;
-using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Contratos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.businesslogic.Contratos
 {
@@ -69,11 +63,6 @@ namespace backend.businesslogic.Contratos
             return await repository.getListCronogramaByContrato(nIdContrato);
         }
 
-        public async Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato)
-        {
-            return await repository.getListInicialByContrato(nIdContrato);
-        }
-
         public async Task<IList<OrdenPagoPreContratoDTO>> getListOrdenPagoByContrato(int nIdContrato)
         {
             return await repository.getListOrdenPagoByContrato(nIdContrato);
@@ -82,6 +71,26 @@ namespace backend.businesslogic.Contratos
         public async Task<IList<ContratoByIdClientDTO>> getContratosByIdCliente(int nIdCliente)
         {
             return await repository.getContratosByIdCliente(nIdCliente);
+        }
+
+        public async Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato)
+        {
+            return await repository.getListInicialByContrato(nIdContrato);
+        }
+
+        public async Task<IList<DocumentosContratoDTO>> getListDocumentosByContrato(int nIdContrato)
+        {
+            return await repository.getListDocumentosByContrato(nIdContrato);
+        }
+
+        public async Task<BeneficiarioClienteDTO> getConyugueByCliente(int nIdCliente)
+        {
+            return await repository.getConyugueByCliente(nIdCliente);
+        }
+
+        public async Task<SqlRspDTO> UpdConyugueContrato(BeneficiarioClienteDTO beneficiario, int nIdContrato)
+        {
+            return await repository.UpdConyugueContrato(beneficiario, nIdContrato);
         }
     }
 }

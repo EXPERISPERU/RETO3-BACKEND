@@ -16,5 +16,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectCicloPagoByProyecto(int nIdProyecto);
         Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdCompania);
         Task<IList<AsignacionClienteDTO>> getListAsignacionClienteByFilters(AsignacionClienteFiltrosDTO AsignacionFiltros);
+        Task<SqlRspDTO> InsAsignacionCliente(AsignacionClienteDTO asignacionCliente);
     }
 }

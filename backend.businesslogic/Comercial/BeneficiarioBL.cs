@@ -1,6 +1,6 @@
 ﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.domain;
-using backend.repository.Interfaces;
+using backend.repository.Interfaces.Comercial;
 
 namespace backend.businesslogic.Comercial
 {
