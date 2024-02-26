@@ -1,6 +1,6 @@
 ﻿using backend.domain;
 
-namespace backend.repository.Interfaces
+namespace backend.repository.Interfaces.Comercial
 {
     public interface IBeneficiarioRepository
     {
