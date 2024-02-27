@@ -94,7 +94,7 @@ namespace backend.services.Utils
                 }
                 else
                 {
-                    html = html.Replace("img/firma_beneficiario.png", dataImages.firmaBlanco);
+                    html = html.Replace("img/firma_conyugue.png", dataImages.firmaBlanco);
                 }
 
                 if (contrato.bConyugue == true)
