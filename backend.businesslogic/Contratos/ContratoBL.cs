@@ -88,9 +88,29 @@ namespace backend.businesslogic.Contratos
             return await repository.getConyugueByCliente(nIdCliente);
         }
 
-        public async Task<SqlRspDTO> UpdConyugueContrato(BeneficiarioClienteDTO beneficiario, int nIdContrato)
+        public async Task<SqlRspDTO> UpdConyugueContrato(UpdConyugueDTO updConyugue)
         {
-            return await repository.UpdConyugueContrato(beneficiario, nIdContrato);
+            return await repository.UpdConyugueContrato(updConyugue);
+        }
+
+        public async Task<SqlRspDTO> UpdRetirarConyugueContrato(UpdConyugueDTO updConyugue)
+        {
+            return await repository.UpdRetirarConyugueContrato(updConyugue);
+        }
+
+        public async Task<string> getFormatoContratoById(int nIdFormato)
+        {
+            return await repository.getFormatoContratoById(nIdFormato);
+        }
+
+        public async Task<SqlRspDTO> UpdFirmaContrato(UpdFirmaContratoDTO updfirma)
+        {
+            return await repository.UpdFirmaContrato(updfirma);
+        }
+
+        public async Task<SqlRspDTO> UpdFirmaConyugueContrato(UpdFirmaContratoDTO updfirma)
+        {
+            return await repository.UpdFirmaConyugueContrato(updfirma);
         }
     }
 }

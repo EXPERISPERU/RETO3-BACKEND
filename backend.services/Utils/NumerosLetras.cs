@@ -82,7 +82,7 @@ namespace backend.services.Utils
         public string sConvertir(decimal numero) {
             string result = "";
             int entero = (int) Math.Truncate(numero);
-            string sDecimal = numero.ToString().Contains(".") ? "con " + numero.ToString().Split('.')[1] + "/100" :  "con 00/100";
+            string sDecimal = numero.ToString().Contains(".") ? "con " + Math.Round(numero, 2).ToString().Split('.')[1] + "/100" :  "con 00/100";
 
             if ((entero / 1000000) > 0)
             {
