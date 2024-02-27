@@ -79,14 +79,22 @@ namespace backend.services.Utils
                         .Replace("#sHOY#", DateTime.Now.ToString("dd/MM/yyyy"))
                         ;
 
-                if (!string.IsNullOrEmpty(contrato.sFirma)) 
+                if (!string.IsNullOrEmpty(contrato.sFirma))
                 {
                     html = html.Replace("img/firma_beneficiario.png", contrato.sFirma);
+                }
+                else 
+                {
+                    html = html.Replace("img/firma_beneficiario.png", dataImages.firmaBlanco);
                 }
 
                 if (!string.IsNullOrEmpty(contrato.sFirmaConyugue))
                 {
                     html = html.Replace("img/firma_conyugue.png", contrato.sFirmaConyugue);
+                }
+                else
+                {
+                    html = html.Replace("img/firma_beneficiario.png", dataImages.firmaBlanco);
                 }
 
                 if (contrato.bConyugue == true)
