@@ -197,15 +197,42 @@ namespace backend.services.Utils
                         imageBytes = Convert.FromBase64String(dataImages.cesionSauces.Replace("data:image/png;base64,", ""));
                     }
 
-                    //if (sCodigo.Equals("6"))
-                    //{
-                    //    imageBytes = Convert.FromBase64String(dataImages.fondoConformidadContrato.Replace("data:image/png;base64,", ""));
-                    //}
-
                     Image image = new Image(ImageDataFactory.Create(imageBytes));
                     image.SetWidth(pdfDocument.GetDefaultPageSize().GetWidth());
                     image.SetHeight(pdfDocument.GetDefaultPageSize().GetHeight());
                     image.SetFixedPosition(0, 0);
+                    image.SetOpacity(1f);
+                    pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, new BackgroundImageHandler(image));
+                }
+
+                // Firma Lateral
+                if ((sCodigo.Equals("5") || sCodigo.Equals("1")) && !string.IsNullOrEmpty(contrato.sFirma))
+                {
+                    Byte[] imageBytes = { };
+
+                    imageBytes = Convert.FromBase64String(contrato.sFirma.Replace("data:image/png;base64,", ""));
+                    
+                    Image image = new Image(ImageDataFactory.Create(imageBytes));
+                    image.SetWidth(100);
+                    image.SetHeight(50);
+                    image.SetRotationAngle(1.5708);
+                    image.SetFixedPosition(-2, 400);
+                    image.SetOpacity(1f);
+                    pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, new BackgroundImageHandler(image));
+                }
+
+                // Firma Lateral
+                if ((sCodigo.Equals("5") || sCodigo.Equals("1")) && contrato.bConyugue == true && !string.IsNullOrEmpty(contrato.sFirmaConyugue))
+                {
+                    Byte[] imageBytes = { };
+
+                    imageBytes = Convert.FromBase64String(contrato.sFirmaConyugue.Replace("data:image/png;base64,", ""));
+
+                    Image image = new Image(ImageDataFactory.Create(imageBytes));
+                    image.SetWidth(100);
+                    image.SetHeight(50);
+                    image.SetRotationAngle(1.5708);
+                    image.SetFixedPosition(-2, 500);
                     image.SetOpacity(1f);
                     pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, new BackgroundImageHandler(image));
                 }
