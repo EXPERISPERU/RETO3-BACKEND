@@ -21,6 +21,10 @@
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
+        public int? nIdDireccion { get; set; }
+        public string? sDireccion { get; set; }
+        public int? nIdUbigeoDir { get; set; }
+        public string? sUbigeoDir { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }

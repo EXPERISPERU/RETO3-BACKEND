@@ -25,7 +25,9 @@
 		public string? sUbigeo { get; set; }
 		public string? sCelular { get; set; }
 		public string? sCorreo { get; set; }
-		public bool? bConyugue { get; set; }
+		public int? nIdEstadoCivil { get; set; }
+		public string? sEstadoCivil { get; set; }
+        public bool? bConyugue { get; set; }
 		public int? nIdBeneficiario { get; set; }
         public string? sDNIConyugue { get; set; }
         public string? sCEConyugue { get; set; }
@@ -33,8 +35,9 @@
         public string? sNombreCompletoConyugue { get; set; }
         public string? sCelularConyugue { get; set; }
         public string? sCorreoConyugue { get; set; }
+		public string? sEstadoCivilConyugue { get; set; }
         public int nIdMoneda { get; set; }
-		public string? sMoneda { get; set; }
+        public string? sMoneda { get; set; }
 		public string? sSimbolo { get; set; }
 		public int nIdAsignacionPrecio { get; set; }
 		public int? nIdDescuentoLote { get; set; }
@@ -69,7 +72,11 @@
 		public int? nDiaPago { get; set; }
 		public int nIdEstado { get; set; }
 		public string? sEstado { get; set; }
-		public int nIdUsuario_crea { get; set; }
+		public DateTime? dFechaVenta { get; set; }
+		public DateTime? dFechaFirma { get; set; }
+		public string? sFirma { get; set; }
+		public string? sFirmaConyugue { get; set; }
+        public int nIdUsuario_crea { get; set; }
 		public string? sUsuario_crea { get; set; }
 		public DateTime? dFecha_crea { get; set; }
 		public string? sFecha_crea { get; set; }
@@ -132,8 +139,24 @@
 	public class DocumentosContratoDTO
 	{ 
 		public int nIdDocumento { get; set; }
-		public string sDescripcion { get; set; }
+		public string sCodigo { get; set; }
+
+        public string sDescripcion { get; set; }
 		public int nIdFormato { get; set; }
 		public int nIdAdjunto { get; set; }
+    }
+
+    public class UpdConyugueDTO
+    {
+        public int nIdContrato { get; set; }
+        public int nIdUsuario { get; set; }
+        public int? nIdBeneficiario { get; set; }
+    }
+
+    public class UpdFirmaContratoDTO
+    {
+        public int nIdContrato { get; set; }
+        public int nIdUsuario { get; set; }
+        public string sFirma { get; set; }
     }
 }

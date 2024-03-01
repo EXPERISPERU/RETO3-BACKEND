@@ -1,10 +1,4 @@
 ﻿using backend.domain;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.businesslogic.Interfaces.Contratos
 {
@@ -25,6 +19,10 @@ namespace backend.businesslogic.Interfaces.Contratos
         Task<IList<ListInicialByContrato>> getListInicialByContrato(int nIdContrato);
         Task<IList<DocumentosContratoDTO>> getListDocumentosByContrato(int nIdContrato);
         Task<BeneficiarioClienteDTO> getConyugueByCliente(int nIdCliente);
-        Task<SqlRspDTO> UpdConyugueContrato(BeneficiarioClienteDTO beneficiario, int nIdContrato);
+        Task<SqlRspDTO> UpdConyugueContrato(UpdConyugueDTO updConyugue);
+        Task<SqlRspDTO> UpdRetirarConyugueContrato(UpdConyugueDTO updConyugue);
+        Task<string> getFormatoContratoById(int nIdFormato);
+        Task<SqlRspDTO> UpdFirmaContrato(UpdFirmaContratoDTO updfirma);
+        Task<SqlRspDTO> UpdFirmaConyugueContrato(UpdFirmaContratoDTO updfirma);
     }
 }
