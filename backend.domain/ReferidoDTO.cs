@@ -10,6 +10,9 @@ namespace backend.domain
     {
         public int? nIdReferido { get; set; }
         public int nIdCliente { get; set; }
+        public string? sDNI { get; set; }
+        public string? sCE { get; set; }
+        public string? sRUC { get; set; }
         public string? sCliente { get; set; }
         public int nIdTipo { get; set; }
         public string? sTipo { get; set; }
@@ -20,9 +23,8 @@ namespace backend.domain
         public int? nIdProveedor { get; set; }
         public string? sProveedor { get; set; }
         public DateTime? dFechaIni { get; set; }
-        public string? sFechaIni { get; set; }
         public DateTime? dFechaFin { get; set; }
-        public string? sFechaFin { get; set; }
+        public Boolean? bActivo { get; set; }
     }
 
     public class InsReferidoDTO
