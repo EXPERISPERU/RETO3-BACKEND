@@ -174,7 +174,6 @@ namespace backend.services.Controllers.Cobranzas
             try
             {
                 var result = await service.InsAsignacionCliente(asignacionCliente);
-
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
