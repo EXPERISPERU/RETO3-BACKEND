@@ -43,9 +43,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getSelectCicloPagoByProyecto(nIdProyecto);
         }
 
-        public async Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdCompania)
+        public async Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdUsuario, int nIdCompania)
         {
-            return await repository.getSelectAsesorCobranza(nIdCompania);
+            return await repository.getSelectAsesorCobranza(nIdUsuario, nIdCompania);
         }
 
         public async Task<IList<AsignacionClienteDTO>> getListAsignacionClienteByFilters(AsignacionClienteFiltrosDTO AsignacionFiltros)
