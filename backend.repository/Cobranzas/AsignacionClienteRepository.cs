@@ -160,5 +160,21 @@ namespace backend.repository.Cobranzas
         }
 
 
+        public async Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo)
+        {
+            IEnumerable<AsignacionClienteDTO> list = new List<AsignacionClienteDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_asignacion_cliente]", 9);
+                parameters.Add("nIdEmpleado", nIdEmpleado);
+                parameters.Add("nIdPeriodo", nIdPeriodo);
+
+                list = await connection.QueryAsync<AsignacionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }
