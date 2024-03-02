@@ -13,6 +13,7 @@ namespace backend.domain
 
     public class AsignacionClienteDTO
     {
+        public int? nIdAsignacion { get; set; }
         public int nIdCliente { get; set; }
         public int nIdEmpleado { get; set; }
         public int? nIdPeriodoGestion { get; set; }
@@ -23,7 +24,7 @@ namespace backend.domain
         public string? nTotalMontoCuotasVencidas { get; set; }
         public string? sNombreEmpleado { get; set; }
         public int? nIdUsuario_crea { get; set; }
-
+        public int? nSeguimientos { get; set; }
     }
 
     public class PeriodoGestionDTO
