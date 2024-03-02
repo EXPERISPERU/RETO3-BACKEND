@@ -99,7 +99,8 @@ namespace backend.repository.Cobranzas
 
             return list.ToList();
         }
-        public async Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdCompania)
+
+        public async Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdUsuario, int nIdCompania)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -107,6 +108,7 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_asignacion_cliente]", 6);
+                parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
