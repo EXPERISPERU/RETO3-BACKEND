@@ -49,12 +49,16 @@ namespace backend.domain
     public class CronogramaDeudaDTO
     {
         public int nIdCronograma { get; set; }
+        public int nIdContrato { get; set; }
         public int nNroCuota { get; set; }
         public int? nIdMoneda { get; set; }
-        public string? nMonto { get; set; }
-        public string? dFechaVencimiento { get; set; }
+        public Decimal? nMonto { get; set; }
+        public DateTime? dFechaVencimiento { get; set; }
         public int? diasMora { get; set; }
-        public string? montoTotal { get; set; }
+        public int? nMontoMora { get; set; }
+        public Decimal? montoTotal { get; set; }
+        public int? nIdSeguimientoCuota { get; set; }
+        public DateTime? dFechaCompromiso { get; set; }
     }
 
     public class SeguimientoDTO
@@ -99,6 +103,24 @@ namespace backend.domain
         public string? sDescripcion { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public int? nIdUsuario_mod { get; set; }
+    }
+
+    public class SeguimientoCuotaDTO
+    {
+        public int? nIdSeguimientoCuota { get; set; }
+        public int nIdSeguimiento { get; set; }
+        public int nIdContrato { get; set; }
+        public int nIdCronograma { get; set; }
+        public Double? nValorCuota { get; set; }
+        public DateTime? dFechaVencimiento { get; set; }
+        public int? nDiasMora { get; set; }
+        public Double? nValorMora { get; set; }
+        public Double? nValorTotal { get; set; }
+        public Double? nValorCompromiso { get; set; }
+        public DateTime? dFechaCompromiso { get; set; }
+        public int? nIdEstadoCompromiso { get; set; }
+        public int? nIdUsuario_crea { get; set; }
+        public DateTime? dFecha_crea { get; set; }
     }
 
 }

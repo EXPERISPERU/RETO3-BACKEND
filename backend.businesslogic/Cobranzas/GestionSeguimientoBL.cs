@@ -85,5 +85,10 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListAgendamiento(nIdSeguimiento);
         }
 
+        public async Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota)
+        {
+            return await repository.InsSeguimientoCuota(seguimientoCuota);
+        }
+
     }
 }
