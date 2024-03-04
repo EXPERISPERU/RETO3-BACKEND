@@ -90,5 +90,10 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsSeguimientoCuota(seguimientoCuota);
         }
 
+        public async Task<SqlRspDTO> UpdTerminarSeguimiento(SeguimientoDTO seguimiento)
+        {
+            return await repository.UpdTerminarSeguimiento(seguimiento);
+        }
+
     }
 }

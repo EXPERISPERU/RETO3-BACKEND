@@ -25,5 +25,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectTipoAgendamiento();
         Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota);
+        Task<SqlRspDTO> UpdTerminarSeguimiento(SeguimientoDTO seguimiento);
     }
 }
