@@ -160,7 +160,7 @@ namespace backend.repository.Cobranzas
         }
 
 
-        public async Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo)
+        public async Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo, int nIdCompania)
         {
             IEnumerable<AsignacionClienteDTO> list = new List<AsignacionClienteDTO>();
 
@@ -170,6 +170,7 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_asignacion_cliente]", 9);
                 parameters.Add("nIdEmpleado", nIdEmpleado);
                 parameters.Add("nIdPeriodo", nIdPeriodo);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<AsignacionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

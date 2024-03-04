@@ -58,9 +58,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsAsignacionCliente(asignacionCliente);
         }
 
-        public async Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo)
+        public async Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo, int nIdCompania)
         {
-            return await repository.getClienteAsignadosByEmpleadoPeriodo(nIdEmpleado, nIdPeriodo);
+            return await repository.getClienteAsignadosByEmpleadoPeriodo(nIdEmpleado, nIdPeriodo, nIdCompania);
         }
 
     }

@@ -17,6 +17,6 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdUsuario, int nIdCompania);
         Task<IList<AsignacionClienteDTO>> getListAsignacionClienteByFilters(AsignacionClienteFiltrosDTO AsignacionFiltros);
         Task<SqlRspDTO> InsAsignacionCliente(AsignacionClienteDTO asignacionCliente);
-        Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo);
+        Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo, int nIdCompania);
     }
 }
