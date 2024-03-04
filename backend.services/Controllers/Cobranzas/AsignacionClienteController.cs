@@ -187,13 +187,13 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<AsignacionClienteDTO>>>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo)
+        public async Task<ActionResult<ApiResponse<List<AsignacionClienteDTO>>>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo, int nIdCompania)
         {
             ApiResponse<List<AsignacionClienteDTO>> response = new ApiResponse<List<AsignacionClienteDTO>>();
 
             try
             {
-                var result = await service.getClienteAsignadosByEmpleadoPeriodo(nIdEmpleado, nIdPeriodo);
+                var result = await service.getClienteAsignadosByEmpleadoPeriodo(nIdEmpleado, nIdPeriodo, nIdCompania);
 
                 response.success = true;
                 response.data = (List<AsignacionClienteDTO>)result;
