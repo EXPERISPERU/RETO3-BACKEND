@@ -312,5 +312,27 @@ namespace backend.services.Controllers.Cobranzas
             }
         }
 
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsSeguimientoCuota([FromBody] SeguimientoCuotaDTO seguimientoCuotaDTO)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsSeguimientoCuota(seguimientoCuotaDTO);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }
