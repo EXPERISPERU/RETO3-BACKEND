@@ -64,7 +64,7 @@ namespace backend.domain
     public class SeguimientoDTO
     {
         public int? nIdSeguimiento { get; set; }
-        public int nIdTipoSeguimiento { get; set; }
+        public int? nIdTipoSeguimiento { get; set; }
         public int? nIdCliente { get; set; }
         public int? nIdAsignacion { get; set; }
         public int? nIdAgendamiento { get; set; }
@@ -111,12 +111,12 @@ namespace backend.domain
         public int nIdSeguimiento { get; set; }
         public int nIdContrato { get; set; }
         public int nIdCronograma { get; set; }
-        public Double? nValorCuota { get; set; }
+        public decimal? nValorCuota { get; set; }
         public DateTime? dFechaVencimiento { get; set; }
         public int? nDiasMora { get; set; }
-        public Double? nValorMora { get; set; }
-        public Double? nValorTotal { get; set; }
-        public Double? nValorCompromiso { get; set; }
+        public decimal? nValorMora { get; set; }
+        public decimal? nValorTotal { get; set; }
+        public decimal? nValorCompromiso { get; set; }
         public DateTime? dFechaCompromiso { get; set; }
         public int? nIdEstadoCompromiso { get; set; }
         public int? nIdUsuario_crea { get; set; }
