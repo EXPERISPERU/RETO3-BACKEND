@@ -215,7 +215,6 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
                 parameters.Add("nIdCliente", agendamiento.nIdCliente);
                 parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
-                parameters.Add("nIdAgenteDealer", agendamiento.nIdAgenteDealer);
                 parameters.Add("dFecha", agendamiento.dFecha);
                 parameters.Add("sDescripcion", agendamiento.sDescripcion);
                 parameters.Add("nIdUsuario_crea", agendamiento.nIdUsuario_crea);
@@ -254,6 +253,36 @@ namespace backend.repository.Cobranzas
             }
             return list.ToList();
         }
+
+        public async Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 15);
+                parameters.Add("nIdSeguimientoCuota", seguimientoCuota.nIdSeguimientoCuota);
+                parameters.Add("nIdSeguimiento", seguimientoCuota.nIdSeguimiento);
+                parameters.Add("nIdContrato", seguimientoCuota.nIdContrato);
+                parameters.Add("nIdCronograma", seguimientoCuota.nIdCronograma);
+                parameters.Add("nValorCuota", seguimientoCuota.nValorCuota);
+                parameters.Add("dFechaVencimiento", seguimientoCuota.dFechaVencimiento);
+                parameters.Add("nDiasMora", seguimientoCuota.nDiasMora);
+                parameters.Add("nValorMora", seguimientoCuota.nValorMora);
+                parameters.Add("nValorTotal", seguimientoCuota.nValorTotal);
+                parameters.Add("nValorCompromiso", seguimientoCuota.nValorCompromiso);
+                parameters.Add("dFechaCompromiso", seguimientoCuota.dFechaCompromiso);
+                parameters.Add("nIdEstadoCompromiso", seguimientoCuota.nIdEstadoCompromiso);
+                parameters.Add("nIdUsuario_crea", seguimientoCuota.nIdUsuario_crea);
+                parameters.Add("dFecha_crea", seguimientoCuota.dFecha_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return res;
+        }
+
+
 
     }
 }

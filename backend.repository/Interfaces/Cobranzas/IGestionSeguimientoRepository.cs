@@ -24,5 +24,6 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<SqlRspDTO> InsAgendamiento(AgendamientoDTO agendamiento);
         Task<IList<SelectDTO>> getSelectTipoAgendamiento();
         Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento);
+        Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota);
     }
 }
