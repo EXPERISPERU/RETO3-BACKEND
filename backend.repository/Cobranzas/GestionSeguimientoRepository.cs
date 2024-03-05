@@ -291,6 +291,7 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 16);
                 parameters.Add("nIdSeguimiento", seguimiento.nIdSeguimiento);
+                parameters.Add("nTiempoGestion", seguimiento.nTiempoGestion);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
