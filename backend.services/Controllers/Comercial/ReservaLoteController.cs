@@ -1,12 +1,10 @@
-﻿using backend.businesslogic.Comercial;
-using backend.businesslogic.Interfaces.Comercial;
+﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.domain;
 using backend.services.Utils;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
@@ -83,6 +81,10 @@ namespace backend.services.Controllers.Comercial
 
                     html += "<div class=\"page-break\">";
                     html += sCuerpo
+                            .Replace("#iniItems#", "")
+                            .Replace("#finItems#", "")
+                            .Replace("#iniItem#", "")
+                            .Replace("#finItem#", "")
                             .Replace("#sLogoData#", dataImages.psViviendasDelSur)
                             .Replace("#sCorrelativo#", dataReserva.sComprobante)
                             .Replace("#sNombreCliente#", dataReserva.sNombreCliente)
@@ -90,6 +92,7 @@ namespace backend.services.Controllers.Comercial
                             .Replace("#sDireccionCliente#", dataReserva.sDireccion)
                             .Replace("#sCelularCliente#", dataReserva.sCelular)
                             .Replace("#sFecha#", dataReserva.sFecha)
+                            .Replace("#nroItem#", "1")
                             .Replace("#sProyecto#", dataReserva.sProyecto)
                             .Replace("#sSector#", dataReserva.sSector)
                             .Replace("#sManzana#", dataReserva.sManzana)
@@ -97,6 +100,7 @@ namespace backend.services.Controllers.Comercial
                             .Replace("#sArea#", dataReserva.nMetraje.ToString("N"))
                             .Replace("#sFechaFin#", dataReserva.sFechaFinReserva)
                             .Replace("#sNombrePromotor#", dataReserva.sNombrePromotor)
+                            .Replace("#sTotalItem#", dataReserva.sTotal)
                             .Replace("#sSimbolo#", dataReserva.sSimbolo)
                             .Replace("#sTotal#", dataReserva.sTotal);
                     html += "</div>";
@@ -125,7 +129,7 @@ namespace backend.services.Controllers.Comercial
                 {
                     file = new FtpClient().DownloadFile(dataReserva.sRutaFtp);
                 }
-                
+
                 return File(file, "application/pdf");
             }
             catch (Exception)
