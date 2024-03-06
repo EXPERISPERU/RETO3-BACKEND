@@ -16,7 +16,7 @@ namespace backend.services.Utils
         private string ftpUrlServer = "ftp://10.48.0.13/";
         private string ftpUser = "imbftp";
         private string ftpPassword = "$1mbftpcl1";
-        private bool ftpPassiveMode = true;  /* PARA PRUEBAS : false, PARA PRODUCCION : true*/
+        private bool ftpPassiveMode = false;  /* PARA PRUEBAS : false, PARA PRODUCCION : true*/
 
         public string sContentType(string sFileExtension)
         {
