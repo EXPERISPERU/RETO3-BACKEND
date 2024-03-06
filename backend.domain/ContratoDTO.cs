@@ -130,6 +130,7 @@
         public string estadoOrdenPago { get; set; }
 		public string nIdOrdenPagoDet { get; set; }
         public string mInicial { get; set; }
+        public int? nIdComprobante { get; set; }
         public string? sComprobante { get; set; }
         public string? nIdCronograma { get; set; }
         public string? descripEstado { get; set; }
