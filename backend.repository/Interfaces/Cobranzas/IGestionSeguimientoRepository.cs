@@ -14,8 +14,8 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCliente);
         Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato);
         Task<SqlRspDTO> InsSeguimiento(SeguimientoDTO seguimiento);
-        Task<GestionClienteDTO> getDatosCliente(int nIdCliente);
-        Task<IList<SelectDTO>> getListClientSearchByName(string termino);
+        Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente);
+        Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino);
         Task<IList<SelectDTO>> getSelectTipoContacto();
         Task<IList<SelectDTO>> getSelectMedioContacto();
         Task<SqlRspDTO> InsSeguimientoDetalle(SeguimientoDetalleDTO detalle);
@@ -26,5 +26,9 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota);
         Task<SqlRspDTO> UpdTerminarSeguimiento(SeguimientoDTO seguimiento);
+        Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoByFilters(SeguimientoFiltrosDTO SeguimientoFiltros);
+        Task<IList<SelectDTO>> getSelectLoteByManzana( int nIdManzana );
+        Task<IList<SelectDTO>> getSelectTipoDocumento();
+        Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento, int nIdUsuario);
     }
 }
