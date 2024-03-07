@@ -110,9 +110,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getSelectTipoDocumento();
         }
 
-        public async Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento, int nIdUsuario)
+        public async Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento)
         {
-            return await repository.getSeguimiento(nIdSeguimiento, nIdUsuario);
+            return await repository.getSeguimiento(nIdSeguimiento);
         }
     }
 }

@@ -358,7 +358,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento, int nIdUsuario)
+        public async Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento)
         {
             IEnumerable<SeguimientoDTO> list = new List<SeguimientoDTO>();
 
@@ -367,7 +367,6 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 20);
                 parameters.Add("nIdSeguimiento", nIdSeguimiento);
-                parameters.Add("nIdUsuario", nIdUsuario);
 
                 list = await connection.QueryAsync<SeguimientoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
