@@ -103,13 +103,13 @@ namespace backend.services.Controllers.Cobranzas
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<GestionClienteDTO>>> getDatosCliente(int nIdCliente)
+        public async Task<ActionResult<ApiResponse<GestionClienteDTO>>> getDatosCliente(int nIdUsuario, int nIdCliente)
         {
             ApiResponse<GestionClienteDTO> response = new ApiResponse<GestionClienteDTO>();
 
             try
             {
-                var result = await service.getDatosCliente(nIdCliente);
+                var result = await service.getDatosCliente(nIdUsuario, nIdCliente);
 
                 response.success = true;
                 response.data = (GestionClienteDTO) result;
@@ -124,17 +124,17 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListClientSearchByName( string termino )
+        public async Task<ActionResult<ApiResponse<List<ClienteSearchDTO>>>> getListClientSearchByName(int nIdUsuario, string termino )
         {
 
-            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            ApiResponse<List<ClienteSearchDTO>> response = new ApiResponse<List<ClienteSearchDTO>>();
 
             try
             {
-                var result = await service.getListClientSearchByName(termino);
+                var result = await service.getListClientSearchByName(nIdUsuario, termino);
 
                 response.success = true;
-                response.data = (List<SelectDTO>)result;
+                response.data = (List<ClienteSearchDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -345,6 +345,94 @@ namespace backend.services.Controllers.Cobranzas
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SeguimientoHistoricoDTO>>>> getListSeguimientoByFilters([FromBody] SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            ApiResponse<List<SeguimientoHistoricoDTO>> response = new ApiResponse<List<SeguimientoHistoricoDTO>>();
+
+            try
+            {
+                var result = await service.getListSeguimientoByFilters(SeguimientoFiltros);
+
+                response.success = true;
+                response.data = (List<SeguimientoHistoricoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectLoteByManzana(int nIdManzana)
+        {
+
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectLoteByManzana(nIdManzana);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoDocumento()
+        {
+
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectTipoDocumento();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SeguimientoDTO>>>> getSeguimiento(int nIdSeguimiento, int nIdUsuario)
+        {
+            ApiResponse<List<SeguimientoDTO>> response = new ApiResponse<List<SeguimientoDTO>>();
+
+            try
+            {
+                var result = await service.getSeguimiento(nIdSeguimiento, nIdUsuario);
+
+                response.success = true;
+                response.data = (List<SeguimientoDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

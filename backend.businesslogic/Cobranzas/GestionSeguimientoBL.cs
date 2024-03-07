@@ -2,6 +2,7 @@
 using backend.domain;
 using backend.repository.Interfaces.Cobranzas;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,13 +38,13 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsSeguimiento(seguimiento);
         }
 
-        public async Task<GestionClienteDTO> getDatosCliente(int nIdCliente)
+        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente)
         {
-            return await repository.getDatosCliente(nIdCliente);
+            return await repository.getDatosCliente(nIdUsuario, nIdCliente);
         }
-        public async Task<IList<SelectDTO>> getListClientSearchByName(string termino)
+        public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino)
         {
-            return await repository.getListClientSearchByName(termino);
+            return await repository.getListClientSearchByName(nIdUsuario, termino);
         }
 
         public async Task<IList<SelectDTO>> getSelectTipoContacto()
@@ -95,5 +96,23 @@ namespace backend.businesslogic.Cobranzas
             return await repository.UpdTerminarSeguimiento(seguimiento);
         }
 
+        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoByFilters(SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            return await repository.getListSeguimientoByFilters(SeguimientoFiltros);
+        }
+        public async Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana)
+        {
+            return await repository.getSelectLoteByManzana(nIdManzana);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoDocumento()
+        {
+            return await repository.getSelectTipoDocumento();
+        }
+
+        public async Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento, int nIdUsuario)
+        {
+            return await repository.getSeguimiento(nIdSeguimiento, nIdUsuario);
+        }
     }
 }

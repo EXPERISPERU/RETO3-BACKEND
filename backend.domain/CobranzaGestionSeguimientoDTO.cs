@@ -14,6 +14,7 @@ namespace backend.domain
     public class GestionClienteDTO
     {
         public int nIdCliente { get; set; }
+        public int nIdUsuario { get; set; }
         public int? nIdPersona { get; set; }
         public int? nIdAsignacion { get; set; }
         public int? nTiempoGestion { get; set; }
@@ -33,6 +34,14 @@ namespace backend.domain
         public int? bActivo { get; set; }
         public string? dFechaNac { get; set; }
     }
+
+    public class ClienteSearchDTO
+    {
+        public int nIdCliente { get; set; }
+        public string sNombreCompleto { get; set; }
+        public int? nIdSeguimiento { get; set; }
+    }
+
     public class ContratosDeudaDTO
     {
         public int nIdContrato { get; set; }
@@ -122,5 +131,34 @@ namespace backend.domain
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
     }
+
+    public class SeguimientoFiltrosDTO
+    {
+        public int? nIdCompania { get; set; }
+        public int? nIdEmpleado { get; set; }
+        public int? nIdTipoDocumento { get; set; }
+        public string? sDocumento { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdSector { get; set; }
+        public int? nIdManzana { get; set; }
+        public int? nIdLote { get; set; }
+        public DateTime? fechaInicio { get; set; }
+        public DateTime? fechaFin { get; set; }
+    }
+    public class SeguimientoHistoricoDTO
+    {
+        public int? nIdCliente { get; set; }
+        public int? nIdPersona { get; set; }
+        public string? sDNI { get; set; }
+        public string? sCE { get; set; }
+        public string? sRUC { get; set; }
+        public string? sNombreCliente { get; set; }
+        public int? nIdSeguimiento { get; set; }
+        public int? nIdUsuario_crea { get; set; }
+        public DateTime? dFecha_crea { get; set; }
+        public string? estado { get; set; }
+    }
+
+
 
 }
