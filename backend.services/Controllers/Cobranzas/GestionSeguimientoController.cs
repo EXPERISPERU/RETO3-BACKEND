@@ -423,13 +423,13 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SeguimientoDTO>>>> getSeguimiento(int nIdSeguimiento, int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<SeguimientoDTO>>>> getSeguimiento(int nIdSeguimiento)
         {
             ApiResponse<List<SeguimientoDTO>> response = new ApiResponse<List<SeguimientoDTO>>();
 
             try
             {
-                var result = await service.getSeguimiento(nIdSeguimiento, nIdUsuario);
+                var result = await service.getSeguimiento(nIdSeguimiento);
 
                 response.success = true;
                 response.data = (List<SeguimientoDTO>)result;

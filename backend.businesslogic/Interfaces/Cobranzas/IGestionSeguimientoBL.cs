@@ -29,6 +29,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoByFilters(SeguimientoFiltrosDTO SeguimientoFiltros);
         Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana);
         Task<IList<SelectDTO>> getSelectTipoDocumento();
-        Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento, int nIdUsuario);
+        Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento);
     }
 }
