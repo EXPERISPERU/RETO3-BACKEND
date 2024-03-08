@@ -37,6 +37,8 @@ builder.Services.AddCors(options => {
                 , "http://inmobisoft.inmobitec.pe"
                 , "http://miportal2.inmobitec.pe"
                 , "https://miportal2.inmobitec.pe"
+                , "http://imbtest.inmobitec.pe"
+                , "https://imbtest.inmobitec.pe"
                 )
             .AllowAnyMethod()
             .AllowAnyHeader();

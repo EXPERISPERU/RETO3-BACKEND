@@ -21,7 +21,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
         {
             IEnumerable<ClienteDTO> list = new List<ClienteDTO>();
 
@@ -31,6 +31,9 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("PageNumber", pagina);
+                parameters.Add("RowspPage", cantpagina);
+                parameters.Add("sFiltro", sFiltro);
 
                 list = await connection.QueryAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

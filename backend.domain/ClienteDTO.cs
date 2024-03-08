@@ -2,6 +2,7 @@
 {
     public class ClienteDTO : PersonaDTO
     {
+        public int? nTotalTabla { get; set; }
         public int? nIdCliente { get; set; }
         public int nIdTipo { get; set; }
         public string? sPromotorActual { get; set; }
