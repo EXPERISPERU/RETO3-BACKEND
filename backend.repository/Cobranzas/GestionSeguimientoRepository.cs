@@ -373,5 +373,20 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+        public async Task<IList<SeguimientoCuotaDTO>> getListSeguimientoCuotaBySeguimiento(int nIdSeguimiento)
+        {
+            IEnumerable<SeguimientoCuotaDTO> list = new List<SeguimientoCuotaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 21);
+                parameters.Add("nIdSeguimiento", nIdSeguimiento);
+
+                list = await connection.QueryAsync<SeguimientoCuotaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }

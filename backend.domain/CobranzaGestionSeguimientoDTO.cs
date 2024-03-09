@@ -90,10 +90,14 @@ namespace backend.domain
         public int? nIdSeguimientoDetalle { get; set; }
         public int nIdSeguimiento { get; set; }
         public int? nIdTipo { get; set; }
+        public string? sTipo { get; set; }
         public int? nIdMedio { get; set; }
+        public string? sMedio { get; set; }
         public string? sContacto { get; set; }
         public int? bRespondio { get; set; }
+        public string? sRespondio { get; set; }
         public int? nIdResultado { get; set; }
+        public string? sResultado { get; set; }
         public string? sHoraMinutos { get; set; }
         public string? sDetalle { get; set; }
         public int? nIdUsuario_crea { get; set; }
@@ -104,6 +108,7 @@ namespace backend.domain
     {
         public int? nIdAgendamiento { get; set; }
         public int nIdTipoAgendamiento { get; set; }
+        public string? sTipoAgendamiento { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdCliente { get; set; }
         public int? nIdEmpleado { get; set; }
@@ -119,7 +124,10 @@ namespace backend.domain
         public int? nIdSeguimientoCuota { get; set; }
         public int nIdSeguimiento { get; set; }
         public int nIdContrato { get; set; }
+        public string sCodContrato { get; set; }
         public int nIdCronograma { get; set; }
+        public int nIdMoneda { get; set; }
+        public int nNroCuota { get; set; }
         public decimal? nValorCuota { get; set; }
         public DateTime? dFechaVencimiento { get; set; }
         public int? nDiasMora { get; set; }
