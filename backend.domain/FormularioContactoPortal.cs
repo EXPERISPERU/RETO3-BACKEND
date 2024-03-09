@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
-    public class FormularioContactoPortal
+    public class FormularioContactoPortalDTO
     {
-        public string nIdPortal { get; set; }
+        public int nIdPortal { get; set; }
         public string sPortal { get; set; }
         public string sURL { get; set; }
         public string sNombreCompleto { get; set; }
@@ -16,6 +16,7 @@ namespace backend.domain
         public string sCelular { get; set; }
         public string sUbicacion { get; set; }
         public string sCorreo { get; set; }
+        public int nIdTipoSolicitud { get; set; }
         public string sTipoSolicitud { get; set; }
     }
 }
