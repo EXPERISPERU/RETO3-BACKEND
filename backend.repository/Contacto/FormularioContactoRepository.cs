@@ -38,79 +38,8 @@ namespace backend.repository.Contacto
                 parameters.Add("TipoSolicitud", seguimiento.sTipoSolicitud);
                 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-
-                SendEmailOutlook("bstrada4@gmail.com", "Prueba", "Cuerpo del correo");
             }
             return res;
         }
-
-        public void SendEmailGmail(String receptor, String asunto, String mensaje)
-        {
-            MailMessage mail = new MailMessage();
-
-            String usermail = "bstrada4@gmail.com";//this._configuration["usuariogmail"];
-            String passwordmail = "Boris@@2023"; // this._configuration["passwordgmail"];
-
-            mail.From = new MailAddress(usermail);
-            mail.To.Add(new MailAddress(receptor));
-            mail.Subject = asunto;
-            mail.Body = mensaje;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.Normal;
-
-            String smtpserver = "smtp.gmail.com"; // this._configuration["hostGmail"];
-            int port = int.Parse(this._configuration["portGmail"]);
-            bool ssl = bool.Parse(this._configuration["sslGmail"]);
-            bool defaultcreadentials = bool.Parse(this._configuration["defaultcredentialsGmail"]);
-
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
-
-            smtpClient.Host = "smtp.gmail.com"; // smtpserver;
-            smtpClient.Port = 587; // port;
-            smtpClient.EnableSsl = true; // ssl;
-            smtpClient.UseDefaultCredentials = false; //defaultcreadentials;
-
-
-            NetworkCredential usercredential = new NetworkCredential(usermail, passwordmail);
-
-            smtpClient.Credentials = usercredential;
-            smtpClient.Send(mail);
-        }
-
-
-        public void SendEmailOutlook(String receptor, String asunto, String mensaje)
-        {
-            MailMessage mail = new MailMessage();
-
-            String usermail = this._configuration["usuariooutlook"];
-            String passwordmail = this._configuration["passwordoutlook"];
-
-            mail.From = new MailAddress(usermail);
-            mail.To.Add(new MailAddress(receptor));
-            mail.Subject = asunto;
-            mail.Body = mensaje;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.Normal;
-
-            String smtpserver = this._configuration["host"];
-            int port = int.Parse(this._configuration["port"]);
-            bool ssl = bool.Parse(this._configuration["ssl"]);
-            bool defaultcreadentials = bool.Parse(this._configuration["defaultcredentials"]);
-
-            SmtpClient smtpClient = new SmtpClient();
-
-            smtpClient.Host = smtpserver;
-            smtpClient.Port = port;
-            smtpClient.EnableSsl = ssl;
-            smtpClient.UseDefaultCredentials = defaultcreadentials;
-
-
-            NetworkCredential usercredential = new NetworkCredential(usermail, passwordmail);
-
-            smtpClient.Credentials = usercredential;
-            smtpClient.Send(mail);
-        }
     }
-
-
 }

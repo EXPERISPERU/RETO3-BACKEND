@@ -1,6 +1,7 @@
 ﻿using backend.businesslogic.Interfaces.Cobranzas;
 using backend.businesslogic.Interfaces.Contacto;
 using backend.domain;
+using backend.services.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,11 @@ namespace backend.services.Controllers.Contacto
                 var result = await service.InsFormularioContactoPortal(formulario);
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
+
+                if (response.success)
+                {
+                    new EmailSender().SendEmailOutlook("bstrada4@gmail.com", "Prueba", "Cuerpo del correo");
+                } 
                 return StatusCode(200, response);
             }
             catch (Exception ex)
