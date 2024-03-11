@@ -9,7 +9,7 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface IClienteRepository
     {
-        Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania);
+        Task<IList<ClienteDTO>> getListCliente(int nIdUsuario, int nIdCompania, int pagina, int cantpagina, string? sFiltro);
         Task<ClienteDTO> getClienteByID(int nIdCliente);
         Task<ClienteDTO> findClienteByDoc(int nIdUsuario, string? sDNI, string? sCE, string? sRUC);
         Task<IList<SelectDTO>> getListTiposPersona();
