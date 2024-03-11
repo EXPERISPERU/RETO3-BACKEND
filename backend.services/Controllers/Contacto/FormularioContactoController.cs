@@ -12,7 +12,7 @@ namespace backend.services.Controllers.Contacto
     public class FormularioContactoController : ControllerBase
     {
         private readonly IFormularioContactoBL service;
-        public FormularioContactoController(IFormularioContactoBL _service)
+        public FormularioContactoController(IFormularioContactoBL _service) 
         {
             this.service = _service;
         }
