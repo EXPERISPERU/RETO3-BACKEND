@@ -28,9 +28,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListContratosDeuda(nIdCliente);
         }
 
-        public async Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato)
+        public async Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento)
         {
-            return await repository.getListCronogramaDeuda(nIdContrato);
+            return await repository.getListCronogramaDeuda(nIdContrato, nIdSeguimiento);
         }
 
         public async Task<SqlRspDTO> InsSeguimiento(SeguimientoDTO seguimiento)

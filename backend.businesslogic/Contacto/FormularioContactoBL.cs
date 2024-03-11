@@ -18,5 +18,10 @@ namespace backend.businesslogic.Contacto
             return await repository.InsFormularioContactoPortal(formulario);
         }
 
+        public async Task<string> getFormatoContactoById(int nIdFormato)
+        {
+            return await repository.getFormatoContactoById(nIdFormato);
+        }
+
     }
 }
