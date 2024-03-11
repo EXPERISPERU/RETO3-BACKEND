@@ -66,6 +66,7 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListDetalleSeguimiento(nIdSeguimiento);
         }
+
         public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta)
         {
             return await repository.getSelectResultado(bRespuesta);
@@ -113,6 +114,11 @@ namespace backend.businesslogic.Cobranzas
         public async Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento)
         {
             return await repository.getSeguimiento(nIdSeguimiento);
+        }
+
+        public async Task<IList<SeguimientoCuotaDTO>> getListSeguimientoCuotaBySeguimiento(int nIdSeguimiento)
+        {
+            return await repository.getListSeguimientoCuotaBySeguimiento(nIdSeguimiento);
         }
     }
 }

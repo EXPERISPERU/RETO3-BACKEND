@@ -32,6 +32,8 @@ builder.Services.AddCors(options => {
             builder.WithOrigins(
                 "http://localhost:4200"
                 , "http://localhost:4201"
+                , "http://localhost:5500"
+                , "http://127.0.0.1:5500"
                 , "http://10.48.0.10"
                 , "https://inmobisoft.inmobitec.pe"
                 , "http://inmobisoft.inmobitec.pe"
