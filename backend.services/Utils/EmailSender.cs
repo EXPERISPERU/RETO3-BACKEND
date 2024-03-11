@@ -6,16 +6,16 @@ namespace backend.services.Utils
     public class EmailSender
     {
         /* Variables GMAIL */
-        private const string usuariogmail = "omnilife.contacto.venta@gmail.com";
-        private const string passwordgmail = "M968643098";
+        private const string usuariogmail = "";
+        private const string passwordgmail = "";
         private const string hostGmail = "smtp.gmail.com";
         private const string portGmail = "587";
         private const string sslGmail = "false";
         private const string defaultcredentialsGmail = "false";
 
         /* Variables OUTLOOK */
-        private const string usuarioOutlook = "bstrada4@outlook.com";
-        private const string passwordOutlook = "borizhmaznah1998";
+        private const string usuarioOutlook = "";
+        private const string passwordOutlook = "";
         private const string hostOutlook = "smtp-mail.outlook.com";
         private const string portOutlook = "587";
         private const string sslOutlook = "true";
