@@ -1,13 +1,30 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using backend.domain;
 
 namespace backend.services.Utils
 {
     public class EmailSender
     {
+        /* PLANTILLA */
+        private const string plantillaHTML = 
+            "<table>" +
+                "<thead>" +
+                    "<tr>" +
+                        "<th>Nombre completo</th>" +
+                    "</tr>" +
+                "</thead>" +
+                "<thead>" +
+                    "<tr>" +
+                        "<td></td>" +
+                    "</tr>" +
+                "</thead>" +
+            "</table>";
+
         /* Variables GMAIL */
-        private const string usuariogmail = "";
-        private const string passwordgmail = "";
+        private const string usuariogmail = "sistemas@inmobitec.pe";
+        private const string passwordgmail = "#Inm0bit3c2023.$@1";
+        private const string passwordGmailApp = "aikn wnka pasz snxe";
         private const string hostGmail = "smtp.gmail.com";
         private const string portGmail = "587";
         private const string sslGmail = "false";
@@ -23,14 +40,26 @@ namespace backend.services.Utils
 
 
 
-        public void SendEmailGmail(String receptor, String asunto, String mensaje)
+        public void SendEmailGmail(String receptor, String asunto, FormularioContactoPortalDTO mensaje)
         {
             MailMessage mail = new MailMessage();
 
             mail.From = new MailAddress(usuariogmail);
             mail.To.Add(new MailAddress(receptor));
             mail.Subject = asunto;
-            mail.Body = mensaje;
+            mail.Body =
+                "<table bgcolor='#000000'>" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th>Nombre completo</th>" +
+                        "</tr>" +
+                    "</thead>" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<td>" + mensaje + "</td>" +
+                        "</tr>" +
+                    "</thead>" +
+                "</table>"; 
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
 
@@ -47,7 +76,7 @@ namespace backend.services.Utils
             smtpClient.UseDefaultCredentials = false; //defaultcreadentials;
 
 
-            NetworkCredential usercredential = new NetworkCredential(usuariogmail, passwordgmail);
+            NetworkCredential usercredential = new NetworkCredential(usuariogmail, passwordGmailApp);
 
             smtpClient.Credentials = usercredential;
             smtpClient.Send(mail);

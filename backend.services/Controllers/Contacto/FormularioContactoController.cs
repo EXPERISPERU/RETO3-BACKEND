@@ -31,7 +31,7 @@ namespace backend.services.Controllers.Contacto
 
                 if (response.success)
                 {
-                    new EmailSender().SendEmailOutlook("bstrada4@gmail.com", "Prueba", "Cuerpo del correo");
+                    new EmailSender().SendEmailGmail("bstrada4@gmail.com", "Prueba", formulario);
                 } 
                 return StatusCode(200, response);
             }

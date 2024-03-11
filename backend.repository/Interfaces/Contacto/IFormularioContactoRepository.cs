@@ -5,5 +5,6 @@ namespace backend.repository.Interfaces.Contacto
     public interface IFormularioContactoRepository
     {
         Task<SqlRspDTO> InsFormularioContactoPortal(FormularioContactoPortalDTO formulario);
+        Task<string> getFormatoContactoById(int nIdFormato);
     }
 }

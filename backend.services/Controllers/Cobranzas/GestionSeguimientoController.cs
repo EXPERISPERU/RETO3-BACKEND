@@ -60,13 +60,13 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<CronogramaDeudaDTO>>>> getListCronogramaDeuda(int nIdContrato)
+        public async Task<ActionResult<ApiResponse<List<CronogramaDeudaDTO>>>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento)
         {
             ApiResponse<List<CronogramaDeudaDTO>> response = new ApiResponse<List<CronogramaDeudaDTO>>();
 
             try
             {
-                var result = await service.getListCronogramaDeuda(nIdContrato);
+                var result = await service.getListCronogramaDeuda(nIdContrato, nIdSeguimiento);
 
                 response.success = true;
                 response.data = (List<CronogramaDeudaDTO>)result;

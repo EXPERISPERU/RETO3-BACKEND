@@ -12,7 +12,7 @@ namespace backend.businesslogic.Interfaces.Cobranzas
     {
         Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdEmpleado);
         Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCliente);
-        Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato);
+        Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimiento(SeguimientoDTO seguimiento);
         Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente);
         Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino);

@@ -52,7 +52,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato)
+        public async Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento)
         {
             IEnumerable<CronogramaDeudaDTO> list = new List<CronogramaDeudaDTO>();
 
@@ -61,6 +61,7 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 3);
                 parameters.Add("nIdContrato", nIdContrato);
+                parameters.Add("nIdSeguimiento", nIdSeguimiento);
 
                 list = await connection.QueryAsync<CronogramaDeudaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

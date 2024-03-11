@@ -5,5 +5,6 @@ namespace backend.businesslogic.Interfaces.Contacto
     public interface IFormularioContactoBL
     {
         Task<SqlRspDTO> InsFormularioContactoPortal(FormularioContactoPortalDTO formulario);
+        Task<string> getFormatoContactoById(int nIdFormato);
     }
 }

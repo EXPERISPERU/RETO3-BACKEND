@@ -41,5 +41,23 @@ namespace backend.repository.Contacto
             }
             return res;
         }
+
+
+        public async Task<string> getFormatoContactoById(int nIdFormato)
+        {
+            string res = "";
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contacto].[pa_formulario_contacto]", 2);
+                parameters.Add("nIdFormato", nIdFormato);
+
+                res = await connection.QuerySingleOrDefaultAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return res;
+        }
+
+
     }
 }
