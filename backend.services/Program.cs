@@ -34,6 +34,7 @@ builder.Services.AddCors(options => {
                 , "http://localhost:4201"
                 , "http://localhost:5500"
                 , "http://127.0.0.1:5500"
+                , "http://127.0.0.1:5501"
                 , "http://10.48.0.10"
                 , "https://inmobisoft.inmobitec.pe"
                 , "http://inmobisoft.inmobitec.pe"
@@ -41,7 +42,8 @@ builder.Services.AddCors(options => {
                 , "https://miportal2.inmobitec.pe"
                 , "http://imbtest.inmobitec.pe"
                 , "https://imbtest.inmobitec.pe"
-                , "http://127.0.0.1:5501"
+                , "http://sauces.inmobitec.pe"
+                , "https://sauces.inmobitec.pe"
                 )
             .AllowAnyMethod()
             .AllowAnyHeader();
