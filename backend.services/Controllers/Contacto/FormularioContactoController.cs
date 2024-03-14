@@ -26,14 +26,18 @@ namespace backend.services.Controllers.Contacto
             try
             {
                 var result = await service.InsFormularioContactoPortal(formulario);
+                string formato = await service.getFormatoContactoById(18);
+
+                var formatoParse = new FormatosContacto().EmailGetFormatoPortalSauces(formulario, formato);
+
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
 
                 if (response.success)
                 {
-                    new EmailSender().SendEmailGmail("bstrada4@gmail.com", "Prueba", formulario);
+                    new EmailSender().SendEmailGmail("contacto@psviviendasdelsur.pe", "Formulario Contacto", formulario, formatoParse); // contacto@psviviendasdelsur.pe
                 } 
-                return StatusCode(200, response);
+                return StatusCode(200, formatoParse);
             }
             catch (Exception ex)
             {

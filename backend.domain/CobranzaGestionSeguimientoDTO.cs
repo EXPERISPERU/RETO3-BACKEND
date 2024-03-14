@@ -65,7 +65,7 @@ namespace backend.domain
         public Decimal? nMonto { get; set; }
         public DateTime? dFechaVencimiento { get; set; }
         public int? diasMora { get; set; }
-        public int? nMontoMora { get; set; }
+        public Decimal? nValorMora { get; set; }
         public Decimal? montoTotal { get; set; }
         public int? nIdSeguimientoCuota { get; set; }
         public DateTime? dFechaCompromiso { get; set; }

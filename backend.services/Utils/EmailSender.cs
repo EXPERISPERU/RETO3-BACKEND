@@ -1,25 +1,13 @@
 ﻿using System.Net.Mail;
 using System.Net;
 using backend.domain;
+using backend.repository.Contacto;
+using backend.businesslogic.Interfaces.Contacto;
 
 namespace backend.services.Utils
 {
     public class EmailSender
     {
-        /* PLANTILLA */
-        private const string plantillaHTML = 
-            "<table>" +
-                "<thead>" +
-                    "<tr>" +
-                        "<th>Nombre completo</th>" +
-                    "</tr>" +
-                "</thead>" +
-                "<thead>" +
-                    "<tr>" +
-                        "<td></td>" +
-                    "</tr>" +
-                "</thead>" +
-            "</table>";
 
         /* Variables GMAIL */
         private const string usuariogmail = "sistemas@inmobitec.pe";
@@ -40,26 +28,15 @@ namespace backend.services.Utils
 
 
 
-        public void SendEmailGmail(String receptor, String asunto, FormularioContactoPortalDTO mensaje)
+        public void SendEmailGmail(String receptor, String asunto, FormularioContactoPortalDTO mensaje, string formato)
         {
+            //getFormatoContactoById
             MailMessage mail = new MailMessage();
 
             mail.From = new MailAddress(usuariogmail);
             mail.To.Add(new MailAddress(receptor));
             mail.Subject = asunto;
-            mail.Body =
-                "<table bgcolor='#000000'>" +
-                    "<thead>" +
-                        "<tr>" +
-                            "<th>Nombre completo</th>" +
-                        "</tr>" +
-                    "</thead>" +
-                    "<thead>" +
-                        "<tr>" +
-                            "<td>" + mensaje + "</td>" +
-                        "</tr>" +
-                    "</thead>" +
-                "</table>"; 
+            mail.Body = formato;
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
 

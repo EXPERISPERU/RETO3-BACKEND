@@ -31,5 +31,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectTipoDocumento();
         Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento);
         Task<IList<SeguimientoCuotaDTO>> getListSeguimientoCuotaBySeguimiento(int nIdSeguimiento);
+        Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio);
     }
 }
