@@ -35,7 +35,7 @@ namespace backend.services.Controllers.Contacto
 
                 if (response.success)
                 {
-                    new EmailSender().SendEmailGmail("bstrada4@gmail.com", "Prueba", formulario, formatoParse);
+                    new EmailSender().SendEmailGmail("contacto@psviviendasdelsur.pe", "Formulario Contacto", formulario, formatoParse); // contacto@psviviendasdelsur.pe
                 } 
                 return StatusCode(200, formatoParse);
             }

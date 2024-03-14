@@ -14,7 +14,6 @@ namespace backend.services.Utils
                 html += sCuerpo
                         .Replace("#sNombreCliente#", formulario.sNombreCompleto)
                         .Replace("#sDocumento#", formulario.sDNI)
-                        .Replace("#sDNI#", formulario.sDNI)
                         .Replace("#sCelular#", formulario.sCelular)
                         .Replace("#sDireccion#", formulario.sUbicacion)
                         .Replace("#sCorreo#", formulario.sCorreo)
