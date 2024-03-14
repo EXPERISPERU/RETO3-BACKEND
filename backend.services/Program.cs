@@ -42,6 +42,8 @@ builder.Services.AddCors(options => {
                 , "http://imbtest.inmobitec.pe"
                 , "https://imbtest.inmobitec.pe"
                 , "http://127.0.0.1:5501"
+                , "http://sauces.inmobitec.pe"
+                , "https://sauces.inmobitec.pe"
                 )
             .AllowAnyMethod()
             .AllowAnyHeader();
