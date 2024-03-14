@@ -120,5 +120,10 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListSeguimientoCuotaBySeguimiento(nIdSeguimiento);
         }
+
+        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio)
+        {
+            return await repository.getInfoContactoByMedio(nIdCliente, nIdMedio);
+        }
     }
 }
