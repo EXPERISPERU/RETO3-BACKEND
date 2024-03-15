@@ -106,6 +106,8 @@ namespace backend.services
 
             services.AddScoped<IGestionSeguimientoRepository, GestionSeguimientoRepository>();
 
+            services.AddScoped<IAgendamientoRepository, AgendamientoRepository>();
+
             services.AddScoped<IFormularioContactoRepository, FormularioContactoRepository>();
         }
 
@@ -166,6 +168,8 @@ namespace backend.services
             services.AddScoped<IAsignacionClienteBL, AsignacionClienteBL>();
 
             services.AddScoped<IGestionSeguimientoBL, GestionSeguimientoBL>();
+
+            services.AddScoped<IAgendamientoBL, AgendamientoBL>();
 
             services.AddScoped<IFormularioContactoBL, FormularioContactoBL>();
         }

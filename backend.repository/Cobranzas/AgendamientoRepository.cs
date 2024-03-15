@@ -1,0 +1,55 @@
+﻿using backend.domain;
+using backend.repository.Interfaces.Cobranzas;
+using Dapper;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace backend.repository.Cobranzas
+{
+    public class AgendamientoRepository : IAgendamientoRepository
+    {
+        private readonly IConfiguration _configuration;
+
+        public AgendamientoRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task<IList<AgendamientoDTO>> getListAgendamientoByFilters(AgendamientoFiltrosDTO AgendamientoFiltros)
+        {
+            IEnumerable<AgendamientoDTO> list = new List<AgendamientoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 1);
+                parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
+                parameters.Add("nIdEmpleado", AgendamientoFiltros.nIdEmpleado);
+                parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
+                parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
+                parameters.Add("nIdProyecto", AgendamientoFiltros.nIdProyecto);
+                parameters.Add("nIdSector", AgendamientoFiltros.nIdSector);
+                parameters.Add("nIdManzana", AgendamientoFiltros.nIdManzana);
+                parameters.Add("nIdLote", AgendamientoFiltros.nIdLote);
+                parameters.Add("fechaInicio", AgendamientoFiltros.fechaInicio);
+                parameters.Add("fechaFin", AgendamientoFiltros.fechaFin);
+
+                list = await connection.QueryAsync<AgendamientoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+
+
+    }
+
+
+
+}
