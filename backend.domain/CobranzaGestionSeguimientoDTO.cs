@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
-    public class CobranzaGestionSeguimientoDTO
-    {
-
-    }
-
     public class GestionClienteDTO
     {
         public int nIdCliente { get; set; }
@@ -45,6 +40,7 @@ namespace backend.domain
     public class ContratosDeudaDTO
     {
         public int nIdContrato { get; set; }
+        public string sContrato { get; set; }
         public string sProyecto { get; set; }
         public string? sSector { get; set; }
         public string? sManzana { get; set; }
@@ -101,21 +97,6 @@ namespace backend.domain
         public string? sResultado { get; set; }
         public string? sHoraMinutos { get; set; }
         public string? sDetalle { get; set; }
-        public int? nIdUsuario_crea { get; set; }
-        public int? nIdUsuario_mod { get; set; }
-    }
-
-    public class AgendamientoDTO
-    {
-        public int? nIdAgendamiento { get; set; }
-        public int nIdTipoAgendamiento { get; set; }
-        public string? sTipoAgendamiento { get; set; }
-        public int? nIdSeguimiento { get; set; }
-        public int? nIdCliente { get; set; }
-        public int? nIdEmpleado { get; set; }
-        public int? nIdAgenteDealer { get; set; }
-        public DateTime? dFecha { get; set; }
-        public string? sDescripcion { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public int? nIdUsuario_mod { get; set; }
     }

@@ -101,6 +101,7 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListSeguimientoByFilters(SeguimientoFiltros);
         }
+
         public async Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana)
         {
             return await repository.getSelectLoteByManzana(nIdManzana);
