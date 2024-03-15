@@ -10,6 +10,8 @@ namespace backend.domain
     {
         public int nIdComprobante { get; set; }
         public int nIdOrdenPago { get; set; }
+        public int nIdCompania { get; set; }
+        public string? sCompania { get; set; }
         public int nIdTipoComprobante { get; set; }
         public string? sTipoComprobante { get; set; }
         public string? sCodigoTipoComprobante { get; set; }

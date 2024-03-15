@@ -5,7 +5,6 @@ using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Interfaces.Contabilidad;
 
@@ -36,12 +35,11 @@ namespace backend.services.Controllers.Contabilidad
                 {
                     var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdComprobante);
 
-                    var html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
-
-                    html += "<div class=\"page-break\">";
+                    var html = "";
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
+                        html = "<style>.page-break { page-break-after: always; }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                                 .Replace("#sLogoData#", dataImages.psViviendasDelSur)
@@ -54,10 +52,36 @@ namespace backend.services.Controllers.Contabilidad
                                 .Replace("#sSimbolo#", comprobante.sSimbolo)
                                 .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
                         html += "</div>";
+
+                        string sIniItems = "#iniItems#";
+                        string sFinItems = "#finItems#";
+
+                        string slistaItems = sCuerpo.Substring(sCuerpo.IndexOf(sIniItems), (sCuerpo.IndexOf(sFinItems) + sFinItems.Length) - sCuerpo.IndexOf(sIniItems));
+                        string slistaItemsFinal = "";
+
+                        for (int i = 0; i < listComprobanteDet.Count; i++)
+                        {
+
+                            string sIniItem = "#iniItem#";
+                            string sFinItem = "#finItem#";
+
+                            string sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
+
+                            slistaItemsFinal += slistaItems
+                            .Replace(sIniItems, "")
+                            .Replace("#nroItem#", (i + 1).ToString())
+                            .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
+                            .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
+                            .Replace(sFinItems, "");
+                        }
+
+                        html = html.Replace(slistaItems, slistaItemsFinal);
                     }
 
                     if (comprobante.sCodigoTipoComprobante == "3")
                     {
+                        html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
+                        html += "<div class=\"page-break\">";
                         html += sCuerpo
                         .Replace("ComprobanteHeader.png", dataImages.headerBoleta)
                         .Replace("BbvaLogo.png", dataImages.bbvaLogo)

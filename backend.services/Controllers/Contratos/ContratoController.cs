@@ -2,9 +2,15 @@
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Contratos;
 using backend.domain;
+using backend.services.Utils;
+using iText.Html2pdf.Resolver.Font;
+using iText.Html2pdf;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace backend.services.Controllers.Contratos
 {
@@ -336,13 +342,96 @@ namespace backend.services.Controllers.Contratos
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdConyugueContrato([FromBody] BeneficiarioClienteDTO beneficiario, int nIdContrato)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdConyugueContrato([FromBody] UpdConyugueDTO updConyugue)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.UpdConyugueContrato(beneficiario, nIdContrato);
+                var result = await service.UpdConyugueContrato(updConyugue);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> UpdRetirarConyugueContrato([FromBody] UpdConyugueDTO updConyugue)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.UpdRetirarConyugueContrato(updConyugue);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult> getFormatoContrato(int nIdFormato, string sCodigo, int nIdContrato)
+        {
+            try
+            {
+                ContratoDTO contrato = await service.getContratoById(nIdContrato);
+                List<CronogramaDTO> cronogramas = (List<CronogramaDTO>) await service.getListCronogramaByContrato(nIdContrato);
+                List<OrdenPagoPreContratoDTO> iniciales = (List<OrdenPagoPreContratoDTO>) await service.getListOrdenPagoByContrato(nIdContrato);
+                string formato = await service.getFormatoContratoById(nIdFormato);
+
+                byte[] file = new FormatosContrato().GetFormatoImpreso(nIdFormato, sCodigo, formato, contrato, cronogramas, iniciales);
+                return File(file, "application/pdf");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> UpdFirmaContrato([FromBody] UpdFirmaContratoDTO updFirma)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.UpdFirmaContrato(updFirma);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> UpdFirmaConyugueContrato([FromBody] UpdFirmaContratoDTO updFirma)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.UpdFirmaConyugueContrato(updFirma);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;

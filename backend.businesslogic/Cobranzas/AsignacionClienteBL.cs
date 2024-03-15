@@ -43,9 +43,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getSelectCicloPagoByProyecto(nIdProyecto);
         }
 
-        public async Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdCompania)
+        public async Task<IList<SelectDTO>> getSelectAsesorCobranza(int nIdUsuario, int nIdCompania)
         {
-            return await repository.getSelectAsesorCobranza(nIdCompania);
+            return await repository.getSelectAsesorCobranza(nIdUsuario, nIdCompania);
         }
 
         public async Task<IList<AsignacionClienteDTO>> getListAsignacionClienteByFilters(AsignacionClienteFiltrosDTO AsignacionFiltros)
@@ -55,7 +55,12 @@ namespace backend.businesslogic.Cobranzas
 
         public async Task<SqlRspDTO> InsAsignacionCliente(AsignacionClienteDTO asignacionCliente)
         {
-            return await this.repository.InsAsignacionCliente(asignacionCliente);
+            return await repository.InsAsignacionCliente(asignacionCliente);
+        }
+
+        public async Task<IList<AsignacionClienteDTO>> getClienteAsignadosByEmpleadoPeriodo(int nIdEmpleado, int nIdPeriodo, int nIdCompania)
+        {
+            return await repository.getClienteAsignadosByEmpleadoPeriodo(nIdEmpleado, nIdPeriodo, nIdCompania);
         }
 
     }

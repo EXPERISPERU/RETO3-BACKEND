@@ -13,17 +13,19 @@ namespace backend.domain
 
     public class AsignacionClienteDTO
     {
+        public int? nIdAsignacion { get; set; }
         public int nIdCliente { get; set; }
         public int nIdEmpleado { get; set; }
         public int? nIdPeriodoGestion { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sNombreCliente { get; set; }
-        public string? nTotalCuotasVencidas { get; set; }
-        public string? nTotalMontoCuotasVencidas { get; set; }
+        public int? nTotalCuotasVencidas { get; set; }
+        public string? sSimbolo { get; set; }
+        public decimal? nTotalMontoCuotasVencidas { get; set; }
         public string? sNombreEmpleado { get; set; }
         public int? nIdUsuario_crea { get; set; }
-
+        public int? nSeguimientos { get; set; }
     }
 
     public class PeriodoGestionDTO

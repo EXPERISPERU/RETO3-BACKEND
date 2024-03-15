@@ -22,13 +22,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ClienteDTO>>>> getListCliente(int nIdUsuario, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<ClienteDTO>>>> getListCliente(int nIdUsuario, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
         {
             ApiResponse<List<ClienteDTO>> response = new ApiResponse<List<ClienteDTO>>();
 
             try
             {
-                var result = await service.getListCliente(nIdUsuario, nIdCompania);
+                var result = await service.getListCliente(nIdUsuario, nIdCompania, pagina, cantpagina, sFiltro);
 
                 response.success = true;
                 response.data = (List<ClienteDTO>) result;
