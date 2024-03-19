@@ -10,5 +10,6 @@ namespace backend.repository.Interfaces.Cobranzas
     public interface IAgendamientoRepository
     {
         Task<IList<AgendamientoDTO>> getListAgendamientoByFilters(AgendamientoFiltrosDTO AgendamientoFiltros);
+        Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario);
     }
 }

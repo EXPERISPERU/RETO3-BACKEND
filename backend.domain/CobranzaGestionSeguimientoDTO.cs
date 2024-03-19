@@ -125,6 +125,7 @@ namespace backend.domain
     public class SeguimientoFiltrosDTO
     {
         public int? nIdCompania { get; set; }
+        public int? nIdUsuario { get; set; }
         public int? nIdEmpleado { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }
@@ -144,6 +145,7 @@ namespace backend.domain
         public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
         public int? nIdSeguimiento { get; set; }
+        public int? nIdTipoSeguimiento { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
         public string? estado { get; set; }

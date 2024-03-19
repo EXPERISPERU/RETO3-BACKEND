@@ -17,12 +17,17 @@ namespace backend.businesslogic.Cobranzas
             this.repository = _repository;
         }
 
+
+
         public async Task<IList<AgendamientoDTO>> getListAgendamientoByFilters(AgendamientoFiltrosDTO AgendamientoFiltros)
         {
             return await repository.getListAgendamientoByFilters(AgendamientoFiltros);
         }
 
-
+        public async Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario)
+        {
+            return await repository.getSelectAsesorAgendamiento(nIdCompania, nIdUsuario);
+        }
     }
 
 
