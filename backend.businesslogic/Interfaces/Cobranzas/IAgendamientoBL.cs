@@ -10,5 +10,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
     public interface IAgendamientoBL
     {
         Task<IList<AgendamientoDTO>> getListAgendamientoByFilters(AgendamientoFiltrosDTO AgendamientoFiltros);
+        Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario);
     }
 }

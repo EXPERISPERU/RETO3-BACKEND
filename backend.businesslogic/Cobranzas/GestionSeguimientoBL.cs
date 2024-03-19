@@ -77,9 +77,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsAgendamiento(agendamiento);
         }
 
-        public async Task<IList<SelectDTO>> getSelectTipoAgendamiento()
+        public async Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdUsuario)
         {
-            return await repository.getSelectTipoAgendamiento();
+            return await repository.getSelectTipoAgendamiento(nIdUsuario);
         }
 
         public async Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento)
@@ -125,6 +125,11 @@ namespace backend.businesslogic.Cobranzas
         public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio)
         {
             return await repository.getInfoContactoByMedio(nIdCliente, nIdMedio);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario)
+        {
+            return await repository.getSelectAsesorSeguimiento(nIdCompania, nIdUsuario);
         }
     }
 }

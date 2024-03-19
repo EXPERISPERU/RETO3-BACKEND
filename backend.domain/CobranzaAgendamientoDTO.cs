@@ -30,6 +30,7 @@ namespace backend.domain
     public class AgendamientoFiltrosDTO
     {
         public int? nIdCompania { get; set; }
+        public int? nIdUsuario { get; set; }
         public int? nIdEmpleado { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }

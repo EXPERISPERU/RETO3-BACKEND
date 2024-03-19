@@ -22,7 +22,7 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SeguimientoDetalleDTO>> getListDetalleSeguimiento(int nIdSeguimiento);
         Task<IList<SelectDTO>> getSelectResultado(int bRespuesta);
         Task<SqlRspDTO> InsAgendamiento(AgendamientoDTO agendamiento);
-        Task<IList<SelectDTO>> getSelectTipoAgendamiento();
+        Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdUsuario);
         Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota);
         Task<SqlRspDTO> UpdTerminarSeguimiento(SeguimientoDTO seguimiento);
@@ -32,5 +32,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento);
         Task<IList<SeguimientoCuotaDTO>> getListSeguimientoCuotaBySeguimiento(int nIdSeguimiento);
         Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio);
+        Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario);
     }
 }

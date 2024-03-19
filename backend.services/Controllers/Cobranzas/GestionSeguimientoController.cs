@@ -270,14 +270,14 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoAgendamiento()
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoAgendamiento(int nIdUsuario)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectTipoAgendamiento();
+                var result = await service.getSelectTipoAgendamiento(nIdUsuario);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -472,6 +472,27 @@ namespace backend.services.Controllers.Cobranzas
             try
             {
                 var result = await service.getInfoContactoByMedio(nIdCliente, nIdMedio);
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectAsesorSeguimiento(nIdCompania, nIdUsuario);
+
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
