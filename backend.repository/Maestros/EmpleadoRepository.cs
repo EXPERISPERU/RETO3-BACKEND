@@ -148,8 +148,8 @@ namespace backend.repository.Maestros
                 parameters.Add("nIdUbigeoNac", empleado.nIdUbigeoNac);
                 parameters.Add("nIdGenero", empleado.nIdGenero);
                 parameters.Add("nIdEstadoCivil", empleado.nIdEstadoCivil);
-                parameters.Add("sCorreo", empleado.sCorreo);
-                parameters.Add("sCelular", empleado.sCelular);
+                //parameters.Add("sCorreo", empleado.sCorreo);
+                //parameters.Add("sCelular", empleado.sCelular);
                 parameters.Add("sDNI", empleado.sDNI);
                 parameters.Add("sCE", empleado.sCE);
                 parameters.Add("nIdUsuario_crea", empleado.nIdUsuario_crea);
@@ -178,8 +178,8 @@ namespace backend.repository.Maestros
                 parameters.Add("nIdUbigeoNac", empleado.nIdUbigeoNac);
                 parameters.Add("nIdGenero", empleado.nIdGenero);
                 parameters.Add("nIdEstadoCivil", empleado.nIdEstadoCivil);
-                parameters.Add("sCorreo", empleado.sCorreo);
-                parameters.Add("sCelular", empleado.sCelular);
+                //parameters.Add("sCorreo", empleado.sCorreo);
+                //parameters.Add("sCelular", empleado.sCelular);
                 parameters.Add("sDNI", empleado.sDNI);
                 parameters.Add("sCE", empleado.sCE);
                 parameters.Add("nIdUsuario_mod", empleado.nIdUsuario_mod);

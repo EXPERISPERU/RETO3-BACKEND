@@ -140,8 +140,10 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdUbigeoNac", cliente.nIdUbigeoNac);
                 parameters.Add("nIdGenero", cliente.nIdGenero);
                 parameters.Add("nIdEstadoCivil", cliente.nIdEstadoCivil);
-                parameters.Add("sCorreo", cliente.sCorreo);
-                parameters.Add("sCelular", cliente.sCelular);
+                //parameters.Add("sCorreo", cliente.sCorreo);
+                //parameters.Add("sCelular", cliente.sCelular);
+                //parameters.Add("sCelular2", cliente.sCelular2);
+                //parameters.Add("sTelefono", cliente.sTelefono);
                 parameters.Add("sDNI", cliente.sDNI);
                 parameters.Add("sCE", cliente.sCE);
                 parameters.Add("sRUC", cliente.sRUC);
@@ -165,7 +167,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdPersona", cliente.nIdPersona);
                 parameters.Add("nIdTipo", cliente.nIdTipo);
                 parameters.Add("sPriNombre", cliente.sPriNombre);
-                parameters.Add("sPriNombre", cliente.sPriNombre);
                 parameters.Add("sSegNombre", cliente.sSegNombre);
                 parameters.Add("sApePaterno", cliente.sApePaterno);
                 parameters.Add("sApeMaterno", cliente.sApeMaterno);
@@ -174,8 +175,10 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdUbigeoNac", cliente.nIdUbigeoNac);
                 parameters.Add("nIdGenero", cliente.nIdGenero);
                 parameters.Add("nIdEstadoCivil", cliente.nIdEstadoCivil);
-                parameters.Add("sCorreo", cliente.sCorreo);
-                parameters.Add("sCelular", cliente.sCelular);
+                //parameters.Add("sCorreo", cliente.sCorreo);
+                //parameters.Add("sCelular", cliente.sCelular);
+                //parameters.Add("sCelular2", cliente.sCelular2);
+                //parameters.Add("sTelefono", cliente.sTelefono);
                 parameters.Add("sDNI", cliente.sDNI);
                 parameters.Add("sCE", cliente.sCE);
                 parameters.Add("sRUC", cliente.sRUC);

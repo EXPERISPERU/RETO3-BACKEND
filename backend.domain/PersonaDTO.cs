@@ -17,7 +17,9 @@
         public int? nIdEstadoCivil { get; set; }
         public string? sEstadoCivil { get; set; }
         public string sCorreo { get; set; }
-        public string sCelular { get; set; }
+        public string? sCelular { get; set; }
+        public string? sCelular2 { get; set; }
+        public string? sTelefono { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
