@@ -30,6 +30,7 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 1);
                 parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
+                parameters.Add("nIdUsuario", AgendamientoFiltros.nIdUsuario);
                 parameters.Add("nIdEmpleado", AgendamientoFiltros.nIdEmpleado);
                 parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
                 parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
@@ -46,6 +47,22 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+
+        public async Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 2);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
 
 
     }

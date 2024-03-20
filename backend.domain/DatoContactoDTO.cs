@@ -13,6 +13,7 @@ namespace backend.domain
         public int nIdMedio { get; set; }
         public string? sMedio { get; set; }
         public string sDetalle { get; set; }
+        public int nPrioridad { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }

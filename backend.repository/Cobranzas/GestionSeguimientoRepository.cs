@@ -229,7 +229,7 @@ namespace backend.repository.Cobranzas
             return res;
         }
 
-        public async Task<IList<SelectDTO>> getSelectTipoAgendamiento()
+        public async Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdUsuario)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -237,6 +237,7 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 13);
+                parameters.Add("nIdUsuario", nIdUsuario);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -311,6 +312,7 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 17);
                 parameters.Add("nIdCompania", SeguimientoFiltros.nIdCompania);
+                parameters.Add("nIdUsuario", SeguimientoFiltros.nIdUsuario);
                 parameters.Add("nIdEmpleado", SeguimientoFiltros.nIdEmpleado);
                 parameters.Add("nIdTipoDocumento", SeguimientoFiltros.nIdTipoDocumento);
                 parameters.Add("sDocumento", SeguimientoFiltros.sDocumento);
@@ -403,6 +405,23 @@ namespace backend.repository.Cobranzas
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
+            return list.ToList();
+        }
+
+
+        public async Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 23);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
             return list.ToList();
         }
 
