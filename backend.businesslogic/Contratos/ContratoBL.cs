@@ -112,5 +112,10 @@ namespace backend.businesslogic.Contratos
         {
             return await repository.UpdFirmaConyugueContrato(updfirma);
         }
+
+        public async Task<bool> ValidFinalizarFirmar(int nIdContrato)
+        { 
+            return await repository.ValidFinalizarFirmar(nIdContrato);
+        }
     }
 }

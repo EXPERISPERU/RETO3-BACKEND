@@ -444,5 +444,26 @@ namespace backend.services.Controllers.Contratos
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<bool>>> ValidFinalizarFirmar(int nIdContrato)
+        {
+            ApiResponse<bool> response = new ApiResponse<bool>();
+
+            try
+            {
+                var result = await service.ValidFinalizarFirmar(nIdContrato);
+
+                response.success = true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
