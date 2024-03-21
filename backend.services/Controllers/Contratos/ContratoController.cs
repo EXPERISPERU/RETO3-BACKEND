@@ -465,5 +465,38 @@ namespace backend.services.Controllers.Contratos
                 return StatusCode(500, response);
             }
         }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> UpdDocumentoContrato([FromBody] DocumentosContratoDTO documento)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                ApiResponse<string> resFtp = new FtpClient().UploadFile(new imbFile { sRutaFile = documento.sRutaFTP , data = Convert.FromBase64String(documento.sFile.Replace("data:application/pdf;base64,", "")) });
+
+                if (resFtp.success)
+                {
+                    var result = await service.InsDocumentoContrato(documento);
+
+                    response.success = result.nCod == 0 ? false : true;
+                    response.data = result;
+                    return StatusCode(200, response);
+                }
+                else 
+                {
+                    response.success = true;
+                    response.data = new SqlRspDTO { nCod = 0, sMsj = resFtp.errMsj };
+                    return StatusCode(200, response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

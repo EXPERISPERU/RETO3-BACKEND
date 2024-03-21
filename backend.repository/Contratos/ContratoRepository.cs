@@ -362,5 +362,23 @@ namespace backend.repository.Contratos
 
             return res;
         }
+
+        public async Task<SqlRspDTO> InsDocumentoContrato(DocumentosContratoDTO documento)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 22);
+                parameters.Add("nIdContrato", documento.nIdContrato);
+                parameters.Add("nIdDocumento", documento.nIdDocumento);
+                parameters.Add("sRutaFTP", documento.sRutaFTP);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
