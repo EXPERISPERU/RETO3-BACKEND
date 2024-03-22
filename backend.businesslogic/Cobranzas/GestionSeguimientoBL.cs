@@ -131,5 +131,10 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getSelectAsesorSeguimiento(nIdCompania, nIdUsuario);
         }
+
+        public async Task<SqlRspDTO> InsAgendamientoByFechaCompromiso(AgendamientoDTO agendamiento)
+        {
+            return await repository.InsAgendamientoByFechaCompromiso(agendamiento);
+        }
     }
 }

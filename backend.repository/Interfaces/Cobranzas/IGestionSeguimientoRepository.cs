@@ -33,5 +33,6 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<SeguimientoCuotaDTO>> getListSeguimientoCuotaBySeguimiento(int nIdSeguimiento);
         Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio);
         Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario);
+        Task<SqlRspDTO> InsAgendamientoByFechaCompromiso(AgendamientoDTO agendamiento);
     }
 }
