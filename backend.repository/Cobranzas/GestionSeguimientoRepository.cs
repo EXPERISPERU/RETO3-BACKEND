@@ -312,7 +312,6 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 17);
                 parameters.Add("nIdCompania", SeguimientoFiltros.nIdCompania);
-                parameters.Add("nIdUsuario", SeguimientoFiltros.nIdUsuario);
                 parameters.Add("nIdEmpleado", SeguimientoFiltros.nIdEmpleado);
                 parameters.Add("nIdTipoDocumento", SeguimientoFiltros.nIdTipoDocumento);
                 parameters.Add("sDocumento", SeguimientoFiltros.sDocumento);
@@ -448,6 +447,28 @@ namespace backend.repository.Cobranzas
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }   
             return res;
+        }
+
+
+        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoVentasByFilters(SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            IEnumerable<SeguimientoHistoricoDTO> list = new List<SeguimientoHistoricoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 25);
+                parameters.Add("nIdCompania", SeguimientoFiltros.nIdCompania);
+                parameters.Add("nIdEmpleado", SeguimientoFiltros.nIdEmpleado);
+                parameters.Add("nIdTipoDocumento", SeguimientoFiltros.nIdTipoDocumento);
+                parameters.Add("sDocumento", SeguimientoFiltros.sDocumento);
+                parameters.Add("fechaInicio", SeguimientoFiltros.fechaInicio);
+                parameters.Add("fechaFin", SeguimientoFiltros.fechaFin);
+
+                list = await connection.QueryAsync<SeguimientoHistoricoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
 
 

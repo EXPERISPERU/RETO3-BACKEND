@@ -136,5 +136,10 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.InsAgendamientoByFechaCompromiso(agendamiento);
         }
+
+        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoVentasByFilters(SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            return await repository.getListSeguimientoVentasByFilters(SeguimientoFiltros);
+        }
     }
 }

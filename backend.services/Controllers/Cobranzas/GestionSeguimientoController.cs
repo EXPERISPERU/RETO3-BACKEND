@@ -364,7 +364,6 @@ namespace backend.services.Controllers.Cobranzas
             try
             {
                 var result = await service.getListSeguimientoByFilters(SeguimientoFiltros);
-
                 response.success = true;
                 response.data = (List<SeguimientoHistoricoDTO>)result;
                 return StatusCode(200, response);
@@ -516,6 +515,25 @@ namespace backend.services.Controllers.Cobranzas
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SeguimientoHistoricoDTO>>>> getListSeguimientoVentasByFilters([FromBody] SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            ApiResponse<List<SeguimientoHistoricoDTO>> response = new ApiResponse<List<SeguimientoHistoricoDTO>>();
+            try
+            {
+                var result = await service.getListSeguimientoVentasByFilters(SeguimientoFiltros);
+                response.success = true;
+                response.data = (List<SeguimientoHistoricoDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
