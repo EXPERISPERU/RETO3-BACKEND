@@ -10,16 +10,18 @@ namespace backend.domain
     {
         public int? nIdAgendamiento { get; set; }
         public int nIdTipoAgendamiento { get; set; }
+        public int nIdSeguimientoCuota { get; set; }
         public string? sTipoAgendamiento { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdCliente { get; set; }
         public int? nIdPersona { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
-        public string? sRUC{ get; set; }
+        public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
         public int? nIdEmpleado { get; set; }
         public int? nIdAgenteDealer { get; set; }
+        public DateTime? dFechaPrev { get; set; }
         public DateTime? dFecha { get; set; }
         public string? sDescripcion { get; set; }
         public int? nIdUsuario_crea { get; set; }

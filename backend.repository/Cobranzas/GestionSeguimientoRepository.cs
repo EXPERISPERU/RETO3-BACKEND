@@ -425,5 +425,31 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+        public async Task<SqlRspDTO> InsAgendamientoByFechaCompromiso(AgendamientoDTO agendamiento)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 24);
+                parameters.Add("nIdAgendamiento", agendamiento.nIdAgendamiento);
+                parameters.Add("nIdSeguimientoCuota", agendamiento.nIdSeguimientoCuota);
+                parameters.Add("nIdTipoAgendamiento", agendamiento.nIdTipoAgendamiento);
+                parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
+                parameters.Add("nIdCliente", agendamiento.nIdCliente);
+                parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
+                parameters.Add("dFechaPrev", agendamiento.dFechaPrev);
+                parameters.Add("dFecha", agendamiento.dFecha);
+                parameters.Add("sDescripcion", agendamiento.sDescripcion);
+                parameters.Add("nIdUsuario_crea", agendamiento.nIdUsuario_crea);
+                parameters.Add("nIdUsuario_mod", agendamiento.nIdUsuario_mod);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }   
+            return res;
+        }
+
+
     }
 }
