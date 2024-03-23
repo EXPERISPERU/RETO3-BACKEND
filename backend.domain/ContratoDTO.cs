@@ -15,16 +15,24 @@
 		public string? sSector { get; set; }
 		public int? nIdProyecto { get; set; }
 		public string? sProyecto { get; set; }
+		public string? sGrupo { get; set; }
+		public string? sUbicacion { get; set; }
 		public decimal nMetraje { get; set; }
-		public int nIdCliente { get; set; }
+        public int nIdCliente { get; set; }
 		public string? sDNI { get; set; }
 		public string? sCE { get; set; }
 		public string? sRUC { get; set; }
-		public string? sNombreCompleto { get; set; }
-		public string? sDireccion { get; set; }
+		public string? sPriNombre { get; set; }
+		public string? sSegNombre { get; set; }
+		public string? sApePaterno { get; set; }
+		public string? sApeMaterno { get; set; }
+        public string? sNombreCompleto { get; set; }
+        public string? sDireccion { get; set; }
 		public string? sUbigeo { get; set; }
 		public string? sCelular { get; set; }
-		public string? sCorreo { get; set; }
+		public string? sCelular2 { get; set; }
+		public string? sTelefono { get; set; }
+        public string? sCorreo { get; set; }
 		public int? nIdEstadoCivil { get; set; }
 		public string? sEstadoCivil { get; set; }
         public bool? bConyugue { get; set; }
@@ -141,10 +149,13 @@
 	{ 
 		public int nIdDocumento { get; set; }
 		public string sCodigo { get; set; }
-
         public string sDescripcion { get; set; }
-		public int nIdFormato { get; set; }
+		public bool? bFirmaDigital { get; set; }
+        public int nIdFormato { get; set; }
 		public int nIdAdjunto { get; set; }
+		public int? nIdContrato { get; set; }
+		public string? sRutaFTP { get; set; }
+        public string? sFile { get; set; }
     }
 
     public class UpdConyugueDTO
