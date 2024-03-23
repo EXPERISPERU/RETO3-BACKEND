@@ -485,7 +485,7 @@ namespace backend.services.Controllers.Contratos
                 }
                 else 
                 {
-                    response.success = true;
+                    response.success = false;
                     response.data = new SqlRspDTO { nCod = 0, sMsj = resFtp.errMsj };
                     return StatusCode(200, response);
                 }
