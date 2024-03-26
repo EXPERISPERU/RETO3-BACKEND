@@ -38,9 +38,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsSeguimiento(seguimiento);
         }
 
-        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente)
+        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente, int nIdTipoSeguimiento)
         {
-            return await repository.getDatosCliente(nIdUsuario, nIdCliente);
+            return await repository.getDatosCliente(nIdUsuario, nIdCliente, nIdTipoSeguimiento);
         }
         public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino)
         {
@@ -67,9 +67,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListDetalleSeguimiento(nIdSeguimiento);
         }
 
-        public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta)
+        public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta, int nIdUsuario)
         {
-            return await repository.getSelectResultado(bRespuesta);
+            return await repository.getSelectResultado(bRespuesta, nIdUsuario);
         }
 
         public async Task<SqlRspDTO> InsAgendamiento(AgendamientoDTO agendamiento)

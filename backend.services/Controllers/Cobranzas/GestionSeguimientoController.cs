@@ -103,13 +103,13 @@ namespace backend.services.Controllers.Cobranzas
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<GestionClienteDTO>>> getDatosCliente(int nIdUsuario, int nIdCliente)
+        public async Task<ActionResult<ApiResponse<GestionClienteDTO>>> getDatosCliente(int nIdUsuario, int nIdCliente, int nIdTipoSeguimiento)
         {
             ApiResponse<GestionClienteDTO> response = new ApiResponse<GestionClienteDTO>();
 
             try
             {
-                var result = await service.getDatosCliente(nIdUsuario, nIdCliente);
+                var result = await service.getDatosCliente(nIdUsuario, nIdCliente, nIdTipoSeguimiento);
 
                 response.success = true;
                 response.data = (GestionClienteDTO) result;
@@ -227,14 +227,14 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectResultado(int bRespuesta)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectResultado(int bRespuesta, int nIdUsuario)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectResultado(bRespuesta);
+                var result = await service.getSelectResultado(bRespuesta, nIdUsuario);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;

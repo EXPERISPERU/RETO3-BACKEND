@@ -88,7 +88,7 @@ namespace backend.repository.Cobranzas
             return res;
         }
 
-        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente)
+        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente, int nIdTipoSeguimiento)
         {
             GestionClienteDTO res = new GestionClienteDTO();
 
@@ -98,6 +98,7 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 5);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCliente", nIdCliente);
+                parameters.Add("nIdTipoSeguimiento", nIdTipoSeguimiento);
 
                 res = await connection.QuerySingleAsync<GestionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -190,19 +191,18 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta)
+        public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta, int nIdUsuario)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
-
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 11);
                 parameters.Add("bRespondio", bRespuesta);
+                parameters.Add("nIdUsuario", nIdUsuario);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 

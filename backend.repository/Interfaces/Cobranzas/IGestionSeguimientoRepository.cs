@@ -14,13 +14,13 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCliente);
         Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimiento(SeguimientoDTO seguimiento);
-        Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente);
+        Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente, int nIdTipoSeguimiento);
         Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino);
         Task<IList<SelectDTO>> getSelectTipoContacto();
         Task<IList<SelectDTO>> getSelectMedioContacto();
         Task<SqlRspDTO> InsSeguimientoDetalle(SeguimientoDetalleDTO detalle);
         Task<IList<SeguimientoDetalleDTO>> getListDetalleSeguimiento(int nIdSeguimiento);
-        Task<IList<SelectDTO>> getSelectResultado(int bRespuesta);
+        Task<IList<SelectDTO>> getSelectResultado(int bRespuesta, int nIdUsuario);
         Task<SqlRspDTO> InsAgendamiento(AgendamientoDTO agendamiento);
         Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdUsuario);
         Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento);

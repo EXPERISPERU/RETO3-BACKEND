@@ -33,7 +33,7 @@ namespace backend.domain
     public class ClienteSearchDTO
     {
         public int nIdCliente { get; set; }
-        public string sNombreCompleto { get; set; }
+        public string? sNombreCompleto { get; set; }
         public int? nIdSeguimiento { get; set; }
     }
 

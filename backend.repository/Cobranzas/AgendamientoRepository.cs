@@ -64,6 +64,27 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+        public async Task<IList<AgendamientoDTO>> getListAgendamientoVentasByFilters(AgendamientoFiltrosDTO AgendamientoFiltros)
+        {
+            IEnumerable<AgendamientoDTO> list = new List<AgendamientoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 3);
+                parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
+                parameters.Add("nIdEmpleado", AgendamientoFiltros.nIdEmpleado);
+                parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
+                parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
+                parameters.Add("fechaInicio", AgendamientoFiltros.fechaInicio);
+                parameters.Add("fechaFin", AgendamientoFiltros.fechaFin);
+
+                list = await connection.QueryAsync<AgendamientoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
 
     }
 
