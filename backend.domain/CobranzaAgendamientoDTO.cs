@@ -34,6 +34,7 @@ namespace backend.domain
         public int? nIdCompania { get; set; }
         public int? nIdUsuario { get; set; }
         public int? nIdEmpleado { get; set; }
+        public int? nIdCliente { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }
         public int? nIdProyecto { get; set; }

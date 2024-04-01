@@ -32,6 +32,11 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListAgendamientoVentasByFilters(AgendamientoFiltros);
         }
 
+        public async Task<IList<AgendamientoDTO>> getListAgendamientoAtencionCliente(AgendamientoFiltrosDTO AgendamientoFiltros)
+        {
+            return await repository.getListAgendamientoAtencionCliente(AgendamientoFiltros);
+        }
+
 
     }
 

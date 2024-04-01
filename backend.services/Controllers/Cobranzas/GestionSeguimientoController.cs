@@ -227,14 +227,14 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectResultado(int bRespuesta, int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectResultado(int bRespuesta, int nIdTipoSeguimiento)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectResultado(bRespuesta, nIdUsuario);
+                var result = await service.getSelectResultado(bRespuesta, nIdTipoSeguimiento);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -270,14 +270,14 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoAgendamiento(int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoAgendamiento(int nIdTipoSeguimiento)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectTipoAgendamiento(nIdUsuario);
+                var result = await service.getSelectTipoAgendamiento(nIdTipoSeguimiento);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -544,6 +544,25 @@ namespace backend.services.Controllers.Cobranzas
             }
         }
 
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SeguimientoHistoricoDTO>>>> getListSeguimientoAtencionCliente([FromBody] SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            ApiResponse<List<SeguimientoHistoricoDTO>> response = new ApiResponse<List<SeguimientoHistoricoDTO>>();
+            try
+            {
+                var result = await service.getListSeguimientoAtencionCliente(SeguimientoFiltros);
+                response.success = true;
+                response.data = (List<SeguimientoHistoricoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
 
     }
 }

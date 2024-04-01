@@ -20,9 +20,9 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectMedioContacto();
         Task<SqlRspDTO> InsSeguimientoDetalle(SeguimientoDetalleDTO detalle);
         Task<IList<SeguimientoDetalleDTO>> getListDetalleSeguimiento(int nIdSeguimiento);
-        Task<IList<SelectDTO>> getSelectResultado(int bRespuesta, int nIdUsuario);
+        Task<IList<SelectDTO>> getSelectResultado(int bRespuesta, int nIdTipoSeguimiento);
         Task<SqlRspDTO> InsAgendamiento(AgendamientoDTO agendamiento);
-        Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdUsuario);
+        Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdTipoSeguimiento);
         Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimientoCuota(SeguimientoCuotaDTO seguimientoCuota);
         Task<SqlRspDTO> UpdTerminarSeguimiento(SeguimientoDTO seguimiento);
@@ -35,5 +35,6 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario);
         Task<SqlRspDTO> InsAgendamientoByFechaCompromiso(AgendamientoDTO agendamiento);
         Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoVentasByFilters(SeguimientoFiltrosDTO SeguimientoFiltros);
+        Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros);
     }
 }

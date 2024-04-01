@@ -80,6 +80,27 @@ namespace backend.services.Controllers.Cobranzas
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<AgendamientoDTO>>>> getListAgendamientoAtencionCliente([FromBody] AgendamientoFiltrosDTO AgendamientoFiltros)
+        {
+            ApiResponse<List<AgendamientoDTO>> response = new ApiResponse<List<AgendamientoDTO>>();
+
+            try
+            {
+                var result = await service.getListAgendamientoAtencionCliente(AgendamientoFiltros);
+
+                response.success = true;
+                response.data = (List<AgendamientoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
 
     }
 }
