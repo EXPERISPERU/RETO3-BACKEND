@@ -46,6 +46,10 @@ builder.Services.AddCors(options => {
                 , "https://sauces.inmobitec.pe"
                 , "http://gardenias.inmobitec.pe"
                 , "https://gardenias.inmobitec.pe"
+                , "http://sauces.psviviendasdelsur.pe"
+                , "https://sauces.psviviendasdelsur.pe"
+                , "http://gardenias.psviviendasdelsur.pe"
+                , "https://gardenias.psviviendasdelsur.pe"
                 )
             .AllowAnyMethod()
             .AllowAnyHeader();
