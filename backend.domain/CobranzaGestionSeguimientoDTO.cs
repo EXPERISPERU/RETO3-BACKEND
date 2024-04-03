@@ -132,6 +132,7 @@ namespace backend.domain
         public int? nIdCliente { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }
+        
         public int? nIdProyecto { get; set; }
         public int? nIdSector { get; set; }
         public int? nIdManzana { get; set; }
@@ -148,6 +149,7 @@ namespace backend.domain
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
+        public string? sNombreAsesor { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
         public int? nIdUsuario_crea { get; set; }
