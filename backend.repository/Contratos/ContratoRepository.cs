@@ -140,6 +140,7 @@ namespace backend.repository.Contratos
                 parameters.Add("nIdLote", contratoFiltros.nIdLote);
                 parameters.Add("sCodigo", contratoFiltros.sCodigo);
                 parameters.Add("sDocumento", contratoFiltros.sDocumento);
+                parameters.Add("bEditable", contratoFiltros.bEditable);
                 parameters.Add("nIdCondicionPago", contratoFiltros.nIdCondicionPago);
                 parameters.Add("nIdEstado", contratoFiltros.nIdEstado);
 

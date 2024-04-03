@@ -105,6 +105,7 @@
 		public string? sDocumento { get; set; }
         public int? nIdCondicionPago { get; set; }
 		public int? nIdEstado { get; set; }
+		public bool? bEditable { get; set; }
     }
 
     public class OrdenPagoPreContratoDTO
