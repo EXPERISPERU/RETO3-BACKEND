@@ -138,7 +138,7 @@ namespace backend.repository.Contratos
                 parameters.Add("nIdSector", contratoFiltros.nIdSector);
                 parameters.Add("nIdManzana", contratoFiltros.nIdManzana);
                 parameters.Add("nIdLote", contratoFiltros.nIdLote);
-                parameters.Add("sCodigo", contratoFiltros.sDocumento);
+                parameters.Add("sCodigo", contratoFiltros.sCodigo);
                 parameters.Add("sDocumento", contratoFiltros.sDocumento);
                 parameters.Add("nIdCondicionPago", contratoFiltros.nIdCondicionPago);
                 parameters.Add("nIdEstado", contratoFiltros.nIdEstado);
