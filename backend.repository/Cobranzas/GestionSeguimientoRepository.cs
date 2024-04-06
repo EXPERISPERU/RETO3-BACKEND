@@ -108,7 +108,7 @@ namespace backend.repository.Cobranzas
             return res;
         }
 
-        public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino)
+        public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, int nIdTipoDocumento, string termino)
         {
             IEnumerable<ClienteSearchDTO> list = new List<ClienteSearchDTO>();
 
@@ -117,6 +117,7 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 6);
                 parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdTipoDocumento", nIdTipoDocumento);
                 parameters.Add("termSearch", termino);
 
                 list = await connection.QueryAsync<ClienteSearchDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -393,7 +394,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio)
+        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -402,7 +403,7 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 22);
                 parameters.Add("nIdCliente", nIdCliente);
-                parameters.Add("nIdMedio", nIdMedio);
+                parameters.Add("nIdMedioContacto", nIdMedioContacto);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -492,7 +493,6 @@ namespace backend.repository.Cobranzas
 
             return list.ToList();
         }
-
 
     }
 }

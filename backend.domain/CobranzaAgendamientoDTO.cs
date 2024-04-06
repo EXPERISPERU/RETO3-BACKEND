@@ -28,6 +28,7 @@ namespace backend.domain
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
         public int? nIdUsuario_mod { get; set; }
+        public string? sEstado { get; set; }
     }
 
     public class AgendamientoFiltrosDTO
