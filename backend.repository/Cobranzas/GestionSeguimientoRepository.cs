@@ -168,7 +168,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdSeguimiento", detalle.nIdSeguimiento);
                 parameters.Add("nIdTipo", detalle.nIdTipo);
                 parameters.Add("nIdMedio", detalle.nIdMedio);
-                parameters.Add("sContacto", detalle.sContacto);
+                parameters.Add("nIdDatoContacto", detalle.nIdDatoContacto);
                 parameters.Add("bRespondio", detalle.bRespondio);
                 parameters.Add("nIdResultado", detalle.nIdResultado);
                 parameters.Add("sDetalle", detalle.sDetalle);
