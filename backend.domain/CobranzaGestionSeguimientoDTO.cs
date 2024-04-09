@@ -33,7 +33,7 @@ namespace backend.domain
     public class ClienteSearchDTO
     {
         public int nIdCliente { get; set; }
-        public string sNombreCompleto { get; set; }
+        public string? sNombreCompleto { get; set; }
         public int? nIdSeguimiento { get; set; }
     }
 
@@ -55,7 +55,9 @@ namespace backend.domain
     {
         public int nIdCronograma { get; set; }
         public int nIdContrato { get; set; }
+        public string sCodContrato { get; set; }
         public int nIdSeguimiento { get; set; }
+        public int? nIdAgendamiento { get; set; }
         public int nNroCuota { get; set; }
         public int? nIdMoneda { get; set; }
         public Decimal? nMonto { get; set; }
@@ -127,8 +129,10 @@ namespace backend.domain
         public int? nIdCompania { get; set; }
         public int? nIdUsuario { get; set; }
         public int? nIdEmpleado { get; set; }
+        public int? nIdCliente { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }
+        
         public int? nIdProyecto { get; set; }
         public int? nIdSector { get; set; }
         public int? nIdManzana { get; set; }
@@ -136,6 +140,7 @@ namespace backend.domain
         public DateTime? fechaInicio { get; set; }
         public DateTime? fechaFin { get; set; }
     }
+
     public class SeguimientoHistoricoDTO
     {
         public int? nIdCliente { get; set; }
@@ -144,6 +149,7 @@ namespace backend.domain
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
+        public string? sNombreAsesor { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
         public int? nIdUsuario_crea { get; set; }

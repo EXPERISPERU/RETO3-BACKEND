@@ -61,6 +61,7 @@ namespace backend.services
             services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
             services.AddScoped<IProveedorRepository, ProveedorRepository>();
             services.AddScoped<IMonedaRepository, MonedaRepository>();
+            services.AddScoped<ITipoCambioRepository, TipoCambioRepository>();
             services.AddScoped<ICompaniaMonedaRepository, CompaniaMonedaRepository>();
             services.AddScoped<ISerieRepository, SerieRepository>();
             services.AddScoped<ICorrelativoRepository, CorrelativoRepository>();
@@ -125,6 +126,7 @@ namespace backend.services
             services.AddScoped<IEmpleadoBL, EmpleadoBL>();
             services.AddScoped<IProveedorBL, ProveedorBL>();
             services.AddScoped<IMonedaBL, MonedaBL>();
+            services.AddScoped<ITipoCambioBL, TipoCambioBL>();
             services.AddScoped<ICompaniaMonedaBL, CompaniaMonedaBL>();
             services.AddScoped<ISerieBL, SerieBL>();
             services.AddScoped<ICorrelativoBL, CorrelativoBL>();

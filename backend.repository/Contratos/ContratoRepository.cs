@@ -138,7 +138,9 @@ namespace backend.repository.Contratos
                 parameters.Add("nIdSector", contratoFiltros.nIdSector);
                 parameters.Add("nIdManzana", contratoFiltros.nIdManzana);
                 parameters.Add("nIdLote", contratoFiltros.nIdLote);
+                parameters.Add("sCodigo", contratoFiltros.sCodigo);
                 parameters.Add("sDocumento", contratoFiltros.sDocumento);
+                parameters.Add("bEditable", contratoFiltros.bEditable);
                 parameters.Add("nIdCondicionPago", contratoFiltros.nIdCondicionPago);
                 parameters.Add("nIdEstado", contratoFiltros.nIdEstado);
 
@@ -340,6 +342,40 @@ namespace backend.repository.Contratos
                 parameters.Add("nIdContrato", updfirma.nIdContrato);
                 parameters.Add("nIdUsuario", updfirma.nIdUsuario);
                 parameters.Add("sFirma", updfirma.sFirma);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<bool> ValidFinalizarFirmar(int nIdContrato)
+        {
+            bool res = false;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 21);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                res = await connection.QuerySingleAsync<bool>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<SqlRspDTO> InsDocumentoContrato(DocumentosContratoDTO documento)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 22);
+                parameters.Add("nIdContrato", documento.nIdContrato);
+                parameters.Add("nIdDocumento", documento.nIdDocumento);
+                parameters.Add("sRutaFTP", documento.sRutaFTP);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

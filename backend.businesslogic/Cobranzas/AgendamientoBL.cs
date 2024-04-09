@@ -17,8 +17,6 @@ namespace backend.businesslogic.Cobranzas
             this.repository = _repository;
         }
 
-
-
         public async Task<IList<AgendamientoDTO>> getListAgendamientoByFilters(AgendamientoFiltrosDTO AgendamientoFiltros)
         {
             return await repository.getListAgendamientoByFilters(AgendamientoFiltros);
@@ -28,6 +26,18 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getSelectAsesorAgendamiento(nIdCompania, nIdUsuario);
         }
+
+        public async Task<IList<AgendamientoDTO>> getListAgendamientoVentasByFilters(AgendamientoFiltrosDTO AgendamientoFiltros)
+        {
+            return await repository.getListAgendamientoVentasByFilters(AgendamientoFiltros);
+        }
+
+        public async Task<IList<AgendamientoDTO>> getListAgendamientoAtencionCliente(AgendamientoFiltrosDTO AgendamientoFiltros)
+        {
+            return await repository.getListAgendamientoAtencionCliente(AgendamientoFiltros);
+        }
+
+
     }
 
 

@@ -38,10 +38,11 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsSeguimiento(seguimiento);
         }
 
-        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente)
+        public async Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente, int nIdTipoSeguimiento)
         {
-            return await repository.getDatosCliente(nIdUsuario, nIdCliente);
+            return await repository.getDatosCliente(nIdUsuario, nIdCliente, nIdTipoSeguimiento);
         }
+
         public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino)
         {
             return await repository.getListClientSearchByName(nIdUsuario, termino);
@@ -67,9 +68,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListDetalleSeguimiento(nIdSeguimiento);
         }
 
-        public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta)
+        public async Task<IList<SelectDTO>> getSelectResultado(int bRespuesta, int nIdTipoSeguimiento)
         {
-            return await repository.getSelectResultado(bRespuesta);
+            return await repository.getSelectResultado(bRespuesta, nIdTipoSeguimiento);
         }
 
         public async Task<SqlRspDTO> InsAgendamiento(AgendamientoDTO agendamiento)
@@ -77,9 +78,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.InsAgendamiento(agendamiento);
         }
 
-        public async Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdUsuario)
+        public async Task<IList<SelectDTO>> getSelectTipoAgendamiento(int nIdTipoSeguimiento)
         {
-            return await repository.getSelectTipoAgendamiento(nIdUsuario);
+            return await repository.getSelectTipoAgendamiento(nIdTipoSeguimiento);
         }
 
         public async Task<IList<AgendamientoDTO>> getListAgendamiento(int nIdSeguimiento)
@@ -130,6 +131,21 @@ namespace backend.businesslogic.Cobranzas
         public async Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario)
         {
             return await repository.getSelectAsesorSeguimiento(nIdCompania, nIdUsuario);
+        }
+
+        public async Task<SqlRspDTO> InsAgendamientoByFechaCompromiso(AgendamientoDTO agendamiento)
+        {
+            return await repository.InsAgendamientoByFechaCompromiso(agendamiento);
+        }
+
+        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoVentasByFilters(SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            return await repository.getListSeguimientoVentasByFilters(SeguimientoFiltros);
+        }
+
+        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
+        {
+            return await repository.getListSeguimientoAtencionCliente(SeguimientoFiltros);
         }
     }
 }
