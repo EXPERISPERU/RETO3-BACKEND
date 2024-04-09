@@ -13,6 +13,7 @@ namespace backend.domain
         public int nIdSeguimientoCuota { get; set; }
         public string? sTipoAgendamiento { get; set; }
         public int? nIdSeguimiento { get; set; }
+        public int? nIdSegFromAgen { get; set; }
         public int? nIdCliente { get; set; }
         public int? nIdPersona { get; set; }
         public string? sDNI { get; set; }
@@ -27,6 +28,7 @@ namespace backend.domain
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
         public int? nIdUsuario_mod { get; set; }
+        public string? sEstado { get; set; }
     }
 
     public class AgendamientoFiltrosDTO

@@ -15,7 +15,7 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento);
         Task<SqlRspDTO> InsSeguimiento(SeguimientoDTO seguimiento);
         Task<GestionClienteDTO> getDatosCliente(int nIdUsuario, int nIdCliente, int nIdTipoSeguimiento);
-        Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino);
+        Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, int nIdTipoDocumento, string termino);
         Task<IList<SelectDTO>> getSelectTipoContacto();
         Task<IList<SelectDTO>> getSelectMedioContacto();
         Task<SqlRspDTO> InsSeguimientoDetalle(SeguimientoDetalleDTO detalle);
@@ -31,7 +31,7 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SelectDTO>> getSelectTipoDocumento();
         Task<IList<SeguimientoDTO>> getSeguimiento(int nIdSeguimiento);
         Task<IList<SeguimientoCuotaDTO>> getListSeguimientoCuotaBySeguimiento(int nIdSeguimiento);
-        Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio);
+        Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto);
         Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario);
         Task<SqlRspDTO> InsAgendamientoByFechaCompromiso(AgendamientoDTO agendamiento);
         Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoVentasByFilters(SeguimientoFiltrosDTO SeguimientoFiltros);
