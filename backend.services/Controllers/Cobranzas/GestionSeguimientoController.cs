@@ -124,14 +124,14 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ClienteSearchDTO>>>> getListClientSearchByName(int nIdUsuario, string termino )
+        public async Task<ActionResult<ApiResponse<List<ClienteSearchDTO>>>> getListClientSearchByName(int nIdUsuario, int nIdTipoDocumento, string termino )
         {
 
             ApiResponse<List<ClienteSearchDTO>> response = new ApiResponse<List<ClienteSearchDTO>>();
 
             try
             {
-                var result = await service.getListClientSearchByName(nIdUsuario, termino);
+                var result = await service.getListClientSearchByName(nIdUsuario, nIdTipoDocumento, termino);
 
                 response.success = true;
                 response.data = (List<ClienteSearchDTO>)result;
@@ -465,12 +465,12 @@ namespace backend.services.Controllers.Cobranzas
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getInfoContactoByMedio(int nIdCliente, int nIdMedio)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto)
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
             try
             {
-                var result = await service.getInfoContactoByMedio(nIdCliente, nIdMedio);
+                var result = await service.getInfoContactoByMedio(nIdCliente, nIdMedioContacto);
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);

@@ -43,9 +43,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getDatosCliente(nIdUsuario, nIdCliente, nIdTipoSeguimiento);
         }
 
-        public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, string termino)
+        public async Task<IList<ClienteSearchDTO>> getListClientSearchByName(int nIdUsuario, int nIdTipoDocumento, string termino)
         {
-            return await repository.getListClientSearchByName(nIdUsuario, termino);
+            return await repository.getListClientSearchByName(nIdUsuario, nIdTipoDocumento, termino);
         }
 
         public async Task<IList<SelectDTO>> getSelectTipoContacto()
@@ -123,9 +123,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListSeguimientoCuotaBySeguimiento(nIdSeguimiento);
         }
 
-        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedio)
+        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto)
         {
-            return await repository.getInfoContactoByMedio(nIdCliente, nIdMedio);
+            return await repository.getInfoContactoByMedio(nIdCliente, nIdMedioContacto);
         }
 
         public async Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario)
@@ -147,5 +147,6 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListSeguimientoAtencionCliente(SeguimientoFiltros);
         }
+
     }
 }

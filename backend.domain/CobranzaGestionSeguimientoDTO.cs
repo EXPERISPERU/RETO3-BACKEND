@@ -92,6 +92,7 @@ namespace backend.domain
         public string? sTipo { get; set; }
         public int? nIdMedio { get; set; }
         public string? sMedio { get; set; }
+        public int? nIdDatoContacto { get; set; }
         public string? sContacto { get; set; }
         public int? bRespondio { get; set; }
         public string? sRespondio { get; set; }
