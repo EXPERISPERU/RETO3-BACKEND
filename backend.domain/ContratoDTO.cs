@@ -101,9 +101,11 @@
 		public int? nIdSector { get; set; }
 		public int? nIdManzana { get; set; }
 		public int? nIdLote { get; set; }
+		public string? sCodigo { get; set; }
 		public string? sDocumento { get; set; }
-		public int? nIdCondicionPago { get; set; }
+        public int? nIdCondicionPago { get; set; }
 		public int? nIdEstado { get; set; }
+		public bool? bEditable { get; set; }
     }
 
     public class OrdenPagoPreContratoDTO
