@@ -35,7 +35,7 @@ namespace backend.repository.Comercial
                 list = await connection.QueryAsync<LotesDisponiblesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
-            return list.ToList();
+            return list.ToList();   
         }
     }
 }
