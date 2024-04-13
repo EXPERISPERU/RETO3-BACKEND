@@ -22,7 +22,7 @@ namespace backend.repository.Cobranzas
             _configuration = configuration;
         }
 
-        public async Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdEmpleado)
+        public async Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdCompania, int nIdEmpleado)
         {
             IEnumerable<GestionClienteDTO> list = new List<GestionClienteDTO>();
 
@@ -30,6 +30,7 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 1);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdEmpleado", nIdEmpleado);
 
                 list = await connection.QueryAsync<GestionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -37,7 +38,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCliente)
+        public async Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCompania, int nIdCliente)
         {
             IEnumerable<ContratosDeudaDTO> list = new List<ContratosDeudaDTO>();
 
@@ -45,6 +46,7 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 2);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdCliente", nIdCliente);
 
                 list = await connection.QueryAsync<ContratosDeudaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);

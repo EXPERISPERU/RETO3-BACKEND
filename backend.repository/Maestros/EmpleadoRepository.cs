@@ -289,6 +289,7 @@ namespace backend.repository.Maestros
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_empleado]", 15);
                 parameters.Add("nIdPeriodoLaboral", periodoLaboral.nIdPeriodoLaboral);
+                parameters.Add("nIdCompania", periodoLaboral.nIdCompania);
                 parameters.Add("nIdEmpleado", periodoLaboral.nIdEmpleado);
                 parameters.Add("dFechaIni", periodoLaboral.dFechaIni);
                 parameters.Add("dFechaFin", periodoLaboral.dFechaFin);
