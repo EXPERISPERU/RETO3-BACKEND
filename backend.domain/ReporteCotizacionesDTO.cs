@@ -5,7 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace backend.domain
-{
+{ 
+
+
+    public class ReporteCotizacionesFiltrosDTO
+    {
+        public string? sCorrelativo { get; set; }
+        public int? nIdTipoDocumento { get; set; }
+        public string? sDocumento { get; set; }
+        public string? nNombreCompleto { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdSector { get; set; }
+        public int? nIdManzana { get; set; }
+        public int? nIdLote { get; set; }
+        public int? nIdItem { get; set; }
+        public DateTime? dFechaCreacion { get; set; }
+        public string? nNombreUsuario { get; set; }
+        public int? nIdCompania { get; set; }
+    }
+
     public class ReporteCotizacionesDTO
     {
         public int? nIdCotizacion { get; set; }

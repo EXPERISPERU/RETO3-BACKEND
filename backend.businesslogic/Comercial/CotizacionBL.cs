@@ -68,9 +68,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getClientePreContratoByLote(nIdLote);
         }
 
-        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones()
+        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros)
         {
-            return await repository.getListReporteCotizaciones();
+            return await repository.getListReporteCotizaciones(filtros);
         }
     }
 }
