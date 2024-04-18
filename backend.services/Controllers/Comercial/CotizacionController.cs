@@ -255,14 +255,14 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ReporteCotizacionesDTO>>>> getListReporteCotizaciones()
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReporteCotizacionesDTO>>>> getListReporteCotizaciones([FromBody] ReporteCotizacionesFiltrosDTO filtros)
         {
             ApiResponse<List<ReporteCotizacionesDTO>> response = new ApiResponse<List<ReporteCotizacionesDTO>>();
 
             try
             {
-                var result = await service.getListReporteCotizaciones();
+                var result = await service.getListReporteCotizaciones(filtros);
 
                 response.success = true;
                 response.data = (List<ReporteCotizacionesDTO>)result;

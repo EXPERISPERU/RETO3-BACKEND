@@ -19,6 +19,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<string> formatoCotizacion();
         Task<ClienteDTO> getClienteReservaByLote(int nIdLote);
         Task<ClienteDTO> getClientePreContratoByLote(int nIdLote);
-        Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones();
+        Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros);
     }
 }

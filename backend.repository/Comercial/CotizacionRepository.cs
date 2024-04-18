@@ -201,7 +201,7 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones()
+        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros)
         {
             IEnumerable<ReporteCotizacionesDTO> list = new List<ReporteCotizacionesDTO>();
 
@@ -209,6 +209,18 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 12);
+
+                parameters.Add("sCorrelativo", filtros.sCorrelativo);
+                parameters.Add("nIdTipoDocumento", filtros.nIdTipoDocumento);
+                parameters.Add("sDocumento", filtros.sDocumento);
+                parameters.Add("nNombreCompleto", filtros.nNombreCompleto);
+                parameters.Add("nIdProyecto", filtros.nIdProyecto);
+                parameters.Add("nIdSector", filtros.nIdSector);
+                parameters.Add("nIdManzana", filtros.nIdManzana);
+                parameters.Add("nIdLote", filtros.nIdLote);
+                parameters.Add("dFechaCreacion", filtros.dFechaCreacion);
+                parameters.Add("nNombreUsuario", filtros.nNombreUsuario);
+                parameters.Add("nIdCompania", filtros.nIdCompania);
 
                 list = await connection.QueryAsync<ReporteCotizacionesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
