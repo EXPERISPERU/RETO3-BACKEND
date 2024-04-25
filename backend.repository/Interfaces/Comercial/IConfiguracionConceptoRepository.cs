@@ -9,8 +9,7 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface IConfiguracionConceptoRepository
     {
-        Task<IList<ElementoSistemaDTO>> getListElement();
-        Task<IList<ElementoSistemaDTO>> ListElementoByIdP(int nIdElementoP);
+        Task<IList<ElementoSistemaDTO>> getListTipoComprante();
         Task<IList<ConfiguracionConceptoDTO>> ListConfiguracionConceptoByIdProyecto(int nIdproyecto);
     }
 }

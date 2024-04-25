@@ -21,7 +21,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<ElementoSistemaDTO>> getListElement()
+        public async Task<IList<ElementoSistemaDTO>> getListTipoComprante()
         {
             IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
 
@@ -43,26 +43,10 @@ namespace backend.repository.Comercial
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion_concepto]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion_concepto]", 2);
                 parameters.Add("nIdproyecto", nIdproyecto);
 
                 list = await connection.QueryAsync<ConfiguracionConceptoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
-        public async Task<IList<ElementoSistemaDTO>> ListElementoByIdP(int nIdElementoP)
-        {
-            IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion_concepto]", 2);
-                parameters.Add("nIdElementoP", nIdElementoP);
-
-                list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();

@@ -10,5 +10,6 @@ namespace backend.repository.Interfaces.Comercial
     public interface IConfiguracionRepository
     {
         Task<IList<ConfiguracionDTO>> getConfiguracionByIdProyecto(int nIdproyecto);
+        Task<IList<ElementoSistemaDTO>> getListInteres();
     }
 }
