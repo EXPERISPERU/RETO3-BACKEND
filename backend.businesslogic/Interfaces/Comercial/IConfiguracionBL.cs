@@ -12,5 +12,9 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<ConfiguracionDTO>> getConfiguracionByIdProyecto(int nIdproyecto);
 
         Task<IList<ElementoSistemaDTO>> getListInteres();
+
+        Task<IList<ElementoSistemaDTO>> getListConceptoVenta();
+
+        Task<IList<ElementoSistemaDTO>> getListDocumentoVenta();
     }
 }

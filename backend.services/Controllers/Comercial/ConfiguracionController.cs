@@ -67,5 +67,49 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListConceptoVenta()
+        {
+
+            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+
+            try
+            {
+                var result = await service.getListConceptoVenta();
+
+                response.success = true;
+                response.data = (List<ElementoSistemaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListDocumentoVenta()
+        {
+
+            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+
+            try
+            {
+                var result = await service.getListDocumentoVenta();
+
+                response.success = true;
+                response.data = (List<ElementoSistemaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }

@@ -23,6 +23,15 @@ namespace backend.businesslogic.Comercial
             return await repository.getConfiguracionByIdProyecto(nIdproyecto);
         }
 
+        public async Task<IList<ElementoSistemaDTO>> getListConceptoVenta()
+        {
+            return await repository.getListConceptoVenta();
+        }
+
+        public async Task<IList<ElementoSistemaDTO>> getListDocumentoVenta()
+        {
+            return await repository.getListDocumentoVenta();
+        }
 
         public async Task<IList<ElementoSistemaDTO>> getListInteres()
         {
