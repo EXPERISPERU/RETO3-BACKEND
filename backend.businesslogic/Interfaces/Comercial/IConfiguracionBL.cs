@@ -10,5 +10,7 @@ namespace backend.businesslogic.Interfaces.Comercial
     public interface IConfiguracionBL
     {
         Task<IList<ConfiguracionDTO>> getConfiguracionByIdProyecto(int nIdproyecto);
+
+        Task<IList<ElementoSistemaDTO>> getListInteres();
     }
 }

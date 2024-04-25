@@ -19,19 +19,14 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<ElementoSistemaDTO>> getListElement()
+        public async Task<IList<ElementoSistemaDTO>> getListTipoComprante()
         {
-            return await repository.getListElement();
+            return await repository.getListTipoComprante();
         }
 
         public async Task<IList<ConfiguracionConceptoDTO>> ListConfiguracionConceptoByIdProyecto(int nIdproyecto)
         {
             return await repository.ListConfiguracionConceptoByIdProyecto(nIdproyecto);
-        }
-
-        public async Task<IList<ElementoSistemaDTO>> ListElementoByIdP(int nIdElementoP)
-        {
-            return await repository.ListElementoByIdP(nIdElementoP);
         }
     }
 }

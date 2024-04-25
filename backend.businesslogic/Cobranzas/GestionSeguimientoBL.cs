@@ -18,14 +18,14 @@ namespace backend.businesslogic.Cobranzas
             this.repository = _repository;
         }
 
-        public async Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdEmpleado)
+        public async Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdCompania, int nIdEmpleado)
         {
-            return await repository.getListClientesAsignados(nIdEmpleado);
+            return await repository.getListClientesAsignados(nIdCompania, nIdEmpleado);
         }
 
-        public async Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCliente)
+        public async Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCompania, int nIdCliente)
         {
-            return await repository.getListContratosDeuda(nIdCliente);
+            return await repository.getListContratosDeuda(nIdCompania, nIdCliente);
         }
 
         public async Task<IList<CronogramaDeudaDTO>> getListCronogramaDeuda(int nIdContrato, int nIdSeguimiento)

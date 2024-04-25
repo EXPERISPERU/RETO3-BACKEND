@@ -38,5 +38,30 @@ namespace backend.repository.Comercial
             return list.ToList();
         
         }
+
+
+
+        //FUNCION AGREGAR CONFIGURACION
+
+
+
+
+
+
+        public async Task<IList<ElementoSistemaDTO>> getListInteres()
+        {
+            IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 3);
+
+                list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

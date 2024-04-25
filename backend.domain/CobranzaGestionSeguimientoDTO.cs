@@ -8,6 +8,7 @@ namespace backend.domain
 {
     public class GestionClienteDTO
     {
+        public int nIdCompania { get; set; }
         public int nIdCliente { get; set; }
         public int nIdUsuario { get; set; }
         public int? nIdPersona { get; set; }
