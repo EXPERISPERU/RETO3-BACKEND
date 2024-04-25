@@ -41,5 +41,31 @@ namespace backend.services.Controllers.Comercial
         }
 
 
+
+        //FUNCION AGREGAR CONFIGURACION
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListInteres()
+        {
+
+            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+
+            try
+            {
+                var result = await service.getListInteres();
+
+                response.success = true;
+                response.data = (List<ElementoSistemaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }

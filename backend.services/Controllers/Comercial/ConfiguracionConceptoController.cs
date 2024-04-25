@@ -22,35 +22,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListElement()
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListTipoComprante()
         {
             ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
 
             try
             {
-                var result = await service.getListElement();
-
-                response.success = true;
-                response.data = (List<ElementoSistemaDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getElementoSistemaByIdP(int nIdElementoP)
-        {
-
-            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
-
-            try
-            {
-                var result = await service.ListElementoByIdP(nIdElementoP);
+                var result = await service.getListTipoComprante();
 
                 response.success = true;
                 response.data = (List<ElementoSistemaDTO>)result;
