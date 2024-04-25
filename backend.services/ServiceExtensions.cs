@@ -110,6 +110,12 @@ namespace backend.services
             services.AddScoped<IAgendamientoRepository, AgendamientoRepository>();
 
             services.AddScoped<IFormularioContactoRepository, FormularioContactoRepository>();
+
+            services.AddScoped<IConfiguracionRepository, ConfiguracionRepository>();
+
+            services.AddScoped<IConfiguracionConceptoRepository, ConfiguracionConceptoRepository>();
+
+
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -174,6 +180,10 @@ namespace backend.services
             services.AddScoped<IAgendamientoBL, AgendamientoBL>();
 
             services.AddScoped<IFormularioContactoBL, FormularioContactoBL>();
+
+            services.AddScoped<IConfiguracionBL, ConfiguracionBL>();
+
+            services.AddScoped<IConfiguracionConceptoBL, ConfiguracionConceptoBL>();
         }
     }
 }
