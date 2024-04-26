@@ -19,7 +19,7 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<ElementoSistemaDTO>> getListTipoComprante()
+        public async Task<IList<tipoComprobante>> getListTipoComprante()
         {
             return await repository.getListTipoComprante();
         }
@@ -27,6 +27,21 @@ namespace backend.businesslogic.Comercial
         public async Task<IList<ConfiguracionConceptoDTO>> ListConfiguracionConceptoByIdProyecto(int nIdproyecto)
         {
             return await repository.ListConfiguracionConceptoByIdProyecto(nIdproyecto);
+        }
+
+        public async Task<IList<ElementoSistemaDTO>> getListMedioPago()
+        {
+            return await repository.getListMedioPago();
+        }
+
+        public async Task<SqlRspDTO> postInsConfiguracionConcepto(ConfiguracionConceptoDTO configuracion)
+        {
+            return await repository.postInsConfiguracionConcepto(configuracion);
+        }
+
+        public async Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta)
+        {
+            return await repository.GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(nIdproyecto, nIdConceptoVenta);
         }
     }
 }
