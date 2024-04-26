@@ -40,10 +40,48 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-
-
         //FUNCION AGREGAR CONFIGURACION
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsConfiguracion([FromBody] ConfiguracionDTO configuracion)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
+            try
+            {
+                var result = await service.InsConfiguracion(configuracion);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsConfiguracionConcepto([FromBody] ConfiguracionConceptoDTO configuracionConcepto)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsSistemaConfiguracionConcepto(configuracionConcepto);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
 
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListInteres()
@@ -54,6 +92,50 @@ namespace backend.services.Controllers.Comercial
             try
             {
                 var result = await service.getListInteres();
+
+                response.success = true;
+                response.data = (List<ElementoSistemaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListConceptoVenta()
+        {
+
+            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+
+            try
+            {
+                var result = await service.getListConceptoVenta();
+
+                response.success = true;
+                response.data = (List<ElementoSistemaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListDocumentoVenta()
+        {
+
+            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+
+            try
+            {
+                var result = await service.getListDocumentoVenta();
 
                 response.success = true;
                 response.data = (List<ElementoSistemaDTO>)result;
