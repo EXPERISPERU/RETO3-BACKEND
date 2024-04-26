@@ -13,8 +13,19 @@ namespace backend.domain
         public string? sIdTipoComprobante { get; set; }
         public string? sIdMedioPago { get; set; }
         public bool bActivo { get; set; }
-        public int nIdUsuario_crea { get; set; }
+        public int? nIdUsuario_crea { get; set; }
+        public int? nIdUsuario_mod { get; set; }
         public DateTime dFecha_crea { get; set; }
+        public DateTime? dFecha_mod { get; set; }
         public int nIdConceptoVenta { get; set; }
+        public string? sConceptoVenta { get; set; }
+    }
+
+
+    public class tipoComprobante
+    {
+        public string? sAbrev { get; set; }
+        public int? nIdElemento { get; set; }
+        public bool? seleccionado { get; set; }
     }
 }

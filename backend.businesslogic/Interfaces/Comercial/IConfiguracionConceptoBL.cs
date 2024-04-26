@@ -9,7 +9,10 @@ namespace backend.businesslogic.Interfaces.Comercial
 {
     public  interface IConfiguracionConceptoBL
     {
-        Task<IList<ElementoSistemaDTO>> getListTipoComprante();
+        Task<IList<tipoComprobante>> getListTipoComprante();
         Task<IList<ConfiguracionConceptoDTO>> ListConfiguracionConceptoByIdProyecto(int nIdproyecto);
+        Task<IList<ElementoSistemaDTO>> getListMedioPago();
+        Task<SqlRspDTO> postInsConfiguracionConcepto(ConfiguracionConceptoDTO configuracion);
+        Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta);
     }
 }
