@@ -40,10 +40,48 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-
-
         //FUNCION AGREGAR CONFIGURACION
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsConfiguracion([FromBody] ConfiguracionDTO configuracion)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
+            try
+            {
+                var result = await service.InsConfiguracion(configuracion);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsConfiguracionConcepto([FromBody] ConfiguracionConceptoDTO configuracionConcepto)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsSistemaConfiguracionConcepto(configuracionConcepto);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
 
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListInteres()

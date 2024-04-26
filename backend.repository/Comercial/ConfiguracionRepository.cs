@@ -72,7 +72,27 @@ namespace backend.repository.Comercial
 
 
         //FUNCION AGREGAR CONFIGURACION
+        public async  Task<SqlRspDTO> InsConfiguracion(ConfiguracionDTO configuracion)
+        {
+            SqlRspDTO res = new SqlRspDTO();
 
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 2);
+                parameters.Add("nIdConfiguracion", configuracion.nIdConfiguracion);
+                parameters.Add("nIdProyecto", configuracion.nIdProyecto);
+                parameters.Add("nIdMoneda", configuracion.nIdMoneda);
+                parameters.Add("bImpuestoVenta", configuracion.bImpuestoVenta);
+                parameters.Add("sIdInteres", configuracion.sIdInteres);
+                parameters.Add("sIdDocumentoVenta", configuracion.sIdDocumentoVenta);
+                parameters.Add("nIdUsuario_crea", configuracion.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
 
 
 
@@ -93,5 +113,22 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
+        public async Task<SqlRspDTO> InsSistemaConfiguracionConcepto(ConfiguracionConceptoDTO configuracionConcepto)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 6);
+                parameters.Add("nIdProyecto", configuracionConcepto.nIdproyecto);
+                parameters.Add("nIdConceptoVenta", configuracionConcepto.nIdConceptoVenta);
+                parameters.Add("nIdUsuario_crea", configuracionConcepto.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }

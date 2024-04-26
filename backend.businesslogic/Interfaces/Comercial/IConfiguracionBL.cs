@@ -16,5 +16,9 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<ElementoSistemaDTO>> getListConceptoVenta();
 
         Task<IList<ElementoSistemaDTO>> getListDocumentoVenta();
+
+        Task<SqlRspDTO> InsConfiguracion(ConfiguracionDTO configuracion);
+
+        Task<SqlRspDTO> InsSistemaConfiguracionConcepto(ConfiguracionConceptoDTO configuracionConcepto);
     }
 }
