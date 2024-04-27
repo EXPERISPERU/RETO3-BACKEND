@@ -9,6 +9,7 @@ namespace backend.domain
     public class ConfiguracionConceptoDTO
     {
         public int nIdConfiguracionConcepto { get; set; }
+        public int nIdConfiguracion { get; set; }
         public int nIdproyecto { get; set; }
         public string? sIdTipoComprobante { get; set; }
         public string? sIdMedioPago { get; set; }

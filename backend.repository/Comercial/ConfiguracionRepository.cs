@@ -122,6 +122,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 6);
                 parameters.Add("nIdProyecto", configuracionConcepto.nIdproyecto);
+                parameters.Add("nIdConfiguracion", configuracionConcepto.nIdConfiguracion);
                 //parameters.Add("nIdConceptoVenta", configuracionConcepto.nIdConceptoVenta);
                 parameters.Add("arrayConceptoVenta", configuracionConcepto.sConceptoVenta);
                 parameters.Add("nIdUsuario_crea", configuracionConcepto.nIdUsuario_crea);
