@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace backend.businesslogic.Comercial
 {
-    public class ConfiguracionBL: IConfiguracionBL
+    public class ConfiguracionBL : IConfiguracionBL
     {
         IConfiguracionRepository repository;
 
@@ -47,6 +47,16 @@ namespace backend.businesslogic.Comercial
         public async Task<SqlRspDTO> InsSistemaConfiguracionConcepto(ConfiguracionConceptoDTO configuracionConcepto)
         {
             return await repository.InsSistemaConfiguracionConcepto(configuracionConcepto);
+        }
+
+        public async Task<IList<CompaniaMonedaDTO>> getListMonedaByCompania(int nIdCompania)
+        {
+            return await repository.getListMonedaByCompania(nIdCompania);
+        }
+
+        public async Task<IList<ImpuestosVentaDTO>> getListImpuestoVenta(int nIdCompania)
+        {
+            return await repository.getListImpuestoVenta(nIdCompania);
         }
     }
 }

@@ -149,5 +149,50 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<CompaniaMonedaDTO>>>> getListMonedaByCompania(int nIdCompania)
+        {
+
+            ApiResponse<List<CompaniaMonedaDTO>> response = new ApiResponse<List<CompaniaMonedaDTO>>();
+
+            try
+            {
+                var result = await service.getListMonedaByCompania(nIdCompania);
+
+                response.success = true;
+                response.data = (List<CompaniaMonedaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ImpuestosVentaDTO>>>> getListImpuestoVenta(int nIdCompania)
+        {
+
+            ApiResponse<List<ImpuestosVentaDTO>> response = new ApiResponse<List<ImpuestosVentaDTO>>();
+
+            try
+            {
+                var result = await service.getListImpuestoVenta(nIdCompania);
+
+                response.success = true;
+                response.data = (List<ImpuestosVentaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }
