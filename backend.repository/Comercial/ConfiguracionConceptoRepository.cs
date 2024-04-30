@@ -72,8 +72,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion_concepto]", 4);
                 parameters.Add("nIdproyecto", configuracion.nIdproyecto);
                 parameters.Add("nIdConceptoVenta", configuracion.nIdConceptoVenta);
-                parameters.Add("sIdTipoComprobante", configuracion.sIdTipoComprobante);
-                parameters.Add("sIdMedioPago", configuracion.sIdMedioPago);
+                parameters.Add("sIdTipoComprobanteMedioPago", configuracion.sIdTipoComprobanteMedioPago);
                 parameters.Add("bActivo", configuracion.bActivo);
                 parameters.Add("nIdUsuario_mod", configuracion.nIdUsuario_crea);
 

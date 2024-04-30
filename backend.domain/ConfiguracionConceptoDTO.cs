@@ -11,8 +11,7 @@ namespace backend.domain
         public int nIdConfiguracionConcepto { get; set; }
         public int nIdConfiguracion { get; set; }
         public int nIdproyecto { get; set; }
-        public string? sIdTipoComprobante { get; set; }
-        public string? sIdMedioPago { get; set; }
+        public string? sIdTipoComprobanteMedioPago { get; set; }
         public bool bActivo { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public int? nIdUsuario_mod { get; set; }
