@@ -83,7 +83,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdConfiguracion", configuracion.nIdConfiguracion);
                 parameters.Add("nIdProyecto", configuracion.nIdProyecto);
                 parameters.Add("nIdMoneda", configuracion.nIdMoneda);
-                parameters.Add("bImpuestoVenta", configuracion.bImpuestoVenta);
+                parameters.Add("bImpuestoVenta", configuracion.nIdImpuestoVenta);
                 parameters.Add("sIdInteres", configuracion.sIdInteres);
                 parameters.Add("sIdDocumentoVenta", configuracion.sIdDocumentoVenta);
                 parameters.Add("nIdUsuario_crea", configuracion.nIdUsuario_crea);
@@ -131,6 +131,38 @@ namespace backend.repository.Comercial
             }
 
             return res;
+        }
+
+        public async Task<IList<CompaniaMonedaDTO>> getListMonedaByCompania(int nIdCompania)
+        {
+            IEnumerable<CompaniaMonedaDTO> list = new List<CompaniaMonedaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 7);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<CompaniaMonedaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<ImpuestosVentaDTO>> getListImpuestoVenta(int nIdCompania)
+        {
+            IEnumerable<ImpuestosVentaDTO> list = new List<ImpuestosVentaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 8);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<ImpuestosVentaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
     }
 }

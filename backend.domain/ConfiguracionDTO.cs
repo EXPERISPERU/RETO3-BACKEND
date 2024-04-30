@@ -12,7 +12,8 @@ namespace backend.domain
         public int nIdConfiguracion { get; set; }
         public int nIdProyecto { get; set; }
         public int nIdMoneda { get; set; }
-        public bool bImpuestoVenta { get; set; }
+        //public bool bImpuestoVenta { get; set; }
+        public int nIdImpuestoVenta { get; set; }
         public string? sIdInteres { get; set; }
         public string? sIdDocumentoVenta { get; set; }
         public int nIdUsuario_crea { get; set; }

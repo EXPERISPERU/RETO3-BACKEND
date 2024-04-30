@@ -15,5 +15,7 @@ namespace backend.repository.Interfaces.Comercial
         Task<IList<ElementoSistemaDTO>> getListDocumentoVenta();
         Task<SqlRspDTO> InsConfiguracion(ConfiguracionDTO configuracion);
         Task<SqlRspDTO> InsSistemaConfiguracionConcepto(ConfiguracionConceptoDTO configuracionConcepto);
+        Task<IList<CompaniaMonedaDTO>> getListMonedaByCompania(int nIdCompania);
+        Task<IList<ImpuestosVentaDTO>> getListImpuestoVenta(int nIdCompania);
     }
 }
