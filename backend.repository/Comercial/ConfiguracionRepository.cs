@@ -39,40 +39,8 @@ namespace backend.repository.Comercial
         
         }
 
-        public async Task<IList<ElementoSistemaDTO>> getListConceptoVenta()
-        {
-            IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 4);
-
-                list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
-        public async Task<IList<ElementoSistemaDTO>> getListDocumentoVenta()
-        {
-            IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 5);
-
-                list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
-
-
         //FUNCION AGREGAR CONFIGURACION
-        public async  Task<SqlRspDTO> InsConfiguracion(ConfiguracionDTO configuracion)
+        public async Task<SqlRspDTO> InsConfiguracion(ConfiguracionDTO configuracion)
         {
             SqlRspDTO res = new SqlRspDTO();
 
@@ -95,9 +63,6 @@ namespace backend.repository.Comercial
         }
 
 
-
-
-
         public async Task<IList<ElementoSistemaDTO>> getListInteres()
         {
             IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
@@ -110,6 +75,35 @@ namespace backend.repository.Comercial
                 list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
+            return list.ToList();
+        }
+
+        public async Task<IList<ItemCompaniaDTO>> getListConceptoVenta(int nIdCompania)
+        {
+            IEnumerable<ItemCompaniaDTO> list = new List<ItemCompaniaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 4);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<ItemCompaniaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<ElementoSistemaDTO>> getListDocumentoVenta()
+        {
+            IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 5);
+
+                list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
             return list.ToList();
         }
 
