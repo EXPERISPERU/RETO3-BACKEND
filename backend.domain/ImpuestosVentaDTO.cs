@@ -12,6 +12,7 @@ namespace backend.domain
         public int nIdCompania { get; set; }
         public string? sAbrev { get; set; }
         public decimal dValor { get; set; }
+        public string sValorAbrev { get; set; }
         public int nIdPais { get; set; }
         public int nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }

@@ -13,7 +13,7 @@ namespace backend.businesslogic.Interfaces.Comercial
 
         Task<IList<ElementoSistemaDTO>> getListInteres();
 
-        Task<IList<ElementoSistemaDTO>> getListConceptoVenta();
+        Task<IList<ItemCompaniaDTO>> getListConceptoVenta(int nIdCompania);
 
         Task<IList<ElementoSistemaDTO>> getListDocumentoVenta();
 

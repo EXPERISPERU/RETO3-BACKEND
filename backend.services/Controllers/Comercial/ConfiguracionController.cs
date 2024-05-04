@@ -106,17 +106,15 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListConceptoVenta()
+        public async Task<ActionResult<ApiResponse<List<ItemCompaniaDTO>>>> getListConceptoVenta(int nIdCompania)
         {
-
-            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+            ApiResponse<List<ItemCompaniaDTO>> response = new ApiResponse<List<ItemCompaniaDTO>>();
 
             try
             {
-                var result = await service.getListConceptoVenta();
-
+                var result = await service.getListConceptoVenta(nIdCompania);
                 response.success = true;
-                response.data = (List<ElementoSistemaDTO>)result;
+                response.data = (List<ItemCompaniaDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
