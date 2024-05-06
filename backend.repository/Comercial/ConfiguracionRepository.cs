@@ -51,7 +51,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdConfiguracion", configuracion.nIdConfiguracion);
                 parameters.Add("nIdProyecto", configuracion.nIdProyecto);
                 parameters.Add("nIdMoneda", configuracion.nIdMoneda);
-                parameters.Add("bImpuestoVenta", configuracion.nIdImpuestoVenta);
+                parameters.Add("bImpuestoVenta", configuracion.bImpuestoVenta);
                 parameters.Add("sIdInteres", configuracion.sIdInteres);
                 parameters.Add("sIdDocumentoVenta", configuracion.sIdDocumentoVenta);
                 parameters.Add("nIdUsuario_crea", configuracion.nIdUsuario_crea);
