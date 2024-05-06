@@ -98,5 +98,22 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
+
+        public async Task<IList<JsonFormatDTO>> getComprobanteMedioPago(int nIdCompania)
+        {
+            IEnumerable<JsonFormatDTO> list = new List<JsonFormatDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion_concepto]", 6);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<JsonFormatDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }
