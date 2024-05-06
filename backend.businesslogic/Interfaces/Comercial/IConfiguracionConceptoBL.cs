@@ -14,5 +14,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<ElementoSistemaDTO>> getListMedioPago();
         Task<SqlRspDTO> postInsConfiguracionConcepto(ConfiguracionConceptoDTO configuracion);
         Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta);
+        Task<IList<JsonFormatDTO>> getComprobanteMedioPago(int nIdCompania);
     }
 }
