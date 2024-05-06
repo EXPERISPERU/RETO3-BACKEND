@@ -43,5 +43,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(nIdproyecto, nIdConceptoVenta);
         }
+
+        public async Task<IList<JsonFormatDTO>> getComprobanteMedioPago(int nIdCompania)
+        {
+            return await repository.getComprobanteMedioPago(nIdCompania);
+        }
     }
 }
