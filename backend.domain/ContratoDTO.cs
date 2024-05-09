@@ -122,6 +122,7 @@
         public string sFecha_pago { get; set; }
         public int nIdComprobante { get; set; }
         public string sComprobante { get; set; }
+        public int nIdProyecto { get; set; }
     }
 
     public class ContratoByIdClientDTO
