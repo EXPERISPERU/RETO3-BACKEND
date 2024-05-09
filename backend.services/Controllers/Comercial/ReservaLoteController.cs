@@ -66,7 +66,7 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> getFormatoReciboIngresoReserva(int nIdReservaLote)
+        public async Task<ActionResult> getFormatoReciboIngresoReserva(int nIdReservaLote) /* YA NO SE USA */
         {
             try
             {
