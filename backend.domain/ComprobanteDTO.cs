@@ -44,6 +44,14 @@ namespace backend.domain
         public string? sFechaVencimiento { get; set; }
         public string? sGuiaRemision { get; set; }
         #endregion
+
+        public string sNombrePromotor { get; set; }
+        public string sFechaFinReserva { get; set; }
+        public string sProyecto { get; set; }
+        public string sSector { get; set; }
+        public string sManzana { get; set; }
+        public string sLote { get; set; }
+        public int nMetraje { get; set; }
     }
 
     public class ComprobanteDetDTO

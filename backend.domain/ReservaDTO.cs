@@ -29,6 +29,7 @@ namespace backend.domain
         public string sDireccion { get; set; }
         public string sCelular { get; set; }
         public string sFecha { get; set; }
+        public int? nIdProyecto { get; set; }
         public string sProyecto { get; set; }
         public string sSector { get; set; }
         public string sManzana { get; set; }

@@ -53,7 +53,7 @@ namespace backend.repository.Contabilidad
             return res.ToList();
         }
 
-        public async Task<string> formatoComprobanteByIdComprobante(int nIdComprobante)
+        public async Task<string> formatoComprobanteByIdComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante)
         {
             string res;
 
@@ -61,6 +61,8 @@ namespace backend.repository.Contabilidad
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 5);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdProyecto", nIdProyecto);
                 parameters.Add("nIdComprobante", nIdComprobante);
 
                 res = await connection.QuerySingleAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);

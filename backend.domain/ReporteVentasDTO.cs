@@ -28,6 +28,7 @@ namespace backend.domain
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
+        public int? nIdProyecto { get; set; }
         public string? sProyecto { get; set; }
         public string? sSector { get; set; }
         public string? sManzana { get; set; }
