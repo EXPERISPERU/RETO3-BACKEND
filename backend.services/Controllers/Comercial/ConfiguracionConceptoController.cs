@@ -126,12 +126,12 @@ namespace backend.services.Controllers.Comercial
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<JsonFormatDTO>>>> getComprobanteMedioPago(int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<JsonFormatDTO>>>> getComprobanteMedioPago(int nIdCompania, int nIdConcepto)
         {
             ApiResponse<List<JsonFormatDTO>> response = new ApiResponse<List<JsonFormatDTO>>();
             try
             {
-                var result = await service.getComprobanteMedioPago(nIdCompania);
+                var result = await service.getComprobanteMedioPago(nIdCompania, nIdConcepto);
 
                 response.success = true;
                 response.data = (List<JsonFormatDTO>)result;

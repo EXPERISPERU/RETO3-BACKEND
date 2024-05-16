@@ -20,7 +20,7 @@ namespace backend.domain
 		public int nSectores { get; set; }
 		public int nManzanas { get; set; }
         public int nLotes { get; set; }
-        public bool bIGV { get; set; }
+        //public bool bIGV { get; set; }
 		public int nIdUsuario_crea { get; set; }
 		public string? sUsuario_crea { get; set; }
 		public DateTime? dFecha_crea { get; set; }

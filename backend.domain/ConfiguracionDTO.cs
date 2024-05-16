@@ -20,7 +20,7 @@ namespace backend.domain
         public DateTime dFecha_crea { get; set; }
 
     }
-
+    /*
     public class ItemCompaniaDTO
     {
         public int? nIdItemCompania { get; set; }
@@ -33,5 +33,6 @@ namespace backend.domain
         public int? nIdUsuario_mod { get; set; }
         public DateTime? dFecha_mod { get; set; }
     }
+    */
 
 }

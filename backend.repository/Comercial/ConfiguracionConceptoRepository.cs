@@ -99,7 +99,7 @@ namespace backend.repository.Comercial
         }
 
 
-        public async Task<IList<JsonFormatDTO>> getComprobanteMedioPago(int nIdCompania)
+        public async Task<IList<JsonFormatDTO>> getComprobanteMedioPago(int nIdCompania, int nIdConcepto)
         {
             IEnumerable<JsonFormatDTO> list = new List<JsonFormatDTO>();
 
@@ -108,6 +108,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion_concepto]", 6);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdConcepto", nIdConcepto);
 
                 list = await connection.QueryAsync<JsonFormatDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
