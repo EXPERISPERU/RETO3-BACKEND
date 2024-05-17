@@ -115,6 +115,10 @@ namespace backend.services
 
             services.AddScoped<IConfiguracionConceptoRepository, ConfiguracionConceptoRepository>();
 
+            services.AddScoped<IComprobanteMedioPagoRepository, ComprobanteMedioPagoRepository>();
+
+            services.AddScoped<IItemCompaniaRepository, ItemCompaniaRepository>();
+
 
         }
 
@@ -184,6 +188,12 @@ namespace backend.services
             services.AddScoped<IConfiguracionBL, ConfiguracionBL>();
 
             services.AddScoped<IConfiguracionConceptoBL, ConfiguracionConceptoBL>();
+
+            services.AddScoped<IComprobanteMedioPagoBL, ComprobanteMedioPagoBL>();
+
+            services.AddScoped<IItemCompaniaBL, ItemCompaniaBL>();
+
+
         }
     }
 }

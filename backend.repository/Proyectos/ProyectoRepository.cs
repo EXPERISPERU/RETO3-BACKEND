@@ -82,7 +82,7 @@ namespace backend.repository.Proyectos
                 parameters.Add("nIdUbigeo", proyecto.nIdUbigeo);
                 parameters.Add("nLatitud", proyecto.nLatitud);
                 parameters.Add("nLongitud", proyecto.nLongitud);
-                parameters.Add("bIGV", proyecto.bIGV);
+                //parameters.Add("bIGV", proyecto.bIGV);
                 parameters.Add("nSectores", proyecto.nSectores);
                 parameters.Add("nManzanas", proyecto.nManzanas);
                 parameters.Add("nLotes", proyecto.nLotes);
@@ -108,7 +108,7 @@ namespace backend.repository.Proyectos
                 parameters.Add("nIdUbigeo", proyecto.nIdUbigeo);
                 parameters.Add("nLatitud", proyecto.nLatitud);
                 parameters.Add("nLongitud", proyecto.nLongitud);
-                parameters.Add("bIGV", proyecto.bIGV);
+                //parameters.Add("bIGV", proyecto.bIGV);
                 parameters.Add("nSectores", proyecto.nSectores);
                 parameters.Add("nManzanas", proyecto.nManzanas);
                 parameters.Add("nLotes", proyecto.nLotes);
