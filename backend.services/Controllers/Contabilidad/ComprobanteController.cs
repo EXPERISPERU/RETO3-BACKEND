@@ -37,76 +37,56 @@ namespace backend.services.Controllers.Contabilidad
 
                     var html = "";
 
-                    if (comprobante.sCodigoTipoComprobante == "4" )
+                    if (comprobante.sCodigoTipoComprobante == "4")
                     {
                         html = "<style>.page-break { page-break-after: always; }</style>";
+                        var logoCompania = "";
                         if (nIdCompania == 1)
                         {
-                            
-                            html += "<div class=\"page-break\">";
-                            html += sCuerpo
-                                    .Replace("#sLogoData#", dataImages.psViviendasDelSur)
-                                    .Replace("#sCorrelativo#", comprobante.sComprobante)
-                                    .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
-                                    .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
-                                    .Replace("#sDireccionCliente#", comprobante.sDireccion)
-                                    .Replace("#sCelularCliente#", comprobante.sCelular)
-                                    .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
-                                    .Replace("#sSimbolo#", comprobante.sSimbolo)
-                                    .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
-                            html += "</div>";
-
-                            string sIniItems = "#iniItems#";
-                            string sFinItems = "#finItems#";
-
-                            string slistaItems = sCuerpo.Substring(sCuerpo.IndexOf(sIniItems), (sCuerpo.IndexOf(sFinItems) + sFinItems.Length) - sCuerpo.IndexOf(sIniItems));
-                            string slistaItemsFinal = "";
-
-                            for (int i = 0; i < listComprobanteDet.Count; i++)
-                            {
-
-                                string sIniItem = "#iniItem#";
-                                string sFinItem = "#finItem#";
-
-                                string sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
-
-                                slistaItemsFinal += slistaItems
-                                .Replace(sIniItems, "")
-                                .Replace("#nroItem#", (i + 1).ToString())
-                                .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
-                                .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
-                                .Replace(sFinItems, "");
-                            }
-
-                            html = html.Replace(slistaItems, slistaItemsFinal);
+                            logoCompania = dataImages.psViviendasDelSur;
                         }
                         else if (nIdCompania == 5)
                         {
-                            html += sCuerpo
-                                    .Replace("#iniItems#", "")
-                                    .Replace("#finItems#", "")
-                                    .Replace("#iniItem#", "")
-                                    .Replace("#finItem#", "")
-                                    .Replace("#sLogoData#", dataImages.psViviendasDelSur)
-                                    .Replace("#sCorrelativo#", comprobante.sComprobante)
-                                    .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
-                                    .Replace("#sDocumentoCliente#", comprobante.sDNI)
-                                    .Replace("#sDireccionCliente#", comprobante.sDireccion)
-                                    .Replace("#sCelularCliente#", comprobante.sCelular)
-                                    .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
-                                    .Replace("#nroItem#", "1")
-                                    .Replace("#sProyecto#", comprobante.sProyecto)
-                                    .Replace("#sSector#", comprobante.sSector)
-                                    .Replace("#sManzana#", comprobante.sManzana)
-                                    .Replace("#sLote#", comprobante.sLote)
-                                    .Replace("#sArea#", comprobante.nMetraje.ToString("N"))
-                                    .Replace("#sFechaFin#", comprobante.sFechaFinReserva.Split(" ")[0])
-                                    .Replace("#sNombrePromotor#", comprobante.sNombrePromotor)
-                                    .Replace("#sTotalItem#", comprobante.nValorTotal.ToString("0.00"))
-                                    .Replace("#sSimbolo#", comprobante.sSimbolo)
-                                    .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
-                            html += "</div>";
+                            logoCompania = dataImages.psVillaAzul;
                         }
+
+                        html += "<div class=\"page-break\">";
+                        html += sCuerpo
+                                .Replace("#sLogoData#", logoCompania)
+                                .Replace("#sCorrelativo#", comprobante.sComprobante)
+                                .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
+                                .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
+                                .Replace("#sDireccionCliente#", comprobante.sDireccion)
+                                .Replace("#sCelularCliente#", comprobante.sCelular)
+                                .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
+                                .Replace("#sSimbolo#", comprobante.sSimbolo)
+                                .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
+                        html += "</div>";
+
+                        string sIniItems = "#iniItems#";
+                        string sFinItems = "#finItems#";
+
+                        string slistaItems = sCuerpo.Substring(sCuerpo.IndexOf(sIniItems), (sCuerpo.IndexOf(sFinItems) + sFinItems.Length) - sCuerpo.IndexOf(sIniItems));
+                        string slistaItemsFinal = "";
+
+                        for (int i = 0; i < listComprobanteDet.Count; i++)
+                        {
+
+                            string sIniItem = "#iniItem#";
+                            string sFinItem = "#finItem#";
+
+                            string sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
+
+                            slistaItemsFinal += slistaItems
+                            .Replace(sIniItems, "")
+                            .Replace("#nroItem#", (i + 1).ToString())
+                            .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
+                            .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
+                            .Replace(sFinItems, "");
+                        }
+
+                        html = html.Replace(slistaItems, slistaItemsFinal);
+
                     }
 
                     if (comprobante.sCodigoTipoComprobante == "3")

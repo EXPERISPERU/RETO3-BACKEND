@@ -14,5 +14,8 @@ namespace backend.businesslogic.Interfaces.Dealers
         Task<int> CantActivePADByAgente(int nIdAgenteDealer);
         Task<SqlRspDTO> InsProvAgenDealer(ProveedorAgenteDealerDTO proveedorAgenteDealer);
         Task<SqlRspDTO> UpdProvAgenDealer(ProveedorAgenteDealerDTO proveedorAgenteDealer);
+        Task<IList<SelectDTO>> getJefesDealer(int nIdProveedor, int nIdAgenteDealer);
+        Task<SqlRspDTO> InsJefeDealer(JefeAgenteDealerDTO jefeAgenteDealer);
+        Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer);
     }
 }
