@@ -58,6 +58,7 @@ namespace backend.services.Controllers.Contabilidad
                                 .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
                                 .Replace("#sDireccionCliente#", comprobante.sDireccion)
                                 .Replace("#sCelularCliente#", comprobante.sCelular)
+                                .Replace("#sTelefonoCliente#", comprobante.sTelefono)
                                 .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
                                 .Replace("#sSimbolo#", comprobante.sSimbolo)
                                 .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
