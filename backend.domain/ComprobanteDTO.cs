@@ -23,6 +23,7 @@ namespace backend.domain
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sCelular { get; set; }
+        public string? sTelefono { get; set; }
         public string sNombreCompleto { get; set; }
         public string sDireccion { get; set; }
         public string sUbigeo { get; set; }

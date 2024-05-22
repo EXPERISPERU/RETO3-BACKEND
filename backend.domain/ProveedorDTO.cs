@@ -25,4 +25,19 @@ namespace backend.domain
         public DateTime? dFecha_mod { get; set; }
         public string? sFecha_mod { get; set; }
     }
+
+
+    public class JefeComercialDTO
+    {
+        public int? nIdProveedorJefe { get; set; }
+        public int nIdJefeComercial { get; set; }
+        public string? sJefeComercial { get; set; }
+        public int nIdProveedor { get; set; }
+        public DateTime dFechaIni { get; set; }
+        public DateTime? dFechaFin { get; set; }
+        public int? nIdUsuario_crea { get; set; }
+        public DateTime? dFecha_crea { get; set; }
+        public int? nIdUsuario_mod { get; set; }
+        public DateTime? dFecha_mod { get; set; }
+    }
 }

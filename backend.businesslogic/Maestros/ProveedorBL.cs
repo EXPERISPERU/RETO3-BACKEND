@@ -41,5 +41,21 @@ namespace backend.businesslogic.Maestros
         {
             return await repository.UpdProveedor(proveedor);            
         }
+
+        public async Task<SqlRspDTO> InsJefeComercialProveedor(JefeComercialDTO jefeComercial)
+        {
+            return await repository.InsJefeComercialProveedor(jefeComercial);
+        }
+
+        public async Task<IList<JefeComercialDTO>> getJefesComercialesByProveedor(int nIdProveedor)
+        {
+            return await repository.getJefesComercialesByProveedor(nIdProveedor);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectJefesComerciales()
+        {
+            return await repository.getSelectJefesComerciales();
+        }
+
     }
 }
