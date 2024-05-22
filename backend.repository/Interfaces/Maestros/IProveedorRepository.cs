@@ -14,5 +14,8 @@ namespace backend.repository.Interfaces.Maestros
         Task<ProveedorDTO> findProveedorByRUC(string sRUC);
         Task<SqlRspDTO> InsProveedor(ProveedorDTO proveedor);
         Task<SqlRspDTO> UpdProveedor(ProveedorDTO proveedor);
+        Task<SqlRspDTO> InsJefeComercialProveedor(JefeComercialDTO jefeComercial);
+        Task<IList<JefeComercialDTO>> getJefesComercialesByProveedor(int nIdProveedor);
+        Task<IList<SelectDTO>> getSelectJefesComerciales();
     }
 }
