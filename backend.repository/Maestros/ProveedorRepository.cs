@@ -114,5 +114,60 @@ namespace backend.repository.Maestros
 
             return res;
         }
+
+        public async Task<SqlRspDTO> InsJefeComercialProveedor(JefeComercialDTO jefeComercial)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 6);
+                parameters.Add("nIdProveedorJefe", jefeComercial.nIdProveedorJefe);
+                parameters.Add("nIdJefeComercial", jefeComercial.nIdJefeComercial);
+                parameters.Add("nIdProveedor", jefeComercial.nIdProveedor);
+                parameters.Add("dFechaIni", jefeComercial.dFechaIni);
+                parameters.Add("dFechaFin", jefeComercial.dFechaFin);
+                parameters.Add("nIdUsuario_crea", jefeComercial.nIdUsuario_crea);
+                parameters.Add("nIdUsuario_mod", jefeComercial.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<JefeComercialDTO>> getJefesComercialesByProveedor(int nIdProveedor)
+        {
+            IEnumerable<JefeComercialDTO> resp = new List<JefeComercialDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 7);
+                parameters.Add("nIdProveedor", nIdProveedor);
+
+                resp = await connection.QueryAsync<JefeComercialDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectJefesComerciales()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 8);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+
     }
 }

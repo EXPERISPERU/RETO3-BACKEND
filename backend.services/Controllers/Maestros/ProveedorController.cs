@@ -4,6 +4,7 @@ using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace backend.services.Controllers.Maestros
 {
@@ -124,5 +125,69 @@ namespace backend.services.Controllers.Maestros
                 return StatusCode(500, response);
             }
         }
+
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsJefeComercialProveedor([FromBody] JefeComercialDTO jefeComercial)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsJefeComercialProveedor(jefeComercial);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<JefeComercialDTO>>>> getJefesComercialesByProveedor(int nIdProveedor)
+        {
+            ApiResponse<List<JefeComercialDTO>> response = new ApiResponse<List<JefeComercialDTO>>();
+            try
+            {
+                var result = await service.getJefesComercialesByProveedor(nIdProveedor);
+
+                response.success = true;
+                response.data = (List<JefeComercialDTO>) result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectJefesComerciales()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            try
+            {
+                var result = await service.getSelectJefesComerciales();
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }
