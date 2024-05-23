@@ -90,7 +90,7 @@ namespace backend.services.Controllers.Comercial
 
             try
             {
-                var result = await service.InsReferido(insReferido.nIdCliente, insReferido.nIdUsuario);
+                var result = await service.InsReferido(insReferido.nIdCompania, insReferido.nIdCliente, insReferido.nIdUsuario);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
@@ -206,13 +206,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<int>>> getCantReferenciaActivaByPersona(int nIdPersona)
+        public async Task<ActionResult<ApiResponse<int>>> getCantReferenciaActivaByPersona(int nIdCompania, int nIdPersona)
         {
             ApiResponse<int> response = new ApiResponse<int>();
 
             try
             {
-                var result = await service.getCantReferenciaActivaByPersona(nIdPersona);
+                var result = await service.getCantReferenciaActivaByPersona(nIdCompania, nIdPersona);
 
                 response.success = true;
                 response.data = (int)result;
@@ -246,5 +246,7 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+
     }
 }
