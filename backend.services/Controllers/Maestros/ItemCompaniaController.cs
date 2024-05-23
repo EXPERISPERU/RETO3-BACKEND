@@ -111,6 +111,49 @@ namespace backend.services.Controllers.Maestros
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsItemCompania_Terminologia([FromBody] ItemCompaniaDTO itemCompaniaDTO)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsItemCompania_Terminologia(itemCompaniaDTO);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ItemCompaniaDTO>>>> getListConceptoPagoTerminologiaByCompania(int nIdCompania)
+        {
+
+            ApiResponse<List<ItemCompaniaDTO>> response = new ApiResponse<List<ItemCompaniaDTO>>();
+
+            try
+            {
+                var result = await service.getListConceptoPagoTerminologiaByCompania(nIdCompania);
+
+                response.success = true;
+                response.data = (List<ItemCompaniaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
 
     }
 }
