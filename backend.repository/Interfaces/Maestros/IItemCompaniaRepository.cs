@@ -13,5 +13,7 @@ namespace backend.repository.Interfaces.Maestros
         Task<IList<ItemDTO>> getListMaestroConceptoPagos();
         Task<IList<ElementoSistemaDTO>> getListMaestroTipoComprobantes();
         Task<SqlRspDTO> InsItemCompania(ItemCompaniaDTO itemCompaniaDTO);
+        Task<SqlRspDTO> InsItemCompania_Terminologia(ItemCompaniaDTO itemCompaniaDTO);
+        Task<IList<ItemCompaniaDTO>> getListConceptoPagoTerminologiaByCompania(int nIdCompania);
     }
 }

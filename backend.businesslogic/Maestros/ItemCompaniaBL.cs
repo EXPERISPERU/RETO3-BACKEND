@@ -17,6 +17,11 @@ namespace backend.businesslogic.Maestros
             repository = _repository;
         }
 
+        public async Task<IList<ItemCompaniaDTO>> getListConceptoPagoTerminologiaByCompania(int nIdCompania)
+        {
+            return await repository.getListConceptoPagoTerminologiaByCompania(nIdCompania);
+        }
+
         public async Task<IList<ItemCompaniaDTO>> getListConceptoPagoTipoComprobanteByCompania(int nIdCompania)
         {
             return await repository.getListConceptoPagoTipoComprobanteByCompania(nIdCompania);
@@ -35,6 +40,11 @@ namespace backend.businesslogic.Maestros
         public async Task<SqlRspDTO> InsItemCompania(ItemCompaniaDTO itemCompaniaDTO)
         {
             return await repository.InsItemCompania(itemCompaniaDTO);
+        }
+
+        public async Task<SqlRspDTO> InsItemCompania_Terminologia(ItemCompaniaDTO itemCompaniaDTO)
+        {
+            return await repository.InsItemCompania_Terminologia(itemCompaniaDTO);
         }
     }
 }

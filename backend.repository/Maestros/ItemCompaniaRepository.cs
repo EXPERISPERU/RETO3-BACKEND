@@ -89,5 +89,40 @@ namespace backend.repository.Maestros
             return res;
 
         }
+
+        public async Task<SqlRspDTO> InsItemCompania_Terminologia(ItemCompaniaDTO itemCompaniaDTO)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item_compania]", 5);
+                parameters.Add("nIdCompania", itemCompaniaDTO.nIdCompania);
+                parameters.Add("nIdItem", itemCompaniaDTO.nIdItem);
+                parameters.Add("vTerminologia", itemCompaniaDTO.vTerminologia);
+                parameters.Add("nIdUsuario_mod", itemCompaniaDTO.nIdUsuario_mod);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<ItemCompaniaDTO>> getListConceptoPagoTerminologiaByCompania(int nIdCompania)
+        {
+            IEnumerable<ItemCompaniaDTO> list = new List<ItemCompaniaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item_compania]", 6);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<ItemCompaniaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }
