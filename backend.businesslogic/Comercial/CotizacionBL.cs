@@ -72,5 +72,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getListReporteCotizaciones(filtros);
         }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            return await repository.getSelectMonedaByCompania(nIdCompania);
+        }
     }
 }
