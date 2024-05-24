@@ -2,6 +2,7 @@
 {
     public class PersonaDTO
     {
+        public int? nIdCompania { get; set; }
         public int? nIdPersona { get; set; }
         public string? sPriNombre { get; set; }
         public string? sSegNombre { get; set; }
