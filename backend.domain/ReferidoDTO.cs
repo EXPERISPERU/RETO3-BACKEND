@@ -29,6 +29,7 @@ namespace backend.domain
 
     public class InsReferidoDTO
     {
+        public int nIdCompania { get; set; }
         public int nIdCliente { get; set; }
         public int nIdUsuario { get; set; }
     }

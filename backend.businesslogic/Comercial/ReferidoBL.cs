@@ -29,9 +29,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getValidAgregarReferido(nIdUsuario, nIdCompania);
         }
 
-        public async Task<SqlRspDTO> InsReferido(int nIdCliente, int nIdUsuario)
+        public async Task<SqlRspDTO> InsReferido(int nIdCompania, int nIdCliente, int nIdUsuario)
         {
-            return await repository.InsReferido(nIdCliente, nIdUsuario);
+            return await repository.InsReferido(nIdCompania, nIdCliente, nIdUsuario);
         }
 
         public async Task<PersonaDTO> findPersona(string? sDNI, string? sCE)
@@ -49,9 +49,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getListEstadoCivil();
         }
 
-        public async Task<int> getCantReferenciaActivaByPersona(int nIdPersona)
+        public async Task<int> getCantReferenciaActivaByPersona(int nIdCompania, int nIdPersona)
         {
-            return await repository.getCantReferenciaActivaByPersona(nIdPersona);
+            return await repository.getCantReferenciaActivaByPersona(nIdCompania, nIdPersona);
         }
 
         public async Task<SqlRspDTO> InsReferidoByPersona(PersonaDTO persona) 

@@ -49,7 +49,6 @@ namespace backend.repository.Comercial
                 //parameters.Add("nIdAgenteDealer", insReserva.nIdAgenteDealer);
                 parameters.Add("nIdUsuario_crea", insReserva.nIdUsuario_crea);
                 parameters.Add("nIdMonedaP", insReserva.nIdMoneda);
-                
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
