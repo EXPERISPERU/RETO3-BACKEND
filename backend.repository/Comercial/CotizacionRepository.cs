@@ -99,6 +99,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdInicial", cotizacion.nIdInicial);
                 parameters.Add("nIdDescuentoFin", cotizacion.nIdDescuentoFin);
                 parameters.Add("nIdDescuentoCon", cotizacion.nIdDescuentoCon);
+                parameters.Add("nIdMoneda", cotizacion.nIdMoneda);
 
                 res = await connection.QuerySingleAsync<CotizacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -223,6 +224,22 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCompania", filtros.nIdCompania);
 
                 list = await connection.QueryAsync<ReporteCotizacionesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 13);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();

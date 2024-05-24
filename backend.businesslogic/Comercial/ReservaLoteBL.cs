@@ -42,5 +42,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.InsComprobanteAdjunto(nIdComprobante, sRutaFtp);
         }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            return await repository.getSelectMonedaByCompania(nIdCompania);
+        }
     }
 }

@@ -20,5 +20,6 @@ namespace backend.repository.Interfaces.Comercial
         Task<ClienteDTO> getClienteReservaByLote(int nIdLote);
         Task<ClienteDTO> getClientePreContratoByLote(int nIdLote);
         Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros);
+        Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
     }
 }
