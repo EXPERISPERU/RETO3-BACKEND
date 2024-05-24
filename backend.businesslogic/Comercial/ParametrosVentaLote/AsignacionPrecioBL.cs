@@ -82,5 +82,15 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
         {
             return await repository.getSelectMonedaByCompania(nIdCompania);
         }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByProyecto(int nIdProyecto)
+        {
+            return await repository.getSelectMonedaByProyecto(nIdProyecto);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaMaestros()
+        {
+            return await repository.getSelectMonedaMaestros();
+        }
     }
 }
