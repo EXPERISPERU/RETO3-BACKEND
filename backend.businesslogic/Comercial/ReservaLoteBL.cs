@@ -13,9 +13,9 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote)
+        public async Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote, int nIdMonedaP)
         {
-            return await repository.getSelectPrecioReservaByLote(nIdLote);
+            return await repository.getSelectPrecioReservaByLote(nIdLote, nIdMonedaP);
         }
 
         public async Task<SqlRspDTO> InsReserva(InsReservaDTO insReserva)
