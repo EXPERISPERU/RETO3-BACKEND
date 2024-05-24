@@ -16,7 +16,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote)
+        public async Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote, int nIdMonedaP)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -25,6 +25,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 1);
                 parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdMonedaP", nIdMonedaP);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
