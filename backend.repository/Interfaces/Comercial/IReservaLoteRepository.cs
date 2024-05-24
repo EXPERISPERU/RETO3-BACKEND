@@ -4,7 +4,7 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface IReservaLoteRepository
     {
-        Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote);
+        Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote, int nIdMonedaP);
         Task<SqlRspDTO> InsReserva(InsReservaDTO insReserva);
         Task<DataReservaDTO> getDataReserva(int nIdReservaLote);
         Task<string> formatoReciboIngresoReserva();

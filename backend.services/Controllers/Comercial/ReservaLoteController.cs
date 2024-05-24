@@ -23,14 +23,14 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioReservaByLote(int nIdLote)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioReservaByLote(int nIdLote, int nIdMonedaP)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectPrecioReservaByLote(nIdLote);
+                var result = await service.getSelectPrecioReservaByLote(nIdLote, nIdMonedaP);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
