@@ -56,6 +56,8 @@ namespace backend.domain
         public decimal? nDescuentoCon { get; set; }
         public decimal? nValorContado { get; set; }
         public string? sIdConceptoVenta { get; set; }
+        public string? sTipoInteres { get; set; }
+        public decimal? nTipoInteres { get; set; }
 
     }
 }
