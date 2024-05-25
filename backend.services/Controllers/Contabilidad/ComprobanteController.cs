@@ -72,16 +72,19 @@ namespace backend.services.Controllers.Contabilidad
 
                         for (int i = 0; i < listComprobanteDet.Count; i++)
                         {
-
-                            string sIniItem = "#iniItem#";
-                            string sFinItem = "#finItem#";
-
-                            string sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
+                            string sItem = "#sItemDescripcion#";
+                            if (sCuerpo.Contains("#iniItem#"))
+                            {
+                                string sIniItem = "#iniItem#";
+                                string sFinItem = "#finItem#";
+                                sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
+                            }
 
                             slistaItemsFinal += slistaItems
                             .Replace(sIniItems, "")
                             .Replace("#nroItem#", (i + 1).ToString())
                             .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
+                            .Replace("#sSimboloItem#", listComprobanteDet[i].sSimbolo)
                             .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
                             .Replace(sFinItems, "");
                         }
