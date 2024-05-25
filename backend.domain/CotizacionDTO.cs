@@ -56,6 +56,8 @@ namespace backend.domain
         public string? sUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
         public string? sFecha_crea { get; set; }
+        public string? sTipoInteres { get; set; }
+        public decimal? nTipoInteres { get; set; }
     }
 
     public class InicialDescuentoDTO
