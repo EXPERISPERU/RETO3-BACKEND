@@ -93,9 +93,9 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
             return await repository.getSelectMonedaMaestros();
         }
 
-        public async Task<IList<SelectDTO>> getSelectColorByLote(int nIdLote)
+        public async Task<IList<SelectDTO>> getSelectColor()
         {
-            return await repository.getSelectColorByLote(nIdLote);
+            return await repository.getSelectColor();
         }
 
 

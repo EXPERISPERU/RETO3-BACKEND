@@ -20,6 +20,6 @@ namespace backend.repository.Interfaces.Comercial.ParametrosVentaLote
         Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
         Task<IList<SelectDTO>> getSelectMonedaByProyecto(int nIdProyecto);
         Task<IList<SelectDTO>> getSelectMonedaMaestros();
-        Task<IList<SelectDTO>> getSelectColorByLote(int nIdLote);
+        Task<IList<SelectDTO>> getSelectColor();
     }
 }
