@@ -158,7 +158,7 @@ namespace backend.services.Controllers.Comercial
             try
             {
                 CotizacionDTO cotizacion = await service.getCotizacionById(nIdCotizacion);
-                var sCuerpo = await service.formatoCotizacion();
+                var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
 
