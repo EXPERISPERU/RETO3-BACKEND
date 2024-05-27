@@ -37,19 +37,20 @@ namespace backend.services.Controllers.Contabilidad
 
                     var html = "";
 
+                    var logoCompania = "";
+                    if (nIdCompania == 1)
+                    {
+                        logoCompania = dataImages.psViviendasDelSur;
+                    }
+                    else if (nIdCompania == 5)
+                    {
+                        logoCompania = dataImages.psVillaAzul;
+                    }
+
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
                         html = "<style>.page-break { page-break-after: always; }</style>";
-                        var logoCompania = "";
-                        if (nIdCompania == 1)
-                        {
-                            logoCompania = dataImages.psViviendasDelSur;
-                        }
-                        else if (nIdCompania == 5)
-                        {
-                            logoCompania = dataImages.psVillaAzul;
-                        }
-
+                        
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                                 .Replace("#sLogoData#", logoCompania)
@@ -127,6 +128,16 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sIsc#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sValorIGV#", comprobante.sSimbolo + " " + comprobante.nValorIgv.ToString("0.00"))
                         .Replace("#sTotal#", comprobante.sSimbolo + " " + comprobante.nValorTotal.ToString("0.00"))
+                        .Replace("#sLogoData#", logoCompania)
+                        .Replace("#sCorrelativo#", comprobante.sComprobante)
+                        .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
+                        .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
+                        .Replace("#sDireccionCliente#", comprobante.sDireccion)
+                        .Replace("#sCelularCliente#", comprobante.sCelular)
+                        .Replace("#sTelefonoCliente#", comprobante.sTelefono)
+                        .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
+                        .Replace("#sSimbolo#", "")
+                        .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"))
                         .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)));
 
                         string sIniItems = "#iniItems#";
@@ -146,6 +157,9 @@ namespace backend.services.Controllers.Contabilidad
                             .Replace("#sItemValor#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
                             .Replace("#sItemDscto#", "0.00")
                             .Replace("#sItemTotal#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
+                            .Replace("#nroItem#", (i + 1).ToString())
+                            .Replace("#sSimboloItem#", listComprobanteDet[i].sSimbolo)
+                            .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
                             .Replace(sFinItems, "");
                         }
 
