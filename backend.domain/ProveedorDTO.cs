@@ -9,8 +9,14 @@ namespace backend.domain
     public class ProveedorDTO
     {
         public int? nIdProveedor { get; set; }
+        public int? nIdTipo { get; set; }
         public int? nIdPersona { get; set; }
+        public string? sDNI { get; set; }
         public string sRUC { get; set; }
+        public string? sPriNombre { get; set; }
+        public string? sSegNombre { get; set; }
+        public string? sApePaterno { get; set; }
+        public string? sApeMaterno { get; set; }
         public string sNombreCompleto { get; set; }
         public string sCorreo { get; set; }
         public string sCelular { get; set; }
