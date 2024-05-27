@@ -27,9 +27,9 @@ namespace backend.businesslogic.Maestros
             return await repository.getProveedorByID(nIdProveedor);
         }
 
-        public async Task<ProveedorDTO> findProveedorByRUC(string sRUC)
+        public async Task<ProveedorDTO> findProveedorByRUC(string? sDNI, string? sRUC)
         {
-            return await repository.findProveedorByRUC(sRUC);    
+            return await repository.findProveedorByRUC(sDNI, sRUC);    
         }
 
         public async Task<SqlRspDTO> InsProveedor(ProveedorDTO proveedor)
@@ -55,6 +55,11 @@ namespace backend.businesslogic.Maestros
         public async Task<IList<SelectDTO>> getSelectJefesComerciales()
         {
             return await repository.getSelectJefesComerciales();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoPersona() 
+        {
+            return await repository.getSelectTipoPersona();
         }
 
     }
