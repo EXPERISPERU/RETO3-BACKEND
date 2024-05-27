@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace backend.domain
+﻿namespace backend.domain
 {
     public class InsPreContratoLoteDTO
     {
@@ -13,6 +7,7 @@ namespace backend.domain
         public decimal nValorPreContrato { get; set; }
         public int nIdCliente { get; set; }
         public int nIdTipoGestionComercial { get; set; }
+        public int nIdTipoComprobante { get; set; }
         public int? nIdAgenteDealer { get; set; }
         public int? nIdEmpleado { get; set; }
         public int nIdMoneda { get; set; }

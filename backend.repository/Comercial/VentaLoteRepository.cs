@@ -65,6 +65,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCliente", insVentaLoteDTO.nIdCliente);
                 parameters.Add("nIdContrato", insVentaLoteDTO.nIdContrato);
                 parameters.Add("nValorContrato", insVentaLoteDTO.nValorContrato);
+                parameters.Add("nIdTipoComprobante", insVentaLoteDTO.nIdTipoComprobante);
                 parameters.Add("nTipoFinanciamiento", insVentaLoteDTO.nTipoFinanciamiento);
                 parameters.Add("nIdTipoGestionComercial", insVentaLoteDTO.nIdTipoGestionComercial);
                 parameters.Add("nIdAgenteDealer", insVentaLoteDTO.nIdAgenteDealer);

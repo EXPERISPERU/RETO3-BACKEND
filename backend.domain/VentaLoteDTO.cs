@@ -13,6 +13,7 @@ namespace backend.domain
         public int? nIdContrato { get; set; }
         public decimal nValorContrato { get; set; }
         public int nTipoFinanciamiento { get; set; }
+        public int nIdTipoComprobante { get; set; }
         public int nIdTipoGestionComercial { get; set; }
         public int? nIdAgenteDealer { get; set; }
         public int? nIdEmpleado { get; set; }
