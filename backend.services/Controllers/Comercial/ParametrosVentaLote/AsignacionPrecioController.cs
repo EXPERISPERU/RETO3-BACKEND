@@ -356,13 +356,13 @@ namespace backend.services.Controllers.Comercial.ParametrosVentaLote
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectColorByLote(int nIdLote)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectColor()
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectColorByLote(nIdLote);
+                var result = await service.getSelectColor();
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
