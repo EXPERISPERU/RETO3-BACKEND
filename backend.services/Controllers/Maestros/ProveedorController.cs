@@ -64,13 +64,13 @@ namespace backend.services.Controllers.Maestros
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ProveedorDTO>>> findProveedorByRUC(string sRUC)
+        public async Task<ActionResult<ApiResponse<ProveedorDTO>>> findProveedorByRUC(string? sDNI, string? sRUC)
         {
             ApiResponse<ProveedorDTO> response = new ApiResponse<ProveedorDTO>();
 
             try
             {
-                var result = await service.findProveedorByRUC(sRUC);
+                var result = await service.findProveedorByRUC(sDNI, sRUC);
 
                 response.success = (result == null ? false : true);
                 response.data = (ProveedorDTO) result;
@@ -168,7 +168,6 @@ namespace backend.services.Controllers.Maestros
             }
         }
 
-
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectJefesComerciales()
         {
@@ -188,6 +187,23 @@ namespace backend.services.Controllers.Maestros
             }
         }
 
-
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoPersona()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            try
+            {
+                var result = await service.getSelectTipoPersona();
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
