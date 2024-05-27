@@ -37,19 +37,20 @@ namespace backend.services.Controllers.Contabilidad
 
                     var html = "";
 
+                    var logoCompania = "";
+                    if (nIdCompania == 1)
+                    {
+                        logoCompania = dataImages.psViviendasDelSur;
+                    }
+                    else if (nIdCompania == 5)
+                    {
+                        logoCompania = dataImages.psVillaAzul;
+                    }
+
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
                         html = "<style>.page-break { page-break-after: always; }</style>";
-                        var logoCompania = "";
-                        if (nIdCompania == 1)
-                        {
-                            logoCompania = dataImages.psViviendasDelSur;
-                        }
-                        else if (nIdCompania == 5)
-                        {
-                            logoCompania = dataImages.psVillaAzul;
-                        }
-
+                        
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                                 .Replace("#sLogoData#", logoCompania)
