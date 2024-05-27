@@ -15,7 +15,9 @@ namespace backend.domain
 		public string? sProyecto { get; set; }
 		public int? nIdGrupo { get; set; }
 		public string? sGrupo { get; set; }
-		public int? nIdUbicacion { get; set; }
+        public int? nIdColor { get; set; }
+        public string? sColor { get; set; }
+        public int? nIdUbicacion { get; set; }
 		public string? sUbicacion { get; set; }
 		//public int? nIdCondicionPago { get; set; }
 		//public string? sCondicionPago { get; set; }
@@ -50,6 +52,7 @@ namespace backend.domain
         public string? sLote { get; set; }
         public string? sEstado { get; set; }
         public string? sGrupo { get; set; }
+        public string? sColor { get; set; }
         public string? sUbicacion { get; set; }
         public string? sTerreno { get; set; }
         public string? sZonificacion { get; set; }
