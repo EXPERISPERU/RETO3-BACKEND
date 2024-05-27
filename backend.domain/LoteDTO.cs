@@ -21,6 +21,8 @@ namespace backend.domain
         public decimal nMetraje { get; set; }
         public int nIdGrupo { get; set; }
         public string? sGrupo { get; set; }
+        public int? nIdColor { get; set; }
+        public string? sColor { get; set; }
         public int nIdUbicacion { get; set; }
         public string? sUbicacion { get; set; }
         public int nIdTerreno { get; set; }

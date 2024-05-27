@@ -19,5 +19,6 @@ namespace backend.businesslogic.Interfaces.Proyectos
         Task<IList<SelectDTO>> getSelectDescripcion();
         Task<SqlRspDTO> InsLote(LoteDTO lote);
         Task<SqlRspDTO> UpdLote(LoteDTO lote);
+        Task<IList<SelectDTO>> getColors();
     }
 }

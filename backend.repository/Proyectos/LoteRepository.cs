@@ -154,6 +154,7 @@ namespace backend.repository.Proyectos
                 parameters.Add("nIdEstado", lote.nIdEstado);
                 parameters.Add("nMetraje", lote.nMetraje);
                 parameters.Add("nIdGrupo", lote.nIdGrupo);
+                parameters.Add("nIdColor", lote.nIdColor);
                 parameters.Add("nIdUbicacion", lote.nIdUbicacion);
                 parameters.Add("nIdTerreno", lote.nIdTerreno);
                 parameters.Add("nIdZonificacion", lote.nIdZonificacion);
@@ -180,6 +181,7 @@ namespace backend.repository.Proyectos
                 parameters.Add("nIdEstado", lote.nIdEstado);
                 parameters.Add("nMetraje", lote.nMetraje);
                 parameters.Add("nIdGrupo", lote.nIdGrupo);
+                parameters.Add("nIdColor", lote.nIdColor);
                 parameters.Add("nIdUbicacion", lote.nIdUbicacion);
                 parameters.Add("nIdTerreno", lote.nIdTerreno);
                 parameters.Add("nIdZonificacion", lote.nIdZonificacion);
@@ -191,5 +193,21 @@ namespace backend.repository.Proyectos
 
             return res;
         }
+
+        public async Task<IList<SelectDTO>> getColors()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_lote]", 11);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }
