@@ -19,14 +19,14 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial, int nIdMoneda)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectPrecioPreContratoByLoteInicial(nIdLote, nValorInicial);
+                var result = await service.getSelectPrecioPreContratoByLoteInicial(nIdLote, nValorInicial, nIdMoneda);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -104,13 +104,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<OrdenPagoPreContratoDTO>>>> getListOPsPreContratoByContrato(int nIdContrato)
+        public async Task<ActionResult<ApiResponse<List<OrdenPagoPreContratoDTO>>>> getListOPsPreContratoByContrato(int nIdContrato, int nIdMoneda)
         {
             ApiResponse<List<OrdenPagoPreContratoDTO>> response = new ApiResponse<List<OrdenPagoPreContratoDTO>>();
 
             try
             {
-                var result = await service.getListOPsPreContratoByContrato(nIdContrato);
+                var result = await service.getListOPsPreContratoByContrato(nIdContrato, nIdMoneda);
 
                 response.success = true;
                 response.data = (List<OrdenPagoPreContratoDTO>)result;
