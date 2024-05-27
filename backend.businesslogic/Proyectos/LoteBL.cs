@@ -70,5 +70,11 @@ namespace backend.businesslogic.Proyectos
             return await repository.UpdLote(lote);
         }
 
+        public async Task<IList<SelectDTO>> getColors()
+        {
+            return await repository.getColors();
+        }
+
+
     }
 }
