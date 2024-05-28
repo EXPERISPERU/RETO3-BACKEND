@@ -192,5 +192,47 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListMaestroDocumentos()
+        {
+
+            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+
+            try
+            {
+                var result = await service.getListMaestroDocumentos();
+
+                response.success = true;
+                response.data = (List<ElementoSistemaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ProyectoDocumentoContratoDTO>>>> getListDocumentosContratoConfigByProyecto(int nIdproyecto)
+        {
+            ApiResponse<List<ProyectoDocumentoContratoDTO>> response = new ApiResponse<List<ProyectoDocumentoContratoDTO>>();
+
+            try
+            {
+                var result = await service.getListDocumentosContratoConfigByProyecto(nIdproyecto);
+
+                response.success = true;
+                response.data = (List<ProyectoDocumentoContratoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

@@ -22,6 +22,11 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<SqlRspDTO> InsSistemaConfiguracionConcepto(ConfiguracionConceptoDTO configuracionConcepto);
 
         Task<IList<CompaniaMonedaDTO>> getListMonedaByCompania(int nIdCompania);
+
         Task<IList<ImpuestosVentaDTO>> getListImpuestoVenta(int nIdCompania);
+
+        Task<IList<ElementoSistemaDTO>> getListMaestroDocumentos();
+
+        Task<IList<ProyectoDocumentoContratoDTO>> getListDocumentosContratoConfigByProyecto(int nIdproyecto);
     }
 }

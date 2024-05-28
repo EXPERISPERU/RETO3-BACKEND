@@ -53,8 +53,9 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdMoneda", configuracion.nIdMoneda);
                 parameters.Add("bImpuestoVenta", configuracion.bImpuestoVenta);
                 parameters.Add("sIdInteres", configuracion.sIdInteres);
-                parameters.Add("sIdDocumentoVenta", configuracion.sIdDocumentoVenta);
+                //parameters.Add("sIdDocumentoVenta", configuracion.sIdDocumentoVenta);
                 parameters.Add("nIdUsuario_crea", configuracion.nIdUsuario_crea);
+                parameters.Add("sIdDocumentosContratos", configuracion.sIdDocumentosContratos);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -154,6 +155,36 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<ImpuestosVentaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<ElementoSistemaDTO>> getListMaestroDocumentos()
+        {
+            IEnumerable<ElementoSistemaDTO> list = new List<ElementoSistemaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 9);
+
+                list = await connection.QueryAsync<ElementoSistemaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<ProyectoDocumentoContratoDTO>> getListDocumentosContratoConfigByProyecto(int nIdproyecto)
+        {
+            IEnumerable<ProyectoDocumentoContratoDTO> list = new List<ProyectoDocumentoContratoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 10);
+                parameters.Add("nIdProyecto", nIdproyecto);
+
+                list = await connection.QueryAsync<ProyectoDocumentoContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
