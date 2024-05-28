@@ -18,6 +18,7 @@ namespace backend.domain
         public string? sIdDocumentoVenta { get; set; }
         public int nIdUsuario_crea { get; set; }
         public DateTime dFecha_crea { get; set; }
+        public string? sIdDocumentosContratos { get; set; }
 
     }
     /*

@@ -58,5 +58,15 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getListImpuestoVenta(nIdCompania);
         }
+
+        public async Task<IList<ElementoSistemaDTO>> getListMaestroDocumentos()
+        {
+            return await repository.getListMaestroDocumentos();
+        }
+
+        public async Task<IList<ProyectoDocumentoContratoDTO>> getListDocumentosContratoConfigByProyecto(int nIdproyecto)
+        {
+            return await repository.getListDocumentosContratoConfigByProyecto(nIdproyecto);
+        }
     }
 }
