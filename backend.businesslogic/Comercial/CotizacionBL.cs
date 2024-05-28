@@ -53,9 +53,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getCotizacionById(nIdCotizacion);
         }
 
-        public async Task<string> formatoCotizacion()
+        public async Task<string> formatoCotizacion(int nIdCotizacion)
         {
-            return await repository.formatoCotizacion();
+            return await repository.formatoCotizacion(nIdCotizacion);
         }
 
         public async Task<ClienteDTO> getClienteReservaByLote(int nIdLote)

@@ -132,6 +132,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
+                parameters.Add("nInteresAplicado", cotizacion.nTipoInteres);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -155,7 +156,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<string> formatoCotizacion()
+        public async Task<string> formatoCotizacion(int nIdCotizacion)
         {
             string res;
 
@@ -163,6 +164,7 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 8);
+                parameters.Add("nIdCotizacion", nIdCotizacion);
 
                 res = await connection.QuerySingleAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
