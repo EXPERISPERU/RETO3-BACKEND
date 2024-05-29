@@ -224,7 +224,9 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoAgendamiento", agendamiento.nIdTipoAgendamiento);
                 parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
                 parameters.Add("nIdCliente", agendamiento.nIdCliente);
+                parameters.Add("nIdTipoGestion", agendamiento.nIdTipoGestion);
                 parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
+                parameters.Add("nIdAgenteDealer", agendamiento.nIdAgenteDealer);
                 parameters.Add("dFecha", agendamiento.dFecha);
                 parameters.Add("sDescripcion", agendamiento.sDescripcion);
                 parameters.Add("nIdUsuario_crea", agendamiento.nIdUsuario_crea);
@@ -443,6 +445,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoAgendamiento", agendamiento.nIdTipoAgendamiento);
                 parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
                 parameters.Add("nIdCliente", agendamiento.nIdCliente);
+                parameters.Add("nIdTipoGestion", agendamiento.nIdTipoGestion);
                 parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
                 parameters.Add("dFechaPrev", agendamiento.dFechaPrev);
                 parameters.Add("dFecha", agendamiento.dFecha);

@@ -43,13 +43,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ClienteDTO>>> getClienteByID(int nIdCliente)
+        public async Task<ActionResult<ApiResponse<ClienteDTO>>> getClienteByID(int nIdCompania, int nIdCliente)
         {
             ApiResponse<ClienteDTO> response = new ApiResponse<ClienteDTO>();
 
             try
             {
-                var result = await service.getClienteByID(nIdCliente);
+                var result = await service.getClienteByID(nIdCompania, nIdCliente);
 
                 response.success = true;
                 response.data = (ClienteDTO) result;
