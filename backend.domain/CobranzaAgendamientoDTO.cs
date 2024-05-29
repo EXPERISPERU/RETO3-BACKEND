@@ -20,6 +20,7 @@ namespace backend.domain
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
+        public int? nIdTipoGestion { get; set; }
         public int? nIdEmpleado { get; set; }
         public int? nIdAgenteDealer { get; set; }
         public DateTime? dFechaPrev { get; set; }

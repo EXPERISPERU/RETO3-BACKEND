@@ -23,9 +23,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getListCliente(nIdUsuario, nIdCompania, pagina, cantpagina, sFiltro);
         }
 
-        public async Task<ClienteDTO> getClienteByID(int nIdCliente)
+        public async Task<ClienteDTO> getClienteByID(int nIdCompania, int nIdCliente)
         { 
-            return await repository.getClienteByID(nIdCliente);
+            return await repository.getClienteByID(nIdCompania, nIdCliente);
         }
 
         public async Task<ClienteDTO> findClienteByDoc(int nIdUsuario, string? sDNI, string? sCE, string? sRUC)

@@ -158,13 +158,23 @@ namespace backend.services.Controllers.Comercial
             try
             {
                 CotizacionDTO cotizacion = await service.getCotizacionById(nIdCotizacion);
-                var sCuerpo = await service.formatoCotizacion();
+                var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
+                var sLogo = "";
+
+                if (cotizacion.nIdProyecto == 7) 
+                {
+                    sLogo = dataImages.psVillaAzul;
+                }
+                else
+                {
+                    sLogo = dataImages.psViviendasDelSur;
+                }
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
 
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
-                        .Replace("#sLogoData#", dataImages.psViviendasDelSur)
+                        .Replace("#sLogoData#", sLogo)
                         .Replace("#sCorrelativo#", cotizacion.sCorrelativo)
                         .Replace("#sFecha#", cotizacion.sFecha_crea.Substring(0,10))
                         .Replace("#sNombreCliente#", cotizacion.sNombreCliente)
