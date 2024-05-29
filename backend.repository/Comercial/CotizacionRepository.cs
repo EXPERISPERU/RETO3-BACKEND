@@ -132,7 +132,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
-                parameters.Add("nInteresAplicado", cotizacion.nTipoInteres);
+                //parameters.Add("nInteresAplicado", cotizacion.nTipoInteres);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
