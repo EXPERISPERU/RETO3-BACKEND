@@ -41,7 +41,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<ClienteDTO> getClienteByID(int nIdCliente)
+        public async Task<ClienteDTO> getClienteByID(int nIdCompania, int nIdCliente)
         {
             ClienteDTO resp = new ClienteDTO();
 
@@ -49,6 +49,7 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 2);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdCliente", nIdCliente);
 
                 resp = await connection.QuerySingleAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
