@@ -15,5 +15,6 @@ namespace backend.repository.Interfaces.Comercial
         Task<ProyectoDTO> getProyectoByID(int nIdProyecto);
         Task<IList<SelectDTO>> getSelectTipoDescuento();
         Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
+        Task<IList<ConfiguracionDTO>> getListTipoInteresConfigByIdProyecto(int nIdProyecto);
     }
 }
