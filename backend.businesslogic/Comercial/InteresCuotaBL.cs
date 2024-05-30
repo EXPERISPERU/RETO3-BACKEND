@@ -48,5 +48,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getSelectMonedaByCompania(nIdCompania);
         }
+
+        public async Task<IList<ConfiguracionDTO>> getListTipoInteresConfigByIdProyecto(int nIdProyecto)
+        {
+            return await repository.getListTipoInteresConfigByIdProyecto(nIdProyecto);
+        }
     }
 }

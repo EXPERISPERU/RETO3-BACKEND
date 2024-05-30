@@ -119,10 +119,26 @@ namespace backend.repository.Comercial
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_descuento_lote]", 9);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_interes_cuota]", 6);
                 parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<ConfiguracionDTO>> getListTipoInteresConfigByIdProyecto(int nIdProyecto)
+        {
+            IEnumerable<ConfiguracionDTO> list = new List<ConfiguracionDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_interes_cuota]", 7);
+                parameters.Add("nIdProyecto", nIdProyecto);
+
+                list = await connection.QueryAsync<ConfiguracionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
