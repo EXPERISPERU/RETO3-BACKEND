@@ -23,5 +23,6 @@ namespace backend.domain
         public string? sUsuario_mod { get; set; }
         public DateTime dFecha_mod { get; set; }
         public string? sFecha_mod { get; set; }
+        public string? sIdInteres { get; set; }
     }
 }
