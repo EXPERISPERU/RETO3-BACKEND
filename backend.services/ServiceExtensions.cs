@@ -119,6 +119,8 @@ namespace backend.services
 
             services.AddScoped<IItemCompaniaRepository, ItemCompaniaRepository>();
 
+            services.AddScoped<IInteresCuotaRepository, InteresCuotaRepository>();
+
 
         }
 
@@ -192,6 +194,8 @@ namespace backend.services
             services.AddScoped<IComprobanteMedioPagoBL, ComprobanteMedioPagoBL>();
 
             services.AddScoped<IItemCompaniaBL, ItemCompaniaBL>();
+
+            services.AddScoped<IInteresCuotaBL, InteresCuotaBL>();
 
 
         }
