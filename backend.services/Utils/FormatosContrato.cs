@@ -32,6 +32,7 @@ namespace backend.services.Utils
                         .Replace("img/firma_luis_sarango_2023.png", dataImages.firmaLuisSarango)
                         .Replace("img/firma_luis_gutierrez_2023.png", dataImages.firmaLuisGutierrez)
                         .Replace("img/logo_inmobitec.png", dataImages.logoInmobitec2023)
+                        .Replace("img/logo_villa_azul.png", dataImages.logoVillaAzul)
                         .Replace("#sCodigoContrato#", contrato.sCodigo)
                         .Replace("#sProyecto#", contrato.sProyecto)
                         .Replace("#sApellidoPaterno#", contrato.sApePaterno)

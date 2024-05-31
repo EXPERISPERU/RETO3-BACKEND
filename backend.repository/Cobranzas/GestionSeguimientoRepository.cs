@@ -499,5 +499,26 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+
+        public async Task<IList<SeguimientoProspectoHistoricoDTO>> getListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
+        {
+            IEnumerable<SeguimientoProspectoHistoricoDTO> list = new List<SeguimientoProspectoHistoricoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 28);
+                parameters.Add("nIdCompania", SeguimientoFiltros.nIdCompania);
+                parameters.Add("nIdUsuario", SeguimientoFiltros.nIdUsuario);
+                parameters.Add("sCodigo", SeguimientoFiltros.sCodigo);
+                parameters.Add("dFechaInicio", SeguimientoFiltros.dFechaInicio);
+                parameters.Add("dFechaFin", SeguimientoFiltros.dFechaFin);
+
+                list = await connection.QueryAsync<SeguimientoProspectoHistoricoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }
