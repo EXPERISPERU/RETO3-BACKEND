@@ -17,7 +17,7 @@ namespace backend.domain
         public string? sSegNombre { get; set; }
         public string? sApePaterno { get; set; }
         public string? sApeMaterno { get; set; }
-        public string sNombreCompleto { get; set; }
+        public string? sNombreCompleto { get; set; }
         public string sCorreo { get; set; }
         public string sCelular { get; set; }
         public string sTelefono { get; set; }
