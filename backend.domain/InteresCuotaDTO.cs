@@ -12,6 +12,7 @@ namespace backend.domain
         public int nIdTipoInteres { get; set; }
         public int nIdProyecto { get; set; }
         public int nIdCuotaLote { get; set; }
+        public int nIdTipoValor { get; set; }
         public string sDescripcion { get; set; }
         public int? nIdMoneda { get; set; }
         public decimal nValor { get; set; }
