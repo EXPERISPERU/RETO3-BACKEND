@@ -52,6 +52,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdTipoInteres", interesCuota.nIdTipoInteres);
                 parameters.Add("nIdProyecto", interesCuota.nIdProyecto);
                 parameters.Add("nIdCuotaLote", interesCuota.nIdCuotaLote);
+                parameters.Add("nIdTipoValor", interesCuota.nIdTipoValor);
                 parameters.Add("sDescripcion", interesCuota.sDescripcion);
                 parameters.Add("nIdMoneda", interesCuota.nIdMoneda);
                 parameters.Add("nValor", interesCuota.nValor);

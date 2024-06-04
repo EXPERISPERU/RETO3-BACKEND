@@ -32,6 +32,7 @@ namespace backend.domain
         public int? nIdJefeDealer { get; set; }
         public int nIdJefe { get; set; }
         public int nIdAgenteDealer { get; set; }
+        public string? sAgenteDealer { get; set; }
         public int? nIdProveedorAgente { get; set; }
         public DateTime dFechaIni { get; set; }
         public DateTime? dFechaFin { get; set; }
