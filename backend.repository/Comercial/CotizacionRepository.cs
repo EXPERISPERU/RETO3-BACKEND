@@ -224,6 +224,7 @@ namespace backend.repository.Comercial
                 parameters.Add("dFechaCreacion", filtros.dFechaCreacion);
                 parameters.Add("nNombreUsuario", filtros.nNombreUsuario);
                 parameters.Add("nIdCompania", filtros.nIdCompania);
+                parameters.Add("nIdUsuario", filtros.nIdUsuario);
 
                 list = await connection.QueryAsync<ReporteCotizacionesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
