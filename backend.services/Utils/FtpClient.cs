@@ -13,10 +13,18 @@ namespace backend.services.Utils
 
     public class FtpClient
     {
-        private string ftpUrlServer = "ftp://10.48.0.13/";
-        private string ftpUser = "imbftp";
-        private string ftpPassword = "$1mbftpcl1";
-        private bool ftpPassiveMode = false;  /* PARA PRUEBAS : false, PARA PRODUCCION : true */
+        private string ftpUrlServer;
+        private string ftpUser;
+        private string ftpPassword;
+        private bool ftpPassiveMode;
+
+        public FtpClient(IConfiguration configuration) 
+        {
+            ftpUrlServer = configuration["FTPConfig:url"];
+            ftpUser = "imbftp";
+            ftpPassword = "$1mbftpcl1";
+            ftpPassiveMode = configuration["FTPConfig:passiveMode"] == "1";
+        }
 
         public string sContentType(string sFileExtension)
         {
