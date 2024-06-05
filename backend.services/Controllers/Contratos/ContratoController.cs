@@ -19,10 +19,12 @@ namespace backend.services.Controllers.Contratos
     [Authorize]
     public class ContratoController : ControllerBase
     {
+        private readonly IConfiguration configuration;
         private readonly IContratoBL service;
 
-        public ContratoController(IContratoBL _service)
+        public ContratoController(IConfiguration _configuration, IContratoBL _service)
         {
+            this.configuration = _configuration;
             this.service = _service;
         }
 
@@ -473,7 +475,7 @@ namespace backend.services.Controllers.Contratos
 
             try
             {
-                ApiResponse<string> resFtp = new FtpClient().UploadFile(new imbFile { sRutaFile = documento.sRutaFTP , data = Convert.FromBase64String(documento.sFile.Replace("data:application/pdf;base64,", "")) });
+                ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = documento.sRutaFTP , data = Convert.FromBase64String(documento.sFile.Replace("data:application/pdf;base64,", "")) });
 
                 if (resFtp.success)
                 {
