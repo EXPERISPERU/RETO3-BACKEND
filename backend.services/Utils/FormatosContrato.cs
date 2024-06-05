@@ -84,6 +84,7 @@ namespace backend.services.Utils
                         .Replace("#nMontoFinanciadoLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinanciado != null ? (decimal) contrato.nMontoFinanciado! : 0) + " " + contrato.sMoneda)
                         .Replace("#NroCuotas#", contrato.nCuotas.ToString())
                         .Replace("#nValorCuota#", contrato.nValorCuota == null? "0.00" : contrato.nValorCuota?.ToString("N2"))
+                        .Replace("#nValorCuotaLetras#", new NumerosLetras().sConvertir(contrato.nValorCuota != null ? (decimal) contrato.nValorCuota! : 0) + " " + contrato.sMoneda)
                         .Replace("#sPromotor#", contrato.sPromotor)
                         .Replace("#sHOY#", DateTime.Now.ToString("dd/MM/yyyy"))
                         ;
