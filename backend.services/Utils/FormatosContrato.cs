@@ -32,6 +32,7 @@ namespace backend.services.Utils
                         .Replace("img/firma_luis_sarango_2023.png", dataImages.firmaLuisSarango)
                         .Replace("img/firma_luis_gutierrez_2023.png", dataImages.firmaLuisGutierrez)
                         .Replace("img/logo_inmobitec.png", dataImages.logoInmobitec2023)
+                        .Replace("img/logo_villa_azul.png", dataImages.logoVillaAzul)
                         .Replace("#sCodigoContrato#", contrato.sCodigo)
                         .Replace("#sProyecto#", contrato.sProyecto)
                         .Replace("#sApellidoPaterno#", contrato.sApePaterno)
@@ -83,6 +84,7 @@ namespace backend.services.Utils
                         .Replace("#nMontoFinanciadoLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinanciado != null ? (decimal) contrato.nMontoFinanciado! : 0) + " " + contrato.sMoneda)
                         .Replace("#NroCuotas#", contrato.nCuotas.ToString())
                         .Replace("#nValorCuota#", contrato.nValorCuota == null? "0.00" : contrato.nValorCuota?.ToString("N2"))
+                        .Replace("#nValorCuotaLetras#", new NumerosLetras().sConvertir(contrato.nValorCuota != null ? (decimal) contrato.nValorCuota! : 0) + " " + contrato.sMoneda)
                         .Replace("#sPromotor#", contrato.sPromotor)
                         .Replace("#sHOY#", DateTime.Now.ToString("dd/MM/yyyy"))
                         ;

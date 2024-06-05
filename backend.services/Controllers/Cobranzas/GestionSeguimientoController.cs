@@ -18,13 +18,13 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<GestionClienteDTO>>>> getListClientesAsignados(int nIdEmpleado)
+        public async Task<ActionResult<ApiResponse<List<GestionClienteDTO>>>> getListClientesAsignados(int nIdCompania, int nIdEmpleado)
         {
             ApiResponse<List<GestionClienteDTO>> response = new ApiResponse<List<GestionClienteDTO>>();
 
             try
             {
-                var result = await service.getListClientesAsignados(nIdEmpleado);
+                var result = await service.getListClientesAsignados(nIdCompania, nIdEmpleado);
 
                 response.success = true;
                 response.data = (List<GestionClienteDTO>)result;
@@ -39,13 +39,13 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ContratosDeudaDTO>>>> getListContratosDeuda(int nIdCliente)
+        public async Task<ActionResult<ApiResponse<List<ContratosDeudaDTO>>>> getListContratosDeuda(int nIdCompania, int nIdCliente)
         {
             ApiResponse<List<ContratosDeudaDTO>> response = new ApiResponse<List<ContratosDeudaDTO>>();
 
             try
             {
-                var result = await service.getListContratosDeuda(nIdCliente);
+                var result = await service.getListContratosDeuda(nIdCompania, nIdCliente);
 
                 response.success = true;
                 response.data = (List<ContratosDeudaDTO>)result;

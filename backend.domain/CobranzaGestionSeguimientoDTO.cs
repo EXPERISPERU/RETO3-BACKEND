@@ -8,6 +8,7 @@ namespace backend.domain
 {
     public class GestionClienteDTO
     {
+        public int nIdCompania { get; set; }
         public int nIdCliente { get; set; }
         public int nIdUsuario { get; set; }
         public int? nIdPersona { get; set; }
@@ -156,6 +157,30 @@ namespace backend.domain
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
         public string? estado { get; set; }
+    }
+
+
+    public class SeguimientoProspectoFiltrosDTO
+    {
+        public int? nIdCompania { get; set; }
+        public int? nIdUsuario { get; set; }
+        public string? sCodigo { get; set; }
+        public DateTime? dFechaInicio { get; set; }
+        public DateTime? dFechaFin { get; set; }
+
+    }
+
+    public class SeguimientoProspectoHistoricoDTO
+    {
+        public int? nIdProspecto { get; set; }
+        public int? sCodigo { get; set; }
+        public string? sNombreCompleto { get; set; }
+        public string? nIdAsesor { get; set; }
+        public string? sAsesor { get; set; }
+        public string? dFecha_Ini { get; set; }
+        public string? dFecha_Fin { get; set; }
+        public string? estado { get; set; }
+        public int? nIdUsuario_crea { get; set; }        
     }
 
 

@@ -18,9 +18,9 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<SelectDTO>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial)
+        public async Task<IList<SelectDTO>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial, int nIdMoneda)
         { 
-            return await repository.getSelectPrecioPreContratoByLoteInicial(nIdLote, nValorInicial);
+            return await repository.getSelectPrecioPreContratoByLoteInicial(nIdLote, nValorInicial, nIdMoneda);
         }
 
         public async Task<SqlRspDTO> InsPreContratoLote(InsPreContratoLoteDTO insPreContratoLote)
@@ -38,9 +38,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getDataPreContratoByLote(nIdLote, nIdUsuario);
         }
 
-        public async Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato)
+        public async Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato, int nIdMoneda)
         {
-            return await repository.getListOPsPreContratoByContrato(nIdContrato);
+            return await repository.getListOPsPreContratoByContrato(nIdContrato, nIdMoneda);
         }
     }
 }

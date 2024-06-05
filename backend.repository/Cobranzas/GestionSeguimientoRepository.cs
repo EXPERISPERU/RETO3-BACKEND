@@ -22,7 +22,7 @@ namespace backend.repository.Cobranzas
             _configuration = configuration;
         }
 
-        public async Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdEmpleado)
+        public async Task<IList<GestionClienteDTO>> getListClientesAsignados(int nIdCompania, int nIdEmpleado)
         {
             IEnumerable<GestionClienteDTO> list = new List<GestionClienteDTO>();
 
@@ -30,6 +30,7 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 1);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdEmpleado", nIdEmpleado);
 
                 list = await connection.QueryAsync<GestionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -37,7 +38,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCliente)
+        public async Task<IList<ContratosDeudaDTO>> getListContratosDeuda(int nIdCompania, int nIdCliente)
         {
             IEnumerable<ContratosDeudaDTO> list = new List<ContratosDeudaDTO>();
 
@@ -45,6 +46,7 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 2);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdCliente", nIdCliente);
 
                 list = await connection.QueryAsync<ContratosDeudaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -222,7 +224,9 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoAgendamiento", agendamiento.nIdTipoAgendamiento);
                 parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
                 parameters.Add("nIdCliente", agendamiento.nIdCliente);
+                parameters.Add("nIdTipoGestion", agendamiento.nIdTipoGestion);
                 parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
+                parameters.Add("nIdAgenteDealer", agendamiento.nIdAgenteDealer);
                 parameters.Add("dFecha", agendamiento.dFecha);
                 parameters.Add("sDescripcion", agendamiento.sDescripcion);
                 parameters.Add("nIdUsuario_crea", agendamiento.nIdUsuario_crea);
@@ -441,6 +445,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoAgendamiento", agendamiento.nIdTipoAgendamiento);
                 parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
                 parameters.Add("nIdCliente", agendamiento.nIdCliente);
+                parameters.Add("nIdTipoGestion", agendamiento.nIdTipoGestion);
                 parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
                 parameters.Add("dFechaPrev", agendamiento.dFechaPrev);
                 parameters.Add("dFecha", agendamiento.dFecha);
@@ -489,6 +494,27 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdCliente", SeguimientoFiltros.nIdCliente);
 
                 list = await connection.QueryAsync<SeguimientoHistoricoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+
+        public async Task<IList<SeguimientoProspectoHistoricoDTO>> getListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
+        {
+            IEnumerable<SeguimientoProspectoHistoricoDTO> list = new List<SeguimientoProspectoHistoricoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 28);
+                parameters.Add("nIdCompania", SeguimientoFiltros.nIdCompania);
+                parameters.Add("nIdUsuario", SeguimientoFiltros.nIdUsuario);
+                parameters.Add("sCodigo", SeguimientoFiltros.sCodigo);
+                parameters.Add("dFechaInicio", SeguimientoFiltros.dFechaInicio);
+                parameters.Add("dFechaFin", SeguimientoFiltros.dFechaFin);
+
+                list = await connection.QueryAsync<SeguimientoProspectoHistoricoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();

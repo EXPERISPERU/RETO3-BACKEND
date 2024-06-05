@@ -23,14 +23,14 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioReservaByLote(int nIdLote)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectPrecioReservaByLote(int nIdLote, int nIdMonedaP)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectPrecioReservaByLote(nIdLote);
+                var result = await service.getSelectPrecioReservaByLote(nIdLote, nIdMonedaP);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -66,7 +66,7 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> getFormatoReciboIngresoReserva(int nIdReservaLote)
+        public async Task<ActionResult> getFormatoReciboIngresoReserva(int nIdReservaLote) /* YA NO SE USA */
         {
             try
             {
@@ -151,6 +151,27 @@ namespace backend.services.Controllers.Comercial
 
                 response.success = true;
                 response.data = (DataReservaDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectMonedaByCompania(nIdCompania);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

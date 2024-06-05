@@ -99,6 +99,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdInicial", cotizacion.nIdInicial);
                 parameters.Add("nIdDescuentoFin", cotizacion.nIdDescuentoFin);
                 parameters.Add("nIdDescuentoCon", cotizacion.nIdDescuentoCon);
+                parameters.Add("nIdMoneda", cotizacion.nIdMoneda);
 
                 res = await connection.QuerySingleAsync<CotizacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -131,6 +132,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
+                //parameters.Add("nInteresAplicado", cotizacion.nTipoInteres);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -154,7 +156,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<string> formatoCotizacion()
+        public async Task<string> formatoCotizacion(int nIdCotizacion)
         {
             string res;
 
@@ -162,6 +164,7 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 8);
+                parameters.Add("nIdCotizacion", nIdCotizacion);
 
                 res = await connection.QuerySingleAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -201,7 +204,7 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones()
+        public async Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros)
         {
             IEnumerable<ReporteCotizacionesDTO> list = new List<ReporteCotizacionesDTO>();
 
@@ -210,7 +213,36 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 12);
 
+                parameters.Add("sCorrelativo", filtros.sCorrelativo);
+                parameters.Add("nIdTipoDocumento", filtros.nIdTipoDocumento);
+                parameters.Add("sDocumento", filtros.sDocumento);
+                parameters.Add("nNombreCompleto", filtros.nNombreCompleto);
+                parameters.Add("nIdProyecto", filtros.nIdProyecto);
+                parameters.Add("nIdSector", filtros.nIdSector);
+                parameters.Add("nIdManzana", filtros.nIdManzana);
+                parameters.Add("nIdLote", filtros.nIdLote);
+                parameters.Add("dFechaCreacion", filtros.dFechaCreacion);
+                parameters.Add("nNombreUsuario", filtros.nNombreUsuario);
+                parameters.Add("nIdCompania", filtros.nIdCompania);
+                parameters.Add("nIdUsuario", filtros.nIdUsuario);
+
                 list = await connection.QueryAsync<ReporteCotizacionesDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 13);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();

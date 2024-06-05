@@ -158,13 +158,23 @@ namespace backend.services.Controllers.Comercial
             try
             {
                 CotizacionDTO cotizacion = await service.getCotizacionById(nIdCotizacion);
-                var sCuerpo = await service.formatoCotizacion();
+                var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
+                var sLogo = "";
+
+                if (cotizacion.nIdProyecto == 7) 
+                {
+                    sLogo = dataImages.psVillaAzul;
+                }
+                else
+                {
+                    sLogo = dataImages.psViviendasDelSur;
+                }
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
 
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
-                        .Replace("#sLogoData#", dataImages.psViviendasDelSur)
+                        .Replace("#sLogoData#", sLogo)
                         .Replace("#sCorrelativo#", cotizacion.sCorrelativo)
                         .Replace("#sFecha#", cotizacion.sFecha_crea.Substring(0,10))
                         .Replace("#sNombreCliente#", cotizacion.sNombreCliente)
@@ -181,11 +191,11 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#sEstado#", cotizacion.sEstado)
                         .Replace("#sSimbolo#", cotizacion.sSimbolo)
                         .Replace("#nPrecioVenta#", cotizacion.nPrecioVenta?.ToString("N"))
-                        .Replace("#sValorInicial#", cotizacion.sValorInicial)
+                        .Replace("#sValorInicial#", cotizacion.sSimboloIni + " " + cotizacion.nValorOriIni)
                         .Replace("#nInicial#", cotizacion.nInicial?.ToString("N"))
-                        .Replace("#sValorDescuentoFin#", cotizacion.sValorDescuentoFin)
+                        .Replace("#sValorDescuentoFin#", cotizacion.sSimboloDescuentoFin + " " + cotizacion.nValorOriDescuentoFin)
                         .Replace("#nDescuentoFin#", cotizacion.nDescuentoFin?.ToString("N"))
-                        .Replace("#sValorDescuentoCon#", cotizacion.sValorDescuentoCon)
+                        .Replace("#sValorDescuentoCon#", cotizacion.sSimboloDescuentoCon + " " + cotizacion.nValorOriDescuentoCon)
                         .Replace("#nDescuentoCon#", cotizacion.nDescuentoCon?.ToString("N"))
                         .Replace("#nValorFinanciado#", cotizacion.nValorFinanciado?.ToString("N"))
                         .Replace("#nCuotas#", cotizacion.nCuotas?.ToString("N"))
@@ -255,14 +265,14 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ReporteCotizacionesDTO>>>> getListReporteCotizaciones()
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReporteCotizacionesDTO>>>> getListReporteCotizaciones([FromBody] ReporteCotizacionesFiltrosDTO filtros)
         {
             ApiResponse<List<ReporteCotizacionesDTO>> response = new ApiResponse<List<ReporteCotizacionesDTO>>();
 
             try
             {
-                var result = await service.getListReporteCotizaciones();
+                var result = await service.getListReporteCotizaciones(filtros);
 
                 response.success = true;
                 response.data = (List<ReporteCotizacionesDTO>)result;
@@ -275,5 +285,28 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectMonedaByCompania(nIdCompania);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }

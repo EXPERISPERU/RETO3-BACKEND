@@ -16,9 +16,10 @@ namespace backend.repository.Interfaces.Comercial
         Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion);
         Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion);
         Task<CotizacionDTO> getCotizacionById(int nIdCotizacion);
-        Task<string> formatoCotizacion();
+        Task<string> formatoCotizacion(int nIdCotizacion);
         Task<ClienteDTO> getClienteReservaByLote(int nIdLote);
         Task<ClienteDTO> getClientePreContratoByLote(int nIdLote);
-        Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones();
+        Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros);
+        Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
     }
 }

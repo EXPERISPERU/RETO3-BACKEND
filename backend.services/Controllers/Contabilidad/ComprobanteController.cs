@@ -23,7 +23,7 @@ namespace backend.services.Controllers.Contabilidad
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> getFormatoComprobante(int nIdComprobante)
+        public async Task<ActionResult> getFormatoComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante)
         {
             try
             {
@@ -33,21 +33,33 @@ namespace backend.services.Controllers.Contabilidad
 
                 if (comprobante.nIdAdjunto == null)
                 {
-                    var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdComprobante);
+                    var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
 
                     var html = "";
+
+                    var logoCompania = "";
+                    if (nIdCompania == 1)
+                    {
+                        logoCompania = dataImages.psViviendasDelSur;
+                    }
+                    else if (nIdCompania == 5)
+                    {
+                        logoCompania = dataImages.psVillaAzul;
+                    }
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
                         html = "<style>.page-break { page-break-after: always; }</style>";
+                        
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
-                                .Replace("#sLogoData#", dataImages.psViviendasDelSur)
+                                .Replace("#sLogoData#", logoCompania)
                                 .Replace("#sCorrelativo#", comprobante.sComprobante)
                                 .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
                                 .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
                                 .Replace("#sDireccionCliente#", comprobante.sDireccion)
                                 .Replace("#sCelularCliente#", comprobante.sCelular)
+                                .Replace("#sTelefonoCliente#", comprobante.sTelefono)
                                 .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
                                 .Replace("#sSimbolo#", comprobante.sSimbolo)
                                 .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
@@ -61,21 +73,25 @@ namespace backend.services.Controllers.Contabilidad
 
                         for (int i = 0; i < listComprobanteDet.Count; i++)
                         {
-
-                            string sIniItem = "#iniItem#";
-                            string sFinItem = "#finItem#";
-
-                            string sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
+                            string sItem = "#sItemDescripcion#";
+                            if (sCuerpo.Contains("#iniItem#"))
+                            {
+                                string sIniItem = "#iniItem#";
+                                string sFinItem = "#finItem#";
+                                sItem = sCuerpo.Substring(sCuerpo.IndexOf(sIniItem), (sCuerpo.IndexOf(sFinItem) + sFinItem.Length) - sCuerpo.IndexOf(sIniItem));
+                            }
 
                             slistaItemsFinal += slistaItems
                             .Replace(sIniItems, "")
                             .Replace("#nroItem#", (i + 1).ToString())
                             .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
+                            .Replace("#sSimboloItem#", listComprobanteDet[i].sSimbolo)
                             .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
                             .Replace(sFinItems, "");
                         }
 
                         html = html.Replace(slistaItems, slistaItemsFinal);
+
                     }
 
                     if (comprobante.sCodigoTipoComprobante == "3")

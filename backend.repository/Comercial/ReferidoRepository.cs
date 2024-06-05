@@ -66,7 +66,7 @@ namespace backend.repository.Comercial
             return resp;
         }
 
-        public async Task<SqlRspDTO> InsReferido(int nIdCliente, int nIdUsuario)
+        public async Task<SqlRspDTO> InsReferido(int nIdCompania, int nIdCliente, int nIdUsuario)
         {
             SqlRspDTO res = new SqlRspDTO();
 
@@ -74,12 +74,12 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 4);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdCliente", nIdCliente);
                 parameters.Add("nIdUsuario", nIdUsuario);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return res;
         }
 
@@ -130,7 +130,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<int> getCantReferenciaActivaByPersona(int nIdPersona)
+        public async Task<int> getCantReferenciaActivaByPersona(int nIdCompania, int nIdPersona)
         {
             int resp;
 
@@ -138,13 +138,14 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 8);
-                parameters.Add("nIdPersona", nIdPersona);
-
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdPersona", nIdPersona);                
                 resp = await connection.ExecuteScalarAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;
         }
+
         public async Task<SqlRspDTO> InsReferidoByPersona(PersonaDTO persona)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
@@ -153,6 +154,7 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 9);
+                parameters.Add("nIdCompania", persona.nIdCompania);
                 parameters.Add("nIdPersona", persona.nIdPersona);
                 parameters.Add("sPriNombre", persona.sPriNombre);
                 parameters.Add("sSegNombre", persona.sSegNombre);

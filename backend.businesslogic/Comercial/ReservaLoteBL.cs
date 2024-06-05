@@ -13,9 +13,9 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote)
+        public async Task<IList<SelectDTO>> getSelectPrecioReservaByLote(int nIdLote, int nIdMonedaP)
         {
-            return await repository.getSelectPrecioReservaByLote(nIdLote);
+            return await repository.getSelectPrecioReservaByLote(nIdLote, nIdMonedaP);
         }
 
         public async Task<SqlRspDTO> InsReserva(InsReservaDTO insReserva)
@@ -41,6 +41,11 @@ namespace backend.businesslogic.Comercial
         public async Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp)
         {
             return await repository.InsComprobanteAdjunto(nIdComprobante, sRutaFtp);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
+        {
+            return await repository.getSelectMonedaByCompania(nIdCompania);
         }
     }
 }

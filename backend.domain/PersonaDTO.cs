@@ -2,6 +2,7 @@
 {
     public class PersonaDTO
     {
+        public int? nIdCompania { get; set; }
         public int? nIdPersona { get; set; }
         public string? sPriNombre { get; set; }
         public string? sSegNombre { get; set; }
@@ -16,7 +17,7 @@
         public string? sGenero { get; set; }
         public int? nIdEstadoCivil { get; set; }
         public string? sEstadoCivil { get; set; }
-        public string sCorreo { get; set; }
+        public string? sCorreo { get; set; }
         public string? sCelular { get; set; }
         public string? sCelular2 { get; set; }
         public string? sTelefono { get; set; }

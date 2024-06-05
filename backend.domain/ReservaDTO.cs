@@ -15,6 +15,7 @@ namespace backend.domain
         //public int? nIdAgenteDealer { get; set; }
         //public int? nIdEmpleado { get; set; }
         public int nIdUsuario_crea { get; set; }
+        public int nIdMoneda { get; set; }
     }
 
     public class DataReservaDTO
@@ -29,6 +30,7 @@ namespace backend.domain
         public string sDireccion { get; set; }
         public string sCelular { get; set; }
         public string sFecha { get; set; }
+        public int? nIdProyecto { get; set; }
         public string sProyecto { get; set; }
         public string sSector { get; set; }
         public string sManzana { get; set; }

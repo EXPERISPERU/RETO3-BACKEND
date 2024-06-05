@@ -52,7 +52,7 @@ namespace backend.repository.Maestros
             return resp;
         }
 
-        public async Task<ProveedorDTO> findProveedorByRUC(string sRUC)
+        public async Task<ProveedorDTO> findProveedorByRUC(string? sDNI, string? sRUC)
         {
             ProveedorDTO resp = new ProveedorDTO();
 
@@ -60,6 +60,7 @@ namespace backend.repository.Maestros
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 3);
+                parameters.Add("sDNI", sDNI);
                 parameters.Add("sRUC", sRUC);
 
                 resp = await connection.QuerySingleOrDefaultAsync<ProveedorDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -76,8 +77,14 @@ namespace backend.repository.Maestros
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 4);
+                parameters.Add("nIdTipo", proveedor.nIdTipo);
                 parameters.Add("nIdPersona", proveedor.nIdPersona);
+                parameters.Add("sDNI", proveedor.sDNI);
                 parameters.Add("sRUC", proveedor.sRUC);
+                parameters.Add("sPriNombre", proveedor.sPriNombre);
+                parameters.Add("sSegNombre", proveedor.sSegNombre);
+                parameters.Add("sApePaterno", proveedor.sApePaterno);
+                parameters.Add("sApeMaterno", proveedor.sApeMaterno);
                 parameters.Add("sNombreCompleto", proveedor.sNombreCompleto);
                 parameters.Add("sCorreo", proveedor.sCorreo);
                 parameters.Add("sCelular", proveedor.sCelular);
@@ -102,6 +109,10 @@ namespace backend.repository.Maestros
                 parameters.Add("nIdProveedor", proveedor.nIdProveedor);
                 parameters.Add("nIdPersona", proveedor.nIdPersona);
                 parameters.Add("sRUC", proveedor.sRUC);
+                parameters.Add("sPriNombre", proveedor.sPriNombre);
+                parameters.Add("sSegNombre", proveedor.sSegNombre);
+                parameters.Add("sApePaterno", proveedor.sApePaterno);
+                parameters.Add("sApeMaterno", proveedor.sApeMaterno);
                 parameters.Add("sNombreCompleto", proveedor.sNombreCompleto);
                 parameters.Add("sCorreo", proveedor.sCorreo);
                 parameters.Add("sCelular", proveedor.sCelular);
@@ -113,6 +124,74 @@ namespace backend.repository.Maestros
             }
 
             return res;
+        }
+
+        public async Task<SqlRspDTO> InsJefeComercialProveedor(JefeComercialDTO jefeComercial)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 6);
+                parameters.Add("nIdProveedorJefe", jefeComercial.nIdProveedorJefe);
+                parameters.Add("nIdJefeComercial", jefeComercial.nIdJefeComercial);
+                parameters.Add("nIdProveedor", jefeComercial.nIdProveedor);
+                parameters.Add("dFechaIni", jefeComercial.dFechaIni);
+                parameters.Add("dFechaFin", jefeComercial.dFechaFin);
+                parameters.Add("nIdUsuario_crea", jefeComercial.nIdUsuario_crea);
+                parameters.Add("nIdUsuario_mod", jefeComercial.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<JefeComercialDTO>> getJefesComercialesByProveedor(int nIdProveedor)
+        {
+            IEnumerable<JefeComercialDTO> resp = new List<JefeComercialDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 7);
+                parameters.Add("nIdProveedor", nIdProveedor);
+
+                resp = await connection.QueryAsync<JefeComercialDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectJefesComerciales()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 8);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoPersona()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 9);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
     }
 }

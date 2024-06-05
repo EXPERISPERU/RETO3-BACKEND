@@ -21,7 +21,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<SelectDTO>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial)
+        public async Task<IList<SelectDTO>> getSelectPrecioPreContratoByLoteInicial(int nIdLote, decimal nValorInicial, int nIdMoneda)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -31,6 +31,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 1);
                 parameters.Add("nIdLote", nIdLote);
                 parameters.Add("nValorInicial", nValorInicial);
+                parameters.Add("nIdMoneda", nIdMoneda);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -49,6 +50,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdLote", insPreContratoLote.nIdLote);
                 parameters.Add("nValorPreContrato", insPreContratoLote.nValorPreContrato);
                 parameters.Add("nIdCliente", insPreContratoLote.nIdCliente);
+                parameters.Add("nIdTipoComprobante", insPreContratoLote.nIdTipoComprobante);
                 parameters.Add("nIdTipoGestionComercial", insPreContratoLote.nIdTipoGestionComercial);
                 parameters.Add("nIdAgenteDealer", insPreContratoLote.nIdAgenteDealer);
                 parameters.Add("nIdEmpleado", insPreContratoLote.nIdEmpleado);
@@ -105,7 +107,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato)
+        public async Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato, int nIdMoneda)
         {
             IEnumerable<OrdenPagoPreContratoDTO> list = new List<OrdenPagoPreContratoDTO>();
 
@@ -114,6 +116,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 5);
                 parameters.Add("nIdContrato", nIdContrato);
+                parameters.Add("nIdMoneda", nIdMoneda);
 
                 list = await connection.QueryAsync<OrdenPagoPreContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

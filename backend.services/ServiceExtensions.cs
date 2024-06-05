@@ -6,6 +6,7 @@ using backend.businesslogic.Contabilidad;
 using backend.businesslogic.Contacto;
 using backend.businesslogic.Contratos;
 using backend.businesslogic.Dealers;
+using backend.businesslogic.Prospectos;
 using backend.businesslogic.Interfaces.Cobranzas;
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
@@ -17,6 +18,7 @@ using backend.businesslogic.Interfaces.Dealers;
 using backend.businesslogic.Interfaces.Maestros;
 using backend.businesslogic.Interfaces.Proyectos;
 using backend.businesslogic.Interfaces.Seguridad;
+using backend.businesslogic.Interfaces.Prospectos;
 using backend.businesslogic.Maestros;
 using backend.businesslogic.Proyectos;
 using backend.businesslogic.Seguridad;
@@ -28,6 +30,7 @@ using backend.repository.Contabilidad;
 using backend.repository.Contacto;
 using backend.repository.Contratos;
 using backend.repository.Dealers;
+using backend.repository.Prospectos;
 using backend.repository.Interfaces.Cobranzas;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
@@ -39,6 +42,7 @@ using backend.repository.Interfaces.Dealers;
 using backend.repository.Interfaces.Maestros;
 using backend.repository.Interfaces.Proyectos;
 using backend.repository.Interfaces.Seguridad;
+using backend.repository.Interfaces.Prospectos;
 using backend.repository.Maestros;
 using backend.repository.Proyectos;
 using backend.repository.Seguridad;
@@ -110,6 +114,19 @@ namespace backend.services
             services.AddScoped<IAgendamientoRepository, AgendamientoRepository>();
 
             services.AddScoped<IFormularioContactoRepository, FormularioContactoRepository>();
+
+            services.AddScoped<IConfiguracionRepository, ConfiguracionRepository>();
+
+            services.AddScoped<IConfiguracionConceptoRepository, ConfiguracionConceptoRepository>();
+
+            services.AddScoped<IComprobanteMedioPagoRepository, ComprobanteMedioPagoRepository>();
+
+            services.AddScoped<IItemCompaniaRepository, ItemCompaniaRepository>();
+
+            services.AddScoped<IInteresCuotaRepository, InteresCuotaRepository>();
+
+            services.AddScoped<IProspectoRepository, ProspectoRepository>();
+
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -174,6 +191,20 @@ namespace backend.services
             services.AddScoped<IAgendamientoBL, AgendamientoBL>();
 
             services.AddScoped<IFormularioContactoBL, FormularioContactoBL>();
+
+            services.AddScoped<IConfiguracionBL, ConfiguracionBL>();
+
+            services.AddScoped<IConfiguracionConceptoBL, ConfiguracionConceptoBL>();
+
+            services.AddScoped<IComprobanteMedioPagoBL, ComprobanteMedioPagoBL>();
+
+            services.AddScoped<IItemCompaniaBL, ItemCompaniaBL>();
+
+            services.AddScoped<IInteresCuotaBL, InteresCuotaBL>();
+
+            services.AddScoped<IProspectoBL, ProspectoBL>();
+
+
         }
     }
 }
