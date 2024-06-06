@@ -11,6 +11,8 @@ using backend.domain;
 using iText.Kernel.Events;
 using iText.Kernel.Pdf.Canvas;
 using iText.IO.Image;
+using Microsoft.Extensions.Configuration;
+using backend.businesslogic.Interfaces.Contabilidad;
 
 namespace backend.services.Controllers.Maestros
 {
@@ -18,11 +20,18 @@ namespace backend.services.Controllers.Maestros
     [ApiController]
     public class AdjuntoController : ControllerBase
     {
+        private readonly IConfiguration configuration;
+
+        public AdjuntoController(IConfiguration _configuration)
+        {
+            this.configuration = _configuration;
+        }
+
 
         [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<string>>> UploadFile([FromBody] imbFile file)
         {
-            FtpClient ftpClient = new FtpClient();
+            FtpClient ftpClient = new FtpClient(configuration);
             var rsp = ftpClient.UploadFile(file);
 
             return StatusCode(StatusCodes.Status200OK, rsp);
@@ -33,7 +42,7 @@ namespace backend.services.Controllers.Maestros
         {
             try
             {
-                FtpClient client = new FtpClient();
+                FtpClient client = new FtpClient(configuration);
                 byte[] file = client.DownloadFile(sRutaFile);
                 var extension = sRutaFile.Split('/')
                                             .Last()

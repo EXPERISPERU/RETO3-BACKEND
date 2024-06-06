@@ -22,6 +22,7 @@ namespace backend.domain
         public DateTime? dFechaCreacion { get; set; }
         public string? nNombreUsuario { get; set; }
         public int? nIdCompania { get; set; }
+        public int? nIdUsuario { get; set; }
     }
 
     public class ReporteCotizacionesDTO

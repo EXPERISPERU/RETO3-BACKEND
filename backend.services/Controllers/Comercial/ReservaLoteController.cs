@@ -15,10 +15,12 @@ namespace backend.services.Controllers.Comercial
     [Authorize]
     public class ReservaLoteController : ControllerBase
     {
+        private readonly IConfiguration configuration;
         private readonly IReservaLoteBL service;
 
-        public ReservaLoteController(IReservaLoteBL _service)
+        public ReservaLoteController(IConfiguration _configuration, IReservaLoteBL _service)
         {
+            this.configuration = _configuration;
             this.service = _service;
         }
 
@@ -117,7 +119,7 @@ namespace backend.services.Controllers.Comercial
 
                     string sRutaFile = string.Format("comprobantes/{0}.pdf", dataReserva.nIdComprobante);
 
-                    ApiResponse<string> resFtp = new FtpClient().UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
                     if (resFtp.success)
                     {
@@ -127,7 +129,7 @@ namespace backend.services.Controllers.Comercial
                 }
                 else
                 {
-                    file = new FtpClient().DownloadFile(dataReserva.sRutaFtp);
+                    file = new FtpClient(configuration).DownloadFile(dataReserva.sRutaFtp);
                 }
 
                 return File(file, "application/pdf");

@@ -15,10 +15,12 @@ namespace backend.services.Controllers.Contabilidad
     [Authorize]
     public class ComprobanteController : ControllerBase
     {
+        private readonly IConfiguration configuration;
         private readonly IComprobanteBL service;
 
-        public ComprobanteController(IComprobanteBL _service)
+        public ComprobanteController(IConfiguration _configuration, IComprobanteBL _service)
         {
+            this.configuration = _configuration;
             this.service = _service;
         }
 
@@ -166,7 +168,7 @@ namespace backend.services.Controllers.Contabilidad
 
                     string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-                    ApiResponse<string> resFtp = new FtpClient().UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
                     if (resFtp.success)
                     {
@@ -175,7 +177,7 @@ namespace backend.services.Controllers.Contabilidad
                 }
                 else
                 {
-                    file = new FtpClient().DownloadFile(comprobante.sRutaFtp);
+                    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
                 }
 
                 return File(file, "application/pdf");
