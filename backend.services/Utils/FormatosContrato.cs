@@ -73,6 +73,7 @@ namespace backend.services.Utils
                         .Replace("#sFechaFirma#", dFechaImp != null ? dFechaImp?.ToString("dd/MM/yyyy") : "")
                         .Replace("#sFechaFirmaDia#", dFechaImp != null ? dFechaImp?.ToString("dd") : "")
                         .Replace("#sFechaFirmaMes#", dFechaImp != null ? dFechaImp?.ToString("MM") : "")
+                        .Replace("#sFechaFirmaMesCompleto#", dFechaImp != null ? dFechaImp?.ToString("MMMM").ToUpper() : "")
                         .Replace("#sFechaFirmaAnio#", dFechaImp != null ? dFechaImp?.ToString("yyyy") : "")
                         .Replace("#sFormaPago#", contrato.sCondicionPago)
                         .Replace("#sSimbolo#", contrato.sSimbolo)
@@ -183,7 +184,7 @@ namespace backend.services.Utils
                 PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
                 pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
 
-                if (sCodigo.Equals("5") || sCodigo.Equals("1"))
+                if ((sCodigo.Equals("5") || sCodigo.Equals("1")) && (contrato.nIdProyecto == 2 || contrato.nIdProyecto == 5))
                 {
                     Byte[] imageBytes = { };
 
