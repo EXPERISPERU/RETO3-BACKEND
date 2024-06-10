@@ -82,6 +82,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoSeguimiento", seguimiento.nIdTipoSeguimiento);
                 parameters.Add("nTiempoGestion", seguimiento.nTiempoGestion);
                 parameters.Add("nIdCliente", seguimiento.nIdCliente);
+                parameters.Add("nIdProspecto", seguimiento.nIdProspecto);
                 parameters.Add("nIdAgendamiento", seguimiento.nIdAgendamiento);
                 parameters.Add("nCantidadCuotas", seguimiento.nCantidadCuotas);
                 parameters.Add("nTotalPagar", seguimiento.nTotalPagar);
