@@ -14,5 +14,6 @@ namespace backend.businesslogic.Interfaces.Prospectos
         Task<IList<SelectDTO>> getListGeneros();
         Task<IList<SelectDTO>> getListEstadoCivil();
         Task<SqlRspDTO> InsReferidoByPersona(PersonaDTO persona);
+        Task<IList<ProspectoDTO>> getListProspectoByIdProspecto(int nIdProspecto);
     }
 }

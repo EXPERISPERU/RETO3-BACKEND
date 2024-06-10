@@ -300,5 +300,64 @@ namespace backend.repository.Maestros
 
             return res;
         }
+
+        public async Task<IList<SelectDTO>> getSelectJefesEmpleado(int nIdCompania, int nIdEmpleado)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_empleado]", 16);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdEmpleado", nIdEmpleado);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> InsJefeEmpleado(JefeEmpleadoDTO jefeEmpleado)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_empleado]", 17);
+                parameters.Add("nIdJefeEmpleado", jefeEmpleado.nIdJefeEmpleado);
+                parameters.Add("nIdJefe", jefeEmpleado.nIdJefe);
+                parameters.Add("nIdEmpleado", jefeEmpleado.nIdEmpleado);
+                parameters.Add("nIdPeriodoLaboral", jefeEmpleado.nIdPeriodoLaboral);
+                parameters.Add("dFechaIni", jefeEmpleado.dFechaIni);
+                parameters.Add("dFechaFin", jefeEmpleado.dFechaFin);
+                parameters.Add("nIdUsuario_crea", jefeEmpleado.nIdUsuario_crea);
+                parameters.Add("nIdUsuario_mod", jefeEmpleado.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+
+        public async Task<IList<JefeEmpleadoDTO>> getJefesEmpleadosByEmpleado(int nIdEmpleado, int nIdPeriodoLaboral)
+        {
+            IEnumerable<JefeEmpleadoDTO> list = new List<JefeEmpleadoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_empleado]", 18);
+                parameters.Add("nIdEmpleado", nIdEmpleado);
+                parameters.Add("nIdPeriodoLaboral", nIdPeriodoLaboral);
+
+                list = await connection.QueryAsync<JefeEmpleadoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+
     }
 }

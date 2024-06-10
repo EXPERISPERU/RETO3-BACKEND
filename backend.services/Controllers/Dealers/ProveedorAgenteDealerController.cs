@@ -170,13 +170,13 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<JefeAgenteDealerDTO>>>> getJefesDealerByAgenteDealer(int nIdAgenteDealer)
+        public async Task<ActionResult<ApiResponse<List<JefeAgenteDealerDTO>>>> getJefesDealerByAgenteDealer(int nIdAgenteDealer, int nIdProveedorAgente)
         {
 
             ApiResponse<List<JefeAgenteDealerDTO>> response = new ApiResponse<List<JefeAgenteDealerDTO>>();
             try
             {
-                var result = await service.getJefesDealerByAgenteDealer(nIdAgenteDealer);
+                var result = await service.getJefesDealerByAgenteDealer(nIdAgenteDealer, nIdProveedorAgente);
 
                 response.success = true;
                 response.data = (List<JefeAgenteDealerDTO>)result;
@@ -189,6 +189,8 @@ namespace backend.services.Controllers.Dealers
                 return StatusCode(500, response);
             }
         }
+
+
 
     }
 }

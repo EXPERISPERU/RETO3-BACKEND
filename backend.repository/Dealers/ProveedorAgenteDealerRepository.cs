@@ -149,7 +149,7 @@ namespace backend.repository.Dealers
             return res;
         }
 
-        public async Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer)
+        public async Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer, int nIdProveedorAgente)
         {
             IEnumerable<JefeAgenteDealerDTO> list = new List<JefeAgenteDealerDTO>();
 
@@ -158,6 +158,7 @@ namespace backend.repository.Dealers
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_proveedor_agente_dealer]", 8);
                 parameters.Add("nIdAgenteDealer", nIdAgenteDealer);
+                parameters.Add("nIdProveedorAgente", nIdProveedorAgente);
 
                 list = await connection.QueryAsync<JefeAgenteDealerDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
