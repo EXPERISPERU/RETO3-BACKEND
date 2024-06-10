@@ -22,7 +22,7 @@ namespace backend.repository.Prospectos
             _configuration = configuration;
         }
 
-        public async Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario)
+        public async Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania)
         {
             IEnumerable<ProspectoDTO> list = new List<ProspectoDTO>();
 
@@ -31,6 +31,7 @@ namespace backend.repository.Prospectos
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_prospectos]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<ProspectoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -135,6 +136,23 @@ namespace backend.repository.Prospectos
             }
 
             return res;
+        }
+
+
+        public async Task<IList<ProspectoDTO>> getListProspectoByIdProspecto(int nIdProspecto)
+        {
+            IEnumerable<ProspectoDTO> list = new List<ProspectoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_prospectos]", 6);
+                parameters.Add("nIdProspecto", nIdProspecto);
+
+                list = await connection.QueryAsync<ProspectoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
 
     }

@@ -91,5 +91,20 @@ namespace backend.businesslogic.Maestros
         {
             return await repository.UpdPerLab(periodoLaboral);
         }
+
+        public async Task<IList<SelectDTO>> getSelectJefesEmpleado(int nIdCompania, int nIdEmpleado)
+        {
+            return await repository.getSelectJefesEmpleado(nIdCompania, nIdEmpleado);
+        }
+
+        public async Task<SqlRspDTO> InsJefeEmpleado(JefeEmpleadoDTO jefeEmpleado)
+        {
+            return await repository.InsJefeEmpleado(jefeEmpleado);
+        }
+
+        public async Task<IList<JefeEmpleadoDTO>> getJefesEmpleadosByEmpleado(int nIdEmpleado, int nIdPeriodoLaboral)
+        {
+            return await repository.getJefesEmpleadosByEmpleado(nIdEmpleado, nIdPeriodoLaboral);
+        }
     }
 }

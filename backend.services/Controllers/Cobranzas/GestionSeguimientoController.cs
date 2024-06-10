@@ -465,12 +465,12 @@ namespace backend.services.Controllers.Cobranzas
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getInfoContactoByMedioOfCliente(int nIdCliente, int nIdMedioContacto)
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
             try
             {
-                var result = await service.getInfoContactoByMedio(nIdCliente, nIdMedioContacto);
+                var result = await service.getInfoContactoByMedioOfCliente(nIdCliente, nIdMedioContacto);
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
@@ -554,6 +554,65 @@ namespace backend.services.Controllers.Cobranzas
                 var result = await service.getListSeguimientoAtencionCliente(SeguimientoFiltros);
                 response.success = true;
                 response.data = (List<SeguimientoHistoricoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SeguimientoProspectoHistoricoDTO>>>> postListSeguimientoProspectoByFilters([FromBody] SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
+        {
+            ApiResponse<List<SeguimientoProspectoHistoricoDTO>> response = new ApiResponse<List<SeguimientoProspectoHistoricoDTO>>();
+            try
+            {
+                var result = await service.postListSeguimientoProspectoByFilters(SeguimientoFiltros);
+                response.success = true;
+                response.data = (List<SeguimientoProspectoHistoricoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectAsesorSeguimientoProspecto(int nIdCompania, int nIdUsuario)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectAsesorSeguimientoProspecto(nIdCompania, nIdUsuario);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getInfoContactoByMedioOfProspecto(int nIdProspecto, int nIdMedioContacto)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            try
+            {
+                var result = await service.getInfoContactoByMedioOfProspecto(nIdProspecto, nIdMedioContacto);
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

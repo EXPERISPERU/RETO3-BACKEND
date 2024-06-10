@@ -123,9 +123,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListSeguimientoCuotaBySeguimiento(nIdSeguimiento);
         }
 
-        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto)
+        public async Task<IList<SelectDTO>> getInfoContactoByMedioOfCliente(int nIdCliente, int nIdMedioContacto)
         {
-            return await repository.getInfoContactoByMedio(nIdCliente, nIdMedioContacto);
+            return await repository.getInfoContactoByMedioOfCliente(nIdCliente, nIdMedioContacto);
         }
 
         public async Task<IList<SelectDTO>> getSelectAsesorSeguimiento(int nIdCompania, int nIdUsuario)
@@ -146,6 +146,21 @@ namespace backend.businesslogic.Cobranzas
         public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
         {
             return await repository.getListSeguimientoAtencionCliente(SeguimientoFiltros);
+        }
+
+        public async Task<IList<SeguimientoProspectoHistoricoDTO>> postListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
+        {
+            return await repository.postListSeguimientoProspectoByFilters(SeguimientoFiltros);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectAsesorSeguimientoProspecto(int nIdCompania, int nIdUsuario)
+        {
+            return await repository.getSelectAsesorSeguimientoProspecto(nIdCompania, nIdUsuario);
+        }
+
+        public async Task<IList<SelectDTO>> getInfoContactoByMedioOfProspecto(int nIdProspecto, int nIdMedioContacto)
+        {
+            return await repository.getInfoContactoByMedioOfProspecto(nIdProspecto, nIdMedioContacto);
         }
 
     }

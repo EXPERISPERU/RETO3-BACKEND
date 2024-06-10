@@ -15,6 +15,7 @@ namespace backend.domain
         public int? nIdSeguimiento { get; set; }
         public int? nIdSegFromAgen { get; set; }
         public int? nIdCliente { get; set; }
+        public int? nIdProspecto { get; set; }
         public int? nIdPersona { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }

@@ -17,9 +17,9 @@ namespace backend.businesslogic.Prospectos
             this.repository = _repository;
         }
 
-        public async Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario)
+        public async Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania)
         {
-            return await repository.getListProspectoByIdUsuario(nIdUsuario);
+            return await repository.getListProspectoByIdUsuario(nIdUsuario, nIdCompania);
         }
 
         public async Task<SqlRspDTO> InsProspecto(ProspectoDTO prospecto)
@@ -40,6 +40,11 @@ namespace backend.businesslogic.Prospectos
         public async Task<SqlRspDTO> InsReferidoByPersona(PersonaDTO persona)
         {
             return await repository.InsReferidoByPersona(persona);
+        }
+
+        public async Task<IList<ProspectoDTO>> getListProspectoByIdProspecto(int nIdProspecto)
+        {
+            return await repository.getListProspectoByIdProspecto(nIdProspecto);
         }
     }
 }
