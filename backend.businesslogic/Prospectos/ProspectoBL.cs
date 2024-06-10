@@ -41,5 +41,10 @@ namespace backend.businesslogic.Prospectos
         {
             return await repository.InsReferidoByPersona(persona);
         }
+
+        public async Task<IList<ProspectoDTO>> getListProspectoByIdProspecto(int nIdProspecto)
+        {
+            return await repository.getListProspectoByIdProspecto(nIdProspecto);
+        }
     }
 }

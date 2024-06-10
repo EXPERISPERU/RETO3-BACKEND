@@ -20,7 +20,6 @@ namespace backend.services.Controllers.Prospectos
         public async Task<ActionResult<ApiResponse<ProspectoDTO>>> getListProspectoByIdUsuario(int nIdUsuario)
         {
             ApiResponse<List<ProspectoDTO>> response = new ApiResponse<List<ProspectoDTO>>();
-
             try
             {
                 var result = await service.getListProspectoByIdUsuario(nIdUsuario);
@@ -113,6 +112,27 @@ namespace backend.services.Controllers.Prospectos
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<ProspectoDTO>>> getListProspectoByIdProspecto(int nIdProspecto)
+        {
+            ApiResponse<List<ProspectoDTO>> response = new ApiResponse<List<ProspectoDTO>>();
+            try
+            {
+                var result = await service.getListProspectoByIdProspecto(nIdProspecto);
+
+                response.success = true;
+                response.data = (List<ProspectoDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

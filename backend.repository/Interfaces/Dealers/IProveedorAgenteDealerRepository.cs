@@ -16,6 +16,6 @@ namespace backend.repository.Interfaces.Dealers
         Task<SqlRspDTO> UpdProvAgenDealer(ProveedorAgenteDealerDTO proveedorAgenteDealer);
         Task<IList<SelectDTO>> getJefesDealer(int nIdProveedor, int nIdAgenteDealer);
         Task<SqlRspDTO> InsJefeDealer(JefeAgenteDealerDTO jefeAgenteDealer);
-        Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer);
+        Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer, int nIdProveedorAgente);
     }
 }
