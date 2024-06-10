@@ -11,6 +11,7 @@ namespace backend.domain
         public int? nIdProspecto { get; set; }
         public string? sCodigo { get; set; }
         public int nIdCompania { get; set; }
+        public int? nIdSeguimiento { get; set; }
         public int? nIdTipo { get; set; }
         public int? nIdEmpleado { get; set; }
         public int? nIdAgenteDealer { get; set; }
@@ -22,7 +23,9 @@ namespace backend.domain
         public DateTime? dFechaNac { get; set; }
         public int? nIdUbigeoNac { get; set; }
         public int? nIdGenero { get; set; }
+        public string? sGenero { get; set; }
         public int? nIdEstadoCivil { get; set; }
+        public string? sEstadoCivil { get; set; }
         public string? sCorreo { get; set; }
         public string? sCelular { get; set; }
         public string? sCelular2 { get; set; }
@@ -36,6 +39,6 @@ namespace backend.domain
         public string? sEmpleado { get; set; }
         public string? sAgenteDealer { get; set; }
         public string? sReferidoPor { get; set; }
-        
+
     }
 }
