@@ -82,6 +82,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoSeguimiento", seguimiento.nIdTipoSeguimiento);
                 parameters.Add("nTiempoGestion", seguimiento.nTiempoGestion);
                 parameters.Add("nIdCliente", seguimiento.nIdCliente);
+                parameters.Add("nIdProspecto", seguimiento.nIdProspecto);
                 parameters.Add("nIdAgendamiento", seguimiento.nIdAgendamiento);
                 parameters.Add("nCantidadCuotas", seguimiento.nCantidadCuotas);
                 parameters.Add("nTotalPagar", seguimiento.nTotalPagar);
@@ -146,7 +147,6 @@ namespace backend.repository.Cobranzas
         public async Task<IList<SelectDTO>> getSelectMedioContacto()
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
-
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
@@ -171,6 +171,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipo", detalle.nIdTipo);
                 parameters.Add("nIdMedio", detalle.nIdMedio);
                 parameters.Add("nIdDatoContacto", detalle.nIdDatoContacto);
+                parameters.Add("sContacto", detalle.sContacto);
                 parameters.Add("bRespondio", detalle.bRespondio);
                 parameters.Add("nIdResultado", detalle.nIdResultado);
                 parameters.Add("sDetalle", detalle.sDetalle);
@@ -224,6 +225,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdTipoAgendamiento", agendamiento.nIdTipoAgendamiento);
                 parameters.Add("nIdSeguimiento", agendamiento.nIdSeguimiento);
                 parameters.Add("nIdCliente", agendamiento.nIdCliente);
+                parameters.Add("nIdProspecto", agendamiento.nIdProspecto);
                 parameters.Add("nIdTipoGestion", agendamiento.nIdTipoGestion);
                 parameters.Add("nIdEmpleado", agendamiento.nIdEmpleado);
                 parameters.Add("nIdAgenteDealer", agendamiento.nIdAgenteDealer);
@@ -398,7 +400,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<IList<SelectDTO>> getInfoContactoByMedio(int nIdCliente, int nIdMedioContacto)
+        public async Task<IList<SelectDTO>> getInfoContactoByMedioOfCliente(int nIdCliente, int nIdMedioContacto)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -500,7 +502,7 @@ namespace backend.repository.Cobranzas
         }
 
 
-        public async Task<IList<SeguimientoProspectoHistoricoDTO>> getListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
+        public async Task<IList<SeguimientoProspectoHistoricoDTO>> postListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
         {
             IEnumerable<SeguimientoProspectoHistoricoDTO> list = new List<SeguimientoProspectoHistoricoDTO>();
 
@@ -519,6 +521,41 @@ namespace backend.repository.Cobranzas
 
             return list.ToList();
         }
+
+
+        public async Task<IList<SelectDTO>> getSelectAsesorSeguimientoProspecto(int nIdCompania, int nIdUsuario)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 29);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getInfoContactoByMedioOfProspecto(int nIdProspecto, int nIdMedioContacto)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 30);
+                parameters.Add("nIdProspecto", nIdProspecto);
+                parameters.Add("nIdMedioContacto", nIdMedioContacto);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
 
     }
 }

@@ -54,9 +54,9 @@ namespace backend.businesslogic.Dealers
             return await repository.InsJefeDealer(jefeAgenteDealer);
         }
 
-        public async Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer)
+        public async Task<IList<JefeAgenteDealerDTO>> getJefesDealerByAgenteDealer(int nIdAgenteDealer, int nIdProveedorAgente)
         {
-            return await repository.getJefesDealerByAgenteDealer(nIdAgenteDealer);
+            return await repository.getJefesDealerByAgenteDealer(nIdAgenteDealer, nIdProveedorAgente);
         }
 
     }

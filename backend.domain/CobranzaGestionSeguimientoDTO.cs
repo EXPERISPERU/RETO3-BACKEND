@@ -75,6 +75,7 @@ namespace backend.domain
         public int? nIdSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
         public int? nIdCliente { get; set; }
+        public int? nIdProspecto { get; set; }
         public int? nIdAsignacion { get; set; }
         public int? nIdAgendamiento { get; set; }
         public int? nCantidadCuotas { get; set; }
@@ -173,13 +174,13 @@ namespace backend.domain
     public class SeguimientoProspectoHistoricoDTO
     {
         public int? nIdProspecto { get; set; }
-        public int? sCodigo { get; set; }
-        public string? sNombreCompleto { get; set; }
-        public string? nIdAsesor { get; set; }
+        public string? sCodigo { get; set; }
+        public string? sNombreProspecto { get; set; }
+        public int? nIdAsesor { get; set; }
         public string? sAsesor { get; set; }
-        public string? dFecha_Ini { get; set; }
-        public string? dFecha_Fin { get; set; }
-        public string? estado { get; set; }
+        public DateTime? dFecha_Ini { get; set; }
+        public DateTime? dFecha_Fin { get; set; }
+        public string? sEstado { get; set; }
         public int? nIdUsuario_crea { get; set; }        
     }
 

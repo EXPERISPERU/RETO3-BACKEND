@@ -341,5 +341,71 @@ namespace backend.services.Controllers.Maestros
                 return StatusCode(500, response);
             }
         }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectJefesEmpleado(int nIdCompania, int nIdEmpleado)
+        {
+
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectJefesEmpleado(nIdCompania, nIdEmpleado);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsJefeEmpleado([FromBody] JefeEmpleadoDTO jefeEmpleado)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsJefeEmpleado(jefeEmpleado);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<JefeEmpleadoDTO>>>> getJefesEmpleadosByEmpleado(int nIdEmpleado, int nIdPeriodoLaboral)
+        {
+            ApiResponse<List<JefeEmpleadoDTO>> response = new ApiResponse<List<JefeEmpleadoDTO>>();
+            try
+            {
+                var result = await service.getJefesEmpleadosByEmpleado(nIdEmpleado, nIdPeriodoLaboral);
+
+                response.success = true;
+                response.data = (List<JefeEmpleadoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }
