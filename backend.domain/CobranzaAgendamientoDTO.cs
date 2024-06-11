@@ -15,7 +15,9 @@ namespace backend.domain
         public int? nIdSeguimiento { get; set; }
         public int? nIdSegFromAgen { get; set; }
         public int? nIdCliente { get; set; }
+        public string? sCodigo { get; set; }
         public int? nIdProspecto { get; set; }
+        public string? sNombreProspecto { get; set; }
         public int? nIdPersona { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
@@ -39,6 +41,7 @@ namespace backend.domain
         public int? nIdUsuario { get; set; }
         public int? nIdEmpleado { get; set; }
         public int? nIdCliente { get; set; }
+        public int? nIdProspecto { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }
         public int? nIdProyecto { get; set; }
