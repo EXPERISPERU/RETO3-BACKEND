@@ -20,6 +20,8 @@ namespace backend.domain
         public DateTime dFecha_crea { get; set; }
         public string? sIdDocumentosContratos { get; set; }
 
+        public bool bTipoCambio { get; set; }
+
     }
     /*
     public class ItemCompaniaDTO
