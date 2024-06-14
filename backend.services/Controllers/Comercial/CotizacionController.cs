@@ -200,6 +200,7 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#nValorFinanciado#", cotizacion.nValorFinanciado?.ToString("N"))
                         .Replace("#nCuotas#", cotizacion.nCuotas?.ToString("N"))
                         .Replace("#nValorCuota#", cotizacion.nValorCuota?.ToString("N"))
+                        .Replace("#sInteresFijo#", cotizacion.sInteresFijo)
                         .Replace("#nValorContado#", cotizacion.nValorContado?.ToString("N"))
                         .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea)
                         .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
