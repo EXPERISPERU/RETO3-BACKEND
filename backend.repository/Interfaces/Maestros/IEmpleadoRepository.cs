@@ -24,5 +24,8 @@ namespace backend.repository.Interfaces.Maestros
         Task<int> CantPerLabActivoByEmpleado(int nIdEmpleado);
         Task<SqlRspDTO> InsPerLab(PeriodoLaboralDTO periodoLaboral);
         Task<SqlRspDTO> UpdPerLab(PeriodoLaboralDTO periodoLaboral);
+        Task<IList<SelectDTO>> getSelectJefesEmpleado(int nIdCompania, int nIdEmpleado);
+        Task<SqlRspDTO> InsJefeEmpleado(JefeEmpleadoDTO jefeEmpleado);
+        Task<IList<JefeEmpleadoDTO>> getJefesEmpleadosByEmpleado(int nIdEmpleado, int nIdPeriodoLaboral);
     }
 }
