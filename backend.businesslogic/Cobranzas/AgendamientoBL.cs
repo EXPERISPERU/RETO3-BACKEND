@@ -22,9 +22,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListAgendamientoByFilters(AgendamientoFiltros);
         }
 
-        public async Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario)
+        public async Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario, int tipoListSeguimiento)
         {
-            return await repository.getSelectAsesorAgendamiento(nIdCompania, nIdUsuario);
+            return await repository.getSelectAsesorAgendamiento(nIdCompania, nIdUsuario, tipoListSeguimiento);
         }
 
         public async Task<IList<AgendamientoDTO>> getListAgendamientoVentasByFilters(AgendamientoFiltrosDTO AgendamientoFiltros)
