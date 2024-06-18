@@ -88,6 +88,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nTotalPagar", seguimiento.nTotalPagar);
                 parameters.Add("nIdAsignacion", seguimiento.nIdAsignacion);
                 parameters.Add("nIdUsuario_crea", seguimiento.nIdUsuario_crea);
+                parameters.Add("nIdCompania", seguimiento.nIdCompania);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
