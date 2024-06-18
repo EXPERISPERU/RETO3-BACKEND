@@ -72,6 +72,7 @@ namespace backend.domain
 
     public class SeguimientoDTO
     {
+        public int? nIdCompania { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
         public int? nIdCliente { get; set; }
@@ -180,7 +181,7 @@ namespace backend.domain
         public string? sCodigo { get; set; }
         public string? sNombreProspecto { get; set; }
         public int? nIdAsesor { get; set; }
-        public string? sAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
         public DateTime? dFecha_Ini { get; set; }
         public DateTime? dFecha_Fin { get; set; }
         public string? sEstado { get; set; }
