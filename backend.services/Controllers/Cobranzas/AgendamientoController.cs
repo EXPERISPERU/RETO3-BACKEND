@@ -39,13 +39,13 @@ namespace backend.services.Controllers.Cobranzas
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario, int tipoListSeguimiento)
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectAsesorAgendamiento(nIdCompania, nIdUsuario);
+                var result = await service.getSelectAsesorAgendamiento(nIdCompania, nIdUsuario, tipoListSeguimiento);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
