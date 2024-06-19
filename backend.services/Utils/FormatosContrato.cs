@@ -17,6 +17,13 @@ namespace backend.services.Utils
 {
     public class FormatosContrato
     {
+        //private readonly IWebHostEnvironment hostingEnvironment;
+
+        //public FormatosContrato(IWebHostEnvironment _hostingEnvironment)
+        //{
+        //    hostingEnvironment = _hostingEnvironment;
+        //}
+
         public byte[] GetFormatoImpreso(int nIdFormato, string sCodigo, string sFormato, ContratoDTO contrato, List<CronogramaDTO> cronogramas, List<OrdenPagoPreContratoDTO> iniciales)
         {
             try
@@ -27,6 +34,7 @@ namespace backend.services.Utils
 
                 var html = "<style>.page-break { page-break-after: always; } </style>";
 
+                //.Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
                         .Replace("img/firma_luis_sarango_2023.png", dataImages.firmaLuisSarango)
