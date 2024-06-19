@@ -72,6 +72,7 @@ namespace backend.domain
 
     public class SeguimientoDTO
     {
+        public int? nIdCompania { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
         public int? nIdCliente { get; set; }
@@ -131,17 +132,17 @@ namespace backend.domain
     {
         public int? nIdCompania { get; set; }
         public int? nIdUsuario { get; set; }
-        public int? nIdEmpleado { get; set; }
+        public int? nIdAsesor { get; set; }
         public int? nIdCliente { get; set; }
         public int? nIdTipoDocumento { get; set; }
         public string? sDocumento { get; set; }
-        
         public int? nIdProyecto { get; set; }
         public int? nIdSector { get; set; }
         public int? nIdManzana { get; set; }
         public int? nIdLote { get; set; }
         public DateTime? fechaInicio { get; set; }
         public DateTime? fechaFin { get; set; }
+        public int? tipoListSeguimiento { get; set; }
     }
 
     public class SeguimientoHistoricoDTO
@@ -157,6 +158,7 @@ namespace backend.domain
         public int? nIdTipoSeguimiento { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
+        public DateTime? dFecha_fin { get; set; }
         public string? estado { get; set; }
     }
 
@@ -165,9 +167,11 @@ namespace backend.domain
     {
         public int? nIdCompania { get; set; }
         public int? nIdUsuario { get; set; }
+        public int? nIdAsesor { get; set; }
         public string? sCodigo { get; set; }
         public DateTime? dFechaInicio { get; set; }
         public DateTime? dFechaFin { get; set; }
+        public int? tipoListSeguimiento { get; set; }
 
     }
 
@@ -177,7 +181,8 @@ namespace backend.domain
         public string? sCodigo { get; set; }
         public string? sNombreProspecto { get; set; }
         public int? nIdAsesor { get; set; }
-        public string? sAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public int? nIdSeguimiento { get; set; }
         public DateTime? dFecha_Ini { get; set; }
         public DateTime? dFecha_Fin { get; set; }
         public string? sEstado { get; set; }

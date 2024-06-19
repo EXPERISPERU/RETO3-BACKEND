@@ -58,6 +58,7 @@ namespace backend.domain
         public int? nIdCuota { get; set; }
         public decimal? nCuotas { get; set; }
         public decimal? nValorCuota { get; set; }
+        public string? sInteresFijo { get; set; }
         public int? nIdDescuentoCon { get; set; }
         public int? nIdTipoValorDescuentoCon { get; set; }
         public string? sSimboloDescuentoCon { get; set; }
