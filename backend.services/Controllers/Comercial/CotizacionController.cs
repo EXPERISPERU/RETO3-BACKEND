@@ -206,6 +206,24 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
                 html += "</div>";
 
+                if (cotizacion.sInteresFijo != "")
+                {
+                    html = html
+                        .Replace("#iniInteresFijo#", "")
+                        .Replace("#finInteresFijo#", "");
+                }
+                else
+                {
+                    while (html.Contains("#iniInteresFijo#"))
+                    {
+                        string sIniInteresFijo = "#iniInteresFijo#";
+                        string sFinInteresFijo = "#finInteresFijo#";
+                        string sInteresFijo = html.Substring(html.IndexOf(sIniInteresFijo), (html.IndexOf(sFinInteresFijo) + sFinInteresFijo.Length) - html.IndexOf(sIniInteresFijo));
+                        html = html.Replace(sInteresFijo, "");
+                    }
+                }
+
+
                 string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
                 ConverterProperties properties = new ConverterProperties();
                 properties.SetFontProvider(new DefaultFontProvider(true, true, true));
