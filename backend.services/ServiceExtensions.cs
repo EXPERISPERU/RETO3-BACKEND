@@ -46,6 +46,10 @@ using backend.repository.Interfaces.Prospectos;
 using backend.repository.Maestros;
 using backend.repository.Proyectos;
 using backend.repository.Seguridad;
+using backend.businesslogic.Interfaces.Tesoreria;
+using backend.businesslogic.Tesoreria;
+using backend.repository.Interfaces.Tesoreria;
+using backend.repository.Tesoreria;
 
 namespace backend.services
 {
@@ -127,6 +131,7 @@ namespace backend.services
 
             services.AddScoped<IProspectoRepository, ProspectoRepository>();
 
+            services.AddScoped<IOperacionBancariaRepository, OperacionBancariaRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -204,7 +209,7 @@ namespace backend.services
 
             services.AddScoped<IProspectoBL, ProspectoBL>();
 
-
+            services.AddScoped<IOperacionBancariaBL, OperacionBancariaBL>();
         }
     }
 }
