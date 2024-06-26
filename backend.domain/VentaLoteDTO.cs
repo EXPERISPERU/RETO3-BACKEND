@@ -32,5 +32,7 @@ namespace backend.domain
         public int? nCuotas { get; set; }
         public int? nIdCicloPago { get; set; }
         public int nIdUsuario_crea { get; set; }
+
+        public decimal? nInteresAplicado { get; set; }
     }
 }
