@@ -132,7 +132,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
-                //parameters.Add("nInteresAplicado", cotizacion.nTipoInteres);
+                parameters.Add("nTipoInteresCuotaAplicado", cotizacion.nTipoInteresCuotaAplicado);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -247,5 +247,23 @@ namespace backend.repository.Comercial
 
             return list.ToList();
         }
+
+        public async Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota)
+        {
+            IEnumerable<SqlRspDTO> list = new List<SqlRspDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 14);
+                parameters.Add("nIdProyecto", nIdProyecto);
+                parameters.Add("nIdCuota", nIdCuota);
+
+                list = await connection.QueryAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }
