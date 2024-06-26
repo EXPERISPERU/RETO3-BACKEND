@@ -17,9 +17,8 @@ namespace backend.domain
         public int nIdTipo { get; set; }
         public string? sTipo { get; set; }
         public int? nIdEmpleado { get; set; }
-        public string? sEmpleado { get; set; }
         public int? nIdAgenteDealer { get; set; }
-        public string? sAgenteDealer { get; set; }
+        public string? sNombreAsesor { get; set; }
         public int? nIdProveedor { get; set; }
         public string? sProveedor { get; set; }
         public DateTime? dFechaIni { get; set; }
