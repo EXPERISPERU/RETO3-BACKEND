@@ -117,5 +117,10 @@ namespace backend.businesslogic.Comercial
 
             loteDisponible.nValorContado = loteDisponible.nPrecioVenta - loteDisponible.nDescuentoCon;
         }
+
+        public async Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota)
+        {
+            return await repository.getSelectValidaCuotaInteres(nIdProyecto, nIdCuota);
+        }
     }
 }
