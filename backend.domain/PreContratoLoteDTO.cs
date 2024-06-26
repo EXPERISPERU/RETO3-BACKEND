@@ -24,8 +24,8 @@
         public int nCuotas { get; set; }
         public decimal nValorCuota { get; set; }
         public int nIdUsuario_crea { get; set; }
-
         public decimal? nTipoInteresCuotaAplicado { get; set; }
+        public int? nIdOperacionBancaria { get; set; }
     }
 
     public class OrdenPagoContratoDTO

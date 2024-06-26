@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using backend.repository.Interfaces.Comercial;
+using System.Reflection.Metadata;
 
 namespace backend.repository.Comercial
 {
@@ -80,12 +81,13 @@ namespace backend.repository.Comercial
                 parameters.Add("nMontoFinal", insVentaLoteDTO.nMontoFinal);
                 parameters.Add("nMontoInicial", insVentaLoteDTO.nMontoInicial);
                 parameters.Add("nMontoFinanciado", insVentaLoteDTO.nMontoFinanciado);
-                parameters.Add("nValorCuota", insVentaLoteDTO.nValorCuota);
-                parameters.Add("nIdCuota", insVentaLoteDTO.nIdCuota);                   
+                parameters.Add("nIdCuota", insVentaLoteDTO.nIdCuota);
+                parameters.Add("nValorCuota", insVentaLoteDTO.nValorCuota);             
                 parameters.Add("nCuotas", insVentaLoteDTO.nCuotas);
                 parameters.Add("nIdCicloPago", insVentaLoteDTO.nIdCicloPago);
                 parameters.Add("nIdUsuario_crea", insVentaLoteDTO.nIdUsuario_crea);
-                parameters.Add("nInteresAplicado", insVentaLoteDTO.nInteresAplicado);
+                parameters.Add("nTipoInteresCuotaAplicado", insVentaLoteDTO.nTipoInteresCuotaAplicado);
+                parameters.Add("nIdOperacionBancaria", insVentaLoteDTO.nIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
