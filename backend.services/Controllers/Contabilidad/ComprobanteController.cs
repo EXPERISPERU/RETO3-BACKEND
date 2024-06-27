@@ -44,7 +44,7 @@ namespace backend.services.Controllers.Contabilidad
                     {
                         logoCompania = dataImages.psViviendasDelSur;
                     }
-                    else if (nIdCompania == 5)
+                    else if (nIdCompania == 6)
                     {
                         logoCompania = dataImages.psVillaAzul;
                     }
@@ -166,14 +166,14 @@ namespace backend.services.Controllers.Contabilidad
 
                     file = System.IO.File.ReadAllBytes(path);
 
-                    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
+                    //string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                    //ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
-                    if (resFtp.success)
-                    {
-                        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
-                    }
+                    //if (resFtp.success)
+                    //{
+                    //    await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
+                    //}
                 }
                 else
                 {
