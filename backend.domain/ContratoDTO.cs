@@ -92,7 +92,13 @@
 		public string? sUsuario_mod { get; set; }
 		public DateTime? dFecha_mod { get; set; }
 		public string? sFecha_mod { get; set; }
-	}
+		public decimal? nTipoInteresCuotaAplicado { get; set; }
+        public int? nIdTipoInteresCuotaAplicado { get; set; }
+        public int? nIdMonedaTipoInteresCuotaAplicado { get; set; }
+        public decimal? nValorOriInteres { get; set; }
+        public string? sSimboloInteres { get; set; }
+
+    }
 
 	public class ContratoFiltrosDTO
 	{

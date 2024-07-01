@@ -248,7 +248,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota)
+        public async Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato)
         {
             IEnumerable<SqlRspDTO> list = new List<SqlRspDTO>();
 
@@ -258,6 +258,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 14);
                 parameters.Add("nIdProyecto", nIdProyecto);
                 parameters.Add("nIdCuota", nIdCuota);
+                parameters.Add("nIdContrato", nIdContrato);
 
                 list = await connection.QueryAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
