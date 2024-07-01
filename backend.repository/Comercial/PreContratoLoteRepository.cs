@@ -94,7 +94,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<ContratoDTO> getDataPreContratoByLote(int nIdLote, int nIdUsuario)
+        public async Task<ContratoDTO> getDataPreContratoByLote(int nIdLote, int nIdProyecto, int nIdUsuario)
         {
             ContratoDTO res = new ContratoDTO();
 
@@ -103,6 +103,7 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 4);
                 parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdProyecto", nIdProyecto);
 
                 res = await connection.QuerySingleAsync<ContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
