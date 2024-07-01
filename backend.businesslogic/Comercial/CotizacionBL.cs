@@ -102,12 +102,12 @@ namespace backend.businesslogic.Comercial
             loteDisponible.nInteres = loteDisponible.nIdInteresCuota != null ? (
                                                 loteDisponible.nIdTipoValorInteres == 110 ?
                                                 loteDisponible.nValorCalInteres :
-                                                loteDisponible.nValorCalInteres / 100 * (loteDisponible.nPrecioVenta - loteDisponible.nInicial)
+                                                loteDisponible.nValorCalInteres / 100 * (loteDisponible.nPrecioVenta)
                                             ) : 0;
 
             loteDisponible.nValorFinanciado = (loteDisponible.nPrecioVenta - loteDisponible.nInicial - loteDisponible.nDescuentoFin) + loteDisponible.nInteres ;
 
-            loteDisponible.nValorCuota = loteDisponible.nValorFinanciado / loteDisponible.nCuotas;
+            loteDisponible.nValorCuota = loteDisponible.nCuotas > 0 ? loteDisponible.nValorFinanciado / loteDisponible.nCuotas : 0;
 
             loteDisponible.nDescuentoCon = loteDisponible.nIdDescuentoCon != null ? (
                                             loteDisponible.nIdTipoValorDescuentoCon == 110 ? 
@@ -118,9 +118,9 @@ namespace backend.businesslogic.Comercial
             loteDisponible.nValorContado = loteDisponible.nPrecioVenta - loteDisponible.nDescuentoCon;
         }
 
-        public async Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota)
+        public async Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato)
         {
-            return await repository.getSelectValidaCuotaInteres(nIdProyecto, nIdCuota);
+            return await repository.getSelectValidaCuotaInteres(nIdProyecto, nIdCuota, nIdContrato);
         }
     }
 }
