@@ -327,5 +327,25 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SqlRspDTO>>>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato)
+        {
+            ApiResponse<List<SqlRspDTO>> response = new ApiResponse<List<SqlRspDTO>>();
+
+            try
+            {
+                var result = await service.getSelectValidaCuotaInteres(nIdProyecto, nIdCuota, nIdContrato);
+
+                response.success = true;
+                response.data = (List<SqlRspDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
