@@ -18,7 +18,7 @@ namespace backend.domain
         public int nIdMoneda { get; set; }
         public int nIdTipoComprobante { get; set; }
         public int nMedioPago { get; set; }
-        public int nIdOperacionBancaria { get; set; }
+        public int? nIdOperacionBancaria { get; set; }
     }
 
     public class DataReservaDTO
