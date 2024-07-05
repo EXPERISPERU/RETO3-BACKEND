@@ -100,7 +100,7 @@ namespace backend.repository.Maestros
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_item_compania]", 5);
                 parameters.Add("nIdCompania", itemCompaniaDTO.nIdCompania);
                 parameters.Add("nIdItem", itemCompaniaDTO.nIdItem);
-                parameters.Add("vTerminologia", itemCompaniaDTO.vTerminologia);
+                parameters.Add("vTerminologia", itemCompaniaDTO.sTerminologia);
                 parameters.Add("nIdUsuario_mod", itemCompaniaDTO.nIdUsuario_mod);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
