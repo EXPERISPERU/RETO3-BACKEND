@@ -18,6 +18,8 @@ namespace backend.domain
         public DateTime? dFecha_mod { get; set; }
         public bool bActivo { get; set; }
         public string? sItem { get; set; }
-        public string? vTerminologia { get; set; }
+        public string? sTerminologia { get; set; }
+        public string? sIdComprobante { get; set; }
+        
     }
 }
