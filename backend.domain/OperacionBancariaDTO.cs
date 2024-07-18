@@ -26,6 +26,7 @@
         public int? nIdUsuario_mod { get; set; }
         public string? sUsuario_mod { get; set; }
         public DateTime? dFecha_mod { get; set; }
+        public int? nValorServicio { get; set; }
 
     }
 }
