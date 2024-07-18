@@ -87,7 +87,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCicloPago", insVentaLoteDTO.nIdCicloPago);
                 parameters.Add("nIdUsuario_crea", insVentaLoteDTO.nIdUsuario_crea);
                 parameters.Add("nTipoInteresCuotaAplicado", insVentaLoteDTO.nTipoInteresCuotaAplicado);
-                parameters.Add("nIdOperacionBancaria", insVentaLoteDTO.nIdOperacionBancaria);
+                parameters.Add("sIdOperacionBancaria", insVentaLoteDTO.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

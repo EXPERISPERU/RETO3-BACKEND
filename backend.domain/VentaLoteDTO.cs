@@ -33,6 +33,6 @@ namespace backend.domain
         public int? nIdCicloPago { get; set; }
         public int nIdUsuario_crea { get; set; }
         public decimal? nTipoInteresCuotaAplicado { get; set; }
-        public int? nIdOperacionBancaria { get; set; }
+        public string? sIdOperacionBancaria { get; set; }
     }
 }
