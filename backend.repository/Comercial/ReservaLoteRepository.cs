@@ -50,7 +50,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdMonedaP", insReserva.nIdMoneda);
                 parameters.Add("nIdTipoComprobante", insReserva.nIdTipoComprobante);
                 parameters.Add("nMedioPago", insReserva.nMedioPago);
-                parameters.Add("nIdOperacionBancaria", insReserva.nIdOperacionBancaria);
+                parameters.Add("sIdOperacionBancaria", insReserva.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
