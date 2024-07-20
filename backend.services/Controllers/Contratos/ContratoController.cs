@@ -19,14 +19,15 @@ namespace backend.services.Controllers.Contratos
     [Authorize]
     public class ContratoController : ControllerBase
     {
-        //private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IConfiguration configuration;
         private readonly IContratoBL service;
 
-        public ContratoController(IConfiguration _configuration, IContratoBL _service)
+        public ContratoController(IConfiguration _configuration, IContratoBL _service, IWebHostEnvironment hostingEnvironment)
         {
             this.configuration = _configuration;
             this.service = _service;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("[action]")]
@@ -396,8 +397,8 @@ namespace backend.services.Controllers.Contratos
                 List<OrdenPagoPreContratoDTO> iniciales = (List<OrdenPagoPreContratoDTO>) await service.getListOrdenPagoByContrato(nIdContrato);
                 string formato = await service.getFormatoContratoById(nIdFormato);
 
-                //byte[] file = new FormatosContrato(hostingEnvironment).GetFormatoImpreso(nIdFormato, sCodigo, formato, contrato, cronogramas, iniciales);
-                byte[] file = new FormatosContrato().GetFormatoImpreso(nIdFormato, sCodigo, formato, contrato, cronogramas, iniciales);
+                byte[] file = new FormatosContrato(hostingEnvironment).GetFormatoImpreso(nIdFormato, sCodigo, formato, contrato, cronogramas, iniciales);
+                //byte[] file = new FormatosContrato().GetFormatoImpreso(nIdFormato, sCodigo, formato, contrato, cronogramas, iniciales);
                 return File(file, "application/pdf");
             }
             catch (Exception)
