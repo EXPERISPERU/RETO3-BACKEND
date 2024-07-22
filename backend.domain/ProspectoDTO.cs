@@ -38,7 +38,7 @@ namespace backend.domain
         public string? sEstado { get; set; }
         public string? sEmpleado { get; set; }
         public string? sAgenteDealer { get; set; }
-        public string? sReferidoPor { get; set; }
+        public string? sNombreAsesor { get; set; }
 
     }
 }
