@@ -22,7 +22,7 @@ namespace backend.repository.Prospectos
             _configuration = configuration;
         }
 
-        public async Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania, int nTipoListProspecto)
         {
             IEnumerable<ProspectoDTO> list = new List<ProspectoDTO>();
 
@@ -32,6 +32,7 @@ namespace backend.repository.Prospectos
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_prospectos]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("tipoListProspecto", nTipoListProspecto);
 
                 list = await connection.QueryAsync<ProspectoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
