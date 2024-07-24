@@ -9,7 +9,7 @@ namespace backend.repository.Interfaces.Prospectos
 {
     public interface IProspectoRepository
     {
-        Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania);
+        Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania, int nTipoListProspecto);
         Task<SqlRspDTO> InsProspecto(ProspectoDTO prospecto);
         Task<IList<SelectDTO>> getListGeneros();
         Task<IList<SelectDTO>> getListEstadoCivil();
