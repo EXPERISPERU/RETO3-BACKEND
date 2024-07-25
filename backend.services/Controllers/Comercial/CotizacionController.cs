@@ -165,7 +165,7 @@ namespace backend.services.Controllers.Comercial
                 {
                     sLogo = dataImages.psVillaAzul;
                 }
-                else if (cotizacion.nIdProyecto == 7)
+                else if (cotizacion.nIdProyecto == 8)
                 {
                     sLogo = dataImages.logoLeonBeach;
                 }
