@@ -161,9 +161,13 @@ namespace backend.services.Controllers.Comercial
                 var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
                 var sLogo = "";
 
-                if (cotizacion.nIdProyecto == 7) 
+                if (cotizacion.nIdProyecto == 7)
                 {
                     sLogo = dataImages.psVillaAzul;
+                }
+                else if (cotizacion.nIdProyecto == 7)
+                {
+                    sLogo = dataImages.logoLeonBeach;
                 }
                 else
                 {
