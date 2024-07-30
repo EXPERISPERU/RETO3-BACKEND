@@ -40,17 +40,18 @@ namespace backend.services.Controllers.Contabilidad
                     var html = "";
 
                     var logoCompania = "";
-                    if (nIdCompania == 1)
-                    {
-                        logoCompania = dataImages.psViviendasDelSur;
-                    }
-                    else if (nIdCompania == 5)
-                    {
-                        logoCompania = dataImages.psVillaAzul;
-                    }
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
+                        if (comprobante.nCodigoCompania == 1)
+                        {
+                            logoCompania = dataImages.psViviendasDelSur;
+                        }
+                        else if (comprobante.nCodigoCompania == 3)
+                        {
+                            logoCompania = dataImages.psVillaAzul;
+                        }
+
                         html = "<style>.page-break { page-break-after: always; }</style>";
                         
                         html += "<div class=\"page-break\">";
@@ -98,15 +99,26 @@ namespace backend.services.Controllers.Contabilidad
 
                     if (comprobante.sCodigoTipoComprobante == "3")
                     {
-                        html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
+                        if (comprobante.nCodigoCompania == 2)
+                        {
+                            logoCompania = dataImages.logoLeonBeach;
+                        }
+                        else if (comprobante.nCodigoCompania == 3)
+                        {
+                            logoCompania = dataImages.psVillaAzul;
+                        }
+
+                    html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
+                        .Replace("#sLogoData#", logoCompania)
                         .Replace("ComprobanteHeader.png", dataImages.headerBoleta)
                         .Replace("BbvaLogo.png", dataImages.bbvaLogo)
                         .Replace("facebookIcon.png", dataImages.facebookIcon)
                         .Replace("youtubeIcon.png", dataImages.youtubeIcon)
                         .Replace("linkIcon.png", dataImages.linkIcon)
-                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)                
+                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)      
+                        .Replace("#sTipoComprobante#", comprobante.sTipoComprobante)
                         .Replace("#sComprobante#", comprobante.sComprobante)
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)
                         .Replace("#sDocumento#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
@@ -130,7 +142,8 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sIsc#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sValorIGV#", comprobante.sSimbolo + " " + comprobante.nValorIgv.ToString("0.00"))
                         .Replace("#sTotal#", comprobante.sSimbolo + " " + comprobante.nValorTotal.ToString("0.00"))
-                        .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)));
+                        .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)))
+                        .Replace("#sDatosAdicionales#", "");
 
                         string sIniItems = "#iniItems#";
                         string sFinItems = "#finItems#";
@@ -184,7 +197,6 @@ namespace backend.services.Controllers.Contabilidad
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
