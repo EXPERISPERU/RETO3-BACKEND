@@ -45,6 +45,7 @@ namespace backend.repository.Maestros
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_compania]", 2);
                 parameters.Add("sRuc", compania.sRUC);
+                parameters.Add("nCodigo", compania.nCodigo);
                 parameters.Add("sRazonSocial", compania.sRazonSocial);
                 parameters.Add("sAbrev", compania.sAbrev);
                 parameters.Add("nIdUbigeo", compania.nIdUbigeo);
@@ -67,6 +68,7 @@ namespace backend.repository.Maestros
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_compania]", 3);
                 parameters.Add("nIdCompania", compania.nIdCompania);
+                parameters.Add("nCodigo", compania.nCodigo);
                 parameters.Add("sRuc", compania.sRUC);
                 parameters.Add("sRazonSocial", compania.sRazonSocial);
                 parameters.Add("sAbrev", compania.sAbrev);
