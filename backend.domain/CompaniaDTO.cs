@@ -9,6 +9,7 @@ namespace backend.domain
     public class CompaniaDTO
     {
         public int? nIdCompania { get; set; }
+        public int nCodigo { get; set; }
         public string sRUC { get; set; }
         public string sRazonSocial { get; set; }
         public string sAbrev { get; set; }

@@ -17,12 +17,12 @@ namespace backend.services.Utils
 {
     public class FormatosContrato
     {
-        //private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        //public FormatosContrato(IWebHostEnvironment _hostingEnvironment)
-        //{
-        //    hostingEnvironment = _hostingEnvironment;
-        //}
+        public FormatosContrato(IWebHostEnvironment _hostingEnvironment)
+        {
+            hostingEnvironment = _hostingEnvironment;
+        }
 
         public byte[] GetFormatoImpreso(int nIdFormato, string sCodigo, string sFormato, ContratoDTO contrato, List<CronogramaDTO> cronogramas, List<OrdenPagoPreContratoDTO> iniciales)
         {
@@ -34,13 +34,12 @@ namespace backend.services.Utils
 
                 var html = "<style>.page-break { page-break-after: always; } </style>";
 
-                //.Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
-                        .Replace("img/firma_luis_sarango_2023.png", dataImages.firmaLuisSarango)
-                        .Replace("img/firma_luis_gutierrez_2023.png", dataImages.firmaLuisGutierrez)
-                        .Replace("img/logo_inmobitec.png", dataImages.logoInmobitec2023)
-                        .Replace("img/logo_villa_azul.png", dataImages.logoVillaAzul)
+                        .Replace("img/firma_luis_sarango_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Sarango_Sauces.png")))
+                        .Replace("img/firma_luis_gutierrez_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Gutierrez.png"))    )
+                        .Replace("img/logo_inmobitec.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png")))
+                        .Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
                         .Replace("#sCodigoContrato#", contrato.sCodigo)
                         .Replace("#sProyecto#", contrato.sProyecto)
                         .Replace("#sApellidoPaterno#", contrato.sApePaterno)
@@ -104,7 +103,7 @@ namespace backend.services.Utils
                 }
                 else 
                 {
-                    html = html.Replace("img/firma_beneficiario.png", dataImages.firmaBlanco);
+                    html = html.Replace("img/firma_beneficiario.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_blanco.png")));
                 }
 
                 if (!string.IsNullOrEmpty(contrato.sFirmaConyugue))
@@ -113,7 +112,7 @@ namespace backend.services.Utils
                 }
                 else
                 {
-                    html = html.Replace("img/firma_conyugue.png", dataImages.firmaBlanco);
+                    html = html.Replace("img/firma_conyugue.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_blanco.png")));
                 }
 
                 if (contrato.bConyugue == true)
