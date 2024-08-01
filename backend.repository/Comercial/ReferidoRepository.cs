@@ -16,7 +16,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<ReferidoDTO>> getListReferido(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ReferidoDTO>> getListReferido(int nIdUsuario, int nIdCompania, int tipoListReferido)
         {
             IEnumerable<ReferidoDTO> list = new List<ReferidoDTO>();
 
@@ -26,6 +26,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 1);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("tipoListReferido", tipoListReferido);
 
                 list = await connection.QueryAsync<ReferidoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

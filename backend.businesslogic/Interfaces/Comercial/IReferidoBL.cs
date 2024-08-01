@@ -4,7 +4,7 @@ namespace backend.businesslogic.Interfaces.Comercial
 {
     public interface IReferidoBL
     {
-        Task<IList<ReferidoDTO>> getListReferido(int nIdUsuario, int nIdCompania);
+        Task<IList<ReferidoDTO>> getListReferido(int nIdUsuario, int nIdCompania, int tipoListReferido);
         Task<IList<ReferidoDTO>> getListReferidoByCliente(int nIdCliente);
         Task<int> getValidAgregarReferido(int nIdUsuario, int nIdCompania);
         Task<SqlRspDTO> InsReferido(int nIdCompania, int nIdCliente, int nIdUsuario);
