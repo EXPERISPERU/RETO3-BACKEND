@@ -53,7 +53,7 @@ namespace backend.services.Controllers.Contabilidad
                         }
 
                         html = "<style>.page-break { page-break-after: always; }</style>";
-                        
+
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                                 .Replace("#sLogoData#", logoCompania)
@@ -108,7 +108,7 @@ namespace backend.services.Controllers.Contabilidad
                             logoCompania = dataImages.psVillaAzul;
                         }
 
-                    html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
+                        html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                         .Replace("#sLogoData#", logoCompania)
@@ -117,7 +117,7 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("facebookIcon.png", dataImages.facebookIcon)
                         .Replace("youtubeIcon.png", dataImages.youtubeIcon)
                         .Replace("linkIcon.png", dataImages.linkIcon)
-                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)      
+                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)
                         .Replace("#sTipoComprobante#", comprobante.sTipoComprobante)
                         .Replace("#sComprobante#", comprobante.sComprobante)
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)
@@ -151,14 +151,14 @@ namespace backend.services.Controllers.Contabilidad
                         string slistaItems = sCuerpo.Substring(sCuerpo.IndexOf(sIniItems), (sCuerpo.IndexOf(sFinItems) + sFinItems.Length) - sCuerpo.IndexOf(sIniItems));
                         string slistaItemsFinal = "";
 
-                        for (int i = 0; i < listComprobanteDet.Count; i++) 
+                        for (int i = 0; i < listComprobanteDet.Count; i++)
                         {
                             slistaItemsFinal += slistaItems
                             .Replace(sIniItems, "")
                             .Replace("#sItemCodigo#", (i + 1).ToString())
                             .Replace("#sItemCant#", "1")
                             .Replace("#sItemUnd#", "UNIDAD")
-                            .Replace("#sItemDescripcion#", listComprobanteDet[i].sDescripcion.Replace("#n#","<br>"))
+                            .Replace("#sItemDescripcion#", listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
                             .Replace("#sItemValor#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
                             .Replace("#sItemDscto#", "0.00")
                             .Replace("#sItemTotal#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
