@@ -152,7 +152,6 @@ namespace backend.repository.Prospectos
 
                 list = await connection.QueryAsync<ProspectoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
