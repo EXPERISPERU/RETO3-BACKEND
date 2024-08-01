@@ -21,13 +21,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ReferidoDTO>>>> getListReferido(int nIdUsuario, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<ReferidoDTO>>>> getListReferido(int nIdUsuario, int nIdCompania, int tipoListReferido)
         {
             ApiResponse<List<ReferidoDTO>> response = new ApiResponse<List<ReferidoDTO>>();
 
             try
             {
-                var result = await service.getListReferido(nIdUsuario, nIdCompania);
+                var result = await service.getListReferido(nIdUsuario, nIdCompania, tipoListReferido);
 
                 response.success = true;
                 response.data = (List<ReferidoDTO>)result;
