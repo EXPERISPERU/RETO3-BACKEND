@@ -9,7 +9,8 @@ namespace backend.domain
 	public class ProyectoDTO
 	{
 		public int? nIdProyecto { get; set; }
-		public int nIdCompania { get; set; }
+        public int nCodigo { get; set; }
+        public int nIdCompania { get; set; }
 		public string? sCompania { get; set; }
 		public string sNombre { get; set; }
 		public string? sDescripcion { get; set; }
