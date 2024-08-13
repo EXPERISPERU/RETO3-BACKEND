@@ -161,7 +161,7 @@
         public string sDescripcion { get; set; }
 		public bool? bFirmaDigital { get; set; }
         public int nIdFormato { get; set; }
-		public int nIdAdjunto { get; set; }
+		public int? nIdAdjunto { get; set; }
 		public int? nIdContrato { get; set; }
 		public string? sRutaFTP { get; set; }
         public string? sFile { get; set; }
