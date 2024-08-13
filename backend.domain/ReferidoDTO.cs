@@ -14,6 +14,11 @@ namespace backend.domain
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sCliente { get; set; }
+
+        public string? sCelular { get; set; }
+        public string? sCelular2 { get; set; }
+        public string? sCorreo { get; set; }
+
         public int nIdTipo { get; set; }
         public string? sTipo { get; set; }
         public int? nIdEmpleado { get; set; }
