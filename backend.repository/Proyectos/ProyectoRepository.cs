@@ -76,6 +76,7 @@ namespace backend.repository.Proyectos
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[proyectos].[pa_proyecto]", 4);
+                parameters.Add("nCodigo", proyecto.nCodigo);
                 parameters.Add("nIdCompania", proyecto.nIdCompania);
                 parameters.Add("sNombre", proyecto.sNombre);
                 parameters.Add("sDescripcion", proyecto.sDescripcion);
