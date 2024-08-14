@@ -36,7 +36,7 @@ namespace backend.services.Utils
 
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
-                        .Replace("img/firma_luis_sarango_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Sarango_Sauces.png")))
+                        .Replace("img/firma_luis_sarango_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_luis_sarango_psvds.png")))
                         .Replace("img/firma_luis_gutierrez_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Gutierrez.png"))    )
                         .Replace("img/logo_inmobitec.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png")))
                         .Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
@@ -197,22 +197,23 @@ namespace backend.services.Utils
 
                     if (sCodigo.Equals("1") && contrato.nIdProyecto == 2)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.obrasGardenias.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_gardenias.png")));
+
                     }
 
                     if (sCodigo.Equals("1") && contrato.nIdProyecto == 5)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.obrasSauces.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_sauces.png")));
                     }
 
-                    if (sCodigo.Equals("5") && contrato.nIdProyecto == 2) 
+                    if (sCodigo.Equals("5") && contrato.nIdProyecto == 2)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.cesionGardenias.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_gardenias.png")));
                     }
 
                     if (sCodigo.Equals("5") && contrato.nIdProyecto == 5)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.cesionSauces.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_sauces.png")));
                     }
 
                     Image image = new Image(ImageDataFactory.Create(imageBytes));

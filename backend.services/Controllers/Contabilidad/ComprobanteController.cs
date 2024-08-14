@@ -17,11 +17,13 @@ namespace backend.services.Controllers.Contabilidad
     {
         private readonly IConfiguration configuration;
         private readonly IComprobanteBL service;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public ComprobanteController(IConfiguration _configuration, IComprobanteBL _service)
+        public ComprobanteController(IConfiguration _configuration, IComprobanteBL _service, IWebHostEnvironment _hostingEnvironment)
         {
             this.configuration = _configuration;
             this.service = _service;
+            this.hostingEnvironment = _hostingEnvironment;
         }
 
         [HttpGet("[action]")]
@@ -45,11 +47,11 @@ namespace backend.services.Controllers.Contabilidad
                     {
                         if (comprobante.nCodigoCompania == 1)
                         {
-                            logoCompania = dataImages.psViviendasDelSur;
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                         }
                         else if (comprobante.nCodigoCompania == 3)
                         {
-                            logoCompania = dataImages.psVillaAzul;
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png"));
                         }
 
                         html = "<style>.page-break { page-break-after: always; }</style>";
@@ -101,23 +103,23 @@ namespace backend.services.Controllers.Contabilidad
                     {
                         if (comprobante.nCodigoCompania == 2)
                         {
-                            logoCompania = dataImages.logoLeonBeach;
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_leon_beach.png"));
                         }
                         else if (comprobante.nCodigoCompania == 3)
                         {
-                            logoCompania = dataImages.psVillaAzul;
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                         }
 
                         html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                         .Replace("#sLogoData#", logoCompania)
-                        .Replace("ComprobanteHeader.png", dataImages.headerBoleta)
-                        .Replace("BbvaLogo.png", dataImages.bbvaLogo)
-                        .Replace("facebookIcon.png", dataImages.facebookIcon)
-                        .Replace("youtubeIcon.png", dataImages.youtubeIcon)
-                        .Replace("linkIcon.png", dataImages.linkIcon)
-                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)
+                        .Replace("ComprobanteHeader.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "header_boleta_inmobitec.png")))
+                        .Replace("BbvaLogo.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_bbva.png")))
+                        .Replace("facebookIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_facebook.png")))
+                        .Replace("youtubeIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_youtube.png")))
+                        .Replace("linkIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_link.png")))
+                        .Replace("ComprobanteFooter.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "footer_boleta_inmobitec.png")))
                         .Replace("#sTipoComprobante#", comprobante.sTipoComprobante)
                         .Replace("#sComprobante#", comprobante.sComprobante)
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)

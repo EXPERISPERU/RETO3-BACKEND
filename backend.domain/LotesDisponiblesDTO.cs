@@ -8,6 +8,7 @@ namespace backend.domain
 {
     public class LotesDisponiblesDTO
     {
+        public int? nCodigoProyecto { get; set; }
         public int nIdProyecto { get; set; }
         public string sProyecto { get; set; }
         public int nIdSector { get; set; }
