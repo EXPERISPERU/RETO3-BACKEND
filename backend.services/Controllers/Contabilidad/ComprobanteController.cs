@@ -45,7 +45,7 @@ namespace backend.services.Controllers.Contabilidad
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
-                        if (comprobante.nCodigoCompania == 1)
+                        if (comprobante.nCodigoCompania == 1 || comprobante.nCodigoCompania == 4)
                         {
                             logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                         }
@@ -59,6 +59,7 @@ namespace backend.services.Controllers.Contabilidad
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                                 .Replace("#sLogoData#", logoCompania)
+                                .Replace("#sLogoDataBack#", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_recibo_psvds.png")))
                                 .Replace("#sCorrelativo#", comprobante.sComprobante)
                                 .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
                                 .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
