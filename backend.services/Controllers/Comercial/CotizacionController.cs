@@ -20,10 +20,12 @@ namespace backend.services.Controllers.Comercial
     public class CotizacionController : ControllerBase
     {
         private readonly ICotizacionBL service;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public CotizacionController(ICotizacionBL _service)
+        public CotizacionController(ICotizacionBL _service, IWebHostEnvironment hostingEnvironment)
         {
             this.service = _service;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("[action]")]
@@ -161,13 +163,21 @@ namespace backend.services.Controllers.Comercial
                 var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
                 var sLogo = "";
 
-                if (cotizacion.nIdProyecto == 7) 
+                if (cotizacion.nCodigoProyecto == 4)
                 {
-                    sLogo = dataImages.psVillaAzul;
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png"));
+                }
+                else if (cotizacion.nCodigoProyecto == 7)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_leon_beach.png"));
+                }
+                else if (cotizacion.nCodigoProyecto == 1 || cotizacion.nCodigoProyecto == 2 || cotizacion.nCodigoProyecto == 3)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                 }
                 else
                 {
-                    sLogo = dataImages.psViviendasDelSur;
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png"));
                 }
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
