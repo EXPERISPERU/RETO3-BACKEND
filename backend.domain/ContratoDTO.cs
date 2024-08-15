@@ -14,7 +14,8 @@
 		public int? nIdSector { get; set; }
 		public string? sSector { get; set; }
 		public int? nIdProyecto { get; set; }
-		public string? sProyecto { get; set; }
+		public int? nCodigoProyecto { get; set; }
+        public string? sProyecto { get; set; }
 		public string? sGrupo { get; set; }
 		public string? sUbicacion { get; set; }
 		public decimal nMetraje { get; set; }
