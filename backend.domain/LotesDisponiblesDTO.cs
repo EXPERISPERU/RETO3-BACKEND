@@ -8,6 +8,7 @@ namespace backend.domain
 {
     public class LotesDisponiblesDTO
     {
+        public int? nCodigoProyecto { get; set; }
         public int nIdProyecto { get; set; }
         public string sProyecto { get; set; }
         public int nIdSector { get; set; }
@@ -67,5 +68,9 @@ namespace backend.domain
         public decimal? nDescuentoCon { get; set; }
         public decimal? nValorContado { get; set; }
         public string? sIdConceptoVenta { get; set; }
+        public string? sIdInteres { get; set; }
+        public decimal? nTipoInteresCuotaAplicado { get; set; }
+        public int? nIdContrato { get; set; }
+
     }
 }

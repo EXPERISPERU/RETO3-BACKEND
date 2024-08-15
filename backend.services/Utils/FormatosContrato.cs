@@ -17,6 +17,13 @@ namespace backend.services.Utils
 {
     public class FormatosContrato
     {
+        private readonly IWebHostEnvironment hostingEnvironment;
+
+        public FormatosContrato(IWebHostEnvironment _hostingEnvironment)
+        {
+            hostingEnvironment = _hostingEnvironment;
+        }
+
         public byte[] GetFormatoImpreso(int nIdFormato, string sCodigo, string sFormato, ContratoDTO contrato, List<CronogramaDTO> cronogramas, List<OrdenPagoPreContratoDTO> iniciales)
         {
             try
@@ -29,10 +36,10 @@ namespace backend.services.Utils
 
                 html += "<div class=\"page-break\">";
                 html += sCuerpo
-                        .Replace("img/firma_luis_sarango_2023.png", dataImages.firmaLuisSarango)
-                        .Replace("img/firma_luis_gutierrez_2023.png", dataImages.firmaLuisGutierrez)
-                        .Replace("img/logo_inmobitec.png", dataImages.logoInmobitec2023)
-                        .Replace("img/logo_villa_azul.png", dataImages.logoVillaAzul)
+                        .Replace("img/firma_luis_sarango_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_luis_sarango_psvds.png")))
+                        .Replace("img/firma_luis_gutierrez_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Gutierrez.png"))    )
+                        .Replace("img/logo_inmobitec.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png")))
+                        .Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
                         .Replace("#sCodigoContrato#", contrato.sCodigo)
                         .Replace("#sProyecto#", contrato.sProyecto)
                         .Replace("#sApellidoPaterno#", contrato.sApePaterno)
@@ -70,15 +77,15 @@ namespace backend.services.Utils
                         .Replace("#sSector#", contrato.sSector)
                         .Replace("#sGrupo#", contrato.sGrupo)
                         .Replace("#sUbicacion#", contrato.sUbicacion)
-                        .Replace("#sFechaFirma#", dFechaImp != null ? dFechaImp?.ToString("dd/MM/yyyy") : "")
-                        .Replace("#sFechaFirmaDia#", dFechaImp != null ? dFechaImp?.ToString("dd") : "")
-                        .Replace("#sFechaFirmaMes#", dFechaImp != null ? dFechaImp?.ToString("MM") : "")
-                        .Replace("#sFechaFirmaMesCompleto#", dFechaImp != null ? dFechaImp?.ToString("MMMM").ToUpper() : "")
-                        .Replace("#sFechaFirmaAnio#", dFechaImp != null ? dFechaImp?.ToString("yyyy") : "")
+                        .Replace("#sFechaFirma#", dFechaImp != null ? dFechaImp?.ToString("dd/MM/yyyy") : DateTime.Now.ToString("dd/MM/yyyy"))
+                        .Replace("#sFechaFirmaDia#", dFechaImp != null ? dFechaImp?.ToString("dd") : DateTime.Now.ToString("dd"))
+                        .Replace("#sFechaFirmaMes#", dFechaImp != null ? dFechaImp?.ToString("MM") : DateTime.Now.ToString("MM"))
+                        .Replace("#sFechaFirmaMesCompleto#", dFechaImp != null ? dFechaImp?.ToString("MMMM").ToUpper() : DateTime.Now.ToString("MMMM").ToUpper())
+                        .Replace("#sFechaFirmaAnio#", dFechaImp != null ? dFechaImp?.ToString("yyyy") : DateTime.Now.ToString("yyyy"))
                         .Replace("#sFormaPago#", contrato.sCondicionPago)
                         .Replace("#sSimbolo#", contrato.sSimbolo)
                         .Replace("#nMontoFinal#", contrato.nMontoFinal.ToString("N2"))
-                        .Replace("#nMontoFinalLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinal) + " " + contrato.sMoneda)
+                        .Replace("#nMontoFinalLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinal) + " " + contrato.sMoneda.ToUpper())
                         .Replace("#nMontoInicial#", contrato.nMontoInicial == null ? "0.00" : contrato.nMontoInicial?.ToString("N2"))
                         .Replace("#nMontoInicialLetras#", new NumerosLetras().sConvertir(contrato.nMontoInicial != null ? (decimal) contrato.nMontoInicial! : 0) + " " + contrato.sMoneda)
                         .Replace("#nMontoFinanciado#", contrato.nMontoFinanciado == null ? "0.00": contrato.nMontoFinanciado?.ToString("N2"))
@@ -96,7 +103,7 @@ namespace backend.services.Utils
                 }
                 else 
                 {
-                    html = html.Replace("img/firma_beneficiario.png", dataImages.firmaBlanco);
+                    html = html.Replace("img/firma_beneficiario.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_blanco.png")));
                 }
 
                 if (!string.IsNullOrEmpty(contrato.sFirmaConyugue))
@@ -105,7 +112,7 @@ namespace backend.services.Utils
                 }
                 else
                 {
-                    html = html.Replace("img/firma_conyugue.png", dataImages.firmaBlanco);
+                    html = html.Replace("img/firma_conyugue.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_blanco.png")));
                 }
 
                 if (contrato.bConyugue == true)
@@ -184,28 +191,38 @@ namespace backend.services.Utils
                 PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
                 pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
 
-                if ((sCodigo.Equals("5") || sCodigo.Equals("1")) && (contrato.nIdProyecto == 2 || contrato.nIdProyecto == 5))
+                if (
+                        (sCodigo.Equals("1") || sCodigo.Equals("5") || sCodigo.Equals("15") || sCodigo.Equals("16") || sCodigo.Equals("17")) 
+                        &&
+                        (contrato.nCodigoProyecto == 1 || contrato.nCodigoProyecto == 2 || contrato.nCodigoProyecto == 3)
+                    )
                 {
                     Byte[] imageBytes = { };
 
-                    if (sCodigo.Equals("1") && contrato.nIdProyecto == 2)
+                    if (sCodigo.Equals("1") && contrato.nCodigoProyecto == 1)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.obrasGardenias.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_gardenias.png")));
+
                     }
 
-                    if (sCodigo.Equals("1") && contrato.nIdProyecto == 5)
+                    if (sCodigo.Equals("1") && contrato.nCodigoProyecto == 3)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.obrasSauces.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_sauces.png")));
                     }
 
-                    if (sCodigo.Equals("5") && contrato.nIdProyecto == 2) 
+                    if (sCodigo.Equals("5") && contrato.nCodigoProyecto == 1)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.cesionGardenias.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_gardenias.png")));
                     }
 
-                    if (sCodigo.Equals("5") && contrato.nIdProyecto == 5)
+                    if (sCodigo.Equals("5") && contrato.nCodigoProyecto == 3)
                     {
-                        imageBytes = Convert.FromBase64String(dataImages.cesionSauces.Replace("data:image/png;base64,", ""));
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_sauces.png")));
+                    }
+
+                    if (contrato.nCodigoProyecto == 2 && (sCodigo.Equals("5") || sCodigo.Equals("15") || sCodigo.Equals("16") || sCodigo.Equals("17")) )
+                    {
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_flores.png")));
                     }
 
                     Image image = new Image(ImageDataFactory.Create(imageBytes));
@@ -269,7 +286,7 @@ namespace backend.services.Utils
                 int numberOfPages = pdfDoc.GetNumberOfPages();
                 for (int i = 1; i <= numberOfPages; i++)
                 {
-                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 2), 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 2), 30, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
                 }
 
                 doc.Close();

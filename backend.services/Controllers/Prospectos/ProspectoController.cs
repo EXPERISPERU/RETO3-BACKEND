@@ -17,12 +17,12 @@ namespace backend.services.Controllers.Prospectos
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ProspectoDTO>>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<ProspectoDTO>>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania, int nTipoListProspecto)
         {
             ApiResponse<List<ProspectoDTO>> response = new ApiResponse<List<ProspectoDTO>>();
             try
             {
-                var result = await service.getListProspectoByIdUsuario(nIdUsuario, nIdCompania);
+                var result = await service.getListProspectoByIdUsuario(nIdUsuario, nIdCompania, nTipoListProspecto);
 
                 response.success = true;
                 response.data = (List<ProspectoDTO>)result;

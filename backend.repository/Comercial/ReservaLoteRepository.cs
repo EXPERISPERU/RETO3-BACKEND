@@ -35,8 +35,7 @@ namespace backend.repository.Comercial
 
         public async Task<SqlRspDTO> InsReserva(InsReservaDTO insReserva)
         {
-            SqlRspDTO res = new SqlRspDTO(); ;
-
+            SqlRspDTO res = new SqlRspDTO();
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
@@ -49,9 +48,9 @@ namespace backend.repository.Comercial
                 //parameters.Add("nIdAgenteDealer", insReserva.nIdAgenteDealer);
                 parameters.Add("nIdUsuario_crea", insReserva.nIdUsuario_crea);
                 parameters.Add("nIdMonedaP", insReserva.nIdMoneda);
-
                 parameters.Add("nIdTipoComprobante", insReserva.nIdTipoComprobante);
                 parameters.Add("nMedioPago", insReserva.nMedioPago);
+                parameters.Add("sIdOperacionBancaria", insReserva.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

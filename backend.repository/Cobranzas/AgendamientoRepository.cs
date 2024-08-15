@@ -31,7 +31,7 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 1);
                 parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
                 parameters.Add("nIdUsuario", AgendamientoFiltros.nIdUsuario);
-                parameters.Add("nIdEmpleado", AgendamientoFiltros.nIdEmpleado);
+                parameters.Add("nIdAsesor", AgendamientoFiltros.nIdAsesor);
                 parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
                 parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
                 parameters.Add("nIdProyecto", AgendamientoFiltros.nIdProyecto);
@@ -48,7 +48,7 @@ namespace backend.repository.Cobranzas
         }
 
 
-        public async Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario)
+        public async Task<IList<SelectDTO>> getSelectAsesorAgendamiento(int nIdCompania, int nIdUsuario, int tipoListSeguimiento)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -58,7 +58,7 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 2);
                 parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdUsuario", nIdUsuario);
-
+                parameters.Add("tipoListSeguimiento", tipoListSeguimiento);
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
             return list.ToList();
@@ -73,11 +73,13 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 3);
                 parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
-                parameters.Add("nIdEmpleado", AgendamientoFiltros.nIdEmpleado);
+                parameters.Add("nIdUsuario", AgendamientoFiltros.nIdUsuario);
+                parameters.Add("nIdAsesor", AgendamientoFiltros.nIdAsesor);
                 parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
                 parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
                 parameters.Add("fechaInicio", AgendamientoFiltros.fechaInicio);
                 parameters.Add("fechaFin", AgendamientoFiltros.fechaFin);
+                parameters.Add("tipoListSeguimiento", AgendamientoFiltros.tipoListSeguimiento);
 
                 list = await connection.QueryAsync<AgendamientoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -113,7 +115,11 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 5);
                 parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
                 parameters.Add("nIdUsuario", AgendamientoFiltros.nIdUsuario);
-                parameters.Add("nIdProspecto", AgendamientoFiltros.nIdProspecto);
+                parameters.Add("nIdAsesor", AgendamientoFiltros.nIdAsesor);
+                parameters.Add("sCodigo", AgendamientoFiltros.sDocumento);
+                parameters.Add("fechaInicio", AgendamientoFiltros.fechaInicio);
+                parameters.Add("fechaFin", AgendamientoFiltros.fechaFin);
+                parameters.Add("tipoListSeguimiento", AgendamientoFiltros.tipoListSeguimiento);
 
                 list = await connection.QueryAsync<AgendamientoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

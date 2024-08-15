@@ -20,10 +20,12 @@ namespace backend.services.Controllers.Comercial
     public class CotizacionController : ControllerBase
     {
         private readonly ICotizacionBL service;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public CotizacionController(ICotizacionBL _service)
+        public CotizacionController(ICotizacionBL _service, IWebHostEnvironment hostingEnvironment)
         {
             this.service = _service;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("[action]")]
@@ -161,13 +163,21 @@ namespace backend.services.Controllers.Comercial
                 var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
                 var sLogo = "";
 
-                if (cotizacion.nIdProyecto == 7) 
+                if (cotizacion.nCodigoProyecto == 4)
                 {
-                    sLogo = dataImages.psVillaAzul;
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png"));
+                }
+                else if (cotizacion.nCodigoProyecto == 7)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_leon_beach.png"));
+                }
+                else if (cotizacion.nCodigoProyecto == 1 || cotizacion.nCodigoProyecto == 2 || cotizacion.nCodigoProyecto == 3)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                 }
                 else
                 {
-                    sLogo = dataImages.psViviendasDelSur;
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png"));
                 }
 
                 var html = "<style>.page-break { page-break-after: always; }</style>";
@@ -205,6 +215,24 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea)
                         .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
                 html += "</div>";
+
+                if (cotizacion.sInteresFijo != "")
+                {
+                    html = html
+                        .Replace("#iniInteresFijo#", "")
+                        .Replace("#finInteresFijo#", "");
+                }
+                else
+                {
+                    while (html.Contains("#iniInteresFijo#"))
+                    {
+                        string sIniInteresFijo = "#iniInteresFijo#";
+                        string sFinInteresFijo = "#finInteresFijo#";
+                        string sInteresFijo = html.Substring(html.IndexOf(sIniInteresFijo), (html.IndexOf(sFinInteresFijo) + sFinInteresFijo.Length) - html.IndexOf(sIniInteresFijo));
+                        html = html.Replace(sInteresFijo, "");
+                    }
+                }
+
 
                 string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
                 ConverterProperties properties = new ConverterProperties();
@@ -309,5 +337,25 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SqlRspDTO>>>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato)
+        {
+            ApiResponse<List<SqlRspDTO>> response = new ApiResponse<List<SqlRspDTO>>();
+
+            try
+            {
+                var result = await service.getSelectValidaCuotaInteres(nIdProyecto, nIdCuota, nIdContrato);
+
+                response.success = true;
+                response.data = (List<SqlRspDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

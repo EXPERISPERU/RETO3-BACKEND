@@ -14,9 +14,9 @@ namespace backend.businesslogic.Comercial
             repository = _repository;
         }
 
-        public async Task<IList<ReferidoDTO>> getListReferido(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ReferidoDTO>> getListReferido(int nIdUsuario, int nIdCompania, int tipoListReferido)
         {
-            return await repository.getListReferido(nIdUsuario, nIdCompania);
+            return await repository.getListReferido(nIdUsuario, nIdCompania, tipoListReferido);
         }
 
         public async Task<IList<ReferidoDTO>> getListReferidoByCliente(int nIdCliente)

@@ -17,11 +17,13 @@ namespace backend.services.Controllers.Contabilidad
     {
         private readonly IConfiguration configuration;
         private readonly IComprobanteBL service;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public ComprobanteController(IConfiguration _configuration, IComprobanteBL _service)
+        public ComprobanteController(IConfiguration _configuration, IComprobanteBL _service, IWebHostEnvironment _hostingEnvironment)
         {
             this.configuration = _configuration;
             this.service = _service;
+            this.hostingEnvironment = _hostingEnvironment;
         }
 
         [HttpGet("[action]")]
@@ -40,22 +42,24 @@ namespace backend.services.Controllers.Contabilidad
                     var html = "";
 
                     var logoCompania = "";
-                    if (nIdCompania == 1)
-                    {
-                        logoCompania = dataImages.psViviendasDelSur;
-                    }
-                    else if (nIdCompania == 5)
-                    {
-                        logoCompania = dataImages.psVillaAzul;
-                    }
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
+                        if (comprobante.nCodigoCompania == 1 || comprobante.nCodigoCompania == 4)
+                        {
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
+                        }
+                        else if (comprobante.nCodigoCompania == 3)
+                        {
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png"));
+                        }
+
                         html = "<style>.page-break { page-break-after: always; }</style>";
-                        
+
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
                                 .Replace("#sLogoData#", logoCompania)
+                                .Replace("#sLogoDataBack#", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_recibo_psvds.png")))
                                 .Replace("#sCorrelativo#", comprobante.sComprobante)
                                 .Replace("#sNombreCliente#", comprobante.sNombreCompleto)
                                 .Replace("#sDocumentoCliente#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
@@ -98,15 +102,26 @@ namespace backend.services.Controllers.Contabilidad
 
                     if (comprobante.sCodigoTipoComprobante == "3")
                     {
+                        if (comprobante.nCodigoCompania == 2)
+                        {
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_leon_beach.png"));
+                        }
+                        else if (comprobante.nCodigoCompania == 3)
+                        {
+                            logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
+                        }
+
                         html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
-                        .Replace("ComprobanteHeader.png", dataImages.headerBoleta)
-                        .Replace("BbvaLogo.png", dataImages.bbvaLogo)
-                        .Replace("facebookIcon.png", dataImages.facebookIcon)
-                        .Replace("youtubeIcon.png", dataImages.youtubeIcon)
-                        .Replace("linkIcon.png", dataImages.linkIcon)
-                        .Replace("ComprobanteFooter.png", dataImages.footerBoleta)                
+                        .Replace("#sLogoData#", logoCompania)
+                        .Replace("ComprobanteHeader.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "header_boleta_inmobitec.png")))
+                        .Replace("BbvaLogo.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_bbva.png")))
+                        .Replace("facebookIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_facebook.png")))
+                        .Replace("youtubeIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_youtube.png")))
+                        .Replace("linkIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_link.png")))
+                        .Replace("ComprobanteFooter.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "footer_boleta_inmobitec.png")))
+                        .Replace("#sTipoComprobante#", comprobante.sTipoComprobante)
                         .Replace("#sComprobante#", comprobante.sComprobante)
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)
                         .Replace("#sDocumento#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
@@ -130,7 +145,8 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sIsc#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sValorIGV#", comprobante.sSimbolo + " " + comprobante.nValorIgv.ToString("0.00"))
                         .Replace("#sTotal#", comprobante.sSimbolo + " " + comprobante.nValorTotal.ToString("0.00"))
-                        .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)));
+                        .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)))
+                        .Replace("#sDatosAdicionales#", "");
 
                         string sIniItems = "#iniItems#";
                         string sFinItems = "#finItems#";
@@ -138,14 +154,14 @@ namespace backend.services.Controllers.Contabilidad
                         string slistaItems = sCuerpo.Substring(sCuerpo.IndexOf(sIniItems), (sCuerpo.IndexOf(sFinItems) + sFinItems.Length) - sCuerpo.IndexOf(sIniItems));
                         string slistaItemsFinal = "";
 
-                        for (int i = 0; i < listComprobanteDet.Count; i++) 
+                        for (int i = 0; i < listComprobanteDet.Count; i++)
                         {
                             slistaItemsFinal += slistaItems
                             .Replace(sIniItems, "")
                             .Replace("#sItemCodigo#", (i + 1).ToString())
                             .Replace("#sItemCant#", "1")
                             .Replace("#sItemUnd#", "UNIDAD")
-                            .Replace("#sItemDescripcion#", listComprobanteDet[i].sDescripcion.Replace("#n#","<br>"))
+                            .Replace("#sItemDescripcion#", listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
                             .Replace("#sItemValor#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
                             .Replace("#sItemDscto#", "0.00")
                             .Replace("#sItemTotal#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
@@ -184,7 +200,6 @@ namespace backend.services.Controllers.Contabilidad
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

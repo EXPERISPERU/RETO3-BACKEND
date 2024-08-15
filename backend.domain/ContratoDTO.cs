@@ -14,7 +14,8 @@
 		public int? nIdSector { get; set; }
 		public string? sSector { get; set; }
 		public int? nIdProyecto { get; set; }
-		public string? sProyecto { get; set; }
+		public int? nCodigoProyecto { get; set; }
+        public string? sProyecto { get; set; }
 		public string? sGrupo { get; set; }
 		public string? sUbicacion { get; set; }
 		public decimal nMetraje { get; set; }
@@ -92,7 +93,13 @@
 		public string? sUsuario_mod { get; set; }
 		public DateTime? dFecha_mod { get; set; }
 		public string? sFecha_mod { get; set; }
-	}
+		public decimal? nTipoInteresCuotaAplicado { get; set; }
+        public int? nIdTipoInteresCuotaAplicado { get; set; }
+        public int? nIdMonedaTipoInteresCuotaAplicado { get; set; }
+        public decimal? nValorOriInteres { get; set; }
+        public string? sSimboloInteres { get; set; }
+
+    }
 
 	public class ContratoFiltrosDTO
 	{
@@ -155,7 +162,7 @@
         public string sDescripcion { get; set; }
 		public bool? bFirmaDigital { get; set; }
         public int nIdFormato { get; set; }
-		public int nIdAdjunto { get; set; }
+		public int? nIdAdjunto { get; set; }
 		public int? nIdContrato { get; set; }
 		public string? sRutaFTP { get; set; }
         public string? sFile { get; set; }
