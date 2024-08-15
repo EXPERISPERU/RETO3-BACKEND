@@ -175,6 +175,10 @@ namespace backend.services.Controllers.Comercial
                 {
                     sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                 }
+                else if (cotizacion.nIdProyecto == 8)
+                {
+                    sLogo = dataImages.logoLeonBeach;
+                }
                 else
                 {
                     sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png"));
