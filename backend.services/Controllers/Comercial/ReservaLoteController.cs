@@ -87,7 +87,7 @@ namespace backend.services.Controllers.Comercial
                             .Replace("#finItems#", "")
                             .Replace("#iniItem#", "")
                             .Replace("#finItem#", "")
-                            .Replace("#sLogoData#", dataImages.psViviendasDelSur)
+                            .Replace("#sLogoData#", "")
                             .Replace("#sCorrelativo#", dataReserva.sComprobante)
                             .Replace("#sNombreCliente#", dataReserva.sNombreCliente)
                             .Replace("#sDocumentoCliente#", dataReserva.sDocumento)
