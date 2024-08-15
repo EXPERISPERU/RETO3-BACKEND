@@ -191,29 +191,38 @@ namespace backend.services.Utils
                 PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
                 pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
 
-                if ((sCodigo.Equals("5") || sCodigo.Equals("1")) && (contrato.nIdProyecto == 2 || contrato.nIdProyecto == 5))
+                if (
+                        (sCodigo.Equals("1") || sCodigo.Equals("5") || sCodigo.Equals("15") || sCodigo.Equals("16") || sCodigo.Equals("17")) 
+                        &&
+                        (contrato.nCodigoProyecto == 1 || contrato.nCodigoProyecto == 2 || contrato.nCodigoProyecto == 3)
+                    )
                 {
                     Byte[] imageBytes = { };
 
-                    if (sCodigo.Equals("1") && contrato.nIdProyecto == 2)
+                    if (sCodigo.Equals("1") && contrato.nCodigoProyecto == 1)
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_gardenias.png")));
 
                     }
 
-                    if (sCodigo.Equals("1") && contrato.nIdProyecto == 5)
+                    if (sCodigo.Equals("1") && contrato.nCodigoProyecto == 3)
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_sauces.png")));
                     }
 
-                    if (sCodigo.Equals("5") && contrato.nIdProyecto == 2)
+                    if (sCodigo.Equals("5") && contrato.nCodigoProyecto == 1)
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_gardenias.png")));
                     }
 
-                    if (sCodigo.Equals("5") && contrato.nIdProyecto == 5)
+                    if (sCodigo.Equals("5") && contrato.nCodigoProyecto == 3)
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_sauces.png")));
+                    }
+
+                    if (contrato.nCodigoProyecto == 2 && (sCodigo.Equals("5") || sCodigo.Equals("15") || sCodigo.Equals("16") || sCodigo.Equals("17")) )
+                    {
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_flores.png")));
                     }
 
                     Image image = new Image(ImageDataFactory.Create(imageBytes));
@@ -277,7 +286,7 @@ namespace backend.services.Utils
                 int numberOfPages = pdfDoc.GetNumberOfPages();
                 for (int i = 1; i <= numberOfPages; i++)
                 {
-                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 2), 20, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 2), 30, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
                 }
 
                 doc.Close();
