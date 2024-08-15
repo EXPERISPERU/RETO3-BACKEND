@@ -85,7 +85,7 @@ namespace backend.services.Utils
                         .Replace("#sFormaPago#", contrato.sCondicionPago)
                         .Replace("#sSimbolo#", contrato.sSimbolo)
                         .Replace("#nMontoFinal#", contrato.nMontoFinal.ToString("N2"))
-                        .Replace("#nMontoFinalLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinal) + " " + contrato.sMoneda)
+                        .Replace("#nMontoFinalLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinal) + " " + contrato.sMoneda.ToUpper())
                         .Replace("#nMontoInicial#", contrato.nMontoInicial == null ? "0.00" : contrato.nMontoInicial?.ToString("N2"))
                         .Replace("#nMontoInicialLetras#", new NumerosLetras().sConvertir(contrato.nMontoInicial != null ? (decimal) contrato.nMontoInicial! : 0) + " " + contrato.sMoneda)
                         .Replace("#nMontoFinanciado#", contrato.nMontoFinanciado == null ? "0.00": contrato.nMontoFinanciado?.ToString("N2"))
