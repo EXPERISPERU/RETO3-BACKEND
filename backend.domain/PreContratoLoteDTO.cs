@@ -14,15 +14,15 @@
         public int nMedioPago { get; set; }
         public int nIdAsignacionPrecio { get; set; }
         public int? nIdDescuentoLote { get; set; }
-        public int nIdInicialLote { get; set; }
+        public int? nIdInicialLote { get; set; }
         public decimal nMontoVenta { get; set; }
         public decimal? nMontoDescuento { get; set; }
         public decimal nMontoFinal { get; set; }
-        public decimal nMontoInicial { get; set; }
+        public decimal? nMontoInicial { get; set; }
         public decimal nMontoFinanciado { get; set; }
-        public int nIdCuota { get; set; }
-        public int nCuotas { get; set; }
-        public decimal nValorCuota { get; set; }
+        public int? nIdCuota { get; set; }
+        public int? nCuotas { get; set; }
+        public decimal? nValorCuota { get; set; }
         public int nIdUsuario_crea { get; set; }
         public decimal? nTipoInteresCuotaAplicado { get; set; }
         public int? nIdOperacionBancaria { get; set; }
