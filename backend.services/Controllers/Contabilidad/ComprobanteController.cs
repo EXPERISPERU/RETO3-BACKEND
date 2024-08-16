@@ -7,6 +7,7 @@ using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Interfaces.Contabilidad;
+using System.Globalization;
 
 namespace backend.services.Controllers.Contabilidad
 {
@@ -31,6 +32,8 @@ namespace backend.services.Controllers.Contabilidad
         {
             try
             {
+                CultureInfo ci_PE = new CultureInfo("es-PE");
+
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
                 byte[] file;
@@ -68,7 +71,7 @@ namespace backend.services.Controllers.Contabilidad
                                 .Replace("#sTelefonoCliente#", comprobante.sTelefono)
                                 .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
                                 .Replace("#sSimbolo#", comprobante.sSimbolo)
-                                .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
+                                .Replace("#sTotal#", string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorTotal));
                         html += "</div>";
 
                         string sIniItems = "#iniItems#";
@@ -92,7 +95,7 @@ namespace backend.services.Controllers.Contabilidad
                             .Replace("#nroItem#", (i + 1).ToString())
                             .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
                             .Replace("#sSimboloItem#", listComprobanteDet[i].sSimbolo)
-                            .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
+                            .Replace("#sTotalItem#", string.Format(ci_PE, "{0:0,0.00}", listComprobanteDet[i].nValorTotal))
                             .Replace(sFinItems, "");
                         }
 
@@ -134,17 +137,17 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sOrdenPago#", "")
                         .Replace("#sFechaVencimiento#", "")
                         .Replace("#sGuiaRemision#", "")
-                        .Replace("#sOPGravadas#", comprobante.sSimbolo + " " + comprobante.nValorSubTotal.ToString("0.00"))
+                        .Replace("#sOPGravadas#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorSubTotal))
                         .Replace("#sOPInafecta#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPExonerada#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPExportacion#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPGratuitas#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sDescuentosTotales#", comprobante.sSimbolo + " 0.00")
-                        .Replace("#sSubTotal#", comprobante.sSimbolo + " " + comprobante.nValorSubTotal.ToString("0.00"))
+                        .Replace("#sSubTotal#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorSubTotal))
                         .Replace("#sIcbPer#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sIsc#", comprobante.sSimbolo + " 0.00")
-                        .Replace("#sValorIGV#", comprobante.sSimbolo + " " + comprobante.nValorIgv.ToString("0.00"))
-                        .Replace("#sTotal#", comprobante.sSimbolo + " " + comprobante.nValorTotal.ToString("0.00"))
+                        .Replace("#sValorIGV#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorIgv))
+                        .Replace("#sTotal#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorTotal))
                         .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)))
                         .Replace("#sDatosAdicionales#", "");
 
@@ -162,9 +165,9 @@ namespace backend.services.Controllers.Contabilidad
                             .Replace("#sItemCant#", "1")
                             .Replace("#sItemUnd#", "UNIDAD")
                             .Replace("#sItemDescripcion#", listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
-                            .Replace("#sItemValor#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
+                            .Replace("#sItemValor#", string.Format(ci_PE, "{0:0,0.00}", listComprobanteDet[i].nValorSubTotal))
                             .Replace("#sItemDscto#", "0.00")
-                            .Replace("#sItemTotal#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
+                            .Replace("#sItemTotal#", string.Format(ci_PE, "{0:0,0.00}", listComprobanteDet[i].nValorSubTotal))
                             .Replace(sFinItems, "");
                         }
 
@@ -182,21 +185,21 @@ namespace backend.services.Controllers.Contabilidad
 
                     file = System.IO.File.ReadAllBytes(path);
 
-                    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
+                string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
-                    if (resFtp.success)
-                    {
-                        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
-                    }
-                }
-                else
+                if (resFtp.success)
                 {
-                    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+                    await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
                 }
+            }
+                else
+            {
+                file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+            }
 
-                return File(file, "application/pdf");
+            return File(file, "application/pdf");
             }
             catch (Exception)
             {

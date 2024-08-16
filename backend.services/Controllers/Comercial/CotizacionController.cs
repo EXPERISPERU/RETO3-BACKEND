@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Comercial;
 using backend.services.Utils;
+using System.Globalization;
 
 namespace backend.services.Controllers.Comercial
 {
@@ -159,6 +160,7 @@ namespace backend.services.Controllers.Comercial
         {
             try
             {
+                CultureInfo ci_PE = new CultureInfo("es-PE");
                 CotizacionDTO cotizacion = await service.getCotizacionById(nIdCotizacion);
                 var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
                 var sLogo = "";
@@ -193,25 +195,25 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#sSector#", cotizacion.sSector)
                         .Replace("#sManzana#", cotizacion.sManzana)
                         .Replace("#sLote#", cotizacion.sLote)
-                        .Replace("#nMetraje#", cotizacion.nMetraje.ToString("N"))
+                        .Replace("#nMetraje#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nMetraje))
                         .Replace("#sTerreno#", cotizacion.sTerreno)
                         .Replace("#sZonificacion#", cotizacion.sZonificacion)
                         .Replace("#sUbicacion#", cotizacion.sUbicacion)
                         .Replace("#sDescripcion#", cotizacion.sDescripcion)
                         .Replace("#sEstado#", cotizacion.sEstado)
                         .Replace("#sSimbolo#", cotizacion.sSimbolo)
-                        .Replace("#nPrecioVenta#", cotizacion.nPrecioVenta?.ToString("N"))
-                        .Replace("#sValorInicial#", cotizacion.sSimboloIni + " " + cotizacion.nValorOriIni)
-                        .Replace("#nInicial#", cotizacion.nInicial?.ToString("N"))
-                        .Replace("#sValorDescuentoFin#", cotizacion.sSimboloDescuentoFin + " " + cotizacion.nValorOriDescuentoFin)
-                        .Replace("#nDescuentoFin#", cotizacion.nDescuentoFin?.ToString("N"))
-                        .Replace("#sValorDescuentoCon#", cotizacion.sSimboloDescuentoCon + " " + cotizacion.nValorOriDescuentoCon)
-                        .Replace("#nDescuentoCon#", cotizacion.nDescuentoCon?.ToString("N"))
-                        .Replace("#nValorFinanciado#", cotizacion.nValorFinanciado?.ToString("N"))
-                        .Replace("#nCuotas#", cotizacion.nCuotas?.ToString("N"))
-                        .Replace("#nValorCuota#", cotizacion.nValorCuota?.ToString("N"))
+                        .Replace("#nPrecioVenta#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nPrecioVenta))
+                        .Replace("#sValorInicial#", cotizacion.sSimboloIni + " " + string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorOriIni))
+                        .Replace("#nInicial#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nInicial))
+                        .Replace("#sValorDescuentoFin#", cotizacion.sSimboloDescuentoFin + " " + string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorOriDescuentoFin))
+                        .Replace("#nDescuentoFin#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nDescuentoFin))
+                        .Replace("#sValorDescuentoCon#", cotizacion.sSimboloDescuentoCon + " " + string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorOriDescuentoCon))
+                        .Replace("#nDescuentoCon#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nDescuentoCon))
+                        .Replace("#nValorFinanciado#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorFinanciado))
+                        .Replace("#nCuotas#", string.Format(ci_PE, "{0:0}", cotizacion.nCuotas))
+                        .Replace("#nValorCuota#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorCuota))
                         .Replace("#sInteresFijo#", cotizacion.sInteresFijo)
-                        .Replace("#nValorContado#", cotizacion.nValorContado?.ToString("N"))
+                        .Replace("#nValorContado#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorContado))
                         .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea)
                         .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
                 html += "</div>";
