@@ -52,9 +52,9 @@ namespace backend.businesslogic.Maestros
             return await repository.getJefesComercialesByProveedor(nIdProveedor);
         }
 
-        public async Task<IList<SelectDTO>> getSelectJefesComerciales()
+        public async Task<IList<SelectDTO>> getSelectJefesComerciales(int nIdCompania)
         {
-            return await repository.getSelectJefesComerciales();
+            return await repository.getSelectJefesComerciales(nIdCompania);
         }
 
         public async Task<IList<SelectDTO>> getSelectTipoPersona() 

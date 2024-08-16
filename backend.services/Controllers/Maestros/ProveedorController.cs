@@ -169,12 +169,12 @@ namespace backend.services.Controllers.Maestros
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectJefesComerciales()
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectJefesComerciales(int nIdCompania)
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
             try
             {
-                var result = await service.getSelectJefesComerciales();
+                var result = await service.getSelectJefesComerciales(nIdCompania);
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
