@@ -164,7 +164,7 @@ namespace backend.repository.Maestros
             return resp.ToList();
         }
 
-        public async Task<IList<SelectDTO>> getSelectJefesComerciales()
+        public async Task<IList<SelectDTO>> getSelectJefesComerciales(int nIdCompania)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -172,6 +172,7 @@ namespace backend.repository.Maestros
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[maestros].[pa_proveedor]", 8);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
