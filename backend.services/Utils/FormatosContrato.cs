@@ -12,16 +12,19 @@ using iText.Layout.Properties;
 using backend.domain;
 using iText.Pdfa;
 using System.IO;
+using System.Globalization;
 
 namespace backend.services.Utils
 {
     public class FormatosContrato
     {
         private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly CultureInfo ci_PE;
 
         public FormatosContrato(IWebHostEnvironment _hostingEnvironment)
         {
             hostingEnvironment = _hostingEnvironment;
+            ci_PE = new CultureInfo("es-PE");
         }
 
         public byte[] GetFormatoImpreso(int nIdFormato, string sCodigo, string sFormato, ContratoDTO contrato, List<CronogramaDTO> cronogramas, List<OrdenPagoPreContratoDTO> iniciales)
@@ -71,7 +74,7 @@ namespace backend.services.Utils
                         .Replace("#sEstadoCivilConyugue#", contrato.sEstadoCivilConyugue)
                         .Replace("#sTipoDocumentoConyugue#", String.IsNullOrEmpty(contrato.sDNIConyugue) ? "CE" : "DNI")
                         .Replace("#sDocumentoConyugue#", String.IsNullOrEmpty(contrato.sDNIConyugue) ? contrato.sCEConyugue : contrato.sDNIConyugue)
-                        .Replace("#nMetraje#", contrato.nMetraje.ToString())
+                        .Replace("#nMetraje#", string.Format(ci_PE, "{0:0,0.00}", contrato.nMetraje))
                         .Replace("#sLote#", contrato.sLote)
                         .Replace("#sManzana#", contrato.sManzana)
                         .Replace("#sSector#", contrato.sSector)
@@ -84,14 +87,14 @@ namespace backend.services.Utils
                         .Replace("#sFechaFirmaAnio#", dFechaImp != null ? dFechaImp?.ToString("yyyy") : DateTime.Now.ToString("yyyy"))
                         .Replace("#sFormaPago#", contrato.sCondicionPago)
                         .Replace("#sSimbolo#", contrato.sSimbolo)
-                        .Replace("#nMontoFinal#", contrato.nMontoFinal.ToString("N2"))
+                        .Replace("#nMontoFinal#", string.Format(ci_PE, "{0:0,0.00}", contrato.nMontoFinal))
                         .Replace("#nMontoFinalLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinal) + " " + contrato.sMoneda.ToUpper())
-                        .Replace("#nMontoInicial#", contrato.nMontoInicial == null ? "0.00" : contrato.nMontoInicial?.ToString("N2"))
+                        .Replace("#nMontoInicial#", contrato.nMontoInicial == null ? "0.00" : string.Format(ci_PE, "{0:0,0.00}", contrato.nMontoInicial))
                         .Replace("#nMontoInicialLetras#", new NumerosLetras().sConvertir(contrato.nMontoInicial != null ? (decimal) contrato.nMontoInicial! : 0) + " " + contrato.sMoneda)
-                        .Replace("#nMontoFinanciado#", contrato.nMontoFinanciado == null ? "0.00": contrato.nMontoFinanciado?.ToString("N2"))
+                        .Replace("#nMontoFinanciado#", contrato.nMontoFinanciado == null ? "0.00": string.Format(ci_PE, "{0:0,0.00}", contrato.nMontoFinanciado))
                         .Replace("#nMontoFinanciadoLetras#", new NumerosLetras().sConvertir(contrato.nMontoFinanciado != null ? (decimal) contrato.nMontoFinanciado! : 0) + " " + contrato.sMoneda)
                         .Replace("#NroCuotas#", contrato.nCuotas.ToString())
-                        .Replace("#nValorCuota#", contrato.nValorCuota == null? "0.00" : contrato.nValorCuota?.ToString("N2"))
+                        .Replace("#nValorCuota#", contrato.nValorCuota == null? "0.00" : string.Format(ci_PE, "{0:0,0.00}", contrato.nValorCuota))
                         .Replace("#nValorCuotaLetras#", new NumerosLetras().sConvertir(contrato.nValorCuota != null ? (decimal) contrato.nValorCuota! : 0) + " " + contrato.sMoneda)
                         .Replace("#sPromotor#", contrato.sPromotor)
                         .Replace("#sHOY#", DateTime.Now.ToString("dd/MM/yyyy"))
