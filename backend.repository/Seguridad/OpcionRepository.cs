@@ -180,5 +180,27 @@ namespace backend.repository.Seguridad
 
             return resp;
         }
+
+
+        public async Task<IList<OpcionByPerfilDTO>> getAccionesByUsuarioCompania(int nIdCompania, int nIdUsuario)
+        {
+            IEnumerable<OpcionByPerfilDTO> list = new List<OpcionByPerfilDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_opcion]", 12);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<OpcionByPerfilDTO>(storedProcedure, parameters,  commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+
+
+       
     }
 }
