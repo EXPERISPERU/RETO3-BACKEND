@@ -209,32 +209,5 @@ namespace backend.services.Controllers.Seguridad
                 return StatusCode(500, response);
             }
         }
-
- 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<OpcionDTO>>>> getAccionesByUsuarioCompania(int nIdCompania, int nIdUsuario)
-        {
-
-            ApiResponse<List<OpcionByPerfilDTO>> response = new ApiResponse<List<OpcionByPerfilDTO>>();
-
-            try
-            {
-                var result = await service.getAccionesByUsuarioCompania(nIdCompania, nIdUsuario);
-
-                response.success = true;
-                response.data = (List<OpcionByPerfilDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-
-
-
     }
 }

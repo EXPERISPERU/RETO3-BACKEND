@@ -18,6 +18,5 @@ namespace backend.businesslogic.Interfaces.Seguridad
         Task<SqlRspDTO> UpdOpcion(OpcionDTO opcion);
         Task<SqlRspDTO> InsOpcionUsuario(UsuarioOpcionDTO usuarioOpcion);
         Task<SqlRspDTO> DelOpcionUsuario(UsuarioOpcionDTO usuarioOpcion);
-        Task<IList<OpcionByPerfilDTO>> getAccionesByUsuarioCompania(int nIdCompania, int nIdUsuario);
     }
 }
