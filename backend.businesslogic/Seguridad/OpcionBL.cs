@@ -61,5 +61,10 @@ namespace backend.businesslogic.Seguridad
         {
             return await repository.DelOpcionUsuario(usuarioOpcion);
         }
+
+        public async Task<IList<OpcionByPerfilDTO>> getAccionesByUsuarioCompania(int nIdCompania, int nIdUsuario)
+        {
+            return await repository.getAccionesByUsuarioCompania(nIdCompania, nIdUsuario);
+        }
     }
 }
