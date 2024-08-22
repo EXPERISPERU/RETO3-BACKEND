@@ -127,5 +127,45 @@ namespace backend.repository.Comercial
 
             return list.ToList();
         }
+
+        public async Task<SqlRspDTO> postInsAdicPreContratoLote(InsAdicPreContratoLote insAdicPreContratoLote)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 8);
+                parameters.Add("nIdContrato", insAdicPreContratoLote.nIdContrato);
+                parameters.Add("nIdLote", insAdicPreContratoLote.nIdLote);
+                parameters.Add("nValorPreContrato", insAdicPreContratoLote.nValorPreContrato);
+                parameters.Add("nIdCliente", insAdicPreContratoLote.nIdCliente);
+                parameters.Add("nIdTipoComprobante", insAdicPreContratoLote.nIdTipoComprobante);
+                parameters.Add("nIdTipoGestionComercial", insAdicPreContratoLote.nIdTipoGestionComercial);
+                parameters.Add("nIdAgenteDealer", insAdicPreContratoLote.nIdAgenteDealer);
+                parameters.Add("nIdEmpleado", insAdicPreContratoLote.nIdEmpleado);
+                parameters.Add("nIdMoneda", insAdicPreContratoLote.nIdMoneda);
+                parameters.Add("nMedioPago", insAdicPreContratoLote.nMedioPago);
+                parameters.Add("nIdAsignacionPrecio", insAdicPreContratoLote.nIdAsignacionPrecio);
+                parameters.Add("nIdDescuentoLote", insAdicPreContratoLote.nIdDescuentoLote);
+                parameters.Add("nIdInicialLote", insAdicPreContratoLote.nIdInicialLote);
+                parameters.Add("nMontoVenta", insAdicPreContratoLote.nMontoVenta);
+                parameters.Add("nMontoDescuento", insAdicPreContratoLote.nMontoDescuento);
+                parameters.Add("nMontoFinal", insAdicPreContratoLote.nMontoFinal);
+                parameters.Add("nMontoInicial", insAdicPreContratoLote.nMontoInicial);
+                parameters.Add("nMontoFinanciado", insAdicPreContratoLote.nMontoFinanciado);
+                parameters.Add("nValorCuota", insAdicPreContratoLote.nValorCuota);
+                parameters.Add("nIdCuota", insAdicPreContratoLote.nIdCuota);
+                parameters.Add("nCuotas", insAdicPreContratoLote.nCuotas);
+                parameters.Add("nIdUsuario_crea", insAdicPreContratoLote.nIdUsuario_crea);
+                parameters.Add("nTipoInteresCuotaAplicado", insAdicPreContratoLote.nTipoInteresCuotaAplicado);
+                //parameters.Add("nIdOperacionBancaria", insPreContratoLote.nIdOperacionBancaria);
+                parameters.Add("sIdOperacionBancaria", insAdicPreContratoLote.sIdOperacionBancaria);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
