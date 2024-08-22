@@ -42,5 +42,11 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getListOPsPreContratoByContrato(nIdContrato, nIdMoneda);
         }
+
+        public async Task<SqlRspDTO> postInsAdicPreContratoLote(InsAdicPreContratoLote insAdicPreContratoLote)
+        {
+            return await repository.postInsAdicPreContratoLote(insAdicPreContratoLote);
+        }
+
     }
 }
