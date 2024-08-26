@@ -28,5 +28,7 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<ElementoSistemaDTO>> getListMaestroDocumentos();
 
         Task<IList<ProyectoDocumentoContratoDTO>> getListDocumentosContratoConfigByProyecto(int nIdproyecto);
+
+        Task<IList<SelectDTO>> getConceptosIGVnoAplicado();
     }
 }
