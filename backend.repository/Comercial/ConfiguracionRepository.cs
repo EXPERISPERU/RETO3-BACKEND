@@ -52,6 +52,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdProyecto", configuracion.nIdProyecto);
                 parameters.Add("nIdMoneda", configuracion.nIdMoneda);
                 parameters.Add("bImpuestoVenta", configuracion.bImpuestoVenta);
+                parameters.Add("sCodTipoIGV", configuracion.sCodTipoIGV);
                 parameters.Add("bTipoCambio", configuracion.bTipoCambio);
                 parameters.Add("sIdInteres", configuracion.sIdInteres);
                 //parameters.Add("sIdDocumentoVenta", configuracion.sIdDocumentoVenta);
@@ -190,5 +191,21 @@ namespace backend.repository.Comercial
 
             return list.ToList();
         }
+
+        public async Task<IList<SelectDTO>> getConceptosIGVnoAplicado()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_configuracion]", 11);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

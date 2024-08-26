@@ -19,10 +19,15 @@ namespace backend.services.Utils
                         .Replace("#sCorreo#", formulario.sCorreo)
                         .Replace("#sTipoSolicitud#", formulario.sTipoSolicitud)
                         ;
+                //html += sCuerpo
+                //        .Replace("#sCelular#", formulario.sCelular)
+                //        .Replace("#sCorreo#", formulario.sCorreo)
+                //        ;
                 return html;
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Error al formatear el correo: {ex.Message}");
                 throw;
             }       
         }
