@@ -19,6 +19,7 @@ namespace backend.repository.Interfaces.Comercial
         Task<IList<ImpuestosVentaDTO>> getListImpuestoVenta(int nIdCompania);
         Task<IList<ElementoSistemaDTO>> getListMaestroDocumentos();
         Task<IList<ProyectoDocumentoContratoDTO>> getListDocumentosContratoConfigByProyecto(int nIdproyecto);
+        Task<IList<SelectDTO>> getConceptosIGVnoAplicado();
 
     }
 }

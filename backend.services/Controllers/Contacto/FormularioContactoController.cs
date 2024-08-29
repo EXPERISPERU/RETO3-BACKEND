@@ -26,7 +26,7 @@ namespace backend.services.Controllers.Contacto
             try
             {
                 var result = await service.InsFormularioContactoPortal(formulario);
-                string formato = await service.getFormatoContactoById(18);
+                string formato = await service.getFormatoContactoById(formulario.nIdFormato);
 
                 var formatoParse = new FormatosContacto().EmailGetFormatoPortalSauces(formulario, formato);
 
@@ -37,7 +37,8 @@ namespace backend.services.Controllers.Contacto
                 {
                     new EmailSender().SendEmailGmail("contacto@psviviendasdelsur.pe", "Formulario Contacto", formulario, formatoParse); // contacto@psviviendasdelsur.pe
                 } 
-                return StatusCode(200, formatoParse);
+
+                return StatusCode(200, response);
             }
             catch (Exception ex)
             {

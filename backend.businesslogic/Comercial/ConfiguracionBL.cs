@@ -68,5 +68,11 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getListDocumentosContratoConfigByProyecto(nIdproyecto);
         }
+
+        public async Task<IList<SelectDTO>> getConceptosIGVnoAplicado()
+        {
+            return await repository.getConceptosIGVnoAplicado();
+        }
+
     }
 }
