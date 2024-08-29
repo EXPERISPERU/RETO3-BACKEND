@@ -225,6 +225,7 @@ namespace backend.repository.Comercial.ParametrosVentaLote
                 parameters.Add("nIdProyecto", ap.nIdProyecto);
                 parameters.Add("nIdGrupo", ap.nIdGrupo);
                 parameters.Add("nIdUbicacion", ap.nIdUbicacion);
+                parameters.Add("nIdColor", ap.nIdColor);
                 parameters.Add("nIdSector", ap.nIdSector);
                 parameters.Add("nIdManzana", ap.nIdManzana);
                 parameters.Add("nIdLote", ap.nIdLote);
