@@ -13,6 +13,7 @@ namespace backend.domain
         public int nCodigoCompania { get; set; }
         public int nIdCompania { get; set; }
         public string? sCompania { get; set; }
+        public string? sRUCCompania { get; set; }
         public int nIdTipoComprobante { get; set; }
         public string? sTipoComprobante { get; set; }
         public string? sCodigoTipoComprobante { get; set; }
@@ -25,14 +26,18 @@ namespace backend.domain
         public string? sRUC { get; set; }
         public string? sCelular { get; set; }
         public string? sTelefono { get; set; }
+        public string? sCorreo { get; set; }
         public string sNombreCompleto { get; set; }
         public string sDireccion { get; set; }
         public string sUbigeo { get; set; }
+        public decimal nValorNoGravado { get; set; }
+        public decimal nValorInafecto { get; set; }
         public decimal nValorSubTotal { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
         public int nIdMoneda { get; set; }
         public string sMoneda { get; set; }
+        public string sSunatMoneda { get; set; }
         public string sSimbolo { get; set; }
         public int? nIdAdjunto { get; set; }
         public string? sRutaFtp { get; set; }
@@ -61,7 +66,14 @@ namespace backend.domain
         public int? nIdComprobanteDet { get; set; }
         public int nIdComprobante { get; set; }
         public string sDescripcion { get; set; }
-        public decimal nValorSubTotal { get; set; }
+        public decimal nCantidad { get; set; }
+        public int nIdUnidadMedida { get; set; }
+        public string sCodigoUnidadMedida { get; set; }
+        public string sUnidadMedida { get; set; }
+        public decimal nValorUnitario { get; set; }
+        public decimal? nValorNoGravado { get; set; }
+        public decimal? nValorInafecto { get; set; }
+        public decimal? nValorSubTotal { get; set; }
         public decimal? nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
         public int nIdMoneda { get; set; }

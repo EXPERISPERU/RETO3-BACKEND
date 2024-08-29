@@ -206,5 +206,30 @@ namespace backend.services.Controllers.Contabilidad
                 throw;
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> certificarComprobante(int nIdComprobante)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
+                List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
+
+                if (comprobante.nCodigoCompania == 2)
+                {
+                    response = new SicFac(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+                }
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
