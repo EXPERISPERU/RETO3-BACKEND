@@ -16,7 +16,7 @@ namespace backend.services.Utils
             sicFacKey = configuration["SicFacConfig:key"];
         }
 
-        private ApiResponse<SqlRspDTO> consumirSevicio(string finalUrl, SicfacDocumentoElectronico sicfacDocumento)
+        private SicfacResponse consumirSevicio(string finalUrl, SicfacDocumentoElectronico sicfacDocumento)
         {
             try
             {
@@ -37,19 +37,12 @@ namespace backend.services.Utils
                     var rq = new StringContent(postJson, Encoding.UTF8, "application/json");
                     var result = client.PostAsync(uri, rq).Result.Content.ReadAsStringAsync().Result;
                     var response = JsonConvert.DeserializeObject<SicfacResponse>(result);
-                    return new ApiResponse<SqlRspDTO>()
-                    {
-                        success = response.Exito ?? false
-                        ,
-                        data = new SqlRspDTO() { nCod = response.Exito.HasValue ? 1 : 0, sMsj = response.CodigoRespuestaSunat + " - " + response.MensajeRespuestaSunat }
-                        ,
-                        errMsj = response.Exito.HasValue ? response.MensajeError : result.ToString()
-                    };
+                    return response;
                 }
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SqlRspDTO>() { success = false, data = new SqlRspDTO() { nCod = 0, sMsj = ""}, errMsj = ex.Message };
+                return new SicfacResponse() { Exito = false, CodigoEstadoSicfac = "Error backend" , MensajeError = ex.Message  };
             }
         }
 
@@ -64,7 +57,7 @@ namespace backend.services.Utils
             return "";
         }
 
-        public ApiResponse<SqlRspDTO> ConsultarDocumento(ComprobanteDTO comprobante) 
+        public SicfacResponse ConsultarDocumento(ComprobanteDTO comprobante) 
         {
             try
             {
@@ -87,12 +80,11 @@ namespace backend.services.Utils
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SqlRspDTO>() { success = false, data = new SqlRspDTO() { nCod = 0, sMsj = ex.Message }, errMsj = ex.Message };
+                return new SicfacResponse() { Exito = false, CodigoEstadoSicfac = "Error backend", MensajeError = ex.Message };
             }
-
         }
 
-        public ApiResponse<SqlRspDTO> GenerarDocumento(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet)
+        public SicfacResponse GenerarDocumento(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet)
         {
             try
             {
@@ -187,10 +179,11 @@ namespace backend.services.Utils
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SqlRspDTO>() { success = false, data = new SqlRspDTO() { nCod = 0, sMsj = ex.Message }, errMsj = ex.Message };            }
+                return new SicfacResponse() { Exito = false, CodigoEstadoSicfac = "Error backend", MensajeError = ex.Message };
+            }
         }
 
-        public ApiResponse<SqlRspDTO> GenerarBaja(ComprobanteDTO comprobante)
+        public SicfacResponse GenerarBaja(ComprobanteDTO comprobante)
         {
             try
             {
@@ -213,7 +206,7 @@ namespace backend.services.Utils
             }
             catch (Exception ex)
             {
-                return new ApiResponse<SqlRspDTO>() { success = false, data = new SqlRspDTO() { nCod = 0, sMsj = ex.Message }, errMsj = ex.Message };
+                return new SicfacResponse() { Exito = false, CodigoEstadoSicfac = "Error backend", MensajeError = ex.Message };
             }
         }
     }

@@ -219,7 +219,13 @@ namespace backend.services.Controllers.Contabilidad
 
                 if (comprobante.nCodigoCompania == 2)
                 {
-                    response = new SicFac(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+                    SicfacResponse sres = new SicFac(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+
+                    response.success = sres.Exito ?? false;
+                    response.errMsj = sres.MensajeError;
+                    response.data = new SqlRspDTO() { nCod = (sres.Exito == true ? int.Parse(sres.CodigoEstadoSicfac) : 0), sMsj = "" };
+
+                    service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat);
                 }
 
                 return StatusCode(200, response);
