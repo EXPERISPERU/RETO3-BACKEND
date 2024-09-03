@@ -46,17 +46,6 @@ namespace backend.services.Utils
             }
         }
 
-        private string TipoDocumento(string sCodigoTipoComprobante) 
-        {
-            if (sCodigoTipoComprobante == "14") return "01";
-
-            if (sCodigoTipoComprobante == "3") return "03";
-
-            if (sCodigoTipoComprobante == "18") return "07";
-
-            return "";
-        }
-
         public SicfacResponse ConsultarDocumento(ComprobanteDTO comprobante) 
         {
             try
@@ -66,7 +55,7 @@ namespace backend.services.Utils
 
                 sicfacDocumento.Serie = comprobante.sSerie;
                 sicfacDocumento.Correlativo = comprobante.nCorrelativo.ToString();
-                sicfacDocumento.TipoDocumento = this.TipoDocumento(comprobante.sCodigoTipoComprobante);
+                sicfacDocumento.TipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
 
                 sicfacDocumento.Emisor = new SicfacContribuyente()
                 {
@@ -110,7 +99,7 @@ namespace backend.services.Utils
 
                 sicfacDocumento.Serie = comprobante.sSerie;
                 sicfacDocumento.Correlativo = comprobante.nCorrelativo.ToString();
-                sicfacDocumento.TipoDocumento = this.TipoDocumento(comprobante.sCodigoTipoComprobante);
+                sicfacDocumento.TipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
                 sicfacDocumento.FechaEmision = comprobante.dFecha_crea.ToString("yyyy-MM-dd");
                 sicfacDocumento.HoraEmision = comprobante.dFecha_crea.ToString("hh:mm:ss");
                 sicfacDocumento.Moneda = comprobante.sSunatMoneda;
@@ -192,7 +181,7 @@ namespace backend.services.Utils
 
                 sicfacDocumento.Serie = comprobante.sSerie;
                 sicfacDocumento.Correlativo = comprobante.nCorrelativo.ToString();
-                sicfacDocumento.TipoDocumento = this.TipoDocumento(comprobante.sCodigoTipoComprobante);
+                sicfacDocumento.TipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
 
                 sicfacDocumento.Emisor = new SicfacContribuyente()
                 {
