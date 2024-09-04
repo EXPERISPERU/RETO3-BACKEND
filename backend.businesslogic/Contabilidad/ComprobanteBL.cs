@@ -32,5 +32,10 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.InsComprobanteAdjunto(nIdComprobante, sRutaFtp);
         }
+
+        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat)
+        {
+            return await repository.InsCertificacionComprobante(nIdComprobante, sCodigo, sMensaje, sCodigoSunat, sMensajeSunat);
+        }
     }
 }

@@ -87,5 +87,25 @@ namespace backend.repository.Contabilidad
 
             return res;
         }
+
+        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 7);
+                parameters.Add("nIdComprobante", nIdComprobante);
+                parameters.Add("sCodigo", sCodigo);
+                parameters.Add("sMensaje", sMensaje);
+                parameters.Add("sCodigoSunat", sCodigoSunat);
+                parameters.Add("sMensajeSunat", sMensajeSunat);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
