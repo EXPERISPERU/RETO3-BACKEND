@@ -102,7 +102,7 @@ namespace backend.businesslogic.Comercial
             loteDisponible.nInteres = loteDisponible.nIdInteresCuota != null ? (
                                                 loteDisponible.nIdTipoValorInteres == 110 ?
                                                 loteDisponible.nValorCalInteres :
-                                                loteDisponible.nValorCalInteres / 100 * (loteDisponible.nPrecioVenta)
+                                                loteDisponible.nValorCalInteres / 100 * (loteDisponible.nPrecioVenta - loteDisponible.nValorCalIni)
                                             ) : 0;
 
             loteDisponible.nValorFinanciado = (loteDisponible.nPrecioVenta - loteDisponible.nInicial - loteDisponible.nDescuentoFin) + loteDisponible.nInteres ;
