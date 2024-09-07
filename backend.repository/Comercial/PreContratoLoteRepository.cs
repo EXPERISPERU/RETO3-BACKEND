@@ -49,6 +49,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 2);
                 parameters.Add("nIdLote", insPreContratoLote.nIdLote);
                 parameters.Add("nValorPreContrato", insPreContratoLote.nValorPreContrato);
+                parameters.Add("nVigenciaPreContrato", insPreContratoLote.nVigenciaPreContrato);
                 parameters.Add("nIdCliente", insPreContratoLote.nIdCliente);
                 parameters.Add("nIdTipoComprobante", insPreContratoLote.nIdTipoComprobante);
                 parameters.Add("nIdTipoGestionComercial", insPreContratoLote.nIdTipoGestionComercial);
@@ -69,7 +70,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nCuotas", insPreContratoLote.nCuotas);
                 parameters.Add("nIdUsuario_crea", insPreContratoLote.nIdUsuario_crea);
                 parameters.Add("nTipoInteresCuotaAplicado", insPreContratoLote.nTipoInteresCuotaAplicado);
-                //parameters.Add("nIdOperacionBancaria", insPreContratoLote.nIdOperacionBancaria);
                 parameters.Add("sIdOperacionBancaria", insPreContratoLote.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -139,6 +139,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdContrato", insAdicPreContratoLote.nIdContrato);
                 parameters.Add("nIdLote", insAdicPreContratoLote.nIdLote);
                 parameters.Add("nValorPreContrato", insAdicPreContratoLote.nValorPreContrato);
+                parameters.Add("nVigenciaPreContrato", insAdicPreContratoLote.nVigenciaPreContrato);
                 parameters.Add("nIdCliente", insAdicPreContratoLote.nIdCliente);
                 parameters.Add("nIdTipoComprobante", insAdicPreContratoLote.nIdTipoComprobante);
                 parameters.Add("nIdTipoGestionComercial", insAdicPreContratoLote.nIdTipoGestionComercial);
@@ -159,7 +160,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nCuotas", insAdicPreContratoLote.nCuotas);
                 parameters.Add("nIdUsuario_crea", insAdicPreContratoLote.nIdUsuario_crea);
                 parameters.Add("nTipoInteresCuotaAplicado", insAdicPreContratoLote.nTipoInteresCuotaAplicado);
-                //parameters.Add("nIdOperacionBancaria", insPreContratoLote.nIdOperacionBancaria);
                 parameters.Add("sIdOperacionBancaria", insAdicPreContratoLote.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
