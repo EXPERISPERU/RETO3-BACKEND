@@ -85,5 +85,252 @@ namespace backend.repository.Comercial
 
             return res.ToList();
         }
+
+        public async Task<IList<CondicionesDetDTO>> getListCondicionesDetByTipo(int nIdCondicion, int nIdTipoCondicionDet)
+        {
+            IEnumerable<CondicionesDetDTO> res = new List<CondicionesDetDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 5);
+                parameters.Add("nIdCondicion", nIdCondicion);
+                parameters.Add("nIdTipoCondicionDet", nIdTipoCondicionDet);
+
+                res = await connection.QueryAsync<CondicionesDetDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<CondicionesDetDTO> getCondicionesDetById(int nIdCondicionesDet)
+        {
+            CondicionesDetDTO res = new CondicionesDetDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 6);
+                parameters.Add("nIdCondicionesDet", nIdCondicionesDet);
+
+                res = await connection.QuerySingleAsync<CondicionesDetDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<SelectDTO>> SelectProyectoByCompania(int nIdCompania)
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 7);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectSectorByProyecto(int nIdProyecto)
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 8);
+                parameters.Add("nIdProyecto", nIdProyecto);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectManzanaBySector(int nIdSector)
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 9);
+                parameters.Add("nIdSector", nIdSector);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectLoteByManzana(int nIdManzana)
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 10);
+                parameters.Add("nIdManzana", nIdManzana);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectGrupoInmueble()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 11);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectUbicacionInmueble()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 12);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectTerrenoInmueble()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 13);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectZonificacionInmueble()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 14);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectDescripcionInmueble()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 15);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectColorInmueble()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 16);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectTipoFinanciamiento()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 17);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectCuotaLote()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 18);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectInicial()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 19);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> SelectDescuento()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 20);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
     }
 }

@@ -21,11 +21,11 @@ namespace backend.domain
         public DateTime? dFecha_mod { get; set; }
     }
 
-    public class CondicionesDetalleDTO
+    public class CondicionesDetDTO
     {
-        public int nIdCondicionesDetalle { get; set; }
+        public int nIdCondicionesDet { get; set; }
         public int nIdCondicion { get; set; }
-        public int nIdTipoCondicionDetalle { get; set; }
+        public int nIdTipoCondicionDet { get; set; }
         public string? sTipoCondicion { get; set; }
         public int? nIdProyecto { get; set; }
         public string? sProyecto { get; set; }
@@ -47,6 +47,8 @@ namespace backend.domain
         public string? sDescripcion { get; set; }
         public int? nIdColor { get; set; }
         public string? sColor { get; set; }
+        public int? nIdTipoFinanciamiento { get; set; }
+        public string? sTipoFinanciamiento { get; set; }
         public int? nIdCuotaLote { get; set; }
         public int? nCuotas { get; set; }
         public int? nIdInicialLote { get; set; }
