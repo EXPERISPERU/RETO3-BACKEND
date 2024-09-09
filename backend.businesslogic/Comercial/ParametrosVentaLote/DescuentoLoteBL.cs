@@ -23,59 +23,19 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
             return await repository.getDescuentoLoteByID(nIdDescuentoLote);
         }
 
-        public async Task<IList<SelectDTO>> getSelectCompania()
-        {
-            return await repository.getSelectCompania();
-        }
-
-        public async Task<IList<SelectDTO>> getSelectProyectoByCompania(int nIdCompania)
-        {
-            return await repository.getSelectProyectoByCompania(nIdCompania);
-        }
-
-        public async Task<IList<SelectDTO>> getSelectCondicionPago()
-        {
-            return await repository.getSelectCondicionPago();
-        }
-
         public async Task<IList<SelectDTO>> getSelectTipoDescuento()
         {
             return await repository.getSelectTipoDescuento();
         }
 
+        public async Task<IList<SelectDTO>> getSelectMoneda()
+        {
+            return await repository.getSelectMoneda();
+        }
+
         public async Task<SqlRspDTO> InsDescuentoLote(DescuentoLoteDTO descuentoLote)
         {
             return await repository.InsDescuentoLote(descuentoLote);
-        }
-
-        public async Task<SqlRspDTO> UpdDescuentoLote(DescuentoLoteDTO descuentoLote)
-        {
-            return await repository.UpdDescuentoLote(descuentoLote);
-        }
-
-        public async Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania)
-        {
-            return await repository.getSelectMonedaByCompania(nIdCompania);
-        }
-
-        public async Task<IList<DescuentoLoteDTO>> getListDescuentoLoteEspecifica()
-        {
-            return await repository.getListDescuentoLoteEspecifica();
-        }
-
-        public async Task<IList<SelectDTO>> getSelectSectorByProyecto(int nIdProyecto)
-        {
-            return await repository.getSelectSectorByProyecto(nIdProyecto);
-        }
-
-        public async Task<IList<SelectDTO>> getSelectManzanaBySector(int nIdSector)
-        {
-            return await repository.getSelectManzanaBySector(nIdSector);
-        }
-
-        public async Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana)
-        {
-            return await repository.getSelectLoteByManzana(nIdManzana);
         }
     }
 }
