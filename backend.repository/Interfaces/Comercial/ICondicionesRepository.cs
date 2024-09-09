@@ -24,5 +24,7 @@ namespace backend.repository.Interfaces.Comercial
         Task<IList<SelectDTO>> SelectCuotaLote();
         Task<IList<SelectDTO>> SelectInicial();
         Task<IList<SelectDTO>> SelectDescuento();
+        Task<SqlRspDTO> InsCondicionesDet(CondicionesDetDTO condicionesDet);
+        Task<SqlRspDTO> UpdCondicionesDet(CondicionesDetDTO condicionesDet);
     }
 }

@@ -332,5 +332,70 @@ namespace backend.repository.Comercial
 
             return res.ToList();
         }
+
+        public async Task<SqlRspDTO> InsCondicionesDet(CondicionesDetDTO condicionesDet)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 21);
+                parameters.Add("nIdCondicion", condicionesDet.nIdCondicion);
+                parameters.Add("nIdTipoCondicionDet", condicionesDet.nIdTipoCondicionDet);
+                parameters.Add("nIdProyecto", condicionesDet.nIdProyecto);
+                parameters.Add("nIdSector", condicionesDet.nIdSector);
+                parameters.Add("nIdManzana", condicionesDet.nIdManzana);
+                parameters.Add("nIdLote", condicionesDet.nIdLote);
+                parameters.Add("nIdGrupo", condicionesDet.nIdGrupo);
+                parameters.Add("nIdUbicacion", condicionesDet.nIdUbicacion);
+                parameters.Add("nIdTerreno", condicionesDet.nIdTerreno);
+                parameters.Add("nIdZonificacion", condicionesDet.nIdZonificacion);
+                parameters.Add("nIdDescripcion", condicionesDet.nIdDescripcion);
+                parameters.Add("nIdColor", condicionesDet.nIdColor);
+                parameters.Add("nIdTipoFinanciamiento", condicionesDet.nIdTipoFinanciamiento);
+                parameters.Add("nIdCuotaLote", condicionesDet.nIdCuotaLote);
+                parameters.Add("nIdInicialLote", condicionesDet.nIdInicialLote);
+                parameters.Add("nIdDescuentoLote", condicionesDet.nIdDescuentoLote);
+                parameters.Add("bActivo", condicionesDet.bActivo);
+                parameters.Add("nIdUsuario_crea", condicionesDet.nIdUsuario_crea);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<SqlRspDTO> UpdCondicionesDet(CondicionesDetDTO condicionesDet)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 22);
+                parameters.Add("nIdCondicionesDet", condicionesDet.nIdCondicionesDet);
+                parameters.Add("nIdProyecto", condicionesDet.nIdProyecto);
+                parameters.Add("nIdSector", condicionesDet.nIdSector);
+                parameters.Add("nIdManzana", condicionesDet.nIdManzana);
+                parameters.Add("nIdLote", condicionesDet.nIdLote);
+                parameters.Add("nIdGrupo", condicionesDet.nIdGrupo);
+                parameters.Add("nIdUbicacion", condicionesDet.nIdUbicacion);
+                parameters.Add("nIdTerreno", condicionesDet.nIdTerreno);
+                parameters.Add("nIdZonificacion", condicionesDet.nIdZonificacion);
+                parameters.Add("nIdDescripcion", condicionesDet.nIdDescripcion);
+                parameters.Add("nIdColor", condicionesDet.nIdColor);
+                parameters.Add("nIdTipoFinanciamiento", condicionesDet.nIdTipoFinanciamiento);
+                parameters.Add("nIdCuotaLote", condicionesDet.nIdCuotaLote);
+                parameters.Add("nIdInicialLote", condicionesDet.nIdInicialLote);
+                parameters.Add("nIdDescuentoLote", condicionesDet.nIdDescuentoLote);
+                parameters.Add("bActivo", condicionesDet.bActivo);
+                parameters.Add("nIdUsuario_mod", condicionesDet.nIdUsuario_mod);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
