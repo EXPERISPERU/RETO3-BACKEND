@@ -5,6 +5,7 @@
         public int nIdLote { get; set; }
         public int nIdPrecioServicio { get; set; }
         public decimal nValorPreContrato { get; set; }
+        public int nVigenciaPreContrato { get; set; }
         public int nIdCliente { get; set; }
         public int nIdTipoGestionComercial { get; set; }
         public int nIdTipoComprobante { get; set; }
@@ -35,6 +36,7 @@
         public int nIdLote { get; set; }
         public int nIdPrecioServicio { get; set; }
         public decimal nValorPreContrato { get; set; }
+        public int nVigenciaPreContrato { get; set; }
         public int nIdCliente { get; set; }
         public int nIdTipoGestionComercial { get; set; }
         public int nIdTipoComprobante { get; set; }
