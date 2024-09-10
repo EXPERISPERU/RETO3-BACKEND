@@ -114,6 +114,11 @@ namespace backend.businesslogic.Comercial
             return await repository.SelectDescuento();
         }
 
+        public async Task<IList<SelectDTO>> SelectInteres()
+        {
+            return await repository.SelectInteres();
+        }
+
         public async Task<SqlRspDTO> InsCondicionesDet(CondicionesDetDTO condicionesDet)
         {
             return await repository.InsCondicionesDet(condicionesDet);

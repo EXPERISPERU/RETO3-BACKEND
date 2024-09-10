@@ -333,6 +333,21 @@ namespace backend.repository.Comercial
             return res.ToList();
         }
 
+        public async Task<IList<SelectDTO>> SelectInteres()
+        {
+            IEnumerable<SelectDTO> res = new List<SelectDTO>(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 21);
+
+                res = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
+
         public async Task<SqlRspDTO> InsCondicionesDet(CondicionesDetDTO condicionesDet)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
@@ -340,7 +355,7 @@ namespace backend.repository.Comercial
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 21);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 22);
                 parameters.Add("nIdCondicion", condicionesDet.nIdCondicion);
                 parameters.Add("nIdTipoCondicionDet", condicionesDet.nIdTipoCondicionDet);
                 parameters.Add("nIdProyecto", condicionesDet.nIdProyecto);
@@ -357,6 +372,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCuotaLote", condicionesDet.nIdCuotaLote);
                 parameters.Add("nIdInicialLote", condicionesDet.nIdInicialLote);
                 parameters.Add("nIdDescuentoLote", condicionesDet.nIdDescuentoLote);
+                parameters.Add("nIdInteresCuota", condicionesDet.nIdInteresCuota);
                 parameters.Add("bActivo", condicionesDet.bActivo);
                 parameters.Add("nIdUsuario_crea", condicionesDet.nIdUsuario_crea);
 
@@ -373,7 +389,7 @@ namespace backend.repository.Comercial
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 22);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_condiciones]", 23);
                 parameters.Add("nIdCondicionesDet", condicionesDet.nIdCondicionesDet);
                 parameters.Add("nIdProyecto", condicionesDet.nIdProyecto);
                 parameters.Add("nIdSector", condicionesDet.nIdSector);
@@ -389,6 +405,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCuotaLote", condicionesDet.nIdCuotaLote);
                 parameters.Add("nIdInicialLote", condicionesDet.nIdInicialLote);
                 parameters.Add("nIdDescuentoLote", condicionesDet.nIdDescuentoLote);
+                parameters.Add("nIdInteresCuota", condicionesDet.nIdInteresCuota);
                 parameters.Add("bActivo", condicionesDet.bActivo);
                 parameters.Add("nIdUsuario_mod", condicionesDet.nIdUsuario_mod);
 
