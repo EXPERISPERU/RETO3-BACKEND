@@ -133,8 +133,10 @@ namespace backend.services
 
             services.AddScoped<IOperacionBancariaRepository, OperacionBancariaRepository>();
 
+            services.AddScoped<IVigenciaServicioRepository, VigenciaServicioRepository>();
+
             services.AddScoped<ICondicionesRepository, CondicionesRepository>();
-        }
+
 
         public static void ConfigureServicesManager(this IServiceCollection services)
         {
@@ -212,6 +214,8 @@ namespace backend.services
             services.AddScoped<IProspectoBL, ProspectoBL>();
 
             services.AddScoped<IOperacionBancariaBL, OperacionBancariaBL>();
+             
+            services.AddScoped<IVigenciaServicioBL, VigenciaServicioBL>();
 
             services.AddScoped<ICondicionesBL, CondicionesBL>();
         }

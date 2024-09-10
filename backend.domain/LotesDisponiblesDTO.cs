@@ -70,6 +70,7 @@ namespace backend.domain
         public string? sIdConceptoVenta { get; set; }
         public string? sIdInteres { get; set; }
         public decimal? nTipoInteresCuotaAplicado { get; set; }
+        public int? cantPreContratos { get; set; }
         public int? nIdContrato { get; set; }
 
     }

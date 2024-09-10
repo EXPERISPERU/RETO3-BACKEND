@@ -31,7 +31,6 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_interes_cuota]", 1);
                 parameters.Add("nIdProyecto", nIdProyecto);
                 parameters.Add("nIdCuotaLote", nIdCuotaLote);
-   
 
                 res = await connection.QuerySingleAsync<InteresCuotaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
