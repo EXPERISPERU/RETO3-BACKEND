@@ -359,5 +359,47 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectInteresDTO>>>> getListInteresLote(int nIdLote, int nIdInicial, int nIdDescuento, int nIdCuotaLote)
+        {
+            ApiResponse<List<SelectInteresDTO>> response = new ApiResponse<List<SelectInteresDTO>>();
+
+            try
+            {
+                var result = await service.getListInteresLote(nIdLote, nIdInicial, nIdDescuento, nIdCuotaLote);
+
+                response.success = true;
+                response.data = (List<SelectInteresDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<TipoCambioDTO>>> getTipoCambio([FromBody] int nIdLote, int nIdMonedaOri)
+        {
+            ApiResponse<TipoCambioDTO> response = new ApiResponse<TipoCambioDTO>();
+
+            try
+            {
+                var result = await service.getTipoCambio(nIdLote, nIdMonedaOri);
+
+                response.success = true;
+                response.data = (TipoCambioDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

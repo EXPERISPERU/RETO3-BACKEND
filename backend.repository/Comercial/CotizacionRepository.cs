@@ -266,5 +266,37 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
+        public async Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int nIdInicial, int nIdDescuento, int nIdCuotaLote)
+        {
+            IEnumerable<SelectInteresDTO> list = new List<SelectInteresDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 15);
+                parameters.Add("nIdLote", nIdLote);
+
+                list = await connection.QueryAsync<SelectInteresDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri)
+        {
+            TipoCambioDTO resp = new TipoCambioDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 16);
+                parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdMonedaOri", nIdMonedaOri);
+
+                resp = await connection.QuerySingleAsync<TipoCambioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }

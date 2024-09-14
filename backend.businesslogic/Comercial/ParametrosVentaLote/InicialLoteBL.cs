@@ -8,6 +8,8 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
     {
         IInicialLoteRepository repository;
 
+        public InicialLoteBL() { }
+
         public InicialLoteBL(IInicialLoteRepository _repository)
         {
             repository = _repository;

@@ -6,8 +6,33 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
+    public class LotesDisponiblesFiltrosDTO
+    {
+        public int nIdProyecto { get; set; }
+        public string sProyecto { get; set; }
+        public int nIdSector { get; set; }
+        public string sSector { get; set; }
+        public int nIdManzana { get; set; }
+        public string sManzana { get; set; }
+        public int nIdLote { get; set; }
+        public string sLote { get; set; }
+    }
+
+    public class SelectLotesDisponiblesDTO 
+    { 
+        public int nIdCompania { get; set; }
+        public int nIdUsuario { get; set; }
+        public int PageNumber { get; set; } 
+        public int RowspPage { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdSector { get; set; }
+        public int? nIdManzana { get; set; }
+        public int? nIdLote { get; set; }
+    }
+
     public class LotesDisponiblesDTO
     {
+        public int? nTotalTabla { get; set; }
         public int? nCodigoProyecto { get; set; }
         public int nIdProyecto { get; set; }
         public string sProyecto { get; set; }

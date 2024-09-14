@@ -14,6 +14,8 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
     {
         IInteresCuotaRepository repository;
 
+        public InteresCuotaBL(){}
+
         public InteresCuotaBL(IInteresCuotaRepository _repository)
         {
             repository = _repository;

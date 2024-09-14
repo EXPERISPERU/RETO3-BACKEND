@@ -18,9 +18,14 @@ namespace backend.businesslogic.Comercial
             this.repository = _repository;
         }
 
-        public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania, int nIdUsuario)
+        public async Task<IList<LotesDisponiblesFiltrosDTO>> getListFiltros(int nIdCompania, int nIdUsuario)
         {
-            var list = await repository.getListLotesDisponibles(nIdCompania, nIdUsuario);
+            return await repository.getListFiltros(nIdCompania, nIdUsuario);
+        }
+
+        public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(SelectLotesDisponiblesDTO select)
+        {
+            var list = await repository.getListLotesDisponibles(select);
 
             foreach (var item in list) {
                 new CotizacionBL().calculateCotizacionValues(item);
