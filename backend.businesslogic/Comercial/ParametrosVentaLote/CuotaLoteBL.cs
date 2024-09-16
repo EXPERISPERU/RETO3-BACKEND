@@ -8,8 +8,6 @@ namespace backend.businesslogic.Comercial.ParametrosVentaLote
     {
         ICuotaLoteRepository repository;
 
-        public CuotaLoteBL(){}
-
         public CuotaLoteBL(ICuotaLoteRepository _repository)
         {
             repository = _repository;

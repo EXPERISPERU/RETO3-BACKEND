@@ -2,6 +2,7 @@
 using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
 using backend.domain;
+using backend.repository.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
 using System;
@@ -15,12 +16,24 @@ namespace backend.businesslogic.Comercial
     public class CotizacionBL : ICotizacionBL
     {
         ICotizacionRepository repository;
+        ICuotaLoteRepository cuotaLoteRepository;
+        IInicialLoteRepository inicialLoteRepository;
+        IDescuentoLoteRepository descuentoLoteRepository;
+        IInteresCuotaRepository interesCuotaRepository;
 
-        public CotizacionBL(){}
-
-        public CotizacionBL(ICotizacionRepository _repository)
+        public CotizacionBL(
+            ICotizacionRepository _repository,
+            ICuotaLoteRepository _cuotaLoteRepository,
+            IInicialLoteRepository _inicialLoteRepository,
+            IDescuentoLoteRepository _descuentoLoteRepository,
+            IInteresCuotaRepository _interesCuotaRepository
+        )
         {
             this.repository = _repository;
+            this.cuotaLoteRepository = _cuotaLoteRepository;
+            this.inicialLoteRepository = _inicialLoteRepository;
+            this.descuentoLoteRepository = _descuentoLoteRepository;
+            this.interesCuotaRepository = _interesCuotaRepository;
         }
 
         public async Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote)
@@ -101,38 +114,38 @@ namespace backend.businesslogic.Comercial
             return await repository.getTipoCambio(nIdLote, nIdMonedaOri);
         }
 
-        public async void calculateCotizacionValues(LotesDisponiblesDTO loteDisponible)
+        public async Task calculateCotizacionValues(LotesDisponiblesDTO loteDisponible)
         {
             try
             {
                 loteDisponible.nPrecioVenta = loteDisponible.nPrecioVentaM2 * loteDisponible.nMetraje;
-
+                
                 CuotaLoteDTO cuota = new CuotaLoteDTO();
 
                 if (loteDisponible.nIdCuota.HasValue)
                 {
-                    cuota = (CuotaLoteDTO) await new CuotaLoteBL().getCuotaLoteByID((int)loteDisponible.nIdCuota);
+                    cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID((int)loteDisponible.nIdCuota);
                 }
 
                 InicialLoteDTO inicial = new InicialLoteDTO();
 
                 if (loteDisponible.nIdInicial.HasValue)
                 {
-                    inicial = (InicialLoteDTO) await new InicialLoteBL().getInicialLoteByID((int)loteDisponible.nIdInicial);
+                    inicial = (InicialLoteDTO) await inicialLoteRepository.getInicialLoteByID((int)loteDisponible.nIdInicial);
                 }
 
                 DescuentoLoteDTO descuentoFin = new DescuentoLoteDTO();
 
                 if (loteDisponible.nIdDescuentoFin.HasValue)
                 {
-                    descuentoFin = (DescuentoLoteDTO) await new DescuentoLoteBL().getDescuentoLoteByID((int)loteDisponible.nIdDescuentoFin);
+                    descuentoFin = (DescuentoLoteDTO) await descuentoLoteRepository.getDescuentoLoteByID((int)loteDisponible.nIdDescuentoFin);
                 }
 
                 InteresCuotaDTO interes = new InteresCuotaDTO();
 
                 if (loteDisponible.nIdInteresCuota.HasValue)
                 {
-                    interes = (InteresCuotaDTO) await new InteresCuotaBL().getInteresCuotaByID((int)loteDisponible.nIdInteresCuota);
+                    interes = (InteresCuotaDTO) await interesCuotaRepository.getInteresCuotaByID((int)loteDisponible.nIdInteresCuota);
                 }
 
                 DescuentoLoteDTO descuentoCon = new DescuentoLoteDTO();
@@ -142,33 +155,136 @@ namespace backend.businesslogic.Comercial
                     descuentoCon = (DescuentoLoteDTO) await new DescuentoLoteBL().getDescuentoLoteByID((int)loteDisponible.nIdDescuentoCon);
                 }
 
+                #region INICIAL
+                loteDisponible.nIdInicial = inicial.nIdInicialLote;
+                loteDisponible.nIdTipoValorIni = inicial.nIdTipo;
+                loteDisponible.nValorOriIni = inicial.nValor;
+
+                if (inicial.nIdTipo == 110)
+                {
+                    loteDisponible.sSimboloIni = inicial.sSimbolo;
+                    if (inicial.nIdMoneda == loteDisponible.nIdMoneda)
+                    {
+                        loteDisponible.nValorCalIni = inicial.nValor;
+                    }
+                    else
+                    {
+                        TipoCambioDTO tipoCambio = (TipoCambioDTO) await this.getTipoCambio(loteDisponible.nIdLote, (int) inicial.nIdMoneda);
+                        loteDisponible.nValorCalIni = inicial.nValor * tipoCambio.nVenta;
+                    }
+                }
+                else
+                {
+                    loteDisponible.sSimboloIni = "%";
+                    loteDisponible.nValorCalIni = inicial.nValor;
+                }
+
                 loteDisponible.nInicial = loteDisponible.nIdInicial != null ? (
                                                 loteDisponible.nIdTipoValorIni == 110 ?
                                                     loteDisponible.nValorCalIni :
                                                     loteDisponible.nValorCalIni / 100 * loteDisponible.nPrecioVenta
                                             ) : 0;
+                #endregion
+
+                #region DESCUENTO FINANCIADO
+                loteDisponible.nIdDescuentoFin = descuentoFin.nIdDescuentoLote;
+                loteDisponible.nIdTipoValorDescuentoFin = descuentoFin.nIdTipo;
+                loteDisponible.nValorOriDescuentoFin = descuentoFin.nValor;
+
+                if (descuentoFin.nIdTipo == 110)
+                {
+                    loteDisponible.sSimboloDescuentoFin = descuentoFin.sSimbolo;
+                    if (descuentoFin.nIdMoneda == loteDisponible.nIdMoneda)
+                    {
+                        loteDisponible.nValorCalDescuentoFin = descuentoFin.nValor;
+                    }
+                    else
+                    {
+                        TipoCambioDTO tipoCambio = (TipoCambioDTO) await this.getTipoCambio(loteDisponible.nIdLote, (int)descuentoFin.nIdMoneda);
+                        loteDisponible.nValorCalDescuentoFin = descuentoFin.nValor * tipoCambio.nVenta;
+                    }
+                }
+                else
+                {
+                    loteDisponible.sSimboloDescuentoFin = "%";
+                    loteDisponible.nValorCalDescuentoFin = descuentoFin.nValor;
+                }
 
                 loteDisponible.nDescuentoFin = loteDisponible.nIdDescuentoFin != null ? (
                                                 loteDisponible.nIdTipoValorDescuentoFin == 110 ?
                                                 loteDisponible.nValorCalDescuentoFin :
                                                 loteDisponible.nValorCalDescuentoFin / 100 * loteDisponible.nPrecioVenta
                                                 ) : 0;
+                #endregion
+
+                #region INTERES
+                loteDisponible.nIdInteresCuota = interes.nIdInteresCuota;
+
+                if (interes.nIdTipoValor == 110)
+                {
+                    loteDisponible.sSimboloInteres = "";
+                    if (interes.nIdMoneda == loteDisponible.nIdMoneda)
+                    {
+                        loteDisponible.nValorCalInteres = descuentoFin.nValor;
+                    }
+                    else
+                    {
+                        TipoCambioDTO tipoCambio = (TipoCambioDTO)await this.getTipoCambio(loteDisponible.nIdLote, (int)interes.nIdMoneda);
+                        loteDisponible.nValorCalInteres = interes.nValor * tipoCambio.nVenta;
+                    }
+                }
+                else
+                {
+                    loteDisponible.sSimboloInteres = "%";
+                    loteDisponible.nValorCalInteres = interes.nValor;
+                }
 
                 loteDisponible.nInteres = loteDisponible.nIdInteresCuota != null ? (
                                                     loteDisponible.nIdTipoValorInteres == 110 ?
                                                     loteDisponible.nValorCalInteres :
                                                     loteDisponible.nValorCalInteres / 100 * (loteDisponible.nPrecioVenta - loteDisponible.nValorCalIni)
                                                 ) : 0;
+                #endregion
 
                 loteDisponible.nValorFinanciado = (loteDisponible.nPrecioVenta - loteDisponible.nInicial - loteDisponible.nDescuentoFin) + loteDisponible.nInteres;
 
+                #region CUOTA
+                loteDisponible.nIdCuota = cuota.nIdCuotaLote;
+                loteDisponible.nCuotas = cuota.nCuotas;
+
                 loteDisponible.nValorCuota = loteDisponible.nCuotas > 0 ? loteDisponible.nValorFinanciado / loteDisponible.nCuotas : 0;
+                #endregion
+
+                #region DESCUENTO FINANCIADO
+                loteDisponible.nIdDescuentoCon = descuentoCon.nIdDescuentoLote;
+                loteDisponible.nIdTipoValorDescuentoCon = descuentoCon.nIdTipo;
+                loteDisponible.nValorOriDescuentoCon = descuentoCon.nValor;
+
+                if (descuentoCon.nIdTipo == 110)
+                {
+                    loteDisponible.sSimboloDescuentoFin = descuentoCon.sSimbolo;
+                    if (descuentoCon.nIdMoneda == loteDisponible.nIdMoneda)
+                    {
+                        loteDisponible.nValorCalDescuentoCon = descuentoCon.nValor;
+                    }
+                    else
+                    {
+                        TipoCambioDTO tipoCambio = (TipoCambioDTO)await this.getTipoCambio(loteDisponible.nIdLote, (int)descuentoCon.nIdMoneda);
+                        loteDisponible.nValorCalDescuentoCon = descuentoCon.nValor * tipoCambio.nVenta;
+                    }
+                }
+                else
+                {
+                    loteDisponible.sSimboloDescuentoCon = "%";
+                    loteDisponible.nValorCalDescuentoCon = descuentoCon.nValor;
+                }
 
                 loteDisponible.nDescuentoCon = loteDisponible.nIdDescuentoCon != null ? (
                                                 loteDisponible.nIdTipoValorDescuentoCon == 110 ?
                                                 loteDisponible.nValorCalDescuentoCon :
                                                 loteDisponible.nValorCalDescuentoCon / 100 * loteDisponible.nPrecioVenta
                                                 ) : 0;
+                #endregion
 
                 loteDisponible.nValorContado = loteDisponible.nPrecioVenta - loteDisponible.nDescuentoCon;
             }

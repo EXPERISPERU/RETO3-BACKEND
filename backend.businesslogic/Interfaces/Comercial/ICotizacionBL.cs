@@ -24,5 +24,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato);
         Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int nIdInicial, int nIdDescuento, int nIdCuotaLote);
         Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri);
+        Task calculateCotizacionValues(LotesDisponiblesDTO loteDisponible);
     }
 }

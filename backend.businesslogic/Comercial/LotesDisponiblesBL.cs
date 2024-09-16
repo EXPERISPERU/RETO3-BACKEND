@@ -11,11 +11,13 @@ namespace backend.businesslogic.Comercial
 {
     public class LotesDisponiblesBL : ILotesDisponiblesBL
     {
+        ICotizacionBL cotizacionBL;
         ILotesDisponiblesRepository repository;
 
-        public LotesDisponiblesBL(ILotesDisponiblesRepository _repository)
+        public LotesDisponiblesBL(ILotesDisponiblesRepository _repository, ICotizacionBL _cotizacionBL)
         {
             this.repository = _repository;
+            this.cotizacionBL = _cotizacionBL;   
         }
 
         public async Task<IList<LotesDisponiblesFiltrosDTO>> getListFiltros(int nIdCompania, int nIdUsuario)
@@ -28,7 +30,7 @@ namespace backend.businesslogic.Comercial
             var list = await repository.getListLotesDisponibles(select);
 
             foreach (var item in list) {
-                new CotizacionBL().calculateCotizacionValues(item);
+                await cotizacionBL.calculateCotizacionValues(item);
             }
 
             return list;
