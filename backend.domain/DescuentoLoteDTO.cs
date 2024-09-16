@@ -11,6 +11,7 @@ namespace backend.domain
         public int nIdDescuentoLote { get; set; }
         public string? sDescripcion { get; set; }
         public int nIdTipo { get; set; }
+        public string? sCodigoTipo { get; set; }
         public string? sTipo { get; set; }
         public int? nIdMoneda { get; set; }
         public string? sMoneda { get; set; }

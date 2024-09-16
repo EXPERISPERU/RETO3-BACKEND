@@ -33,6 +33,9 @@ namespace backend.domain
     public class LotesDisponiblesDTO
     {
         public int? nTotalTabla { get; set; }
+        public int? nIdCompania { get; set; }
+        public int? nCodigoCompania { get; set; }
+        public string? sCompania { get; set; }
         public int? nCodigoProyecto { get; set; }
         public int nIdProyecto { get; set; }
         public string sProyecto { get; set; }

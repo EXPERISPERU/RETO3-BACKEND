@@ -30,7 +30,7 @@ namespace backend.businesslogic.Comercial
             var list = await repository.getListLotesDisponibles(select);
 
             foreach (var item in list) {
-                await cotizacionBL.calculateCotizacionValues(item);
+                await cotizacionBL.calculateCotizacionValues(item, false);
             }
 
             return list;
