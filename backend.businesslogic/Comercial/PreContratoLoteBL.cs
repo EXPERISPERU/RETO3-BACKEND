@@ -48,5 +48,10 @@ namespace backend.businesslogic.Comercial
             return await repository.postInsAdicPreContratoLote(insAdicPreContratoLote);
         }
 
+        public async Task<IList<PreContratoChartDTO>> getListPreContratoChart(int nIdUsuario, int nIdCompania)
+        {
+            return await repository.getListPreContratoChart(nIdUsuario, nIdCompania);
+        }
+
     }
 }

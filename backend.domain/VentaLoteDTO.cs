@@ -35,4 +35,17 @@ namespace backend.domain
         public decimal? nTipoInteresCuotaAplicado { get; set; }
         public string? sIdOperacionBancaria { get; set; }
     }
+
+
+    public class VentaLoteChartDTO
+    {
+        public int nIdContrato { get; set; }
+        public int nIdItem { get; set; }
+        public int? nIdReferido { get; set; }
+        public int? nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime? dFecha { get; set; }
+        public int? nCountVenta { get; set; }
+
+    }
 }

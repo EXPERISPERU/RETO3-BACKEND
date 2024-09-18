@@ -134,8 +134,25 @@ namespace backend.repository.Comercial
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
+
+        public async Task<IList<ReservaChartDTO>> getListReservaChart(int nIdUsuario, int nIdCompania)
+        {
+            IEnumerable<ReservaChartDTO> list = new List<ReservaChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 9);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<ReservaChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+
     }
 }

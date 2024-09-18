@@ -181,4 +181,15 @@
         public int nIdUsuario { get; set; }
         public string sFirma { get; set; }
     }
+
+    public class PreContratoChartDTO
+    {
+        public int nIdContrato { get; set; }
+        public int nIdItem { get; set; }
+        public int? nIdReferido { get; set; }
+        public int? nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime? dFecha { get; set; }
+        public int? nCountPreContrato { get; set; }
+    }
 }

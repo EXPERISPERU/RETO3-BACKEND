@@ -94,5 +94,25 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+
+        public async Task<IList<VentaLoteChartDTO>> getListVentaChart(int nIdUsuario, int nIdCompania)
+        {
+            IEnumerable<VentaLoteChartDTO> list = new List<VentaLoteChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_venta_lote]", 4);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<VentaLoteChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+
+
     }
 }

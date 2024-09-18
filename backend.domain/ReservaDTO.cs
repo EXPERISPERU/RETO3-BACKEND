@@ -44,4 +44,13 @@ namespace backend.domain
         public string sSimbolo { get; set; }
         public string sTotal { get; set; }
     }
+
+    public class ReservaChartDTO
+    {
+        public int nIdPersona { get; set; }
+        public int nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime dFecha { get; set; }
+        public int? nCountReserva { get; set; }
+    }
 }
