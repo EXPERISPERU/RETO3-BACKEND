@@ -81,14 +81,14 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<VentaLoteChartDTO>>>> getListVentaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<VentaLoteChartDTO>>>> postListVentaChart(VentaLoteChartFilterDTO ventaChartFilter)
         {
             ApiResponse<List<VentaLoteChartDTO>> response = new ApiResponse<List<VentaLoteChartDTO>>();
 
             try
             {
-                var result = await service.getListVentaChart(nIdUsuario, nIdCompania, nIdProyecto);
+                var result = await service.postListVentaChart(ventaChartFilter);
 
                 response.success = true;
                 response.data = (List<VentaLoteChartDTO>)result;

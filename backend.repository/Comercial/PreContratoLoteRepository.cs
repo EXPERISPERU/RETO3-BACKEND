@@ -168,7 +168,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<IList<PreContratoChartDTO>> getListPreContratoChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
+        public async Task<IList<PreContratoChartDTO>> postListPreContratoChart(PreContratoFilterDTO preContratoFilter)
         {
             IEnumerable<PreContratoChartDTO> list = new List<PreContratoChartDTO>();
 
@@ -176,9 +176,10 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 9);
-                parameters.Add("nIdUsuario", nIdUsuario);
-                parameters.Add("nIdCompania", nIdCompania);
-                parameters.Add("nIdProyecto", nIdProyecto);
+                parameters.Add("nIdUsuario", preContratoFilter.nIdUsuario);
+                parameters.Add("nIdCompania", preContratoFilter.nIdCompania);
+                parameters.Add("nIdProyecto", preContratoFilter.nIdProyecto);
+                parameters.Add("nIdTrimestre", preContratoFilter.nIdTrimestre);
 
                 list = await connection.QueryAsync<PreContratoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

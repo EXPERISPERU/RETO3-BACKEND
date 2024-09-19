@@ -33,9 +33,9 @@ namespace backend.businesslogic.Comercial
             return await repository.InsVentaLote(insVentaLoteDTO);
         }
 
-        public async Task<IList<VentaLoteChartDTO>> getListVentaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
+        public async Task<IList<VentaLoteChartDTO>> postListVentaChart(VentaLoteChartFilterDTO ventaChartFilter)
         {
-            return await repository.getListVentaChart(nIdUsuario, nIdCompania, nIdProyecto);
+            return await repository.postListVentaChart(ventaChartFilter);
         }
 
 

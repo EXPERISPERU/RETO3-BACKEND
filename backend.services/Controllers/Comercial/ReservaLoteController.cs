@@ -184,17 +184,38 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ReservaChartDTO>>>> getListReservaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReservaChartDTO>>>> postListReservaChart(ReservaChartFilterDTO reservaChartFilter)
         {
             ApiResponse<List<ReservaChartDTO>> response = new ApiResponse<List<ReservaChartDTO>>();
 
             try
             {
-                var result = await service.getListReservaChart(nIdUsuario, nIdCompania, nIdProyecto);
+                var result = await service.postListReservaChart(reservaChartFilter);
 
                 response.success = true;
                 response.data = (List<ReservaChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTrimestres()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            try
+            {
+                var result = await service.getSelectTrimestres();
+
+                response.success = true; 
+                response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

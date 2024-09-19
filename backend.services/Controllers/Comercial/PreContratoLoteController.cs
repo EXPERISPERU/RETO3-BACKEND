@@ -146,14 +146,14 @@ namespace backend.services.Controllers.Comercial
         }
 
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> getListPreContratoChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> postListPreContratoChart(PreContratoFilterDTO preContratoFilter)
         {
             ApiResponse<List<PreContratoChartDTO>> response = new ApiResponse<List<PreContratoChartDTO>>();
 
             try
             {
-                var result = await service.getListPreContratoChart(nIdUsuario, nIdCompania, nIdProyecto);
+                var result = await service.postListPreContratoChart(preContratoFilter);
 
                 response.success = true;
                 response.data = (List<PreContratoChartDTO>)result;

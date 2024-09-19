@@ -192,4 +192,13 @@
         public DateTime? dFecha { get; set; }
         public int? nCountPreContrato { get; set; }
     }
+
+    public class PreContratoFilterDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdTrimestre { get; set; }
+    }
+
 }
