@@ -23,7 +23,7 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
         Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato);
         Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int? nIdInicial, int? nIdDescuento, int? nIdCuotaLote);
-        Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri);
+        Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri, int? nIdMonedaDest);
         Task calculateCotizacionValues(LotesDisponiblesDTO loteDisponible, bool bIndividual);
     }
 }

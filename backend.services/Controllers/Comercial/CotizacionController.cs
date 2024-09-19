@@ -212,13 +212,13 @@ namespace backend.services.Controllers.Comercial
                         .Replace("#nValorFinanciado#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorFinanciado))
                         .Replace("#nCuotas#", string.Format(ci_PE, "{0:0}", cotizacion.nCuotas))
                         .Replace("#nValorCuota#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorCuota))
-                        .Replace("#sInteresFijo#", cotizacion.sInteresFijo)
+                        .Replace("#sInteresFijo#", cotizacion.sInteresCuota)
                         .Replace("#nValorContado#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorContado))
                         .Replace("#sUsuario_crea#", cotizacion.sUsuario_crea)
                         .Replace("#sFecha_crea#", cotizacion.sFecha_crea);
                 html += "</div>";
 
-                if (cotizacion.sInteresFijo != "")
+                if (cotizacion.sInteresCuota != "")
                 {
                     html = html
                         .Replace("#iniInteresFijo#", "")
@@ -382,13 +382,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<TipoCambioDTO>>> getTipoCambio([FromBody] int nIdLote, int nIdMonedaOri)
+        public async Task<ActionResult<ApiResponse<TipoCambioDTO>>> getTipoCambio([FromBody] int nIdLote, int nIdMonedaOri, int? nIdMonedaDest)
         {
             ApiResponse<TipoCambioDTO> response = new ApiResponse<TipoCambioDTO>();
 
             try
             {
-                var result = await service.getTipoCambio(nIdLote, nIdMonedaOri);
+                var result = await service.getTipoCambio(nIdLote, nIdMonedaOri, nIdMonedaDest);
 
                 response.success = true;
                 response.data = (TipoCambioDTO)result;

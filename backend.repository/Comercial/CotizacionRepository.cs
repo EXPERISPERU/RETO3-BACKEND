@@ -130,6 +130,8 @@ namespace backend.repository.Comercial
                 parameters.Add("nInicial", cotizacion.nInicial);
                 parameters.Add("nIdDescuentoFin", cotizacion.nIdDescuentoFin);
                 parameters.Add("nDescuentoFin", cotizacion.nDescuentoFin);
+                parameters.Add("nIdInteresCuota", cotizacion.nIdInteresCuota);
+                parameters.Add("nInteresCuota", cotizacion.nInteresCuota);
                 parameters.Add("nValorFinanciado", cotizacion.nValorFinanciado);
                 parameters.Add("nIdCuota", cotizacion.nIdCuota);
                 parameters.Add("nCuotas", cotizacion.nCuotas);
@@ -138,7 +140,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
-                parameters.Add("nTipoInteresCuotaAplicado", cotizacion.nTipoInteresCuotaAplicado);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -291,7 +292,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri)
+        public async Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri, int? nIdMonedaDest)
         {
             TipoCambioDTO resp = new TipoCambioDTO();
 
@@ -301,6 +302,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 16);
                 parameters.Add("nIdLote", nIdLote);
                 parameters.Add("nIdMonedaOri", nIdMonedaOri);
+                parameters.Add("nIdMonedaDest", nIdMonedaDest);
 
                 resp = await connection.QuerySingleAsync<TipoCambioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
