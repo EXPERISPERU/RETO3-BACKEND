@@ -137,7 +137,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<IList<ReservaChartDTO>> getListReservaChart(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ReservaChartDTO>> getListReservaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
         {
             IEnumerable<ReservaChartDTO> list = new List<ReservaChartDTO>();
 
@@ -147,6 +147,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 9);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdProyecto", nIdProyecto);
 
                 list = await connection.QueryAsync<ReservaChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

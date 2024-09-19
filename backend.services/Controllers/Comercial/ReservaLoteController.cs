@@ -185,13 +185,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ReservaChartDTO>>>> getListReservaChart(int nIdUsuario, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<ReservaChartDTO>>>> getListReservaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
         {
             ApiResponse<List<ReservaChartDTO>> response = new ApiResponse<List<ReservaChartDTO>>();
 
             try
             {
-                var result = await service.getListReservaChart(nIdUsuario, nIdCompania);
+                var result = await service.getListReservaChart(nIdUsuario, nIdCompania, nIdProyecto);
 
                 response.success = true;
                 response.data = (List<ReservaChartDTO>)result;

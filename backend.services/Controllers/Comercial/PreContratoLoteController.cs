@@ -147,13 +147,13 @@ namespace backend.services.Controllers.Comercial
 
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> getListPreContratoChart(int nIdUsuario, int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> getListPreContratoChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
         {
             ApiResponse<List<PreContratoChartDTO>> response = new ApiResponse<List<PreContratoChartDTO>>();
 
             try
             {
-                var result = await service.getListPreContratoChart(nIdUsuario, nIdCompania);
+                var result = await service.getListPreContratoChart(nIdUsuario, nIdCompania, nIdProyecto);
 
                 response.success = true;
                 response.data = (List<PreContratoChartDTO>)result;

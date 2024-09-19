@@ -96,7 +96,7 @@ namespace backend.repository.Comercial
         }
 
 
-        public async Task<IList<VentaLoteChartDTO>> getListVentaChart(int nIdUsuario, int nIdCompania)
+        public async Task<IList<VentaLoteChartDTO>> getListVentaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
         {
             IEnumerable<VentaLoteChartDTO> list = new List<VentaLoteChartDTO>();
 
@@ -106,6 +106,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_venta_lote]", 4);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdProyecto", nIdProyecto);
 
                 list = await connection.QueryAsync<VentaLoteChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

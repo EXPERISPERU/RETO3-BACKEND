@@ -168,7 +168,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<IList<PreContratoChartDTO>> getListPreContratoChart(int nIdUsuario, int nIdCompania)
+        public async Task<IList<PreContratoChartDTO>> getListPreContratoChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
         {
             IEnumerable<PreContratoChartDTO> list = new List<PreContratoChartDTO>();
 
@@ -178,6 +178,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 9);
                 parameters.Add("nIdUsuario", nIdUsuario);
                 parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdProyecto", nIdProyecto);
 
                 list = await connection.QueryAsync<PreContratoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

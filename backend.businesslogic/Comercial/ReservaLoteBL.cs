@@ -48,9 +48,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getSelectMonedaByCompania(nIdCompania);
         }
 
-        public async Task<IList<ReservaChartDTO>> getListReservaChart(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ReservaChartDTO>> getListReservaChart(int nIdUsuario, int nIdCompania, int nIdProyecto)
         {
-            return await repository.getListReservaChart(nIdUsuario, nIdCompania);
+            return await repository.getListReservaChart(nIdUsuario, nIdCompania, nIdProyecto);
         }
     }
 }
