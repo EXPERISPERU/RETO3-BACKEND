@@ -1,16 +1,8 @@
-﻿using backend.businesslogic.Comercial.ParametrosVentaLote;
-using backend.businesslogic.Interfaces.Comercial;
-using backend.businesslogic.Interfaces.Comercial.ParametrosVentaLote;
+﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.domain;
-using backend.repository.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Comercial;
 using backend.repository.Interfaces.Comercial.ParametrosVentaLote;
 using backend.repository.Interfaces.Maestros;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.businesslogic.Comercial
 {

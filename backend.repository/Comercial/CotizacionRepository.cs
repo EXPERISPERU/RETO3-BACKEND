@@ -2,13 +2,8 @@
 using backend.repository.Interfaces.Comercial;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.repository.Comercial
 {
