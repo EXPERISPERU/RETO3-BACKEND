@@ -106,7 +106,7 @@ namespace backend.services
             services.AddScoped<IItemRepository, ItemRepository>();
 
             services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
-            
+
             services.AddScoped<IContratoRepository, ContratoRepository>();
 
             services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
@@ -135,10 +135,11 @@ namespace backend.services
 
             services.AddScoped<IVigenciaServicioRepository, VigenciaServicioRepository>();
 
+            services.AddScoped<ICondicionesRepository, CondicionesRepository>();
+          
             services.AddScoped<ICajaRepository, CajaRepository>();
 
             services.AddScoped<IMovimientosRepository, MovimientosRepository>();
-
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -220,6 +221,8 @@ namespace backend.services
 
             services.AddScoped<IVigenciaServicioBL, VigenciaServicioBL>();
 
+            services.AddScoped<ICondicionesBL, CondicionesBL>();
+          
             services.AddScoped<ICajaBL, CajaBL>();
 
             services.AddScoped<IMovimientosBL, MovimientosBL>();

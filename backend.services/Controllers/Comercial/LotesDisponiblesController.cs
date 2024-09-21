@@ -19,13 +19,34 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles(int nIdCompania, int nIdUsuario)
+        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesFiltrosDTO>>>> getListFiltros(int nIdCompania, int nIdUsuario)
+        {
+            ApiResponse<List<LotesDisponiblesFiltrosDTO>> response = new ApiResponse<List<LotesDisponiblesFiltrosDTO>>();
+
+            try
+            {
+                var result = await service.getListFiltros(nIdCompania, nIdUsuario);
+
+                response.success = true;
+                response.data = (List<LotesDisponiblesFiltrosDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<LotesDisponiblesDTO>>>> getListLotesDisponibles([FromBody] SelectLotesDisponiblesDTO select)
         {
             ApiResponse<List<LotesDisponiblesDTO>> response = new ApiResponse<List<LotesDisponiblesDTO>>();
 
             try
             {
-                var result = await service.getListLotesDisponibles(nIdCompania, nIdUsuario);
+                var result = await service.getListLotesDisponibles(select);
 
                 response.success = true;
                 response.data = (List<LotesDisponiblesDTO>)result;
