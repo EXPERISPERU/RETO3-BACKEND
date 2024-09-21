@@ -28,11 +28,9 @@ namespace backend.businesslogic.Comercial
         public async Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(SelectLotesDisponiblesDTO select)
         {
             var list = await repository.getListLotesDisponibles(select);
-
             foreach (var item in list) {
                 await cotizacionBL.calculateCotizacionValues(item, false);
             }
-
             return list;
         }
     }

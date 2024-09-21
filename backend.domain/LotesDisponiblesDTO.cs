@@ -96,5 +96,8 @@ namespace backend.domain
         public string? sIdConceptoVenta { get; set; }
         public int? cantPreContratos { get; set; }
         public int? nIdContrato { get; set; }
+        //Nuevos campos
+        public int? nIdTipoItem { get; set; }
+        public int? nIdCliente { get; set; }
     }
 }
