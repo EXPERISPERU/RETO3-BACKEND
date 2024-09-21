@@ -31,15 +31,15 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 1);
                 parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
                 parameters.Add("nIdUsuario", AgendamientoFiltros.nIdUsuario);
-                parameters.Add("nIdAsesor", AgendamientoFiltros.nIdAsesor);
-                parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
-                parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
-                parameters.Add("nIdProyecto", AgendamientoFiltros.nIdProyecto);
-                parameters.Add("nIdSector", AgendamientoFiltros.nIdSector);
-                parameters.Add("nIdManzana", AgendamientoFiltros.nIdManzana);
-                parameters.Add("nIdLote", AgendamientoFiltros.nIdLote);
-                parameters.Add("fechaInicio", AgendamientoFiltros.fechaInicio);
-                parameters.Add("fechaFin", AgendamientoFiltros.fechaFin);
+                //parameters.Add("nIdAsesor", AgendamientoFiltros.nIdAsesor);
+                //parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
+                //parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
+                //parameters.Add("nIdProyecto", AgendamientoFiltros.nIdProyecto);
+                //parameters.Add("nIdSector", AgendamientoFiltros.nIdSector);
+                //parameters.Add("nIdManzana", AgendamientoFiltros.nIdManzana);
+                //parameters.Add("nIdLote", AgendamientoFiltros.nIdLote);
+                //parameters.Add("fechaInicio", AgendamientoFiltros.fechaInicio);
+                //parameters.Add("fechaFin", AgendamientoFiltros.fechaFin);
 
                 list = await connection.QueryAsync<AgendamientoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
