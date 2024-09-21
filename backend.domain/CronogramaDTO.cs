@@ -8,6 +8,8 @@ namespace backend.domain
 {
     public class CronogramaDTO
     {
+        
+            public int? nIdCronograma { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdContrato { get; set; }
         public int nIdEstado { get; set; }
