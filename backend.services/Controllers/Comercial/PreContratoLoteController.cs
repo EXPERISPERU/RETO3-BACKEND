@@ -146,5 +146,27 @@ namespace backend.services.Controllers.Comercial
         }
 
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> postListPreContratoChart(PreContratoFilterDTO preContratoFilter)
+        {
+            ApiResponse<List<PreContratoChartDTO>> response = new ApiResponse<List<PreContratoChartDTO>>();
+
+            try
+            {
+                var result = await service.postListPreContratoChart(preContratoFilter);
+
+                response.success = true;
+                response.data = (List<PreContratoChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }

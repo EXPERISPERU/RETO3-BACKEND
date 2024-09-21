@@ -155,5 +155,25 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+        public async Task<IList<PreContratoChartDTO>> postListPreContratoChart(PreContratoFilterDTO preContratoFilter)
+        {
+            IEnumerable<PreContratoChartDTO> list = new List<PreContratoChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_precontrato_lote]", 9);
+                parameters.Add("nIdUsuario", preContratoFilter.nIdUsuario);
+                parameters.Add("nIdCompania", preContratoFilter.nIdCompania);
+                parameters.Add("nIdProyecto", preContratoFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", preContratoFilter.sCodTrimestre);
+
+                list = await connection.QueryAsync<PreContratoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+
     }
 }
