@@ -29,6 +29,7 @@
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
+        public int? nCantCotizaciones { get; set; }
         public int? nCantReservas { get; set; }
         public int? nCantPreContratos { get; set; }
         public int? nCantVentas { get; set; }
@@ -39,6 +40,6 @@
         public int nIdUsuario { get; set; }
         public int nIdCompania { get; set; }
         public int? nIdProyecto { get; set; }
-        public int? nIdTrimestre { get; set; }
+        public string? sCodTrimestre { get; set; }
     }
 }

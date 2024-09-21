@@ -74,4 +74,25 @@
         public string sFecha_pago { get; set; }
         public int nIdComprobante { get; set; }
     }
+
+
+
+    public class PreContratoChartDTO
+    {
+        public int nIdContrato { get; set; }
+        public int nIdItem { get; set; }
+        public int? nIdReferido { get; set; }
+        public int? nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime? dFecha { get; set; }
+        public int? nCountPreContrato { get; set; }
+    }
+
+    public class PreContratoFilterDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public int? nIdProyecto { get; set; }
+        public string? sCodTrimestre { get; set; }
+    }
 }

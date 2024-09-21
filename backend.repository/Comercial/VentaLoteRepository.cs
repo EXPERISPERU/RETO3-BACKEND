@@ -107,7 +107,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdUsuario", ventaChartFilter.nIdUsuario);
                 parameters.Add("nIdCompania", ventaChartFilter.nIdCompania);
                 parameters.Add("nIdProyecto", ventaChartFilter.nIdProyecto);
-                parameters.Add("nIdTrimestre", ventaChartFilter.nIdTrimestre);
+                parameters.Add("sCodTrimestre", ventaChartFilter.sCodTrimestre);
 
                 list = await connection.QueryAsync<VentaLoteChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

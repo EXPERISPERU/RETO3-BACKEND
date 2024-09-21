@@ -59,7 +59,7 @@ namespace backend.domain
         public int nIdUsuario { get; set; }
         public int nIdCompania { get; set; }
         public int? nIdProyecto { get; set; }
-        public int? nIdTrimestre { get; set; }
+        public string? sCodTrimestre { get; set; }
     }
 
 }
