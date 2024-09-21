@@ -106,7 +106,7 @@ namespace backend.services
             services.AddScoped<IItemRepository, ItemRepository>();
 
             services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
-            
+
             services.AddScoped<IContratoRepository, ContratoRepository>();
 
             services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
@@ -136,7 +136,7 @@ namespace backend.services
             services.AddScoped<IVigenciaServicioRepository, VigenciaServicioRepository>();
 
             services.AddScoped<ICondicionesRepository, CondicionesRepository>();
-
+        }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
         {

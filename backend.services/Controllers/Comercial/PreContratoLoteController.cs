@@ -125,13 +125,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsAdicPreContratoLote([FromBody] InsAdicPreContratoLote insAdicPreContratoLote)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsAdicPreContratoLote([FromBody] InsPreContratoLoteDTO insPreContratoLote)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.postInsAdicPreContratoLote(insAdicPreContratoLote);
+                var result = await service.postInsAdicPreContratoLote(insPreContratoLote);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;

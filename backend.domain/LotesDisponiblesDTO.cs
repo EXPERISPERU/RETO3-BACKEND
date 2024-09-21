@@ -6,8 +6,36 @@ using System.Threading.Tasks;
 
 namespace backend.domain
 {
+    public class LotesDisponiblesFiltrosDTO
+    {
+        public int nIdProyecto { get; set; }
+        public string sProyecto { get; set; }
+        public int nIdSector { get; set; }
+        public string sSector { get; set; }
+        public int nIdManzana { get; set; }
+        public string sManzana { get; set; }
+        public int nIdLote { get; set; }
+        public string sLote { get; set; }
+    }
+
+    public class SelectLotesDisponiblesDTO 
+    { 
+        public int nIdCompania { get; set; }
+        public int nIdUsuario { get; set; }
+        public int PageNumber { get; set; } 
+        public int RowspPage { get; set; }
+        public int? nIdProyecto { get; set; }
+        public int? nIdSector { get; set; }
+        public int? nIdManzana { get; set; }
+        public int? nIdLote { get; set; }
+    }
+
     public class LotesDisponiblesDTO
     {
+        public int? nTotalTabla { get; set; }
+        public int? nIdCompania { get; set; }
+        public int? nCodigoCompania { get; set; }
+        public string? sCompania { get; set; }
         public int? nCodigoProyecto { get; set; }
         public int nIdProyecto { get; set; }
         public string sProyecto { get; set; }
@@ -49,17 +77,15 @@ namespace backend.domain
         public decimal? nValorCalDescuentoFin { get; set; }
         public decimal? nDescuentoFin { get; set; }
         public int? nIdInteresCuota { get; set; }
-        public string? sTipoInteres { get; set; }
-        public int? nIdTipoValorInteres { get; set; }
-        public string? sSimboloInteres { get; set; }
-        public decimal? nValorOriInteres { get; set; }
-        public decimal? nValorCalInteres { get; set; }
-        public decimal? nInteres { get; set; }
+        public decimal? nInteresCuota { get; set; }
+        public string? sInteresCuota { get; set; }
+        public string? sCodigoTipoInteresCuota { get; set; }
+        public string? sCodigoTipoValorInteresCuota { get; set; }
+        public decimal? nValorCalInteresCuota { get; set; }
         public decimal? nValorFinanciado { get; set; }
         public int? nIdCuota { get; set; }
         public decimal? nCuotas { get; set; }
         public decimal? nValorCuota { get; set; }
-        public string? sInteresFijo { get; set; }
         public int? nIdDescuentoCon { get; set; }
         public int? nIdTipoValorDescuentoCon { get; set; }
         public string? sSimboloDescuentoCon { get; set; }
@@ -68,10 +94,7 @@ namespace backend.domain
         public decimal? nDescuentoCon { get; set; }
         public decimal? nValorContado { get; set; }
         public string? sIdConceptoVenta { get; set; }
-        public string? sIdInteres { get; set; }
-        public decimal? nTipoInteresCuotaAplicado { get; set; }
         public int? cantPreContratos { get; set; }
         public int? nIdContrato { get; set; }
-
     }
 }

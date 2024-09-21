@@ -55,6 +55,8 @@ namespace backend.domain
         public string? sInicial { get; set; }
         public int? nIdDescuentoLote { get; set; }
         public string? sDescuento { get; set; }
+        public int? nIdInteresCuota { get; set; }
+        public string? sInteres { get; set; }
         public bool bActivo { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string? sUsuario_crea { get; set; }
