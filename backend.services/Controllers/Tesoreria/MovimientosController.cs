@@ -264,7 +264,7 @@ namespace backend.services.Controllers.Tesoreria
             {
                 response.success = false;
                 response.errMsj = ex.Message;
-                return StatusCode(500, response);
+                return StatusCode(500, response);   
             }
         }
 
@@ -386,6 +386,27 @@ namespace backend.services.Controllers.Tesoreria
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<MovReporteArqueoDTO>>>> getAllReporteArqueoCaja(int nIdCompania, int nIdCaja, int nIdUsuario)
+        {
+            ApiResponse<List<MovReporteArqueoDTO>> response = new ApiResponse<List<MovReporteArqueoDTO>>();
+
+            try
+            {
+                var result = await service.getAllReporteArqueoCaja(nIdCompania, nIdCaja, nIdUsuario);
+
+                response.success = true;
+                response.data = (List<MovReporteArqueoDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

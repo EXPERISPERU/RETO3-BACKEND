@@ -35,5 +35,25 @@ namespace backend.businesslogic.Tesoreria
         {
             return await repository.getValidaPerfil(nIdCompania, nIdUsuario);
         }
+
+        public async Task<SqlRspDTO> UpdCaja(CajaDTO caja)
+        {
+            return await repository.UpdCaja(caja);
+        }
+
+        public async Task<IList<CajaDTO>> getListadoCaja(CajaFiltroDTO cajaFiltroDTO)
+        {
+            return await repository.getListadoCaja(cajaFiltroDTO);
+        }
+
+        public async Task<IList<SelectDTO>> getAllCajeros(int nIdCompania)
+        {
+            return await repository.getAllCajeros(nIdCompania);
+        }
+
+        public async Task<IList<CajaDTO>> getListValoresCajaById(int nIdCaja)
+        {
+            return await repository.getListValoresCajaById(nIdCaja);
+        }
     }
 }
