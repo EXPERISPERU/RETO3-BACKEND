@@ -28,7 +28,7 @@ namespace backend.repository.Comercial
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 1);
                 parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdUsuario", nIdUsuario); 
 

@@ -76,17 +76,18 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdAsignacionPrecio", insVentaLoteDTO.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", insVentaLoteDTO.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", insVentaLoteDTO.nIdInicialLote);
+                parameters.Add("nIdInteresCuota", insVentaLoteDTO.nIdInteresCuota);
                 parameters.Add("nMontoVenta", insVentaLoteDTO.nMontoVenta);
                 parameters.Add("nMontoDescuento", insVentaLoteDTO.nMontoDescuento);
                 parameters.Add("nMontoFinal", insVentaLoteDTO.nMontoFinal);
                 parameters.Add("nMontoInicial", insVentaLoteDTO.nMontoInicial);
                 parameters.Add("nMontoFinanciado", insVentaLoteDTO.nMontoFinanciado);
+                parameters.Add("nMontoInteresCuota", insVentaLoteDTO.nMontoInteresCuota);
                 parameters.Add("nIdCuota", insVentaLoteDTO.nIdCuota);
                 parameters.Add("nValorCuota", insVentaLoteDTO.nValorCuota);             
                 parameters.Add("nCuotas", insVentaLoteDTO.nCuotas);
                 parameters.Add("nIdCicloPago", insVentaLoteDTO.nIdCicloPago);
                 parameters.Add("nIdUsuario_crea", insVentaLoteDTO.nIdUsuario_crea);
-                parameters.Add("nTipoInteresCuotaAplicado", insVentaLoteDTO.nTipoInteresCuotaAplicado);
                 parameters.Add("sIdOperacionBancaria", insVentaLoteDTO.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);

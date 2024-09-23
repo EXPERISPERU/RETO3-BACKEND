@@ -176,6 +176,23 @@ namespace backend.businesslogic.Comercial
                 { 
                     switch (loteDisponible.nCodigoCompania)
                     {
+                        case 1:
+                            List<InicialDescuentoDTO> listInicial1 = (List<InicialDescuentoDTO>)await getListInicialLote(loteDisponible.nIdLote, null, null);
+                            inicial = (InicialLoteDTO)await inicialLoteRepository.getInicialLoteByID(listInicial1.Count > 0 ? listInicial1.ToList()[0].nId : 0);
+
+                            List<SelectDTO> listCuota1 = (List<SelectDTO>)await getSelectCuotaLote(loteDisponible.nIdLote, null, null);
+                            cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID(listCuota1.Count > 0 ? listCuota1.ToList()[0].nCod : 0);
+
+                            List<InicialDescuentoDTO> listDescuentoFin1 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(loteDisponible.nIdLote, null, null);
+                            descuentoFin = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoFin1.Count > 0 ? listDescuentoFin1.ToList()[0].nId : 0);
+
+                            List<SelectInteresDTO> listInteres1 = (List<SelectInteresDTO>)await getListInteresLote(loteDisponible.nIdLote, inicial != null ? inicial.nIdInicialLote : null, null, cuota != null ? cuota.nIdCuotaLote : null);
+                            interes = (InteresCuotaDTO)await interesCuotaRepository.getInteresCuotaByID(listInteres1.Count > 0 ? listInteres1.ToList()[0].nId : 0);
+
+                            List<InicialDescuentoDTO> listDescuentoCon1 = (List<InicialDescuentoDTO>)await getListDescuentoContLote(loteDisponible.nIdLote);
+                            descuentoCon = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoCon1.Count > 0 ? listDescuentoCon1.ToList()[0].nId : 0);
+
+                            break;
                         case 3:
                             List<InicialDescuentoDTO> listInicial = (List<InicialDescuentoDTO>)await getListInicialLote(loteDisponible.nIdLote, null, null) ;
                             inicial = (InicialLoteDTO) await inicialLoteRepository.getInicialLoteByID(listInicial.Count > 0 ? listInicial.ToList()[0].nId : 0) ;
