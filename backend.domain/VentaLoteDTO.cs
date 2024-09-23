@@ -22,10 +22,12 @@ namespace backend.domain
         public int nIdAsignacionPrecio { get; set; }
         public int? nIdDescuentoLote { get; set; }
         public int? nIdInicialLote { get; set; }
+        public int? nIdInteresCuota { get; set; }
         public decimal nMontoVenta { get; set; }
         public decimal? nMontoDescuento { get; set; }
         public decimal nMontoFinal { get; set; }
         public decimal? nMontoInicial { get; set; }
+        public decimal? nMontoInteresCuota { get; set; }
         public decimal? nMontoFinanciado { get; set; }
         public decimal? nValorCuota { get; set; }
         public int? nIdCuota { get; set; }
