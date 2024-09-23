@@ -1,4 +1,5 @@
 ﻿using backend.businesslogic.Comercial;
+using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Tesoreria;
 using backend.domain;
 using backend.repository.Interfaces.Tesoreria;
@@ -14,9 +15,11 @@ namespace backend.businesslogic.Tesoreria
     public class MovimientosBL: IMovimientosBL
     {
         IMovimientosRepository repository;
-        public MovimientosBL(IMovimientosRepository _repository)
+        ICotizacionBL cotizacionBL;
+        public MovimientosBL(IMovimientosRepository _repository, ICotizacionBL _cotizacionBL)
         {
             repository = _repository;
+            cotizacionBL = _cotizacionBL;
         }
 
         public async Task<IList<ItemDTO>> getAllItem()
@@ -83,7 +86,7 @@ namespace backend.businesslogic.Tesoreria
             var list = await repository.getListLotesDisponibles(nIdCompania, nIdProyecto, nIdSector, nIdManzana, nIdLote);
             foreach (var item in list)
             {
-                new CotizacionBL().calculateCotizacionValues(item);
+                await cotizacionBL.calculateCotizacionValues(item, false);
             }
             return list;
             //return await repository.getListLotesDisponibles(nIdCompania, nIdProyecto, nIdSector, nIdManzana, nIdLote);
@@ -112,6 +115,11 @@ namespace backend.businesslogic.Tesoreria
         public async Task<SqlRspDTO> InsMovimientosReserva(MovReservaDTO reserva)
         {
             return await repository.InsMovimientosReserva(reserva);
+        }
+
+        public async Task<IList<MovReporteArqueoDTO>> getAllReporteArqueoCaja(int nIdCompania, int nIdCaja, int nIdUsuario)
+        {
+            return await repository.getAllReporteArqueoCaja(nIdCompania, nIdCaja, nIdUsuario);
         }
     }
 }

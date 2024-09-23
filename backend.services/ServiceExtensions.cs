@@ -140,6 +140,9 @@ namespace backend.services
             services.AddScoped<ICajaRepository, CajaRepository>();
 
             services.AddScoped<IMovimientosRepository, MovimientosRepository>();
+
+            services.AddScoped<IComprobanteBajaRepository, ComprobanteBajaRepository>();
+
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -226,6 +229,8 @@ namespace backend.services
             services.AddScoped<ICajaBL, CajaBL>();
 
             services.AddScoped<IMovimientosBL, MovimientosBL>();
+
+            services.AddScoped<IComprobanteBajaBL, ComprobanteBajaBL>();
         }
     }
 }

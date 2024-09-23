@@ -13,5 +13,9 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<SqlRspDTO> getValidaAperturaCaja(int nIdCompania, int nIdUsuario);
         Task<SqlRspDTO> InsCaja(CajaDTO caja);
         Task<SqlRspDTO> getValidaPerfil(int nIdCompania, int nIdUsuario);
+        Task<SqlRspDTO> UpdCaja(CajaDTO caja);
+        Task<IList<CajaDTO>> getListadoCaja(CajaFiltroDTO cajaFiltroDTO);
+        Task<IList<SelectDTO>> getAllCajeros(int nIdCompania);
+        Task<IList<CajaDTO>> getListValoresCajaById(int nIdCaja);
     }
 }
