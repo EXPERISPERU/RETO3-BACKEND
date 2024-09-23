@@ -12,5 +12,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SelectDTO>> getSelectMedioPago(int nIdUsuario);
         Task<IList<SelectDTO>> getSelectCicloPago(int nIdLote);
         Task<SqlRspDTO> InsVentaLote(InsVentaLoteDTO insVentaLoteDTO);
+        Task<IList<VentaLoteChartDTO>> postListVentaChart(VentaLoteChartFilterDTO ventaChartFilter);
     }
 }

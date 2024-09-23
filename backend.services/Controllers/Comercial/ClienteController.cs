@@ -247,5 +247,27 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ClienteTrazabilidadDTO>>>> postListClienteTrazabilidad(ClienteTrazabilidadFilterDTO clienteTrazabilidadFilter)
+        {
+            ApiResponse<List<ClienteTrazabilidadDTO>> response = new ApiResponse<List<ClienteTrazabilidadDTO>>();
+            try
+            {
+                var result = await service.postListClienteTrazabilidad(clienteTrazabilidadFilter);
+                response.success = true;
+                response.data = (List<ClienteTrazabilidadDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+
     }
 }
