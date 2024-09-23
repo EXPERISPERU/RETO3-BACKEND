@@ -248,5 +248,27 @@ namespace backend.services.Controllers.Comercial
         }
 
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReferidoChartDTO>>>> getListReferidoChart(int nIdUsuario, int nIdCompania)
+        {
+            ApiResponse<List<ReferidoChartDTO>> response = new ApiResponse<List<ReferidoChartDTO>>();
+
+            try
+            {
+                var result = await service.getListReferidoChart(nIdUsuario, nIdCompania);
+
+                response.success = true;
+                response.data = (List<ReferidoChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }

@@ -18,5 +18,6 @@ namespace backend.repository.Interfaces.Comercial
         Task<SqlRspDTO> InsCliente(ClienteDTO cliente);
         Task<SqlRspDTO> UpdCliente(ClienteDTO cliente);
         Task<ApiResponse<ClienteDTO>> findClienteGCByDoc(int nIdUsuario, int nIdCompania, string? sDNI, string? sCE);
+        Task<IList<ClienteTrazabilidadDTO>> postListClienteTrazabilidad(ClienteTrazabilidadFilterDTO clienteTrazabilidadFilter);
     }
 }
