@@ -80,5 +80,28 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<VentaLoteChartDTO>>>> postListVentaChart(VentaLoteChartFilterDTO ventaChartFilter)
+        {
+            ApiResponse<List<VentaLoteChartDTO>> response = new ApiResponse<List<VentaLoteChartDTO>>();
+
+            try
+            {
+                var result = await service.postListVentaChart(ventaChartFilter);
+
+                response.success = true;
+                response.data = (List<VentaLoteChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }

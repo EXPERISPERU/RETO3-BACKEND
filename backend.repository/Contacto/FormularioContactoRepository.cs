@@ -36,7 +36,7 @@ namespace backend.repository.Contacto
                 parameters.Add("Direccion", seguimiento.sUbicacion);
                 parameters.Add("IdTipoSolicitud", seguimiento.nIdTipoSolicitud);
                 parameters.Add("TipoSolicitud", seguimiento.sTipoSolicitud);
-                
+
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
             return res;

@@ -181,5 +181,23 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+        public async Task<IList<ReferidoChartDTO>> getListReferidoChart(int nIdUsuario, int nIdCompania)
+        {
+            IEnumerable<ReferidoChartDTO> list = new List<ReferidoChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 12);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<ReferidoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

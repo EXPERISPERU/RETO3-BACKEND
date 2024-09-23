@@ -16,4 +16,17 @@ namespace backend.domain
         public int nIdTipoOpcion { get; set; }
         public bool bActivo { get; set; }
     }
+
+
+    public class OpcionByPerfilDTO
+    {
+        public int? nIdPerfil { get; set; }
+        public int? nIdOpcion { get; set; }
+        public int? nIdOpcionP { get; set; }
+        public string? sCodigo { get; set; }
+        public string sOpcion { get; set; }
+        public string? sRuta { get; set; }
+        public int nIdTipoOpcion { get; set; }
+        public bool bActivo { get; set; }
+    }
 }

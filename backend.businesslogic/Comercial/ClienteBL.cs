@@ -62,5 +62,10 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.findClienteGCByDoc(nIdUsuario, nIdCompania, sDNI, sCE);
         }
+
+        public async Task<IList<ClienteTrazabilidadDTO>> postListClienteTrazabilidad(ClienteTrazabilidadFilterDTO clienteTrazabilidadFilter)
+        {
+            return await repository.postListClienteTrazabilidad(clienteTrazabilidadFilter);
+        }
     }
 }

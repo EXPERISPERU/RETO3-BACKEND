@@ -7,6 +7,12 @@ using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Interfaces.Contabilidad;
+using System.Globalization;
+using System.Drawing;
+using iText.Barcodes;
+using iText.Kernel.Colors;
+using iText.Kernel.Pdf.Xobject;
+using QRCoder;
 
 namespace backend.services.Controllers.Contabilidad
 {
@@ -31,13 +37,15 @@ namespace backend.services.Controllers.Contabilidad
         {
             try
             {
+                CultureInfo ci_PE = new CultureInfo("es-PE");
+
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
                 byte[] file;
 
-                if (comprobante.nIdAdjunto == null)
-                {
-                    var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
+                //if (comprobante.nIdAdjunto == null)
+                //{
+                var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
 
                     var html = "";
 
@@ -68,7 +76,7 @@ namespace backend.services.Controllers.Contabilidad
                                 .Replace("#sTelefonoCliente#", comprobante.sTelefono)
                                 .Replace("#sFecha#", comprobante.sFecha_crea.Split(" ")[0])
                                 .Replace("#sSimbolo#", comprobante.sSimbolo)
-                                .Replace("#sTotal#", comprobante.nValorTotal.ToString("0.00"));
+                                .Replace("#sTotal#", string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorTotal));
                         html += "</div>";
 
                         string sIniItems = "#iniItems#";
@@ -92,7 +100,7 @@ namespace backend.services.Controllers.Contabilidad
                             .Replace("#nroItem#", (i + 1).ToString())
                             .Replace(sItem, listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
                             .Replace("#sSimboloItem#", listComprobanteDet[i].sSimbolo)
-                            .Replace("#sTotalItem#", listComprobanteDet[i].nValorTotal.ToString("0.00"))
+                            .Replace("#sTotalItem#", string.Format(ci_PE, "{0:0,0.00}", listComprobanteDet[i].nValorTotal))
                             .Replace(sFinItems, "");
                         }
 
@@ -111,6 +119,21 @@ namespace backend.services.Controllers.Contabilidad
                             logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
                         }
 
+                        string qrContent = comprobante.sRUCCompania
+                                            + "|" + new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante)
+                                            + "|" + comprobante.sSerie
+                                            + "|" + comprobante.nCorrelativo.ToString()
+                                            + "|" + string.Format(ci_PE, "{0:0.00}", comprobante.nValorIgv)
+                                            + "|" + string.Format(ci_PE, "{0:0.00}", comprobante.nValorTotal)
+                                            + "|" + comprobante.dFecha_crea.ToString("dd/MM/yyyy")
+                                            + "|" + (!string.IsNullOrEmpty(comprobante.sDNI) ? "1" : "6")
+                                            + "|" + (!string.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sDNI : comprobante.sRUC);
+
+                        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                        QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrContent, QRCodeGenerator.ECCLevel.Q);
+                        PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+                        var qrImage = "data:image/png; base64," + Convert.ToBase64String(qrCode.GetGraphic(20));
+
                         html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
@@ -121,6 +144,7 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("youtubeIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_youtube.png")))
                         .Replace("linkIcon.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "ico_link.png")))
                         .Replace("ComprobanteFooter.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "footer_boleta_inmobitec.png")))
+                        .Replace("#sRUCCompania#", comprobante.sRUCCompania)
                         .Replace("#sTipoComprobante#", comprobante.sTipoComprobante)
                         .Replace("#sComprobante#", comprobante.sComprobante)
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)
@@ -134,18 +158,19 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sOrdenPago#", "")
                         .Replace("#sFechaVencimiento#", "")
                         .Replace("#sGuiaRemision#", "")
-                        .Replace("#sOPGravadas#", comprobante.sSimbolo + " " + comprobante.nValorSubTotal.ToString("0.00"))
+                        .Replace("#sOPGravadas#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorSubTotal))
                         .Replace("#sOPInafecta#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPExonerada#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPExportacion#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPGratuitas#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sDescuentosTotales#", comprobante.sSimbolo + " 0.00")
-                        .Replace("#sSubTotal#", comprobante.sSimbolo + " " + comprobante.nValorSubTotal.ToString("0.00"))
+                        .Replace("#sSubTotal#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorSubTotal))
                         .Replace("#sIcbPer#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sIsc#", comprobante.sSimbolo + " 0.00")
-                        .Replace("#sValorIGV#", comprobante.sSimbolo + " " + comprobante.nValorIgv.ToString("0.00"))
-                        .Replace("#sTotal#", comprobante.sSimbolo + " " + comprobante.nValorTotal.ToString("0.00"))
+                        .Replace("#sValorIGV#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorIgv))
+                        .Replace("#sTotal#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorTotal))
                         .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal, 2)))
+                        .Replace("#sQRData#", qrImage)
                         .Replace("#sDatosAdicionales#", "");
 
                         string sIniItems = "#iniItems#";
@@ -162,9 +187,9 @@ namespace backend.services.Controllers.Contabilidad
                             .Replace("#sItemCant#", "1")
                             .Replace("#sItemUnd#", "UNIDAD")
                             .Replace("#sItemDescripcion#", listComprobanteDet[i].sDescripcion.Replace("#n#", "<br>"))
-                            .Replace("#sItemValor#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
+                            .Replace("#sItemValor#", string.Format(ci_PE, "{0:0,0.00}", listComprobanteDet[i].nValorSubTotal))
                             .Replace("#sItemDscto#", "0.00")
-                            .Replace("#sItemTotal#", listComprobanteDet[i].nValorSubTotal.ToString("0.00"))
+                            .Replace("#sItemTotal#", string.Format(ci_PE, "{0:0,0.00}", listComprobanteDet[i].nValorSubTotal))
                             .Replace(sFinItems, "");
                         }
 
@@ -182,25 +207,56 @@ namespace backend.services.Controllers.Contabilidad
 
                     file = System.IO.File.ReadAllBytes(path);
 
-                    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
+            //    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+            //    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
-                    if (resFtp.success)
-                    {
-                        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
-                    }
-                }
-                else
-                {
-                    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
-                }
+            //    if (resFtp.success)
+            //    {
+            //        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
+            //    }
+            //}
+            //    else
+            //{
+            //    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+            //}
 
-                return File(file, "application/pdf");
+            return File(file, "application/pdf");
             }
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> certificarComprobante(int nIdComprobante)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
+                List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
+
+                if (comprobante.nCodigoCompania == 2)
+                {
+                    SicfacResponse sres = new SicFac(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+
+                    response.success = sres.Exito ?? false;
+                    response.errMsj = sres.MensajeError;
+                    response.data = new SqlRspDTO() { nCod = (sres.Exito == true ? int.Parse(sres.CodigoEstadoSicfac) : 0), sMsj = "" };
+
+                    service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat);
+                }
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
             }
         }
     }

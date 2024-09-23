@@ -11,5 +11,7 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<DataReservaDTO> getDataReservaByLote(int nIdLote);
         Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp);
         Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
+        Task<IList<ReservaChartDTO>> postListReservaChart(ReservaChartFilterDTO reservaChartFilter);
+        Task<IList<SelectDTO>> getSelectTrimestres();
     }
 }
