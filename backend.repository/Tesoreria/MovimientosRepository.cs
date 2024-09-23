@@ -339,7 +339,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nMontoCuota", cuota.nMontoCuota);
                 parameters.Add("nTipoFinanciamiento", cuota.nTipoFinanciamiento);
                 parameters.Add("nIdContrato", cuota.nIdContrato);
-                parameters.Add("nIdUsuario_crea", cuota.nIdUsuario_crea);
+                parameters.Add("nIdUsuario", cuota.nIdUsuario_crea);
                 parameters.Add("nIdCronograma", cuota.nIdCronograma);
                 parameters.Add("sIdOperacionBancaria", cuota.sIdOperacionBancaria);
                 //Movimientos
@@ -374,16 +374,22 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdAsignacionPrecio", preContrato.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", preContrato.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", preContrato.nIdInicialLote);
+
+                parameters.Add("nIdInteresCuota", preContrato.nIdInteresCuota);//nuevo
+
                 parameters.Add("nMontoVenta", preContrato.nMontoVenta);
                 parameters.Add("nMontoDescuento", preContrato.nMontoDescuento);
                 parameters.Add("nMontoFinal", preContrato.nMontoFinal);
                 parameters.Add("nMontoInicial", preContrato.nMontoInicial);
+
+                parameters.Add("nMontoInteresCuota", preContrato.nMontoInteresCuota);//nuevo
+
                 parameters.Add("nMontoFinanciado", preContrato.nMontoFinanciado);
                 parameters.Add("nIdCuota", preContrato.nIdCuota);
                 parameters.Add("nCuotas", preContrato.nCuotas);
                 parameters.Add("nValorCuota", preContrato.nValorCuota);
                 parameters.Add("nIdUsuario_crea", preContrato.nIdUsuario_crea);
-                parameters.Add("nTipoInteresCuotaAplicado", preContrato.nTipoInteresCuotaAplicado);
+                //parameters.Add("nTipoInteresCuotaAplicado", preContrato.nTipoInteresCuotaAplicado);
                 parameters.Add("sIdOperacionBancaria", preContrato.sIdOperacionBancaria);
                 //Movimientos
                 parameters.Add("nIdCaja", preContrato.nIdCaja);
@@ -421,6 +427,23 @@ namespace backend.repository.Tesoreria
             }
 
             return resp;
+        }
+
+        public async Task<IList<MovReporteArqueoDTO>> getAllReporteArqueoCaja(int nIdCompania, int nIdCaja, int nIdUsuario)
+        {
+            IEnumerable<MovReporteArqueoDTO> list = new List<MovReporteArqueoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 19);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdCaja", nIdCaja);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<MovReporteArqueoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
         }
     }
 }

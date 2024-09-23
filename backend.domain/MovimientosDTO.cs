@@ -114,6 +114,8 @@ namespace backend.domain
         public int nIdCaja { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }
+        public int? nIdInteresCuota { get; set; }
+        public decimal? nMontoInteresCuota { get; set; }
     }
 
     public class MovVentaLoteDTO
@@ -162,6 +164,16 @@ namespace backend.domain
         public int nIdCaja { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }
+    }
+
+    public class MovReporteArqueoDTO
+    {
+        public string? nMedioPago { get; set; }
+        public decimal nValorTotal { get; set; }
+        public string? sTipoMovimiento { get; set; }
+        public string? sSimbolo { get; set; }
+        public string? sMoneda { get; set; }
+
     }
 
 }
