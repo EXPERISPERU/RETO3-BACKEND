@@ -26,6 +26,7 @@
     {
         public int nIdCliente { get; set; }
         public string sNombreCliente { get; set; }
+        public string sPredio { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
