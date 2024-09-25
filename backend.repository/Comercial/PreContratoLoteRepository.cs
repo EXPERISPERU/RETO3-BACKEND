@@ -168,6 +168,8 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCompania", preContratoFilter.nIdCompania);
                 parameters.Add("nIdProyecto", preContratoFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", preContratoFilter.sCodTrimestre);
+                parameters.Add("sMes", preContratoFilter.sMes);
+                parameters.Add("sAno", preContratoFilter.sAno);
 
                 list = await connection.QueryAsync<PreContratoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
