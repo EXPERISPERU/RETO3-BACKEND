@@ -149,6 +149,8 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCompania", reservaChartFilter.nIdCompania);
                 parameters.Add("nIdProyecto", reservaChartFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", reservaChartFilter.sCodTrimestre);
+                parameters.Add("sMes", reservaChartFilter.sMes);
+                parameters.Add("sAno", reservaChartFilter.sAno);
 
                 list = await connection.QueryAsync<ReservaChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
