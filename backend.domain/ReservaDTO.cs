@@ -60,6 +60,8 @@ namespace backend.domain
         public int nIdCompania { get; set; }
         public int? nIdProyecto { get; set; }
         public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
     }
 
 }
