@@ -46,7 +46,7 @@
 
         #region Request
         public decimal? importeDeudaPagada { get; set; }
-        public decimal? numeroOperacionRecaudos { get; set; }
+        public int? numeroOperacionRecaudos { get; set; }
         public string? formaPago { get; set; }
         public string? codigoMoneda { get; set; }
         public string? otrosDatosEmpresa { get; set; }

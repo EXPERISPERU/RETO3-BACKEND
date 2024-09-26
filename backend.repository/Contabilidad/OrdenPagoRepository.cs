@@ -33,9 +33,9 @@ namespace backend.repository.Contabilidad
             return res.ToList();
         }
 
-        public async Task<ComprobanteDTO> getOrdenPagoById(int nIdOrdenPago)
+        public async Task<OrdenPagoDTO> getOrdenPagoById(int nIdOrdenPago)
         {
-            ComprobanteDTO res = new ComprobanteDTO(); ;
+            OrdenPagoDTO res = new OrdenPagoDTO(); ;
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -43,7 +43,7 @@ namespace backend.repository.Contabilidad
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_orden_pago]", 2);
                 parameters.Add("nIdOrdenPago", nIdOrdenPago);
 
-                res = await connection.QuerySingleAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                res = await connection.QuerySingleOrDefaultAsync<OrdenPagoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
@@ -65,7 +65,7 @@ namespace backend.repository.Contabilidad
             return res.ToList();
         }
 
-        public async Task<List<bbvaDocumento>> getListOrdenPagoRecaudoBBVAbyDocumento(string sDocumento, int nCodigoProyecto)
+        public async Task<List<bbvaDocumento>> getListOrdenPagoRecaudoBBVAbyDocumento(string sDocumento, int nConvenio)
         {
             IEnumerable<bbvaDocumento> res = new List<bbvaDocumento>();
 
@@ -74,12 +74,30 @@ namespace backend.repository.Contabilidad
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_orden_pago]", 4);
                 parameters.Add("sDocumento", sDocumento);
-                parameters.Add("nCodigoProyecto", nCodigoProyecto);
+                parameters.Add("nConvenio", nConvenio);
 
                 res = await connection.QueryAsync<bbvaDocumento>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res.ToList();
+        }
+
+        public async Task<bbvaDocumento> getOrdenPagoRecaudoBBVAbyDocumentoAndID(string sDocumento, int nConvenio, int nIdOrdenPago)
+        {
+            bbvaDocumento res = new bbvaDocumento(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_orden_pago]", 5);
+                parameters.Add("nIdOrdenPago", nIdOrdenPago);
+                parameters.Add("sDocumento", sDocumento);
+                parameters.Add("nConvenio", nConvenio);
+
+                res = await connection.QuerySingleOrDefaultAsync<bbvaDocumento>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
         }
     }
 }

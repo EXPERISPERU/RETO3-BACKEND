@@ -17,5 +17,10 @@ namespace backend.businesslogic.Contratos
         {
             return await repository.getListCronogramasRecaudoBBVAbyDocumento(sDocumento, nCodigoProyecto);
         }
+
+        public async Task<bbvaDocumento> getCronogramaRecaudoBBVAbyDocumentoAndID(string sDocumento, int nConvenio, int nIdCronograma)
+        {
+            return await repository.getCronogramaRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nIdCronograma);
+        }
     }
 }

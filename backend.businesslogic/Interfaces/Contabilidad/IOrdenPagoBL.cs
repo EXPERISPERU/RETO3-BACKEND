@@ -10,8 +10,9 @@ namespace backend.businesslogic.Interfaces.Contabilidad
     public interface IOrdenPagoBL
     {
         Task<List<OrdenPagoDTO>> getListOrdenPago(int nIdUsuario, int nIdCompania);
-        Task<ComprobanteDTO> getOrdenPagoById(int nIdOrdenPago);
+        Task<OrdenPagoDTO> getOrdenPagoById(int nIdOrdenPago);
         Task<List<OrdenPagoDetDTO>> getListOrdenPagoDet(int nIdOrdenPago);
-        Task<List<bbvaDocumento>> getListOrdenPagoRecaudoBBVAbyDocumento(string sDocumento, int nCodigoProyecto);
+        Task<List<bbvaDocumento>> getListOrdenPagoRecaudoBBVAbyDocumento(string sDocumento, int nConvenio);
+        Task<bbvaDocumento> getOrdenPagoRecaudoBBVAbyDocumentoAndID(string sDocumento, int nConvenio, int nIdOrdenPago);
     }
 }

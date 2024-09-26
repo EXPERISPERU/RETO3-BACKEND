@@ -1,6 +1,7 @@
 ﻿using backend.businesslogic.Interfaces.Comercial;
 using backend.businesslogic.Interfaces.Contabilidad;
 using backend.businesslogic.Interfaces.Contratos;
+using backend.businesslogic.Interfaces.Tesoreria;
 using backend.domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace backend.services.Controllers.Tesoreria
         IOrdenPagoBL ordenPagoService;
         IClienteBL clienteService;
         ICronogramaBL cronogramaService;
+        IOperacionBancariaBL operacionBancariaService;
 
-        public RecaudoBBVAController(IOrdenPagoBL _ordenPagoService, IClienteBL _clienteService, ICronogramaBL _cronogramaService)
+        public RecaudoBBVAController(IOrdenPagoBL _ordenPagoService, IClienteBL _clienteService, ICronogramaBL _cronogramaService, IOperacionBancariaBL _operacionBancariaService)
         {
             ordenPagoService = _ordenPagoService;
             clienteService = _clienteService;
             cronogramaService = _cronogramaService;
+            operacionBancariaService = _operacionBancariaService;
         }
 
         private string limpiarJson(object obj)
@@ -33,19 +36,6 @@ namespace backend.services.Controllers.Tesoreria
             };
 
             return JsonSerializer.Serialize(obj, options);
-        }
-
-        private int ConvenioProyecto(int nConvenio)
-        {
-            switch (nConvenio) {
-                case 18613:
-                    return 1;
-                case 18614:
-                    return 2;
-                case 18612:
-                    return 3;
-            }
-            return 0;
         }
 
         [HttpPost("[action]")]
@@ -66,7 +56,7 @@ namespace backend.services.Controllers.Tesoreria
             try
             {
                 var sDocumento = request.ConsultarDeuda.recaudosRq.detalle.transaccion.numeroReferenciaDeuda;
-                var nCodigoProyecto = ConvenioProyecto(request.ConsultarDeuda.recaudosRq.cabecera.operacion.codigoConvenio);
+                var nConvenio = request.ConsultarDeuda.recaudosRq.cabecera.operacion.codigoConvenio;
 
                 var client = await clienteService.findClienteByDoc(1, sDocumento, sDocumento, null);
 
@@ -79,11 +69,11 @@ namespace backend.services.Controllers.Tesoreria
                     };
                 }
                 else {
-                    var listDocumentos = await ordenPagoService.getListOrdenPagoRecaudoBBVAbyDocumento(sDocumento, nCodigoProyecto);
+                    var listDocumentos = await ordenPagoService.getListOrdenPagoRecaudoBBVAbyDocumento(sDocumento, nConvenio);
 
                     if (listDocumentos.Count == 0)
                     {
-                        listDocumentos = await cronogramaService.getListCronogramasRecaudoBBVAbyDocumento(sDocumento, nCodigoProyecto);
+                        listDocumentos = await cronogramaService.getListCronogramasRecaudoBBVAbyDocumento(sDocumento, nConvenio);
 
                         if (listDocumentos.Count == 0)
                         {
@@ -160,11 +150,88 @@ namespace backend.services.Controllers.Tesoreria
                 var sTipo = sNumero.Split('-')[0];
                 var nCodigo = int.Parse(sNumero.Split('-')[1]);
 
+                var sDocumento = request.NotificarPago.recaudosRq.detalle.transaccion.numeroReferenciaDeuda;
+                var nConvenio = request.NotificarPago.recaudosRq.cabecera.operacion.codigoConvenio;
+
                 switch (sTipo)
                 {
-                    case "OP2":
+                    case "OPV2":
+                        var ordenPago = await ordenPagoService.getOrdenPagoRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nCodigo);
+                        if (ordenPago == null)
+                        {
+                            response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                            {
+                                codigo = "3002",
+                                descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
+                            };
+                        }
+                        else
+                        {
+                            if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(ordenPago.importeDeuda))
+                            {
+                                response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                                {
+                                    codigo = "3002",
+                                    descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
+                                };
+                            }
+                            else
+                            {
+                                var fechaOP = DateTime.ParseExact(request.NotificarPago.recaudosRq.cabecera.operacion.fechaOperacion, "yyyyMMdd", null);
+
+                                var operacionBancaria = new OperacionBancariaDTO() {
+                                    nIdCuenta = 1
+                                    ,nIdMoneda = 1
+                                    ,sReferencia = request.NotificarPago.recaudosRq.detalle.transaccion.numeroDocumento
+                                    ,nMovimiento = request.NotificarPago.recaudosRq.detalle.transaccion.numeroOperacionRecaudos.Value
+                                    ,dFechaOperacion = fechaOP
+                                    ,nImporte = request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada.Value
+                                    ,nIdUsuario_crea = 1
+                                };
+                                var resInsOB = await operacionBancariaService.InsOperacionBancaria(0, operacionBancaria);
+
+                                if (resInsOB.nCod > 0)
+                                {
+                                    response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                                    {
+                                        codigo = "0001",
+                                        descripcion = "TRANSACCION REALIZADA CON EXITO"
+                                    };
+
+                                    response.NotificarPagoResponse.recaudosRs.detalle.transaccion = request.NotificarPago.recaudosRq.detalle.transaccion;
+                                }
+                                else
+                                {
+                                    response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                                    {
+                                        codigo = "3002",
+                                        descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
+                                    };
+                                }
+                            }
+                        }
                         break;
                     case "CRO2":
+                        var cronograma = await cronogramaService.getCronogramaRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nCodigo);
+                        if (cronograma == null)
+                        {
+                            response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                            {
+                                codigo = "3002",
+                                descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
+                            };
+                        }
+                        else
+                        {
+                            if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(cronograma.importeDeuda))
+                            {
+                                response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                                {
+                                    codigo = "3002",
+                                    descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
+                                };
+                            }
+                        }
                         break;
                 }
 

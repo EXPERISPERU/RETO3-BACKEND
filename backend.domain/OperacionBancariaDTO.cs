@@ -7,7 +7,7 @@
         public string? sProyecto { get; set; }
         public int nIdCuenta { get; set; }
         public string? sNroCuenta { get; set; }
-        public int nIdMoneda { get; set; }
+        public int? nIdMoneda { get; set; }
         public string? sSimbolo { get; set; }
         public string? sMoneda { get; set; }
         public string sReferencia { get; set; }

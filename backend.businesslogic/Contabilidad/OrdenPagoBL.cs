@@ -23,7 +23,7 @@ namespace backend.businesslogic.Contabilidad
             return await repository.getListOrdenPago(nIdUsuario, nIdCompania);
         }
         
-        public async Task<ComprobanteDTO> getOrdenPagoById(int nIdOrdenPago)
+        public async Task<OrdenPagoDTO> getOrdenPagoById(int nIdOrdenPago)
         {
             return await repository.getOrdenPagoById(nIdOrdenPago);
         }
@@ -33,10 +33,14 @@ namespace backend.businesslogic.Contabilidad
             return await repository.getListOrdenPagoDet(nIdOrdenPago);
         }
         
-        public async Task<List<bbvaDocumento>> getListOrdenPagoRecaudoBBVAbyDocumento(string sDocumento, int nCodigoProyecto)
+        public async Task<List<bbvaDocumento>> getListOrdenPagoRecaudoBBVAbyDocumento(string sDocumento, int nConvenio)
         {
-            return await repository.getListOrdenPagoRecaudoBBVAbyDocumento(sDocumento, nCodigoProyecto);
+            return await repository.getListOrdenPagoRecaudoBBVAbyDocumento(sDocumento, nConvenio);
         }
-        
+
+        public async Task<bbvaDocumento> getOrdenPagoRecaudoBBVAbyDocumentoAndID(string sDocumento, int nConvenio, int nIdOrdenPago)
+        { 
+            return await repository.getOrdenPagoRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nIdOrdenPago);
+        }
     }
 }
