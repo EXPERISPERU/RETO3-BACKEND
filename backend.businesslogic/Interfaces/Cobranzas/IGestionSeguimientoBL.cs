@@ -38,5 +38,6 @@ namespace backend.businesslogic.Interfaces.Cobranzas
         Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros);
         Task<IList<SeguimientoProspectoHistoricoDTO>> postListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros);
         Task<IList<SelectDTO>> getInfoContactoByMedioOfProspecto(int nIdProspecto, int nIdMedioContacto);
+        Task<IList<SeguimientoChartDTO>> postListSeguimientoChart(SeguimientoChartFilterDTO seguimientoChartFilter);
     }
 }
