@@ -41,5 +41,10 @@ namespace backend.businesslogic.Tesoreria
         {
             return await repository.getOperacionBancariaByCuentaMovimiento(nIdCompania, nIdUsuario, nIdCuenta, nMovimiento);
         }
+
+        public async Task<SqlRspDTO> InsOperacionBancariaRecaudoBBVA(InsOperacionBancariaRecaudoBBVA operacionBancariaRecaudoBBVA)
+        { 
+            return await repository.InsOperacionBancariaRecaudoBBVA(operacionBancariaRecaudoBBVA);
+        }
     }
 }

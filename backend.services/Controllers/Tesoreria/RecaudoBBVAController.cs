@@ -179,16 +179,14 @@ namespace backend.services.Controllers.Tesoreria
                             {
                                 var fechaOP = DateTime.ParseExact(request.NotificarPago.recaudosRq.cabecera.operacion.fechaOperacion, "yyyyMMdd", null);
 
-                                var operacionBancaria = new OperacionBancariaDTO() {
-                                    nIdCuenta = 1
-                                    ,nIdMoneda = 1
+                                var operacionBancaria = new InsOperacionBancariaRecaudoBBVA() {
+                                    nConvenio = nConvenio
                                     ,sReferencia = request.NotificarPago.recaudosRq.detalle.transaccion.numeroDocumento
                                     ,nMovimiento = request.NotificarPago.recaudosRq.detalle.transaccion.numeroOperacionRecaudos.Value
                                     ,dFechaOperacion = fechaOP
                                     ,nImporte = request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada.Value
-                                    ,nIdUsuario_crea = 1
                                 };
-                                var resInsOB = await operacionBancariaService.InsOperacionBancaria(0, operacionBancaria);
+                                var resInsOB = await operacionBancariaService.InsOperacionBancariaRecaudoBBVA(operacionBancaria);
 
                                 if (resInsOB.nCod > 0)
                                 {

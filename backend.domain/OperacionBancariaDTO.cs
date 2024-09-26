@@ -26,6 +26,14 @@
         public int? nIdUsuario_mod { get; set; }
         public string? sUsuario_mod { get; set; }
         public DateTime? dFecha_mod { get; set; }
+    }
 
+    public class InsOperacionBancariaRecaudoBBVA 
+    {
+        public int nConvenio { get; set; }
+        public string sReferencia { get; set; }
+        public int nMovimiento { get; set; }
+        public DateTime dFechaOperacion { get; set; }
+        public decimal nImporte { get; set; }
     }
 }
