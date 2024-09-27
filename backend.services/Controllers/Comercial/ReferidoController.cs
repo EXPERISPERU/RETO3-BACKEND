@@ -248,14 +248,14 @@ namespace backend.services.Controllers.Comercial
         }
 
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ReferidoChartDTO>>>> getListReferidoChart(int nIdUsuario, int nIdCompania)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReferidoChartDTO>>>> postListReferidoChart(ReferidoChartFilterDTO referidoChartFilter)
         {
             ApiResponse<List<ReferidoChartDTO>> response = new ApiResponse<List<ReferidoChartDTO>>();
 
             try
             {
-                var result = await service.getListReferidoChart(nIdUsuario, nIdCompania);
+                var result = await service.postListReferidoChart(referidoChartFilter);
 
                 response.success = true;
                 response.data = (List<ReferidoChartDTO>)result;
