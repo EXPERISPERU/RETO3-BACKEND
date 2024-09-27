@@ -121,5 +121,10 @@ namespace backend.businesslogic.Tesoreria
         {
             return await repository.getAllReporteArqueoCaja(nIdCompania, nIdCaja, nIdUsuario);
         }
+
+        public async Task<SqlRspDTO> InsMovimientosAdicionPrecontrato(MovPreContratoDTO preContrato)
+        {
+            return await repository.InsMovimientosAdicionPrecontrato(preContrato);
+        }
     }
 }

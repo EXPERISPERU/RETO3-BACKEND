@@ -68,7 +68,51 @@ namespace backend.services.Controllers.Contabilidad
             }
         }
 
-        
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsComprobanteCaja([FromBody] ComprobanteBajaDTO comprobanteBaja)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsComprobanteCaja(comprobanteBaja);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<LoginDTO>>>> getAuthUserSuperAnulaCompro(string sUsuario, string sContrasena)
+        {
+            ApiResponse<List<LoginDTO>> response = new ApiResponse<List<LoginDTO>>();
+
+            try
+            {
+                var result = await service.AuthUserSuperAnulaCompro(sUsuario, sContrasena);
+
+                response.success = true;
+                response.data = (List<LoginDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+
+
 
 
     }
