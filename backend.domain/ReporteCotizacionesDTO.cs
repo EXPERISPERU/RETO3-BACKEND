@@ -43,4 +43,24 @@ namespace backend.domain
         public string? sUsuario { get; set; }
         public string? dFecha_crea { get; set; }
     }
+
+
+    public class CotizacionChartDTO
+    {
+        public int nIdPersona { get; set; }
+        public int nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime dFecha { get; set; }
+        public int? nCountCotizacion { get; set; }
+    }
+
+    public class CotizacionChartFilterDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public int? nIdProyecto { get; set; }
+        public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
+    }
 }

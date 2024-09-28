@@ -401,5 +401,26 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<CotizacionChartDTO>>>> postListCotizacionChart(CotizacionChartFilterDTO cotizacionChartFilter)
+        {
+            ApiResponse<List<CotizacionChartDTO>> response = new ApiResponse<List<CotizacionChartDTO>>();
+
+            try
+            {
+                var result = await service.postListCotizacionChart(cotizacionChartFilter);
+
+                response.success = true;
+                response.data = (List<CotizacionChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
