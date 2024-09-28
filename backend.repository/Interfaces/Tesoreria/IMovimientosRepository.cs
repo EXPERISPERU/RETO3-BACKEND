@@ -28,8 +28,10 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<SqlRspDTO> InsMovimientosVenta(MovVentaLoteDTO ventaLote);
         Task<SqlRspDTO> InsMovimientosCuota(MovCuotaDTO cuota);
         Task<SqlRspDTO> InsMovimientosPrecontrato(MovPreContratoDTO preContrato);
+        Task<SqlRspDTO> InsMovimientosAdicionPrecontrato(MovPreContratoDTO preContrato);
         Task<SqlRspDTO> InsMovimientosReserva(MovReservaDTO reserva);
         Task<IList<MovReporteArqueoDTO>> getAllReporteArqueoCaja(int nIdCompania, int nIdCaja, int nIdUsuario);
+        
 
 
     }

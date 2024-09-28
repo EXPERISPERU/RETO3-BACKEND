@@ -28,5 +28,15 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.getSelectTipoMotivos();
         }
+
+        public async Task<SqlRspDTO> InsComprobanteCaja(ComprobanteBajaDTO comprobanteBaja)
+        {
+            return await repository.InsComprobanteCaja(comprobanteBaja);
+        }
+
+        public async Task<IList<LoginDTO>> AuthUserSuperAnulaCompro(string sUsuario, string sContrasena)
+        {
+            return await repository.AuthUserSuperAnulaCompro(sUsuario, sContrasena);
+        }
     }
 }

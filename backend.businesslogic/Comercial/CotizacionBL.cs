@@ -380,5 +380,12 @@ namespace backend.businesslogic.Comercial
                 loteDisponible = null;
             }
         }
+
+
+        public async Task<IList<CotizacionChartDTO>> postListCotizacionChart(CotizacionChartFilterDTO cotizacionChartFilter)
+        {
+            return await repository.postListCotizacionChart(cotizacionChartFilter);
+        }
+
     }
 }

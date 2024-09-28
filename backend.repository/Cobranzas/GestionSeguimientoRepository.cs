@@ -545,7 +545,28 @@ namespace backend.repository.Cobranzas
             }
 
             return list.ToList();
-        }       
+        }
+
+
+        public async Task<IList<SeguimientoChartDTO>> postListSeguimientoChart(SeguimientoChartFilterDTO seguimientoChartFilter)
+        {
+            IEnumerable<SeguimientoChartDTO> list = new List<SeguimientoChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 37);
+                parameters.Add("nIdUsuario", seguimientoChartFilter.nIdUsuario);
+                parameters.Add("nIdCompania", seguimientoChartFilter.nIdCompania);
+                parameters.Add("sCodTrimestre", seguimientoChartFilter.sCodTrimestre);
+                parameters.Add("sMes", seguimientoChartFilter.sMes);
+                parameters.Add("sAno", seguimientoChartFilter.sAno);
+
+                list = await connection.QueryAsync<SeguimientoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
 
     }
 }

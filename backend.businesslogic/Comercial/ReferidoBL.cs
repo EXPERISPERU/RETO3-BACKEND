@@ -59,9 +59,9 @@ namespace backend.businesslogic.Comercial
             return await repository.InsReferidoByPersona(persona);
         }
 
-        public async Task<IList<ReferidoChartDTO>> getListReferidoChart(int nIdUsuario, int nIdCompania)
+        public async Task<IList<ReferidoChartDTO>> postListReferidoChart(ReferidoChartFilterDTO referidoChartFilter)
         {
-            return await repository.getListReferidoChart(nIdUsuario, nIdCompania);
+            return await repository.postListReferidoChart(referidoChartFilter);
         }
     }
 }
