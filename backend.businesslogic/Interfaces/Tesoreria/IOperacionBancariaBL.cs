@@ -15,5 +15,6 @@ namespace backend.businesslogic.Interfaces.Tesoreria
         Task<SqlRspDTO> InsOperacionBancaria(int nIdCompania, OperacionBancariaDTO operacionBancaria);
         Task<SqlRspDTO> UpdOperacionBancaria(int nIdCompania, OperacionBancariaDTO operacionBancaria);
         Task<OperacionBancariaDTO> getOperacionBancariaByCuentaMovimiento(int nIdCompania, int nIdUsuario, int nIdCuenta, int nMovimiento);
+        Task<SqlRspDTO> InsOperacionBancariaRecaudoBBVA(InsOperacionBancariaRecaudoBBVA operacionBancariaRecaudoBBVA);
     }
 }
