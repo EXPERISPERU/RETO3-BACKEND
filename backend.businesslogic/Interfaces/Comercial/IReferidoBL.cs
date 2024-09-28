@@ -13,6 +13,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SelectDTO>> getListEstadoCivil();
         Task<int> getCantReferenciaActivaByPersona(int nIdCompania, int nIdPersona);
         Task<SqlRspDTO> InsReferidoByPersona(PersonaDTO persona);
-        Task<IList<ReferidoChartDTO>> getListReferidoChart(int nIdUsuario, int nIdCompania);
+        Task<IList<ReferidoChartDTO>> postListReferidoChart(ReferidoChartFilterDTO referidoChartFilter);
     }
 }

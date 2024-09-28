@@ -143,6 +143,9 @@ namespace backend.services
 
             services.AddScoped<IComprobanteBajaRepository, ComprobanteBajaRepository>();
 
+            services.AddScoped<IOrdenPagoRepository, OrdenPagoRepository>();
+
+            services.AddScoped<ICronogramaRepository, CronogramaRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -231,6 +234,10 @@ namespace backend.services
             services.AddScoped<IMovimientosBL, MovimientosBL>();
 
             services.AddScoped<IComprobanteBajaBL, ComprobanteBajaBL>();
+
+            services.AddScoped<IOrdenPagoBL, OrdenPagoBL>();
+
+            services.AddScoped<ICronogramaBL, CronogramaBL>();
         }
     }
 }

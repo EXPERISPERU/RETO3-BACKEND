@@ -190,5 +190,23 @@ namespace backend.domain
     }
 
 
+    public class SeguimientoChartDTO
+    {
+        public int nIdPersona { get; set; }
+        public int nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime dFecha { get; set; }
+        public int? nCountSeguimiento { get; set; }
+    }
+
+    public class SeguimientoChartFilterDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
+    }
+
 
 }

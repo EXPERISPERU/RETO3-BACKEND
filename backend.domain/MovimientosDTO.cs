@@ -20,6 +20,7 @@ namespace backend.domain
         public DateTime? dFecha_crea { get; set;}
         public int? nIdUsuario_mod { get;}
         public DateTime? dFecha_mod { get; set; }
+        public int? nIdEstado { get; set; }
 
         //GLOBALES
         public int? nIdCliente { get; set; }
@@ -39,6 +40,7 @@ namespace backend.domain
         public decimal? nValorContrato { get; set; }
         public string? sSimbolo { get; set; }
         public string? sMoneda { get; set; }
+        public string? sEstado { get; set; }
 
 
         public string? sLote { get; set; }
@@ -96,6 +98,7 @@ namespace backend.domain
         public int? nIdEmpleado { get; set; }
         public int nIdMoneda { get; set; }
         public int nMedioPago { get; set; }
+        public int? nIdMedioPago { get; set; }
         public int nIdAsignacionPrecio { get; set; }
         public int? nIdDescuentoLote { get; set; }
         public int? nIdInicialLote { get; set; }
@@ -116,6 +119,7 @@ namespace backend.domain
         public int nIdTipoItem { get; set; }
         public int? nIdInteresCuota { get; set; }
         public decimal? nMontoInteresCuota { get; set; }
+        public int? nIdContrato { get; set; }
     }
 
     public class MovVentaLoteDTO
@@ -149,6 +153,8 @@ namespace backend.domain
         public int nIdCaja { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }
+        public int? nIdInteresCuota { get; set; } //nuevo
+        public decimal? nMontoInteresCuota { get; set; } //nuevo
     }
 
     public class MovReservaDTO

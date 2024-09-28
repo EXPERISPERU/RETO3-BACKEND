@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace backend.repository.Contabilidad
 {
@@ -50,5 +51,46 @@ namespace backend.repository.Contabilidad
             }
             return list.ToList();
         }
+
+        public async Task<SqlRspDTO> InsComprobanteCaja(ComprobanteBajaDTO comprobanteBaja)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante_baja]", 3);
+                parameters.Add("nTipo", comprobanteBaja.nTipo);
+                parameters.Add("nIdCobranza", comprobanteBaja.nIdCobranza);
+                parameters.Add("nIdComprobante", comprobanteBaja.nIdComprobante);
+                parameters.Add("sCodigoBaja", comprobanteBaja.sCodigoBaja);
+                parameters.Add("nIdMotivo", comprobanteBaja.nIdMotivo);
+                parameters.Add("sMotivo", comprobanteBaja.sMotivo);
+                parameters.Add("nIdUsuario_crea", comprobanteBaja.nIdUsuario_crea);
+                parameters.Add("nIdUsuario_autoriza", comprobanteBaja.nIdUsuario_autoriza);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<IList<LoginDTO>> AuthUserSuperAnulaCompro(string sUsuario, string sContrasena)
+        {
+            IEnumerable<LoginDTO> list = new List<LoginDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante_baja]", 4);
+                parameters.Add("sUsuario", sUsuario);
+                parameters.Add("sPassword", sContrasena);
+
+                list = await connection.QueryAsync<LoginDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

@@ -20,5 +20,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int? nIdInicial, int? nIdDescuento, int? nIdCuotaLote);
         Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri, int? nIdMonedaDest);
         Task calculateCotizacionValues(LotesDisponiblesDTO loteDisponible, bool bIndividual);
+        Task<IList<CotizacionChartDTO>> postListCotizacionChart(CotizacionChartFilterDTO cotizacionChartFilter);
     }
 }

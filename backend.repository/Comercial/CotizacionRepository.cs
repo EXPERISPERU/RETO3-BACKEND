@@ -304,5 +304,26 @@ namespace backend.repository.Comercial
 
             return resp;
         }
+
+        public async Task<IList<CotizacionChartDTO>> postListCotizacionChart(CotizacionChartFilterDTO cotizacionChartFilter)
+        {
+            IEnumerable<CotizacionChartDTO> list = new List<CotizacionChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 17);
+                parameters.Add("nIdUsuario", cotizacionChartFilter.nIdUsuario);
+                parameters.Add("nIdCompania", cotizacionChartFilter.nIdCompania);
+                parameters.Add("nIdProyecto", cotizacionChartFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", cotizacionChartFilter.sCodTrimestre);
+                parameters.Add("sMes", cotizacionChartFilter.sMes);
+                parameters.Add("sAno", cotizacionChartFilter.sAno);
+
+                list = await connection.QueryAsync<CotizacionChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }

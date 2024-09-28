@@ -11,5 +11,7 @@ namespace backend.repository.Interfaces.Contabilidad
     {
         Task<IList<ComprobanteDTO>> getComprobanteById(int nIdComprobante);
         Task<IList<SelectDTO>> getSelectTipoMotivos();
+        Task<SqlRspDTO> InsComprobanteCaja(ComprobanteBajaDTO comprobanteBaja);
+        Task<IList<LoginDTO>> AuthUserSuperAnulaCompro(string sUsuario, string sContrasena);
     }
 }

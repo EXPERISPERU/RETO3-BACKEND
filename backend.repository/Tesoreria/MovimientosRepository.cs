@@ -299,10 +299,12 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdAsignacionPrecio", ventaLote.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", ventaLote.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", ventaLote.nIdInicialLote);
+                parameters.Add("nIdInteresCuota", ventaLote.nIdInteresCuota);//NUEVO
                 parameters.Add("nMontoVenta", ventaLote.nMontoVenta);
                 parameters.Add("nMontoDescuento", ventaLote.nMontoDescuento);
                 parameters.Add("nMontoFinal", ventaLote.nMontoFinal);
                 parameters.Add("nMontoInicial", ventaLote.nMontoInicial);
+                parameters.Add("nMontoInteresCuota", ventaLote.nMontoInteresCuota);//NUEVO
                 parameters.Add("nMontoFinanciado", ventaLote.nMontoFinanciado);
                 parameters.Add("nIdCuota", ventaLote.nIdCuota);
                 parameters.Add("nValorCuota", ventaLote.nValorCuota);
@@ -370,7 +372,9 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdAgenteDealer", preContrato.nIdAgenteDealer);
                 parameters.Add("nIdEmpleado", preContrato.nIdEmpleado);
                 parameters.Add("nIdMoneda", preContrato.nIdMoneda);
-                parameters.Add("nMedioPago", preContrato.nMedioPago);
+                //parameters.Add("nMedioPago", preContrato.nMedioPago);
+                parameters.Add("nIdMedioPago", preContrato.nIdMedioPago);
+                
                 parameters.Add("nIdAsignacionPrecio", preContrato.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", preContrato.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", preContrato.nIdInicialLote);
@@ -444,6 +448,38 @@ namespace backend.repository.Tesoreria
                 list = await connection.QueryAsync<MovReporteArqueoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
             return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> InsMovimientosAdicionPrecontrato(MovPreContratoDTO preContrato)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 20);
+                parameters.Add("nIdContrato", preContrato.nIdContrato);
+                parameters.Add("nIdLote", preContrato.nIdLote);
+                parameters.Add("nValorPreContrato", preContrato.nValorPreContrato);
+                parameters.Add("nVigenciaPreContrato", preContrato.nVigenciaPreContrato);
+                parameters.Add("nIdCliente", preContrato.nIdCliente);
+                parameters.Add("nIdTipoComprobante", preContrato.nIdTipoComprobante);
+                parameters.Add("nIdMoneda", preContrato.nIdMoneda);
+                parameters.Add("nIdMedioPago", preContrato.nIdMedioPago);
+                parameters.Add("nMontoFinal", preContrato.nMontoFinal);
+                parameters.Add("nMontoInicial", preContrato.nMontoInicial);
+
+                parameters.Add("nIdUsuario_crea", preContrato.nIdUsuario_crea);
+                parameters.Add("sIdOperacionBancaria", preContrato.nIdOperacionBancaria);
+                //Movimientos
+                parameters.Add("nIdCaja", preContrato.nIdCaja);
+                //parameters.Add("nIdCompania", preContrato.nIdCompania);
+                parameters.Add("nIdTipoItem", preContrato.nIdTipoItem);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
         }
     }
 }

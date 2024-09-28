@@ -134,5 +134,25 @@ namespace backend.repository.Tesoreria
             return resp;
         }
 
+        public async Task<SqlRspDTO> InsOperacionBancariaRecaudoBBVA(InsOperacionBancariaRecaudoBBVA operacionBancariaRecaudoBBVA)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[bancos].[pa_operacion_bancaria]", 7);
+                parameters.Add("nConvenio", operacionBancariaRecaudoBBVA.nConvenio);
+                parameters.Add("sReferencia", operacionBancariaRecaudoBBVA.sReferencia);
+                parameters.Add("nMovimiento", operacionBancariaRecaudoBBVA.nMovimiento);
+                parameters.Add("dFechaOperacion", operacionBancariaRecaudoBBVA.dFechaOperacion);
+                parameters.Add("nImporte", operacionBancariaRecaudoBBVA.nImporte);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
     }
 }
