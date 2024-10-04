@@ -66,5 +66,10 @@ namespace backend.businesslogic.Seguridad
         {
             return await repository.getAccionesByUsuarioCompania(nIdCompania, nIdUsuario);
         }
+
+        public async Task<IList<PermisosDashboardDTO>> getPermisosDashboardByUsuarioCompania(int nIdCompania, int nIdUsuario)
+        {
+            return await repository.getPermisosDashboardByUsuarioCompania(nIdCompania, nIdUsuario);
+        }
     }
 }

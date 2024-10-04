@@ -200,7 +200,22 @@ namespace backend.repository.Seguridad
         }
 
 
+        public async Task<IList<PermisosDashboardDTO>> getPermisosDashboardByUsuarioCompania(int nIdCompania, int nIdUsuario)
+        {
+            IEnumerable<PermisosDashboardDTO> list = new List<PermisosDashboardDTO>();
 
-       
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_opcion]", 13);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
+
+                list = await connection.QueryAsync<PermisosDashboardDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }
