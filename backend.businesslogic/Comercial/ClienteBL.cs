@@ -67,5 +67,16 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.postListClienteTrazabilidad(clienteTrazabilidadFilter);
         }
+
+        public async Task<IList<ClienteActivoInactivoDTO>> postListClienteInactivo(ClienteActivoInactivoFilterDTO clienteInactivoFilter)
+        {
+            return await repository.postListClienteInactivo(clienteInactivoFilter);
+        }
+
+        public async Task<IList<ClienteActivoInactivoDTO>> postListClienteActivo(ClienteActivoInactivoFilterDTO clienteActivoFilter)
+        {
+            return await repository.postListClienteActivo(clienteActivoFilter);
+        }
+
     }
 }

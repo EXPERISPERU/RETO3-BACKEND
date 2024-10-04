@@ -147,6 +147,8 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nMovimiento", operacionBancariaRecaudoBBVA.nMovimiento);
                 parameters.Add("dFechaOperacion", operacionBancariaRecaudoBBVA.dFechaOperacion);
                 parameters.Add("nImporte", operacionBancariaRecaudoBBVA.nImporte);
+                parameters.Add("nIdOrdenPago", operacionBancariaRecaudoBBVA.nIdOrdenPago);
+                parameters.Add("nIdCronograma", operacionBancariaRecaudoBBVA.nIdCronograma);
 
                 resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

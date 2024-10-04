@@ -234,7 +234,27 @@ namespace backend.services.Controllers.Seguridad
         }
 
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<PermisosDashboardDTO>>>> getPermisosDashboardByUsuarioCompania(int nIdCompania, int nIdUsuario)
+        {
 
+            ApiResponse<List<PermisosDashboardDTO>> response = new ApiResponse<List<PermisosDashboardDTO>>();
+
+            try
+            {
+                var result = await service.getPermisosDashboardByUsuarioCompania(nIdCompania, nIdUsuario);
+
+                response.success = true;
+                response.data = (List<PermisosDashboardDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
 
     }
 }

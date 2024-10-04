@@ -19,5 +19,6 @@ namespace backend.repository.Interfaces.Seguridad
         Task<SqlRspDTO> InsOpcionUsuario(UsuarioOpcionDTO usuarioOpcion);
         Task<SqlRspDTO> DelOpcionUsuario(UsuarioOpcionDTO usuarioOpcion);
         Task<IList<OpcionByPerfilDTO>> getAccionesByUsuarioCompania(int nIdCompania, int nIdUsuario);
+        Task<IList<PermisosDashboardDTO>> getPermisosDashboardByUsuarioCompania(int nIdCompania, int nIdUsuario);
     }
 }

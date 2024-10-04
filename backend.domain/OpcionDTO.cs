@@ -29,4 +29,10 @@ namespace backend.domain
         public int nIdTipoOpcion { get; set; }
         public bool bActivo { get; set; }
     }
+
+    public class PermisosDashboardDTO
+    {
+        public string? sNombreComponente { get; set; }
+        public int? nPerfilUsuario { get; set; }
+    }
 }
