@@ -2,7 +2,6 @@
 using backend.domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace backend.services.Controllers.Comercial
 {
@@ -18,13 +17,34 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<FeatureDTO>>>> getListLotes()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaLoteDTO>>>> getListLotes()
         {
-            ApiResponse<List<FeatureDTO>> response = new ApiResponse<List<FeatureDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaLoteDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaLoteDTO>>();
 
             try
             {
                 var result = await service.getListLotes();
+
+                response.success = true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>>> getListManzanas ()
+        {
+            ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>();
+
+            try
+            {
+                var result = await service.getListManzanas();
 
                 response.success = true;
                 response.data = result;

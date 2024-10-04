@@ -10,7 +10,7 @@ namespace backend.domain
         public List<List<List<List<double>>>> coordinates { get; set; } // List de Listas para soportar la estructura de MultiPolygon
     }
 
-    public class PropertiesDTO
+    public class MapaLoteDTO
     {
         public int id { get; set; }
         public int qgs_fid { get; set; }
@@ -43,10 +43,27 @@ namespace backend.domain
         public string precio { get; set; }
     }
 
-    public class FeatureDTO
+    public class MapaManzanaDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+        public double shape_area { get; set; }
+    }
+
+    public class FeatureDTO<T>
     {
         public string type { get; set; }
         public GeometryDTO geometry { get; set; }
-        public PropertiesDTO properties { get; set; }
+        public T properties { get; set; }
+    }
+
+    public class FeatureCollectionDTO<T>
+    { 
+        public string type { get; set; }
+        public List<FeatureDTO<T>> features { get; set; }
     }
 }

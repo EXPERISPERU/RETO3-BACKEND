@@ -31,5 +31,20 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+        public async Task<string> getListManzanas()
+        {
+            string res;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(_configuration.GetConnectionString("cnPsql")))
+            {
+                DynamicParameters parameters = new();
+                string query = "SELECT json_build_object('type', 'FeatureCollection', 'features', json_agg(ST_AsGeoJSON(manzanas.*)::json)) FROM manzanas";
+
+                res = await connection.QuerySingleAsync<string>(query, parameters, commandType: CommandType.Text);
+            }
+
+            return res;
+        }
     }
 }

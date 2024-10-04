@@ -10,5 +10,6 @@ namespace backend.repository.Interfaces.Comercial
     public interface IMapaRepository
     {
         Task<string> getListLotes();
+        Task<string> getListManzanas();
     }
 }
