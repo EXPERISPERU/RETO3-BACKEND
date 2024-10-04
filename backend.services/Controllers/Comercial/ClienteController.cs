@@ -268,6 +268,45 @@ namespace backend.services.Controllers.Comercial
         }
 
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ClienteActivoInactivoDTO>>>> postListClienteInactivo(ClienteActivoInactivoFilterDTO clienteInactivoFilter)
+        {
+            ApiResponse<List<ClienteActivoInactivoDTO>> response = new ApiResponse<List<ClienteActivoInactivoDTO>>();
+            try
+            {
+                var result = await service.postListClienteInactivo(clienteInactivoFilter);
+                response.success = true;
+                response.data = (List<ClienteActivoInactivoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ClienteActivoInactivoDTO>>>> postListClienteActivo(ClienteActivoInactivoFilterDTO clienteActivoFilter)
+        {
+            ApiResponse<List<ClienteActivoInactivoDTO>> response = new ApiResponse<List<ClienteActivoInactivoDTO>>();
+            try
+            {
+                var result = await service.postListClienteActivo(clienteActivoFilter);
+                response.success = true;
+                response.data = (List<ClienteActivoInactivoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
 
     }
 }
