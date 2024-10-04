@@ -121,6 +121,7 @@
         public string sMoneda { get; set; }
         public string sSimbolo { get; set; }
         public decimal nValorTotal { get; set; }
+        public string sCodigoEstado { get; set; }
         public string sEstado { get; set; }
         public DateTime dFecha_pago { get; set; }
         public string sFecha_pago { get; set; }

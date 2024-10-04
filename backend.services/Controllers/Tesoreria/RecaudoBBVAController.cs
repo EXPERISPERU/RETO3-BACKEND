@@ -153,59 +153,23 @@ namespace backend.services.Controllers.Tesoreria
                 var sDocumento = request.NotificarPago.recaudosRq.detalle.transaccion.numeroReferenciaDeuda;
                 var nConvenio = request.NotificarPago.recaudosRq.cabecera.operacion.codigoConvenio;
 
+                int? nIdOrdenPago = null;
+                int? nIdCronopago = null;
+
                 switch (sTipo)
                 {
                     case "OPV2":
                         var ordenPago = await ordenPagoService.getOrdenPagoRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nCodigo);
                         if (ordenPago == null)
                         {
-                            response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
-                            {
-                                codigo = "3002",
-                                descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
-                            };
+                            throw new Exception();
                         }
                         else
                         {
+                            nIdOrdenPago = nCodigo;
                             if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(ordenPago.importeDeuda))
                             {
-                                response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
-                                {
-                                    codigo = "3002",
-                                    descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
-                                };
-                            }
-                            else
-                            {
-                                var fechaOP = DateTime.ParseExact(request.NotificarPago.recaudosRq.cabecera.operacion.fechaOperacion, "yyyyMMdd", null);
-
-                                var operacionBancaria = new InsOperacionBancariaRecaudoBBVA() {
-                                    nConvenio = nConvenio
-                                    ,sReferencia = request.NotificarPago.recaudosRq.detalle.transaccion.numeroDocumento
-                                    ,nMovimiento = request.NotificarPago.recaudosRq.detalle.transaccion.numeroOperacionRecaudos.Value
-                                    ,dFechaOperacion = fechaOP
-                                    ,nImporte = request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada.Value
-                                };
-                                var resInsOB = await operacionBancariaService.InsOperacionBancariaRecaudoBBVA(operacionBancaria);
-
-                                if (resInsOB.nCod > 0)
-                                {
-                                    response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
-                                    {
-                                        codigo = "0001",
-                                        descripcion = "TRANSACCION REALIZADA CON EXITO"
-                                    };
-
-                                    response.NotificarPagoResponse.recaudosRs.detalle.transaccion = request.NotificarPago.recaudosRq.detalle.transaccion;
-                                }
-                                else
-                                {
-                                    response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
-                                    {
-                                        codigo = "3002",
-                                        descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
-                                    };
-                                }
+                                throw new Exception();
                             }
                         }
                         break;
@@ -213,24 +177,48 @@ namespace backend.services.Controllers.Tesoreria
                         var cronograma = await cronogramaService.getCronogramaRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nCodigo);
                         if (cronograma == null)
                         {
-                            response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
-                            {
-                                codigo = "3002",
-                                descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
-                            };
+                            throw new Exception();
                         }
                         else
                         {
-                            if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(cronograma.importeDeuda))
+                            nIdCronopago = nCodigo;
+                            if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(cronograma.importeDeuda)) 
                             {
-                                response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
-                                {
-                                    codigo = "3002",
-                                    descripcion = "NO SE PUDO REALIZAR LA TRANSACCION"
-                                };
+                                throw new Exception();
                             }
                         }
                         break;
+                    default:
+                        throw new Exception();
+                }
+
+                var fechaOP = DateTime.ParseExact(request.NotificarPago.recaudosRq.cabecera.operacion.fechaOperacion, "yyyyMMdd", null);
+
+                var operacionBancaria = new InsOperacionBancariaRecaudoBBVA()
+                {
+                    nConvenio = nConvenio
+                    ,sReferencia = request.NotificarPago.recaudosRq.detalle.transaccion.numeroDocumento
+                    ,nMovimiento = request.NotificarPago.recaudosRq.detalle.transaccion.numeroOperacionRecaudos.Value
+                    ,dFechaOperacion = fechaOP
+                    ,nImporte = request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada.Value
+                    ,nIdOrdenPago = nIdOrdenPago
+                    ,nIdCronograma = nIdCronopago
+                };
+                var resInsOB = await operacionBancariaService.InsOperacionBancariaRecaudoBBVA(operacionBancaria);
+
+                if (resInsOB.nCod > 0)
+                {
+                    response.NotificarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                    {
+                        codigo = "0001",
+                        descripcion = "TRANSACCION REALIZADA CON EXITO"
+                    };
+
+                    response.NotificarPagoResponse.recaudosRs.detalle.transaccion = request.NotificarPago.recaudosRq.detalle.transaccion;
+                }
+                else
+                {
+                    throw new Exception();
                 }
 
                 JsonSerializerOptions options = new JsonSerializerOptions()
