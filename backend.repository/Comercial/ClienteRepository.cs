@@ -234,5 +234,41 @@ namespace backend.repository.Comercial
         }
 
 
+        public async Task<IList<ClienteActivoInactivoDTO>> postListClienteInactivo(ClienteActivoInactivoFilterDTO clienteInactivoFilter)
+        {
+            IEnumerable<ClienteActivoInactivoDTO> list = new List<ClienteActivoInactivoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 13);
+                parameters.Add("nIdUsuario", clienteInactivoFilter.nIdUsuario);
+                parameters.Add("nIdCompania", clienteInactivoFilter.nIdCompania);
+                parameters.Add("nIdProyecto", clienteInactivoFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", clienteInactivoFilter.sCodTrimestre);
+
+                list = await connection.QueryAsync<ClienteActivoInactivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<ClienteActivoInactivoDTO>> postListClienteActivo(ClienteActivoInactivoFilterDTO clienteActivoFilter)
+        {
+            IEnumerable<ClienteActivoInactivoDTO> list = new List<ClienteActivoInactivoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 16);
+                parameters.Add("nIdUsuario", clienteActivoFilter.nIdUsuario);
+                parameters.Add("nIdCompania", clienteActivoFilter.nIdCompania);
+                parameters.Add("nIdProyecto", clienteActivoFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", clienteActivoFilter.sCodTrimestre);
+
+                list = await connection.QueryAsync<ClienteActivoInactivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }
