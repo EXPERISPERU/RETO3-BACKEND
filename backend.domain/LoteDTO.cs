@@ -39,5 +39,7 @@ namespace backend.domain
         public string? sUsuario_mod { get; set; }
         public DateTime? dFecha_mod { get; set; }
         public string? sFecha_mod { get; set; }
+        public int? Id_Old { get; set; }
+        public string? Flg_M { get; set; }
     }
 }

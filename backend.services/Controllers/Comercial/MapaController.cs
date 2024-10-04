@@ -26,10 +26,8 @@ namespace backend.services.Controllers.Comercial
             {
                 var result = await service.getListLotes();
 
-                var jres = JsonConvert.DeserializeObject<List<FeatureDTO>>(result);
-
                 response.success = true;
-                response.data = jres;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

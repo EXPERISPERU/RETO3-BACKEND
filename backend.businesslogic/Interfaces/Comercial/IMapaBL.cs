@@ -4,6 +4,6 @@ namespace backend.businesslogic.Interfaces.Comercial
 {
     public interface IMapaBL
     {
-        Task<string> getListLotes();
+        Task<List<FeatureDTO>> getListLotes();
     }
 }
