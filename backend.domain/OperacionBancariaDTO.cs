@@ -35,5 +35,7 @@
         public int nMovimiento { get; set; }
         public DateTime dFechaOperacion { get; set; }
         public decimal nImporte { get; set; }
+        public int? nIdOrdenPago { get; set; }
+        public int? nIdCronograma { get; set; }
     }
 }
