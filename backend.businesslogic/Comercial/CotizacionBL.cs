@@ -210,6 +210,23 @@ namespace backend.businesslogic.Comercial
                             descuentoCon = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoCon.Count > 0 ? listDescuentoCon.ToList()[0].nId : 0);
 
                             break;
+                        case 4:
+                            List<InicialDescuentoDTO> listInicial4 = (List<InicialDescuentoDTO>)await getListInicialLote(loteDisponible.nIdLote, null, null);
+                            inicial = (InicialLoteDTO)await inicialLoteRepository.getInicialLoteByID(listInicial4.Count > 0 ? listInicial4.ToList()[0].nId : 0);
+
+                            List<SelectDTO> listCuota4 = (List<SelectDTO>)await getSelectCuotaLote(loteDisponible.nIdLote, null, null);
+                            cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID(listCuota4.Count > 0 ? listCuota4.ToList()[0].nCod : 0);
+
+                            List<InicialDescuentoDTO> listDescuentoFin4 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(loteDisponible.nIdLote, null, null);
+                            descuentoFin = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoFin4.Count > 0 ? listDescuentoFin4.ToList()[0].nId : 0);
+
+                            List<SelectInteresDTO> listInteres4 = (List<SelectInteresDTO>)await getListInteresLote(loteDisponible.nIdLote, inicial != null ? inicial.nIdInicialLote : null, null, cuota != null ? cuota.nIdCuotaLote : null);
+                            interes = (InteresCuotaDTO)await interesCuotaRepository.getInteresCuotaByID(listInteres4.Count > 0 ? listInteres4.ToList()[0].nId : 0);
+
+                            List<InicialDescuentoDTO> listDescuentoCon4 = (List<InicialDescuentoDTO>)await getListDescuentoContLote(loteDisponible.nIdLote);
+                            descuentoCon = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoCon4.Count > 0 ? listDescuentoCon4.ToList()[0].nId : 0);
+
+                            break;
                     }
                 }
                 #endregion
