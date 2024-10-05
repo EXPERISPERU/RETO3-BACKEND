@@ -200,7 +200,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 10);
                 parameters.Add("nIdLote", nIdLote);
 
-                resp = await connection.QuerySingleAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp = await connection.QuerySingleOrDefaultAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;

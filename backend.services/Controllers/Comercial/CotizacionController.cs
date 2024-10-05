@@ -284,6 +284,7 @@ namespace backend.services.Controllers.Comercial
             {
                 var result = await service.getClientePreContratoByLote(nIdLote);
 
+
                 response.success = true;
                 response.data = (ClienteDTO)result;
                 return StatusCode(200, response);
