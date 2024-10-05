@@ -10,6 +10,13 @@ namespace backend.domain
         public List<List<List<List<double>>>> coordinates { get; set; } // List de Listas para soportar la estructura de MultiPolygon
     }
 
+    public class LoteSqlDTO
+    {
+        public int estado { get; set; }
+        public string? nombreEstado { get; set; }
+        public decimal metraje { get; set; }
+    }
+
     public class MapaLoteDTO
     {
         public int id { get; set; }
@@ -39,8 +46,8 @@ namespace backend.domain
         public string bb_1 { get; set; }
         public string bb { get; set; }
         public double shape_le_1 { get; set; }
-        public double shape_area { get; set; }
         public string precio { get; set; }
+        public LoteSqlDTO loteSql { get; set; }
     }
 
     public class MapaManzanaDTO
@@ -51,7 +58,6 @@ namespace backend.domain
         public string cod_mz { get; set; }
         public int proyectoid { get; set; }
         public double shape_leng { get; set; }
-        public double shape_area { get; set; }
     }
 
     public class FeatureDTO<T>
@@ -61,8 +67,9 @@ namespace backend.domain
         public T properties { get; set; }
     }
 
+
     public class FeatureCollectionDTO<T>
-    { 
+    {
         public string type { get; set; }
         public List<FeatureDTO<T>> features { get; set; }
     }

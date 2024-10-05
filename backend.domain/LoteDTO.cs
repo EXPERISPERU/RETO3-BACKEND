@@ -12,6 +12,8 @@ namespace backend.domain
         public string? sProyecto { get; set; }
         public int? nIdSector { get; set; }
         public string? sSector { get; set; }
+
+        public string? sCodigo { get; set; }
         public int nIdManzana { get; set; }
         public string? sManzana { get; set; }
         public int? nIdLote { get; set; }

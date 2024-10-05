@@ -38,7 +38,7 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>>> getListManzanas ()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>>> getListManzanas()
         {
             ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>();
 
