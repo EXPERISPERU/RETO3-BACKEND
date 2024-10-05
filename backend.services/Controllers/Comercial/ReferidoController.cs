@@ -248,5 +248,27 @@ namespace backend.services.Controllers.Comercial
         }
 
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ReferidoChartDTO>>>> postListReferidoChart(ReferidoChartFilterDTO referidoChartFilter)
+        {
+            ApiResponse<List<ReferidoChartDTO>> response = new ApiResponse<List<ReferidoChartDTO>>();
+
+            try
+            {
+                var result = await service.postListReferidoChart(referidoChartFilter);
+
+                response.success = true;
+                response.data = (List<ReferidoChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }

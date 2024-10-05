@@ -37,4 +37,24 @@ namespace backend.domain
         public int nIdCliente { get; set; }
         public int nIdUsuario { get; set; }
     }
+
+    public class ReferidoChartDTO
+    {
+        public int nIdPersona { get; set; }
+        public int nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime dFechaPrimerReferido { get; set; }
+        public int? nCountUniqueReferido { get; set; }
+        public int? nCountTotalReferido { get; set; }
+    }
+
+    public class ReferidoChartFilterDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
+    }
+
 }

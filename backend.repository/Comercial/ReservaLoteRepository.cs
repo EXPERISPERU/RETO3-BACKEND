@@ -134,7 +134,40 @@ namespace backend.repository.Comercial
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
+            return list.ToList();
+        }
 
+        public async Task<IList<ReservaChartDTO>> postListReservaChart(ReservaChartFilterDTO reservaChartFilter)
+        {
+            IEnumerable<ReservaChartDTO> list = new List<ReservaChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 9);
+                parameters.Add("nIdUsuario", reservaChartFilter.nIdUsuario);
+                parameters.Add("nIdCompania", reservaChartFilter.nIdCompania);
+                parameters.Add("nIdProyecto", reservaChartFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", reservaChartFilter.sCodTrimestre);
+                parameters.Add("sMes", reservaChartFilter.sMes);
+                parameters.Add("sAno", reservaChartFilter.sAno);
+
+                list = await connection.QueryAsync<ReservaChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTrimestres()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_reserva_lote]", 12);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
             return list.ToList();
         }
     }

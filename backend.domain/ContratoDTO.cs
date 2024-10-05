@@ -55,10 +55,12 @@
 		public string? sSimboloDesc { get; set; }
 		public decimal? nValorDesc { get; set; }
 		public int? nIdInicialLote { get; set; }
-		public string? sInicialLote { get; set; }
+        public string? sInicialLote { get; set; }
         public int? nIdMonedaIni { get; set; }
         public string? sSimboloIni { get; set; }
         public decimal? nValorIni { get; set; }
+		public int? nIdInteresCuota { get; set; }
+        public string? sInteresCuota { get; set; }
         public int? nIdReferido { get; set; }
 		public string? sTipoGestion { get; set; }
 		public string? sPromotor { get; set; }
@@ -67,7 +69,8 @@
 		public decimal? nMontoDescuento { get; set; }
 		public decimal nMontoFinal { get; set; }
 		public decimal? nMontoInicial { get; set; }
-		public decimal? nMontoFinanciado { get; set; }
+		public decimal? nMontoInteresCuota { get; set; }
+        public decimal? nMontoFinanciado { get; set; }
 		public DateTime? dFechaIni { get; set; }
 		public DateTime? dFechaFin { get; set; }
 		public int? nIdCuota { get; set; }
@@ -92,13 +95,7 @@
 		public int? nIdUsuario_mod { get; set; }
 		public string? sUsuario_mod { get; set; }
 		public DateTime? dFecha_mod { get; set; }
-		public string? sFecha_mod { get; set; }
-		public decimal? nTipoInteresCuotaAplicado { get; set; }
-        public int? nIdTipoInteresCuotaAplicado { get; set; }
-        public int? nIdMonedaTipoInteresCuotaAplicado { get; set; }
-        public decimal? nValorOriInteres { get; set; }
-        public string? sSimboloInteres { get; set; }
-
+        public string? sFecha_mod { get; set; }
     }
 
 	public class ContratoFiltrosDTO
@@ -124,6 +121,7 @@
         public string sMoneda { get; set; }
         public string sSimbolo { get; set; }
         public decimal nValorTotal { get; set; }
+        public string sCodigoEstado { get; set; }
         public string sEstado { get; set; }
         public DateTime dFecha_pago { get; set; }
         public string sFecha_pago { get; set; }

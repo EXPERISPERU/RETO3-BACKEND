@@ -106,7 +106,7 @@ namespace backend.services
             services.AddScoped<IItemRepository, ItemRepository>();
 
             services.AddScoped<IReporteVentasRepository, ReporteVentasRepository>();
-            
+
             services.AddScoped<IContratoRepository, ContratoRepository>();
 
             services.AddScoped<IComprobanteRepository, ComprobanteRepository>();
@@ -132,6 +132,20 @@ namespace backend.services
             services.AddScoped<IProspectoRepository, ProspectoRepository>();
 
             services.AddScoped<IOperacionBancariaRepository, OperacionBancariaRepository>();
+
+            services.AddScoped<IVigenciaServicioRepository, VigenciaServicioRepository>();
+
+            services.AddScoped<ICondicionesRepository, CondicionesRepository>();
+          
+            services.AddScoped<ICajaRepository, CajaRepository>();
+
+            services.AddScoped<IMovimientosRepository, MovimientosRepository>();
+
+            services.AddScoped<IComprobanteBajaRepository, ComprobanteBajaRepository>();
+
+            services.AddScoped<IOrdenPagoRepository, OrdenPagoRepository>();
+
+            services.AddScoped<ICronogramaRepository, CronogramaRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -210,6 +224,20 @@ namespace backend.services
             services.AddScoped<IProspectoBL, ProspectoBL>();
 
             services.AddScoped<IOperacionBancariaBL, OperacionBancariaBL>();
+
+            services.AddScoped<IVigenciaServicioBL, VigenciaServicioBL>();
+
+            services.AddScoped<ICondicionesBL, CondicionesBL>();
+          
+            services.AddScoped<ICajaBL, CajaBL>();
+
+            services.AddScoped<IMovimientosBL, MovimientosBL>();
+
+            services.AddScoped<IComprobanteBajaBL, ComprobanteBajaBL>();
+
+            services.AddScoped<IOrdenPagoBL, OrdenPagoBL>();
+
+            services.AddScoped<ICronogramaBL, CronogramaBL>();
         }
     }
 }

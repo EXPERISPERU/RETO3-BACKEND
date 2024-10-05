@@ -213,5 +213,62 @@ namespace backend.repository.Comercial
 
             return resp;
         }
+
+
+        public async Task<IList<ClienteTrazabilidadDTO>> postListClienteTrazabilidad(ClienteTrazabilidadFilterDTO clienteTrazabilidadFilter)
+        {
+            IEnumerable<ClienteTrazabilidadDTO> list = new List<ClienteTrazabilidadDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 10);
+                parameters.Add("nIdUsuario", clienteTrazabilidadFilter.nIdUsuario);
+                parameters.Add("nIdCompania", clienteTrazabilidadFilter.nIdCompania);
+                parameters.Add("nIdProyecto", clienteTrazabilidadFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", clienteTrazabilidadFilter.sCodTrimestre);
+
+                list = await connection.QueryAsync<ClienteTrazabilidadDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+
+        public async Task<IList<ClienteActivoInactivoDTO>> postListClienteInactivo(ClienteActivoInactivoFilterDTO clienteInactivoFilter)
+        {
+            IEnumerable<ClienteActivoInactivoDTO> list = new List<ClienteActivoInactivoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 13);
+                parameters.Add("nIdUsuario", clienteInactivoFilter.nIdUsuario);
+                parameters.Add("nIdCompania", clienteInactivoFilter.nIdCompania);
+                parameters.Add("nIdProyecto", clienteInactivoFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", clienteInactivoFilter.sCodTrimestre);
+
+                list = await connection.QueryAsync<ClienteActivoInactivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<ClienteActivoInactivoDTO>> postListClienteActivo(ClienteActivoInactivoFilterDTO clienteActivoFilter)
+        {
+            IEnumerable<ClienteActivoInactivoDTO> list = new List<ClienteActivoInactivoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 16);
+                parameters.Add("nIdUsuario", clienteActivoFilter.nIdUsuario);
+                parameters.Add("nIdCompania", clienteActivoFilter.nIdCompania);
+                parameters.Add("nIdProyecto", clienteActivoFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", clienteActivoFilter.sCodTrimestre);
+
+                list = await connection.QueryAsync<ClienteActivoInactivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }

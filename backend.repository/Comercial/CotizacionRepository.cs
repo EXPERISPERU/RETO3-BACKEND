@@ -2,13 +2,8 @@
 using backend.repository.Interfaces.Comercial;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.repository.Comercial
 {
@@ -21,7 +16,7 @@ namespace backend.repository.Comercial
             _configuration = configuration;
         }
 
-        public async Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote)
+        public async Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote, int? nIdInicialLote, int? nIdDescuentoLote)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -30,6 +25,8 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 1);
                 parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdInicialLote", nIdInicialLote);
+                parameters.Add("nIdDescuentoLote", nIdDescuentoLote);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -37,7 +34,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote)
+        public async Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote, int? nIdDescuentoLote, int? nIdCuotaLote)
         {
             IEnumerable<InicialDescuentoDTO> list = new List<InicialDescuentoDTO>();
 
@@ -46,6 +43,8 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 2);
                 parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdDescuentoLote", nIdDescuentoLote);
+                parameters.Add("nIdCuotaLote", nIdCuotaLote);
 
                 list = await connection.QueryAsync<InicialDescuentoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -69,7 +68,7 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote)
+        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote, int? nIdInicialLote, int? nIdCuotaLote)
         {
             IEnumerable<InicialDescuentoDTO> list = new List<InicialDescuentoDTO>();
 
@@ -78,6 +77,8 @@ namespace backend.repository.Comercial
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 4);
                 parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdInicialLote", nIdInicialLote);
+                parameters.Add("nIdCuotaLote", nIdCuotaLote);
 
                 list = await connection.QueryAsync<InicialDescuentoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -124,6 +125,8 @@ namespace backend.repository.Comercial
                 parameters.Add("nInicial", cotizacion.nInicial);
                 parameters.Add("nIdDescuentoFin", cotizacion.nIdDescuentoFin);
                 parameters.Add("nDescuentoFin", cotizacion.nDescuentoFin);
+                parameters.Add("nIdInteresCuota", cotizacion.nIdInteresCuota);
+                parameters.Add("nInteresCuota", cotizacion.nInteresCuota);
                 parameters.Add("nValorFinanciado", cotizacion.nValorFinanciado);
                 parameters.Add("nIdCuota", cotizacion.nIdCuota);
                 parameters.Add("nCuotas", cotizacion.nCuotas);
@@ -132,7 +135,6 @@ namespace backend.repository.Comercial
                 parameters.Add("nDescuentoCon", cotizacion.nDescuentoCon);
                 parameters.Add("nValorContado", cotizacion.nValorContado);
                 parameters.Add("nIdUsuario_crea", cotizacion.nIdUsuario_crea);
-                parameters.Add("nTipoInteresCuotaAplicado", cotizacion.nTipoInteresCuotaAplicado);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -198,7 +200,7 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 10);
                 parameters.Add("nIdLote", nIdLote);
 
-                resp = await connection.QuerySingleAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp = await connection.QuerySingleOrDefaultAsync<ClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;
@@ -263,6 +265,63 @@ namespace backend.repository.Comercial
                 list = await connection.QueryAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int? nIdInicialLote, int? nIdDescuentoLote, int? nIdCuotaLote)
+        {
+            IEnumerable<SelectInteresDTO> list = new List<SelectInteresDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 15);
+                parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdInicialLote", nIdInicialLote);
+                parameters.Add("nIdDescuentoLote", nIdDescuentoLote);
+                parameters.Add("nIdCuotaLote", nIdCuotaLote);
+
+                list = await connection.QueryAsync<SelectInteresDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri, int? nIdMonedaDest)
+        {
+            TipoCambioDTO resp = new TipoCambioDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 16);
+                parameters.Add("nIdLote", nIdLote);
+                parameters.Add("nIdMonedaOri", nIdMonedaOri);
+                parameters.Add("nIdMonedaDest", nIdMonedaDest);
+
+                resp = await connection.QuerySingleAsync<TipoCambioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<IList<CotizacionChartDTO>> postListCotizacionChart(CotizacionChartFilterDTO cotizacionChartFilter)
+        {
+            IEnumerable<CotizacionChartDTO> list = new List<CotizacionChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 17);
+                parameters.Add("nIdUsuario", cotizacionChartFilter.nIdUsuario);
+                parameters.Add("nIdCompania", cotizacionChartFilter.nIdCompania);
+                parameters.Add("nIdProyecto", cotizacionChartFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", cotizacionChartFilter.sCodTrimestre);
+                parameters.Add("sMes", cotizacionChartFilter.sMes);
+                parameters.Add("sAno", cotizacionChartFilter.sAno);
+
+                list = await connection.QueryAsync<CotizacionChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
             return list.ToList();
         }
 

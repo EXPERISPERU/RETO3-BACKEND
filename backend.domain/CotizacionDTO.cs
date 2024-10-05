@@ -29,4 +29,14 @@ namespace backend.domain
         public int? nIdProyecto { get; set; }
         public int? nIdLote { get; set; }
     }
+
+    public class SelectInteresDTO
+    {
+        public int nId { get; set; }
+        public string sDescripcion { get; set; }
+        public int nIdTipoInteres { get; set; }
+        public decimal nValor { get; set; }
+        public int nIdTipoValor { get; set; }
+        public string sCodigoTipoValor { get; set; }
+    }
 }

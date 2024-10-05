@@ -1,34 +1,55 @@
-﻿using backend.businesslogic.Interfaces.Comercial;
+﻿using backend.businesslogic.Interfaces.Tesoreria;
 using backend.domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.services.Controllers.Comercial
+namespace backend.services.Controllers.Tesoreria
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class InteresCuotaController : ControllerBase
+    public class CajaController : ControllerBase
     {
-        private readonly IInteresCuotaBL service;
+        public readonly ICajaBL service;
 
-        public InteresCuotaController(IInteresCuotaBL _service)
+        public CajaController(ICajaBL _service)
         {
-            this.service = _service;
+            service = _service;
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<InteresCuotaDTO>>> getListInteresCuotaById(int nIdProyecto, int nIdCuotaLote)
+        public async Task<ActionResult<ApiResponse<List<CajaDTO>>>> getListValoresCaja(int nIdCompania, int nIdUsuario)
         {
-            ApiResponse<InteresCuotaDTO> response = new ApiResponse<InteresCuotaDTO>();
+            ApiResponse<List<CajaDTO>> response = new ApiResponse<List<CajaDTO>>();
 
             try
             {
-                var result = await service.getListInteresCuotaById(nIdProyecto, nIdCuotaLote);
+                var result = await service.getListValoresCaja(nIdCompania, nIdUsuario);
 
                 response.success = true;
-                response.data = (InteresCuotaDTO)result;
+                response.data = (List<CajaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> getValidaAperturaCaja(int nIdCompania, int nIdUsuario)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.getValidaAperturaCaja(nIdCompania, nIdUsuario);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -40,13 +61,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> InsInteresCuota([FromBody] InteresCuotaDTO interesCuota)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsCaja([FromBody] CajaDTO caja)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsInteresCuota(interesCuota);
+                var result = await service.InsCaja(caja);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;
@@ -61,37 +82,15 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ElementoSistemaDTO>>>> getListMaestroInteres()
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> getValidaPerfil(int nIdCompania, int nIdUsuario)
         {
-
-            ApiResponse<List<ElementoSistemaDTO>> response = new ApiResponse<List<ElementoSistemaDTO>>();
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.getListMaestroInteres();
+                var result = await service.getValidaPerfil(nIdCompania, nIdUsuario);
 
-                response.success = true;
-                response.data = (List<ElementoSistemaDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
-
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ProyectoDTO>>> getProyectoByID(int nIdProyecto)
-        {
-            ApiResponse<ProyectoDTO> response = new ApiResponse<ProyectoDTO>();
-
-            try
-            {
-                var result = await service.getProyectoByID(nIdProyecto);
-
-                response.success = true;
+                response.success = result.nCod == 0 ? false : true;
                 response.data = result;
                 return StatusCode(200, response);
             }
@@ -103,14 +102,57 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdCaja([FromBody] CajaDTO caja)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.UpdCaja(caja);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<CajaDTO>>>> getListadoCaja([FromBody] CajaFiltroDTO cajaFiltroDTO)
+        {
+            ApiResponse<List<CajaDTO>> response = new ApiResponse<List<CajaDTO>>();
+
+            try
+            {
+                var result = await service.getListadoCaja(cajaFiltroDTO);
+
+                response.success = true;
+                response.data = (List<CajaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoDescuento()
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getAllCajeros(int nIdCompania)
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectTipoDescuento();
+                var result = await service.getAllCajeros(nIdCompania);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -125,16 +167,16 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectMonedaByCompania(int nIdCompania)
+        public async Task<ActionResult<ApiResponse<List<CajaDTO>>>> getListValoresCajaById(int nIdCaja)
         {
-            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            ApiResponse<List<CajaDTO>> response = new ApiResponse<List<CajaDTO>>();
 
             try
             {
-                var result = await service.getSelectMonedaByCompania(nIdCompania);
+                var result = await service.getListValoresCajaById(nIdCaja);
 
                 response.success = true;
-                response.data = (List<SelectDTO>)result;
+                response.data = (List<CajaDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -145,26 +187,8 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<ConfiguracionDTO>>> getListTipoInteresConfigByIdProyecto(int nIdProyecto)
-        {
-            ApiResponse<List<ConfiguracionDTO>> response = new ApiResponse<List<ConfiguracionDTO>>();
+        
 
-            try
-            {
-                var result = await service.getListTipoInteresConfigByIdProyecto(nIdProyecto);
-
-                response.success = true;
-                response.data = (List<ConfiguracionDTO>)result;
-                return StatusCode(200, response);
-            }
-            catch (Exception ex)
-            {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
-            }
-        }
 
     }
 }

@@ -76,17 +76,18 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdAsignacionPrecio", insVentaLoteDTO.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", insVentaLoteDTO.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", insVentaLoteDTO.nIdInicialLote);
+                parameters.Add("nIdInteresCuota", insVentaLoteDTO.nIdInteresCuota);
                 parameters.Add("nMontoVenta", insVentaLoteDTO.nMontoVenta);
                 parameters.Add("nMontoDescuento", insVentaLoteDTO.nMontoDescuento);
                 parameters.Add("nMontoFinal", insVentaLoteDTO.nMontoFinal);
                 parameters.Add("nMontoInicial", insVentaLoteDTO.nMontoInicial);
                 parameters.Add("nMontoFinanciado", insVentaLoteDTO.nMontoFinanciado);
+                parameters.Add("nMontoInteresCuota", insVentaLoteDTO.nMontoInteresCuota);
                 parameters.Add("nIdCuota", insVentaLoteDTO.nIdCuota);
                 parameters.Add("nValorCuota", insVentaLoteDTO.nValorCuota);             
                 parameters.Add("nCuotas", insVentaLoteDTO.nCuotas);
                 parameters.Add("nIdCicloPago", insVentaLoteDTO.nIdCicloPago);
                 parameters.Add("nIdUsuario_crea", insVentaLoteDTO.nIdUsuario_crea);
-                parameters.Add("nTipoInteresCuotaAplicado", insVentaLoteDTO.nTipoInteresCuotaAplicado);
                 parameters.Add("sIdOperacionBancaria", insVentaLoteDTO.sIdOperacionBancaria);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -94,5 +95,29 @@ namespace backend.repository.Comercial
 
             return res;
         }
+
+
+        public async Task<IList<VentaLoteChartDTO>> postListVentaChart(VentaLoteChartFilterDTO ventaChartFilter)
+        {
+            IEnumerable<VentaLoteChartDTO> list = new List<VentaLoteChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_venta_lote]", 4);
+                parameters.Add("nIdUsuario", ventaChartFilter.nIdUsuario);
+                parameters.Add("nIdCompania", ventaChartFilter.nIdCompania);
+                parameters.Add("nIdProyecto", ventaChartFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", ventaChartFilter.sCodTrimestre);
+                parameters.Add("sMes", ventaChartFilter.sMes);
+                parameters.Add("sAno", ventaChartFilter.sAno);
+
+                list = await connection.QueryAsync<VentaLoteChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+
+
     }
 }
