@@ -29,14 +29,14 @@ namespace backend.services.Controllers.Comercial
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectCuotaLote(int nIdLote, int? nIdInicialLote, int? nIdDescuentoLote)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectCuotaLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getSelectCuotaLote(nIdLote, nIdInicialLote, nIdDescuentoLote);
+                var result = await service.getSelectCuotaLote(selectCotizacionDTO);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
@@ -50,14 +50,14 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListInicialLote(int nIdLote, int? nIdInicialLote, int? nIdDescuentoLote)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListInicialLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
 
             try
             {
-                var result = await service.getListInicialLote(nIdLote, nIdInicialLote, nIdDescuentoLote);
+                var result = await service.getListInicialLote(selectCotizacionDTO);
 
                 response.success = true;
                 response.data = (List<InicialDescuentoDTO>)result;
@@ -72,13 +72,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoContLote(int nIdLote)
+        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoContLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
 
             try
             {
-                var result = await service.getListDescuentoContLote(nIdLote);
+                var result = await service.getListDescuentoContLote(selectCotizacionDTO);
 
                 response.success = true;
                 response.data = (List<InicialDescuentoDTO>)result;
@@ -93,13 +93,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoFinLote(int nIdLote, int? nIdInicialLote, int? nIdCuotaLote)
+        public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoFinLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
 
             try
             {
-                var result = await service.getListDescuentoFinLote(nIdLote, nIdInicialLote, nIdCuotaLote);
+                var result = await service.getListDescuentoFinLote(selectCotizacionDTO);
 
                 response.success = true;
                 response.data = (List<InicialDescuentoDTO>)result;
@@ -361,14 +361,14 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectInteresDTO>>>> getListInteresLote(int nIdLote, int? nIdInicial, int? nIdDescuento, int? nIdCuotaLote)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectInteresDTO>>>> getListInteresLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<SelectInteresDTO>> response = new ApiResponse<List<SelectInteresDTO>>();
 
             try
             {
-                var result = await service.getListInteresLote(nIdLote, nIdInicial, nIdDescuento, nIdCuotaLote);
+                var result = await service.getListInteresLote(selectCotizacionDTO);
 
                 response.success = true;
                 response.data = (List<SelectInteresDTO>)result;
