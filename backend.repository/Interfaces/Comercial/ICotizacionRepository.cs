@@ -4,10 +4,10 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface ICotizacionRepository
     {
-        Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote, int? nIdInicialLote, int? nIdDescuentoLote);
-        Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote, int? nIdDescuentoLote, int? nIdCuotaLote);
-        Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote);
-        Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote, int? nIdInicialLote, int? nIdCuotaLote);
+        Task<IList<SelectDTO>> getSelectCuotaLote(getSelectCotizacionDTO selectCotizacionDTO);
+        Task<IList<InicialDescuentoDTO>> getListInicialLote(getSelectCotizacionDTO selectCotizacionDTO);
+        Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(getSelectCotizacionDTO selectCotizacionDTO);
+        Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(getSelectCotizacionDTO selectCotizacionDTO);
         Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion);
         Task<SqlRspDTO> InsCotizacion(CotizacionDTO cotizacion);
         Task<CotizacionDTO> getCotizacionById(int nIdCotizacion);
@@ -17,7 +17,7 @@ namespace backend.repository.Interfaces.Comercial
         Task<IList<ReporteCotizacionesDTO>> getListReporteCotizaciones(ReporteCotizacionesFiltrosDTO filtros);
         Task<IList<SelectDTO>> getSelectMonedaByCompania(int nIdCompania);
         Task<IList<SqlRspDTO>> getSelectValidaCuotaInteres(int nIdProyecto, int nIdCuota, int? nIdContrato);
-        Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int? nIdInicial, int? nIdDescuento, int? nIdCuotaLote);
+        Task<IList<SelectInteresDTO>> getListInteresLote(getSelectCotizacionDTO selectCotizacionDTO);
         Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri, int? nIdMonedaDest);
         Task<IList<CotizacionChartDTO>> postListCotizacionChart(CotizacionChartFilterDTO cotizacionChartFilter);
     }
