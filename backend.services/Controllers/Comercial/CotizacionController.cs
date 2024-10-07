@@ -71,7 +71,7 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoContLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
@@ -92,7 +92,7 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<List<InicialDescuentoDTO>>>> getListDescuentoFinLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
             ApiResponse<List<InicialDescuentoDTO>> response = new ApiResponse<List<InicialDescuentoDTO>>();
