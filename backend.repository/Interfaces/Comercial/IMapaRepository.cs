@@ -11,5 +11,14 @@ namespace backend.repository.Interfaces.Comercial
     {
         Task<string> getListLotes();
         Task<string> getListManzanas();
+        Task<string> getListParques();
+        Task<string> getListEducacion();
+        Task<string> getListOtrosFines();
+        Task<string> getListRecreacion();
+        Task<string> getListComercial();
+        Task<string> getListServicios();
+        Task<string> getListBermas();
+        Task<string> getListSectores();
+        Task<string> getListVias();
     }
 }

@@ -7,7 +7,7 @@ namespace backend.domain
     public class GeometryDTO
     {
         public string type { get; set; }
-        public List<List<List<List<double>>>> coordinates { get; set; } // List de Listas para soportar la estructura de MultiPolygon
+        public object coordinates { get; set; } // List de Listas para soportar la estructura de MultiPolygon
     }
 
     public class LoteSqlDTO
@@ -60,13 +60,102 @@ namespace backend.domain
         public double shape_leng { get; set; }
     }
 
+    public class MapaParqueDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaEducacionDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaOtrosFinesDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaRecreacionDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaComercialDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaServicioDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaBermaDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaSectorDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
+    public class MapaViaDTO
+    {
+        public int id { get; set; }
+        public int qgs_fid { get; set; }
+        public int objectid { get; set; }
+        public string cod_mz { get; set; }
+        public int proyectoid { get; set; }
+        public double shape_leng { get; set; }
+    }
+
     public class FeatureDTO<T>
     {
         public string type { get; set; }
         public GeometryDTO geometry { get; set; }
         public T properties { get; set; }
     }
-
 
     public class FeatureCollectionDTO<T>
     {
