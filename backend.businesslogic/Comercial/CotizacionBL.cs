@@ -35,24 +35,24 @@ namespace backend.businesslogic.Comercial
             this.monedaRepository = _monedaRepository;
         }
 
-        public async Task<IList<SelectDTO>> getSelectCuotaLote(int nIdLote, int? nIdInicialLote, int? nIdDescuentoLote)
+        public async Task<IList<SelectDTO>> getSelectCuotaLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
-            return await repository.getSelectCuotaLote(nIdLote, nIdInicialLote, nIdDescuentoLote);
+            return await repository.getSelectCuotaLote(selectCotizacionDTO);
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListInicialLote(int nIdLote, int? nIdDescuentoLote, int? nIdCuotaLote)
+        public async Task<IList<InicialDescuentoDTO>> getListInicialLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
-            return await repository.getListInicialLote(nIdLote, nIdDescuentoLote, nIdCuotaLote);
+            return await repository.getListInicialLote(selectCotizacionDTO);
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(int nIdLote)
+        public async Task<IList<InicialDescuentoDTO>> getListDescuentoContLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
-            return await repository.getListDescuentoContLote(nIdLote);
+            return await repository.getListDescuentoContLote(selectCotizacionDTO);
         }
 
-        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(int nIdLote, int? nIdInicialLote, int? nIdCuotaLote)
+        public async Task<IList<InicialDescuentoDTO>> getListDescuentoFinLote(getSelectCotizacionDTO selectCotizacionDTO)
         {
-            return await repository.getListDescuentoFinLote(nIdLote, nIdInicialLote, nIdCuotaLote);
+            return await repository.getListDescuentoFinLote(selectCotizacionDTO);
         }
 
         public async Task<CotizacionDTO> calculateCotizacion(CotizacionDTO cotizacion)
@@ -102,9 +102,9 @@ namespace backend.businesslogic.Comercial
             return await repository.getSelectValidaCuotaInteres(nIdProyecto, nIdCuota, nIdContrato);
         }
 
-        public async Task<IList<SelectInteresDTO>> getListInteresLote(int nIdLote, int? nIdInicial, int? nIdDescuento, int? nIdCuotaLote) 
+        public async Task<IList<SelectInteresDTO>> getListInteresLote(getSelectCotizacionDTO selectCotizacionDTO) 
         {
-            return await repository.getListInteresLote(nIdLote, nIdInicial, nIdDescuento, nIdCuotaLote);
+            return await repository.getListInteresLote(selectCotizacionDTO);
         }
 
         public async Task<TipoCambioDTO> getTipoCambio(int nIdLote, int nIdMonedaOri, int? nIdMonedaDest)
@@ -173,57 +173,64 @@ namespace backend.businesslogic.Comercial
 
                 #region OBTENER CONDICIONES POR DEFECTO
                 if (!bIndividual && (loteDisponible.nIdContrato == 0 || loteDisponible.nIdContrato == null))
-                { 
+                {
+                    getSelectCotizacionDTO selectCotizacionDTO = new getSelectCotizacionDTO();
+                    selectCotizacionDTO.nIdLote = loteDisponible.nIdLote;
+                    selectCotizacionDTO.nIdInicialLote = loteDisponible.nIdInicial;
+                    selectCotizacionDTO.nIdDescuentoLote = loteDisponible.nIdDescuentoFin;
+                    selectCotizacionDTO.nIdCuotaLote = loteDisponible.nIdCuota;
+                    selectCotizacionDTO.nIdInteresCuota = loteDisponible.nIdInteresCuota;
+
                     switch (loteDisponible.nCodigoCompania)
                     {
                         case 1:
-                            List<InicialDescuentoDTO> listInicial1 = (List<InicialDescuentoDTO>)await getListInicialLote(loteDisponible.nIdLote, null, null);
+                            List<InicialDescuentoDTO> listInicial1 = (List<InicialDescuentoDTO>)await getListInicialLote(selectCotizacionDTO);
                             inicial = (InicialLoteDTO)await inicialLoteRepository.getInicialLoteByID(listInicial1.Count > 0 ? listInicial1.ToList()[0].nId : 0);
 
-                            List<SelectDTO> listCuota1 = (List<SelectDTO>)await getSelectCuotaLote(loteDisponible.nIdLote, null, null);
+                            List<SelectDTO> listCuota1 = (List<SelectDTO>)await getSelectCuotaLote(selectCotizacionDTO);
                             cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID(listCuota1.Count > 0 ? listCuota1.ToList()[0].nCod : 0);
 
-                            List<InicialDescuentoDTO> listDescuentoFin1 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(loteDisponible.nIdLote, null, null);
+                            List<InicialDescuentoDTO> listDescuentoFin1 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(selectCotizacionDTO);
                             descuentoFin = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoFin1.Count > 0 ? listDescuentoFin1.ToList()[0].nId : 0);
 
-                            List<SelectInteresDTO> listInteres1 = (List<SelectInteresDTO>)await getListInteresLote(loteDisponible.nIdLote, inicial != null ? inicial.nIdInicialLote : null, null, cuota != null ? cuota.nIdCuotaLote : null);
+                            List<SelectInteresDTO> listInteres1 = (List<SelectInteresDTO>)await getListInteresLote(selectCotizacionDTO);
                             interes = (InteresCuotaDTO)await interesCuotaRepository.getInteresCuotaByID(listInteres1.Count > 0 ? listInteres1.ToList()[0].nId : 0);
 
-                            List<InicialDescuentoDTO> listDescuentoCon1 = (List<InicialDescuentoDTO>)await getListDescuentoContLote(loteDisponible.nIdLote);
+                            List<InicialDescuentoDTO> listDescuentoCon1 = (List<InicialDescuentoDTO>)await getListDescuentoContLote(selectCotizacionDTO);
                             descuentoCon = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoCon1.Count > 0 ? listDescuentoCon1.ToList()[0].nId : 0);
 
                             break;
                         case 3:
-                            List<InicialDescuentoDTO> listInicial = (List<InicialDescuentoDTO>)await getListInicialLote(loteDisponible.nIdLote, null, null) ;
+                            List<InicialDescuentoDTO> listInicial = (List<InicialDescuentoDTO>)await getListInicialLote(selectCotizacionDTO) ;
                             inicial = (InicialLoteDTO) await inicialLoteRepository.getInicialLoteByID(listInicial.Count > 0 ? listInicial.ToList()[0].nId : 0) ;
 
-                            List<SelectDTO> listCuota = (List<SelectDTO>) await getSelectCuotaLote(loteDisponible.nIdLote, null, null);
+                            List<SelectDTO> listCuota = (List<SelectDTO>) await getSelectCuotaLote(selectCotizacionDTO);
                             cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID(listCuota.Count > 0 ? listCuota.ToList()[0].nCod : 0);
 
-                            List<InicialDescuentoDTO> listDescuentoFin = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(loteDisponible.nIdLote, null, null);
+                            List<InicialDescuentoDTO> listDescuentoFin = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(selectCotizacionDTO);
                             descuentoFin = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoFin.Count > 0 ? listDescuentoFin.ToList()[0].nId : 0);
 
-                            List<SelectInteresDTO> listInteres = (List<SelectInteresDTO>)await getListInteresLote(loteDisponible.nIdLote, inicial != null ? inicial.nIdInicialLote : null, null, cuota != null ? cuota.nIdCuotaLote : null);
+                            List<SelectInteresDTO> listInteres = (List<SelectInteresDTO>)await getListInteresLote(selectCotizacionDTO);
                             interes = (InteresCuotaDTO)await interesCuotaRepository.getInteresCuotaByID(listInteres.Count > 0 ? listInteres.ToList()[0].nId : 0);
 
-                            List<InicialDescuentoDTO> listDescuentoCon = (List<InicialDescuentoDTO>)await getListDescuentoContLote(loteDisponible.nIdLote);
+                            List<InicialDescuentoDTO> listDescuentoCon = (List<InicialDescuentoDTO>)await getListDescuentoContLote(selectCotizacionDTO);
                             descuentoCon = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoCon.Count > 0 ? listDescuentoCon.ToList()[0].nId : 0);
 
                             break;
                         case 4:
-                            List<InicialDescuentoDTO> listInicial4 = (List<InicialDescuentoDTO>)await getListInicialLote(loteDisponible.nIdLote, null, null);
+                            List<InicialDescuentoDTO> listInicial4 = (List<InicialDescuentoDTO>)await getListInicialLote(selectCotizacionDTO);
                             inicial = (InicialLoteDTO)await inicialLoteRepository.getInicialLoteByID(listInicial4.Count > 0 ? listInicial4.ToList()[0].nId : 0);
 
-                            List<SelectDTO> listCuota4 = (List<SelectDTO>)await getSelectCuotaLote(loteDisponible.nIdLote, null, null);
+                            List<SelectDTO> listCuota4 = (List<SelectDTO>)await getSelectCuotaLote(selectCotizacionDTO);
                             cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID(listCuota4.Count > 0 ? listCuota4.ToList()[0].nCod : 0);
 
-                            List<InicialDescuentoDTO> listDescuentoFin4 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(loteDisponible.nIdLote, null, null);
+                            List<InicialDescuentoDTO> listDescuentoFin4 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(selectCotizacionDTO);
                             descuentoFin = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoFin4.Count > 0 ? listDescuentoFin4.ToList()[0].nId : 0);
 
-                            List<SelectInteresDTO> listInteres4 = (List<SelectInteresDTO>)await getListInteresLote(loteDisponible.nIdLote, inicial != null ? inicial.nIdInicialLote : null, null, cuota != null ? cuota.nIdCuotaLote : null);
+                            List<SelectInteresDTO> listInteres4 = (List<SelectInteresDTO>)await getListInteresLote(selectCotizacionDTO);
                             interes = (InteresCuotaDTO)await interesCuotaRepository.getInteresCuotaByID(listInteres4.Count > 0 ? listInteres4.ToList()[0].nId : 0);
 
-                            List<InicialDescuentoDTO> listDescuentoCon4 = (List<InicialDescuentoDTO>)await getListDescuentoContLote(loteDisponible.nIdLote);
+                            List<InicialDescuentoDTO> listDescuentoCon4 = (List<InicialDescuentoDTO>)await getListDescuentoContLote(selectCotizacionDTO);
                             descuentoCon = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoCon4.Count > 0 ? listDescuentoCon4.ToList()[0].nId : 0);
 
                             break;
