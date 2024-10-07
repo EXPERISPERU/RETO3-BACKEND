@@ -19,6 +19,15 @@ namespace backend.domain
         public string? sFecha_crea { get; set; }
     }
 
+    public class getSelectCotizacionDTO 
+    {
+        public int nIdLote { get; set; }
+        public int? nIdInicialLote { get; set; }
+        public int? nIdDescuentoLote { get; set; }
+        public int? nIdCuotaLote { get; set; }
+        public int? nIdInteresCuota { get; set; }
+    }
+
     public class InicialDescuentoDTO
     {
         public int nId { get; set; }
