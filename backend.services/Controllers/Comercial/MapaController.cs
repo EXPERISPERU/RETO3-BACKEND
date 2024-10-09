@@ -17,13 +17,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaLoteDTO>>>> getListLotes()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>>> getListLotes(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaLoteDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaLoteDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListLotes();
+                var result = await service.getListLotes(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -38,13 +38,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>>> getListManzanas()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaManzanaDTO, MultiPolygonDTO>>>> getListManzanas(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaManzanaDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaManzanaDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaManzanaDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListManzanas();
+                var result = await service.getListManzanas(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -59,13 +59,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaParqueDTO>>>> getListParques()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaParqueDTO, MultiPolygonDTO>>>> getListParques(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaParqueDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaParqueDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaParqueDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaParqueDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListParques();
+                var result = await service.getListParques(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -80,13 +80,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaEducacionDTO>>>> getListEducacion()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaEducacionDTO, MultiPolygonDTO>>>> getListEducacion(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaEducacionDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaEducacionDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaEducacionDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaEducacionDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListEducacion();
+                var result = await service.getListEducacion(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -101,13 +101,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaOtrosFinesDTO>>>> getListOtrosFines()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaOtrosFinesDTO, MultiPolygonDTO>>>> getListOtrosFines(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaOtrosFinesDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaOtrosFinesDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaOtrosFinesDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaOtrosFinesDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListOtrosFines();
+                var result = await service.getListOtrosFines(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -122,13 +122,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaRecreacionDTO>>>> getListRecreacion()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaRecreacionDTO, MultiPolygonDTO>>>> getListRecreacion(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaRecreacionDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaRecreacionDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaRecreacionDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaRecreacionDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListRecreacion();
+                var result = await service.getListRecreacion(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -143,13 +143,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaComercialDTO>>>> getListComercial()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaComercialDTO, MultiPolygonDTO>>>> getListComercial(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaComercialDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaComercialDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaComercialDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaComercialDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListComercial();
+                var result = await service.getListComercial(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -164,13 +164,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaServicioDTO>>>> getListServicios()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaServicioDTO, MultiPolygonDTO>>>> getListServicios(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaServicioDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaServicioDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaServicioDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaServicioDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListServicios();
+                var result = await service.getListServicios(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -185,13 +185,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaBermaDTO>>>> getListBermas()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaBermaDTO, MultiLineStringDTO>>>> getListBermas(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaBermaDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaBermaDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaBermaDTO, MultiLineStringDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaBermaDTO, MultiLineStringDTO>>();
 
             try
             {
-                var result = await service.getListBermas();
+                var result = await service.getListBermas(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -206,13 +206,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaSectorDTO>>>> getListSectores()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaSectorDTO, MultiPolygonDTO>>>> getListSectores(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaSectorDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaSectorDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaSectorDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaSectorDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListSectores();
+                var result = await service.getListSectores(nIdProyecto);
 
                 response.success = true;
                 response.data = result;
@@ -227,13 +227,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaViaDTO>>>> getListVias()
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaViaDTO, MultiLineStringDTO>>>> getListVias(int nIdProyecto)
         {
-            ApiResponse<FeatureCollectionDTO<MapaViaDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaViaDTO>>();
+            ApiResponse<FeatureCollectionDTO<MapaViaDTO, MultiLineStringDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaViaDTO, MultiLineStringDTO>>();
 
             try
             {
-                var result = await service.getListVias();
+                var result = await service.getListVias(nIdProyecto);
 
                 response.success = true;
                 response.data = result;

@@ -17,11 +17,11 @@ namespace backend.businesslogic.Comercial
             loteRepository = _loteRepository;
         }
 
-        public async Task<FeatureCollectionDTO<MapaLoteDTO>> getListLotes()
+        public async Task<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> getListLotes(int nIdProyecto)
         {
             var lotes = await loteRepository.getListLotes();
-            var pos = await repository.getListLotes();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaLoteDTO>>(pos);
+            var pos = await repository.getListLotes(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>(pos);
             // foreach (var lote in jres.features)
             // {
             //     var found = lotes.First(x => x.Id_Old == lote.properties.idinmueble);
@@ -43,74 +43,74 @@ namespace backend.businesslogic.Comercial
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaManzanaDTO>> getListManzanas()
+        public async Task<FeatureCollectionDTO<MapaManzanaDTO, MultiPolygonDTO>> getListManzanas(int nIdProyecto)
         {
-            var pos = await repository.getListManzanas();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaManzanaDTO>>(pos);
+            var pos = await repository.getListManzanas(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaManzanaDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaParqueDTO>> getListParques()
+        public async Task<FeatureCollectionDTO<MapaParqueDTO, MultiPolygonDTO>> getListParques(int nIdProyecto)
         {
-            var pos = await repository.getListParques();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaParqueDTO>>(pos);
+            var pos = await repository.getListParques(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaParqueDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaEducacionDTO>> getListEducacion()
+        public async Task<FeatureCollectionDTO<MapaEducacionDTO, MultiPolygonDTO>> getListEducacion(int nIdProyecto)
         {
-            var pos = await repository.getListEducacion();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaEducacionDTO>>(pos);
+            var pos = await repository.getListEducacion(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaEducacionDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaOtrosFinesDTO>> getListOtrosFines()
+        public async Task<FeatureCollectionDTO<MapaOtrosFinesDTO, MultiPolygonDTO>> getListOtrosFines(int nIdProyecto)
         {
-            var pos = await repository.getListOtrosFines();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaOtrosFinesDTO>>(pos);
+            var pos = await repository.getListOtrosFines(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaOtrosFinesDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaRecreacionDTO>> getListRecreacion()
+        public async Task<FeatureCollectionDTO<MapaRecreacionDTO, MultiPolygonDTO>> getListRecreacion(int nIdProyecto)
         {
-            var pos = await repository.getListRecreacion();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaRecreacionDTO>>(pos);
+            var pos = await repository.getListRecreacion(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaRecreacionDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaComercialDTO>> getListComercial()
+        public async Task<FeatureCollectionDTO<MapaComercialDTO, MultiPolygonDTO>> getListComercial(int nIdProyecto)
         {
-            var pos = await repository.getListComercial();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaComercialDTO>>(pos);
+            var pos = await repository.getListComercial(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaComercialDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaServicioDTO>> getListServicios()
+        public async Task<FeatureCollectionDTO<MapaServicioDTO, MultiPolygonDTO>> getListServicios(int nIdProyecto)
         {
-            var pos = await repository.getListServicios();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaServicioDTO>>(pos);
+            var pos = await repository.getListServicios(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaServicioDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaBermaDTO>> getListBermas()
+        public async Task<FeatureCollectionDTO<MapaBermaDTO, MultiLineStringDTO>> getListBermas(int nIdProyecto)
         {
-            var pos = await repository.getListBermas();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaBermaDTO>>(pos);
+            var pos = await repository.getListBermas(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaBermaDTO, MultiLineStringDTO>>(pos);
             return jres;
         }
 
 
-        public async Task<FeatureCollectionDTO<MapaViaDTO>> getListVias()
+        public async Task<FeatureCollectionDTO<MapaViaDTO, MultiLineStringDTO>> getListVias(int nIdProyecto)
         {
-            var pos = await repository.getListVias();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaViaDTO>>(pos);
+            var pos = await repository.getListVias(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaViaDTO, MultiLineStringDTO>>(pos);
             return jres;
         }
 
-        public async Task<FeatureCollectionDTO<MapaSectorDTO>> getListSectores()
+        public async Task<FeatureCollectionDTO<MapaSectorDTO, MultiPolygonDTO>> getListSectores(int nIdProyecto)
         {
-            var pos = await repository.getListSectores();
-            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaSectorDTO>>(pos);
+            var pos = await repository.getListSectores(nIdProyecto);
+            var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaSectorDTO, MultiPolygonDTO>>(pos);
             return jres;
         }
 

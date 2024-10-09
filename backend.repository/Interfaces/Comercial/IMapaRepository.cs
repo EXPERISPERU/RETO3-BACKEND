@@ -9,16 +9,16 @@ namespace backend.repository.Interfaces.Comercial
 {
     public interface IMapaRepository
     {
-        Task<string> getListLotes();
-        Task<string> getListManzanas();
-        Task<string> getListParques();
-        Task<string> getListEducacion();
-        Task<string> getListOtrosFines();
-        Task<string> getListRecreacion();
-        Task<string> getListComercial();
-        Task<string> getListServicios();
-        Task<string> getListBermas();
-        Task<string> getListSectores();
-        Task<string> getListVias();
+        Task<string> getListLotes(int nIdProyecto);
+        Task<string> getListManzanas(int nIdProyecto);
+        Task<string> getListParques(int nIdProyecto);
+        Task<string> getListEducacion(int nIdProyecto);
+        Task<string> getListOtrosFines(int nIdProyecto);
+        Task<string> getListRecreacion(int nIdProyecto);
+        Task<string> getListComercial(int nIdProyecto);
+        Task<string> getListServicios(int nIdProyecto);
+        Task<string> getListBermas(int nIdProyecto);
+        Task<string> getListSectores(int nIdProyecto);
+        Task<string> getListVias(int nIdProyecto);
     }
 }
