@@ -43,9 +43,9 @@ namespace backend.services.Controllers.Contabilidad
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
                 byte[] file;
 
-                //if (comprobante.nIdAdjunto == null)
-                //{
-                var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
+                if (comprobante.nIdAdjunto == null)
+                {
+                    var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
 
                     var html = "";
 
@@ -207,21 +207,21 @@ namespace backend.services.Controllers.Contabilidad
 
                     file = System.IO.File.ReadAllBytes(path);
 
-            //    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
+                    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-            //    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
-            //    if (resFtp.success)
-            //    {
-            //        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
-            //    }
-            //}
-            //    else
-            //{
-            //    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
-            //}
+                    if (resFtp.success)
+                    {
+                        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
+                    }
+                }
+                else
+                {
+                    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+                }
 
-            return File(file, "application/pdf");
+                return File(file, "application/pdf");
             }
             catch (Exception)
             {
