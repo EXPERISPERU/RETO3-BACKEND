@@ -8,8 +8,7 @@ namespace backend.domain
 {
     public class CronogramaDTO
     {
-        
-            public int? nIdCronograma { get; set; }
+        public int? nIdCronograma { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdContrato { get; set; }
         public int nIdEstado { get; set; }
@@ -25,5 +24,6 @@ namespace backend.domain
         public string? sFechaVencimiento { get; set; }
         public DateTime dFechaPago { get; set; }
         public string? sFechaPago { get; set; }
+        public int? nIdComprobante { get; set; }
     }
 }
