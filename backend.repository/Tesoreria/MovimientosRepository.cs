@@ -166,7 +166,7 @@ namespace backend.repository.Tesoreria
             return list.ToList();
         }
 
-        public async Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta)
+        public async Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdCompania, int nIdConceptoVenta)
         {
             IEnumerable<ConfiguracionConceptoDTO> list = new List<ConfiguracionConceptoDTO>();
 
@@ -174,12 +174,11 @@ namespace backend.repository.Tesoreria
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 11);
-                parameters.Add("nIdproyecto", nIdproyecto);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdConceptoVenta", nIdConceptoVenta);
 
                 list = await connection.QueryAsync<ConfiguracionConceptoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 

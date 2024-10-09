@@ -228,12 +228,12 @@ namespace backend.services.Controllers.Tesoreria
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ConfiguracionConceptoDTO>>>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta)
+        public async Task<ActionResult<ApiResponse<List<ConfiguracionConceptoDTO>>>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdCompania, int nIdConceptoVenta)
         {
             ApiResponse<List<ConfiguracionConceptoDTO>> response = new ApiResponse<List<ConfiguracionConceptoDTO>>();
             try
             {
-                var result = await service.GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(nIdproyecto, nIdConceptoVenta);
+                var result = await service.GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(nIdCompania, nIdConceptoVenta);
 
                 response.success = true;
                 response.data = (List<ConfiguracionConceptoDTO>)result;
