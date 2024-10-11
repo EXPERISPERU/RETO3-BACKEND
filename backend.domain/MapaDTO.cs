@@ -46,7 +46,7 @@ namespace backend.domain
         public string bb { get; set; }
         public double shape_le_1 { get; set; }
         public string precio { get; set; }
-        public LoteDTO loteDto { get; set; }
+        public LotesDisponiblesDTO loteDisponible { get; set; }
     }
 
     public class MapaManzanaDTO
