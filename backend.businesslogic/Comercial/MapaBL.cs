@@ -9,34 +9,34 @@ namespace backend.businesslogic.Comercial
     public class MapaBL : IMapaBL
     {
         private readonly IMapaRepository repository;
-        private readonly ILoteRepository loteRepository;
+        private readonly ILotesDisponiblesRepository loteDisponibleRepository;
 
-        public MapaBL(IMapaRepository _repository, ILoteRepository _loteRepository)
+        public MapaBL(IMapaRepository _repository, ILotesDisponiblesRepository _loteDisponibleRepository)
         {
             repository = _repository;
-            loteRepository = _loteRepository;
+            loteDisponibleRepository = _loteDisponibleRepository;
         }
 
-        public async Task<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> getListLotes(int nIdProyecto)
+        public async Task<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> getListLotes(int nIdCompania, int nIdUsuario, int nIdProyecto)
         {
-            var lotes = await loteRepository.getListLotes();
+            var lotes = await loteDisponibleRepository.getListLotesDisponibles(new SelectLotesDisponiblesDTO{ nIdCompania = 1, nIdUsuario = 1, PageNumber = 1 , RowspPage = 10000, nIdProyecto = nIdProyecto });
             var pos = await repository.getListLotes(nIdProyecto);
             var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>(pos);
             foreach (var lote in jres.features)
             {
                 var found = lotes.First(x => x.Id_Old == lote.properties.idinmueble);
-                lote.properties.loteDto = new LoteDTO();
+                lote.properties.loteDisponible = new LotesDisponiblesDTO();
                 if (found != null)
                 {
                     lote.properties.idestado = found.nIdEstado.ToString();
                     lote.properties.estadoinmu = found.sEstado;
-                    lote.properties.loteDto = found;
+                    lote.properties.loteDisponible = found;
                 }
                 else
                 {
                     lote.properties.idestado = "112";
-                    lote.properties.loteDto.nIdEstado = 112;
-                    lote.properties.loteDto.sEstado = "BLOQUEADO";
+                    lote.properties.loteDisponible.nIdEstado = 112;
+                    lote.properties.loteDisponible.sEstado = "BLOQUEADO";
                 }
 
             }

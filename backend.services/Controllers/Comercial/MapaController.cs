@@ -17,13 +17,13 @@ namespace backend.services.Controllers.Comercial
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>>> getListLotes(int nIdProyecto)
+        public async Task<ActionResult<ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>>> getListLotes(int nIdCompania, int nIdUsuario, int nIdProyecto)
         {
             ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> response = new ApiResponse<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>();
 
             try
             {
-                var result = await service.getListLotes(nIdProyecto);
+                var result = await service.getListLotes(nIdCompania, nIdUsuario, nIdProyecto);
 
                 response.success = true;
                 response.data = result;
