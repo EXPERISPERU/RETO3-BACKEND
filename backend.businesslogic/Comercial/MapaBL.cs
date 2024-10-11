@@ -22,24 +22,24 @@ namespace backend.businesslogic.Comercial
             var lotes = await loteRepository.getListLotes();
             var pos = await repository.getListLotes(nIdProyecto);
             var jres = JsonConvert.DeserializeObject<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>>(pos);
-            // foreach (var lote in jres.features)
-            // {
-            //     var found = lotes.First(x => x.Id_Old == lote.properties.idinmueble);
-            //     lote.properties.loteSql = new LoteSqlDTO();
-            //     if (found != null)
-            //     {
-            //         lote.properties.loteSql.estado = found.nIdEstado;
-            //         lote.properties.loteSql.nombreEstado = found.sEstado;
-            //         lote.properties.loteSql.metraje = found.nMetraje;
-            //     }
-            //     else
-            //     {
-            //         lote.properties.loteSql.estado = 112;
-            //         lote.properties.loteSql.nombreEstado = "BLOQUEADO";
-            //         lote.properties.loteSql.metraje = found.nMetraje;
-            //     }
+            foreach (var lote in jres.features)
+            {
+                var found = lotes.First(x => x.Id_Old == lote.properties.idinmueble);
+                lote.properties.loteDto = new LoteDTO();
+                if (found != null)
+                {
+                    lote.properties.idestado = found.nIdEstado.ToString();
+                    lote.properties.estadoinmu = found.sEstado;
+                    lote.properties.loteDto = found;
+                }
+                else
+                {
+                    lote.properties.idestado = "112";
+                    lote.properties.loteDto.nIdEstado = 112;
+                    lote.properties.loteDto.sEstado = "BLOQUEADO";
+                }
 
-            // }
+            }
             return jres;
         }
 
