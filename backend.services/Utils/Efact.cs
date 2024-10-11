@@ -58,7 +58,8 @@ namespace backend.services.Utils
         {
             try
             {
-                string nombreDocumento = "20551093035-01-FG99-01304.xml";
+                string tipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
+                string nombreDocumento = comprobante.sRUCCompania + tipoDocumento + comprobante.sSerie + comprobante.nCorrelativo + ".xml";
                 string filePath = Path.Combine("tmp", nombreDocumento);
 
                 string urlFinal = eFactUrlBase + eFactUrlToken;
@@ -86,14 +87,14 @@ namespace backend.services.Utils
                         return result;
                     }
                     else 
-                    { 
+                    {
                         throw new Exception(result.description);
                     }
                 }
             }
             catch (Exception ex)
             {
-                new efactResponseDTO() { code = "BACKEND" , description = ex.Message }; 
+                return new efactResponseDTO() { code = "BACKEND" , description = ex.Message }; 
             }
         }
     }
