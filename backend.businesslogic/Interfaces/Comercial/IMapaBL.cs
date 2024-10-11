@@ -4,7 +4,7 @@ namespace backend.businesslogic.Interfaces.Comercial
 {
     public interface IMapaBL
     {
-        Task<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> getListLotes(int nIdProyecto);
+        Task<FeatureCollectionDTO<MapaLoteDTO, MultiPolygonDTO>> getListLotes(int nIdCompania, int nIdUsuario, int nIdProyecto);
         Task<FeatureCollectionDTO<MapaManzanaDTO, MultiPolygonDTO>> getListManzanas(int nIdProyecto);
         Task<FeatureCollectionDTO<MapaParqueDTO, MultiPolygonDTO>> getListParques(int nIdProyecto);
         Task<FeatureCollectionDTO<MapaEducacionDTO, MultiPolygonDTO>> getListEducacion(int nIdProyecto);

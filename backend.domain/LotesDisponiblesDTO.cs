@@ -43,6 +43,7 @@ namespace backend.domain
         public string sSector { get; set; }
         public int nIdManzana { get; set; }
         public string sManzana { get; set; }
+        public int? Id_Old { get; set; }
         public int nIdLote { get; set; }
         public string sLote { get; set; }
         public int? nIdEstado { get; set; }
