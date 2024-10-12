@@ -24,7 +24,7 @@ namespace backend.domain
     }
 
     #region COMPROBANTE EFACT DTO
-    public class InvoiceDTO
+    public class EfactComprobanteDTO
     {
         public string _D { get; set; }
         public string _S { get; set; }
@@ -40,7 +40,7 @@ namespace backend.domain
         public List<IdentifierContentDTO> ID { get; set; }
         public List<DateContentDTO> IssueDate { get; set; }
         public List<DateTimeContentDTO> IssueTime { get; set; }
-        public List<InvoiceTypeCodeDTO> InvoiceTypeCode { get; set; }
+        public List<InvoiceTypeCodeDTO>? InvoiceTypeCode { get; set; }
         public List<NoteDTO> Note { get; set; }
         public List<DocumentCurrencyCodeDTO> DocumentCurrencyCode { get; set; }
         public List<NumericContentDTO> LineCountNumeric { get; set; }

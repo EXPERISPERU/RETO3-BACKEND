@@ -23,6 +23,45 @@ namespace backend.services.Utils
             eFactUrlDocument = configuration["EfacConfig:urlDocument"];
         }
 
+        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet) {
+
+            EfactComprobanteDTO efactComprobante = new EfactComprobanteDTO();
+
+            efactComprobante._D = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2";
+            efactComprobante._S = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
+            efactComprobante._B = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2";
+            efactComprobante._E = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
+            efactComprobante.Invoice = new List<Invoice>();
+
+            IdentifierContentDTO icUBLVersionID = new IdentifierContentDTO() { IdentifierContent = "2.1" };
+            IdentifierContentDTO icCustomizationID = new IdentifierContentDTO() { IdentifierContent = "2.0" };
+            IdentifierContentDTO icID = new IdentifierContentDTO() { IdentifierContent = comprobante.sComprobante };
+            DateContentDTO dateContent = new DateContentDTO { DateContent = comprobante.dFecha_crea.ToString("yyyy-MM-dd") };
+            DateTimeContentDTO dateTimeContent = new DateTimeContentDTO { DateTimeContent = comprobante.dFecha_crea.ToString("hh:mm:ss") };
+            InvoiceTypeCodeDTO invoiceTypeCode = new InvoiceTypeCodeDTO()
+            {
+                CodeContent = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante),
+                CodeListNameText = "Tipo de Documento",
+                CodeListSchemeUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo51",
+                CodeListIdentifier = "0101",
+                CodeNameText = "Tipo de Operacion",
+                CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
+                CodeListAgencyNameText = "PE:SUNAT"
+            };
+
+            NoteDTO noteMontoLetras = new NoteDTO() { 
+                TextContent = new NumerosLetras().sConvertir(comprobante.nValorTotal)
+                ,LanguageLocaleIdentifier = "1000"
+            };
+
+            NoteDTO noteContacto = new NoteDTO()
+            {
+                TextContent = "Celular: 967 283 715%5D Fijo: 694-8518"
+            };
+
+            return efactComprobante;
+        }
+
         private async Task<efactAuthResponseDTO> eFactGetToken()
         {
             try
