@@ -239,6 +239,13 @@ namespace backend.services.Controllers.Contabilidad
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
 
+                if (comprobante.nCodigoCompania == 1)
+                {
+                    new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+                    
+                    //service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat);
+                }
+
                 if (comprobante.nCodigoCompania == 2)
                 {
                     SicfacResponse sres = new SicFac(configuration).GenerarDocumento(comprobante, listComprobanteDet);
