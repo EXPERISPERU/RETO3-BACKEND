@@ -97,39 +97,45 @@ namespace backend.services.Utils
         {
             try
             {
+                EfactComprobanteDTO comprobanteEfact = this.comprobanteEfact(comprobante, comprobanteDet);
+
                 string tipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
-                string nombreDocumento = comprobante.sRUCCompania + tipoDocumento + comprobante.sSerie + comprobante.nCorrelativo + ".xml";
+                string nombreDocumento = comprobante.sRUCCompania + tipoDocumento + comprobante.sSerie + comprobante.nCorrelativo + ".json";
+                // TODO: meter compronbanteEfect en el archivo
+                // almacenar el archivo en una ruta temporal
                 string filePath = Path.Combine("tmp", nombreDocumento);
 
-                string urlFinal = eFactUrlBase + eFactUrlToken;
+                string urlFinal = eFactUrlBase + eFactUrlDocument;
                 var authResponse = await this.eFactGetToken();
 
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResponse.access_token);
+                //CONSUMIR SERVICIO PARA ENVIAR ARCHIVO
+                //using (var httpClient = new HttpClient())
+                //{
+                //    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResponse.access_token);
 
-                    var content = new MultipartFormDataContent();
+                //    var content = new MultipartFormDataContent();
 
-                    byte[] xmlBytes = await File.ReadAllBytesAsync(filePath);
-                    var fileContent = new ByteArrayContent(xmlBytes);
-                    fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
-                    content.Add(fileContent, "file", nombreDocumento);
-                
-                    var response = await httpClient.PostAsync(urlFinal, content);
-                    int status = (int) response.StatusCode;
-                    
-                    string res = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<efactResponseDTO>(res);
+                //    byte[] xmlBytes = await File.ReadAllBytesAsync(filePath);
+                //    var fileContent = new ByteArrayContent(xmlBytes);
+                //    fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+                //    content.Add(fileContent, "file", nombreDocumento);
 
-                    if (status == 200)
-                    {
-                        return result;
-                    }
-                    else 
-                    {
-                        throw new Exception(result.description);
-                    }
-                }
+                //    var response = await httpClient.PostAsync(urlFinal, content);
+                //    int status = (int) response.StatusCode;
+
+                //    string res = await response.Content.ReadAsStringAsync();
+                //    var result = JsonConvert.DeserializeObject<efactResponseDTO>(res);
+
+                //    if (status == 200)
+                //    {
+                //        return result;
+                //    }
+                //    else 
+                //    {
+                //        throw new Exception(result.description);
+                //    }
+                //}
+                return new efactResponseDTO() { code = "BACKEND", description = "PRUEBAS" };
             }
             catch (Exception ex)
             {
