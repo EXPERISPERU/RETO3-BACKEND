@@ -11,5 +11,7 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<SqlRspDTO> UpdOperacionBancaria(int nIdCompania, OperacionBancariaDTO operacionBancaria);
         Task<OperacionBancariaDTO> getOperacionBancariaByCuentaMovimiento(int nIdCompania, int nIdUsuario, int nIdCuenta, int nMovimiento);
         Task<SqlRspDTO> InsOperacionBancariaRecaudoBBVA(InsOperacionBancariaRecaudoBBVA operacionBancariaRecaudoBBVA);
+        Task<IList<OperacionBancariaDTO>> getAllOperacionBancariaRecaudoDisponibles();
+        Task<SqlRspDTO> UpdOperacionBancariaRecaudo(UpdOperacionBancariaRecaudoDTO updOperacionBancariaRecaudoDTO);
     }
 }

@@ -38,4 +38,11 @@
         public int? nIdOrdenPago { get; set; }
         public int? nIdCronograma { get; set; }
     }
+
+    public class UpdOperacionBancariaRecaudoDTO
+    {
+        public int nIdOperacionBancaria { get; set; }
+        public int? nIdOrdenPago { get; set; }
+        public int? nIdCronograma { get; set; }
+    }
 }
