@@ -50,6 +50,9 @@ namespace backend.domain
         public string? sOrdenPago { get; set; }
         public string? sFechaVencimiento { get; set; }
         public string? sGuiaRemision { get; set; }
+        public string? sRazonSocialCompania { get; set; }
+        public string? sDireccionCompania { get; set; }
+        public string? sUbigeoCompania { get; set; }
         #endregion
 
         public string sNombrePromotor { get; set; }

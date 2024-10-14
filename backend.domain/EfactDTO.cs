@@ -55,6 +55,10 @@ namespace backend.domain
     public class IdentifierContentDTO
     {
         public string IdentifierContent { get; set; }
+        public int IdentificationSchemeIdentifier { get; set; }
+        public string IdentificationSchemeNameText { get; set; }
+        public string IdentificationSchemeAgencyNameText { get; set; }
+        public string IdentificationSchemeUniformResourceIdentifier { get; set; }
     }
 
     public class DateContentDTO
@@ -169,6 +173,9 @@ namespace backend.domain
     public class CodeContentDTO
     {
         public string CodeContent { get; set; }
+        public string CodeListIdentifier { get; set; }
+        public string CodeListAgencyNameText { get; set; }
+        public string CodeListNameText { get; set; }
     }
 
     public class AddressLineDTO
