@@ -23,7 +23,8 @@ namespace backend.services.Utils
             eFactUrlDocument = configuration["EfacConfig:urlDocument"];
         }
 
-        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet) {
+        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet)
+        {
 
             EfactComprobanteDTO efactComprobante = new EfactComprobanteDTO();
 
@@ -49,9 +50,11 @@ namespace backend.services.Utils
                 CodeListAgencyNameText = "PE:SUNAT"
             };
 
-            NoteDTO noteMontoLetras = new NoteDTO() { 
+            NoteDTO noteMontoLetras = new NoteDTO()
+            {
                 TextContent = new NumerosLetras().sConvertir(comprobante.nValorTotal)
-                ,LanguageLocaleIdentifier = "1000"
+                ,
+                LanguageLocaleIdentifier = "1000"
             };
 
             NoteDTO noteContacto = new NoteDTO()
@@ -83,7 +86,7 @@ namespace backend.services.Utils
 
                     var result = await httpClient.PostAsync(urlFinal, content).Result.Content.ReadAsStringAsync();
                     var response = JsonConvert.DeserializeObject<efactAuthResponseDTO>(result);
-                    
+
                     return response;
                 }
             }
@@ -101,12 +104,17 @@ namespace backend.services.Utils
 
                 string tipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
                 string nombreDocumento = comprobante.sRUCCompania + tipoDocumento + comprobante.sSerie + comprobante.nCorrelativo + ".json";
-                // TODO: meter compronbanteEfect en el archivo
-                // almacenar el archivo en una ruta temporal
+
                 string filePath = Path.Combine("tmp", nombreDocumento);
 
+                // Convertir el objeto a formato JSON
+                string jsonString = System.Text.Json.JsonSerializer.Serialize(comprobanteEfact);
+
+                // Escribir el JSON en el archivo
+                File.WriteAllText(filePath, jsonString);
+
                 string urlFinal = eFactUrlBase + eFactUrlDocument;
-                var authResponse = await this.eFactGetToken();
+                // var authResponse = await this.eFactGetToken();
 
                 //CONSUMIR SERVICIO PARA ENVIAR ARCHIVO
                 //using (var httpClient = new HttpClient())
@@ -139,7 +147,7 @@ namespace backend.services.Utils
             }
             catch (Exception ex)
             {
-                return new efactResponseDTO() { code = "BACKEND" , description = ex.Message }; 
+                return new efactResponseDTO() { code = "BACKEND", description = ex.Message };
             }
         }
     }
