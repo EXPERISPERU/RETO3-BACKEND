@@ -71,9 +71,9 @@ namespace backend.businesslogic.Tesoreria
         //{
         //    return await repository.InsMovimientos(movimiento);
         //}
-        public async Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta)
+        public async Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdCompania, int nIdConceptoVenta)
         {
-            return await repository.GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(nIdproyecto, nIdConceptoVenta);
+            return await repository.GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(nIdCompania, nIdConceptoVenta);
         }
 
         public async Task<IList<MovimientosDTO>> getAllListMovimientosById(int nIdMovimiento)

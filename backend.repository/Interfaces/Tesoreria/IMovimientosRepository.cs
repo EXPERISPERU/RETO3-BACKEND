@@ -18,7 +18,7 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<IList<SelectDTO>> getSelectLoteByManzana(int nIdManzana);
         Task<IList<ContratoDTO>> getListContratoByFilters(ContratoFiltrosDTO contratoFiltros);
         Task<IList<CronogramaDTO>> getListCronogramaByContrato(int nIdContrato);
-        Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdproyecto, int nIdConceptoVenta);
+        Task<IList<ConfiguracionConceptoDTO>> GetConfiguracionConceptoByIdProyectoAndIdConceptoVenta(int nIdCompania, int nIdConceptoVenta);
         Task<IList<MovimientosDTO>> getAllListMovimientosById(int nIdMovimiento);
         Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(int nIdCompania, int nIdProyecto, int nIdSector, int nIdManzana, int nIdLote);
         Task<IList<ItemDTO>> getAllItemCompania(int nIdCompania);

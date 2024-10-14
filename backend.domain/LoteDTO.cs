@@ -12,6 +12,8 @@ namespace backend.domain
         public string? sProyecto { get; set; }
         public int? nIdSector { get; set; }
         public string? sSector { get; set; }
+
+        public string? sCodigo { get; set; }
         public int nIdManzana { get; set; }
         public string? sManzana { get; set; }
         public int? nIdLote { get; set; }
@@ -39,5 +41,7 @@ namespace backend.domain
         public string? sUsuario_mod { get; set; }
         public DateTime? dFecha_mod { get; set; }
         public string? sFecha_mod { get; set; }
+        public int? Id_Old { get; set; }
+        public string? Flg_M { get; set; }
     }
 }
