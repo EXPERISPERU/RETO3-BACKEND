@@ -272,6 +272,7 @@ namespace backend.services.Controllers.Tesoreria
                 var result = await operacionBancariaService.UpdOperacionBancariaRecaudo(updOperacionBancariaRecaudoDTO);
 
                 response.success = result.nCod == 0 ? false : true;
+                response.errMsj = result.nCod == 0 ? result.sMsj : null;
                 response.data = result;
                 return StatusCode(200, response);
             }
