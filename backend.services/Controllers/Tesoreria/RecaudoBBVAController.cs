@@ -240,5 +240,48 @@ namespace backend.services.Controllers.Tesoreria
                 return StatusCode(200, limpiarJson(response));
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<OperacionBancariaDTO>> getAllOperacionBancariaRecaudoDisponibles() 
+        {
+            ApiResponse<List<OperacionBancariaDTO>> response = new ApiResponse<List<OperacionBancariaDTO>>();
+
+            try
+            {
+                var result = await operacionBancariaService.getAllOperacionBancariaRecaudoDisponibles();
+
+                response.success = true;
+                response.data = (List<OperacionBancariaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdOperacionBancariaRecaudo([FromBody] UpdOperacionBancariaRecaudoDTO updOperacionBancariaRecaudoDTO)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await operacionBancariaService.UpdOperacionBancariaRecaudo(updOperacionBancariaRecaudoDTO);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.errMsj = result.nCod == 0 ? result.sMsj : null;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
