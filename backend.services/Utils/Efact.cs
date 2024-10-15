@@ -214,7 +214,7 @@ namespace backend.services.Utils
                                             new IdentifierContentPartyDTO
                                             {
                                                 IdentifierContent = comprobante.sRUCCompania,
-                                                IdentificationSchemeIdentifier = "6",
+                                                IdentificationSchemeIdentifier = 6,
                                                 IdentificationSchemeNameText = "Documento de Identidad",
                                                 IdentificationSchemeAgencyNameText = "PE:SUNAT",
                                                 IdentificationSchemeUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06"
@@ -370,7 +370,7 @@ namespace backend.services.Utils
                                         {
                                             new IdentifierContentDTO
                                             {
-                                                IdentifierContent = null,
+                                                IdentifierContent = comprobante.sCodigoUbigeo,
                                                 IdentificationSchemeAgencyNameText = "PE:INEI",
                                                 IdentificationSchemeNameText = "Ubigeos"
                                             }
@@ -379,7 +379,7 @@ namespace backend.services.Utils
                                         {
                                             new TextContentDTO
                                             {
-                                                TextContent = "",
+                                                TextContent =  ubigeoCliente.Length > 0 ? ubigeoCliente[0] : string.Empty,
                                             }
                                         },
                                         CountrySubentity = new List<TextContentDTO>
@@ -747,7 +747,7 @@ namespace backend.services.Utils
                 EfactComprobanteDTO comprobanteEfact = this.comprobanteEfact(comprobante, comprobanteDet);
 
                 string tipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
-                string nombreDocumento = comprobante.sRUCCompania + tipoDocumento + comprobante.sSerie + comprobante.nCorrelativo + ".json";
+                string nombreDocumento = comprobante.sRUCCompania + "-" + tipoDocumento + "-" + comprobante.sSerie + "-" + comprobante.nCorrelativo.ToString().PadLeft(8, '0') + ".json";
 
                 // Asegurarse de que la carpeta 'tmp' existe
                 string tmpFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "tmp");
