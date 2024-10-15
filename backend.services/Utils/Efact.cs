@@ -33,33 +33,196 @@ namespace backend.services.Utils
             string[] ubigeoCliente = comprobante.sUbigeo.Split(',').Select(s => s.Trim()).ToArray();
             string[] ubigeoCompania = comprobante.sUbigeoCompania.Split(',').Select(i => i.Trim()).ToArray();
 
-            var items = new List<ItemEfactDTO>();
+            var invoiceLines = new List<InvoiceLineDTO>();
 
             foreach (var item in comprobanteDet)
             {
-                items.Add(new ItemEfactDTO
-                {
-                    Description = new List<TextContentDTO>
+                invoiceLines.Add(
+                    new InvoiceLineDTO
                     {
-                        new TextContentDTO
+                        ID = new List<IdentifierContentInvoiceDTO>()
                         {
-                            TextContent = item.sDescripcion.Replace("#n#","%5D")
-                        }
-                    },
-                    SellersItemIdentification = new List<PartyIdentificationDTO>
-                    {
-                        new PartyIdentificationDTO
-                        {
-                            ID = new List<IdentifierContentPartyDTO>
+                            new IdentifierContentInvoiceDTO
                             {
-                                new IdentifierContentPartyDTO
+                                IdentifierContent = 1,
+                            }
+                        },
+                        Note = new List<NoteDTO>()
+                        {
+                            new NoteDTO{
+                                TextContent = "UNIDAD"
+                            }
+                        },
+                        InvoicedQuantity = new List<QuantityContentDTO>
+                        {
+                            new QuantityContentDTO
+                            {
+                                QuantityContent = 1,
+                                QuantityUnitCode = "ZZ",
+                                QuantityUnitCodeListIdentifier = "UN/ECE rec 20",
+                                QuantityUnitCodeListAgencyNameText = "United Nations Economic Commission for Europe"
+                            }
+                        },
+                        PricingReference = new List<PricingReferenceDTO>
+                        {
+                            new PricingReferenceDTO
+                            {
+                                AlternativeConditionPrice = new List<AlternativeConditionPriceDTO>(){
+                                    new AlternativeConditionPriceDTO
+                                    {
+                                        PriceAmount = new List<AmountContentDTO>
+                                        {
+                                            new AmountContentDTO
+                                            {
+                                                AmountContent = comprobante.nValorTotal,
+                                                AmountCurrencyIdentifier = comprobante.sSunatMoneda,
+                                            }
+                                        },
+                                        PriceTypeCode = new List<InvoiceTypeCodeDTO>
+                                        {
+                                            new InvoiceTypeCodeDTO
+                                            {
+                                                CodeContent = "01",
+                                                CodeListNameText = "Tipo de Precio",
+                                                CodeListAgencyNameText = "PE:SUNAT",
+                                                CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+
+                        TaxTotal = new List<TaxTotalDTO>
+                        {
+                            new TaxTotalDTO{
+                                TaxAmount = new List<AmountContentDTO>{
+                                    new AmountContentDTO
+                                    {
+                                        AmountContent = comprobante.nValorIgv,
+                                        AmountCurrencyIdentifier = comprobante.sSunatMoneda,
+                                    }
+                                },
+                                TaxSubtotal = new List<TaxSubtotalDTO>{
+                                    new TaxSubtotalDTO
+                                    {
+                                        TaxableAmount = new List<AmountContentDTO>{
+                                            new AmountContentDTO
+                                            {
+                                                AmountContent = comprobante.nValorTotal,
+                                                AmountCurrencyIdentifier = comprobante.sSunatMoneda,
+                                            }
+                                        },
+                                        TaxAmount = new List<AmountContentDTO>{
+                                            new AmountContentDTO
+                                            {
+                                                AmountContent = comprobante.nValorIgv,
+                                                AmountCurrencyIdentifier = comprobante.sSunatMoneda,
+                                            }
+                                        },
+                                        TaxCategory = new List<TaxCategoryDTO>{
+                                            new TaxCategoryDTO
+                                            {
+                                                Percent = new List<NumericContentDTO>{
+                                                    new NumericContentDTO{
+                                                        NumericContent = 18,
+                                                    }
+                                                },
+                                                TaxExemptionReasonCode = new List<CodeContentDTO>
+                                                {
+                                                    new CodeContentDTO
+                                                    {
+                                                        CodeContent = "10",
+                                                        CodeListAgencyNameText = "PE:SUNAT",
+                                                        CodeListNameText = "Afectacion del IGV",
+                                                        CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07",
+                                                    }
+                                                },
+                                                TaxScheme = new List<TaxSchemeDTO>
+                                                {
+                                                    new TaxSchemeDTO
+                                                    {
+                                                        ID = new List<IdentifierContentDTO>
+                                                        {
+                                                            new IdentifierContentDTO
+                                                            {
+                                                                IdentifierContent = "1000",
+                                                                IdentificationSchemeNameText = "Codigo de tributos",
+                                                                IdentificationSchemeUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05",
+                                                                IdentificationSchemeAgencyNameText = "PE:SUNAT"
+                                                            }
+                                                        },
+                                                        Name = new List<TextContentDTO>
+                                                        {
+                                                            new TextContentDTO
+                                                            {
+                                                                TextContent = "IGV"
+                                                            }
+                                                        },
+                                                        TaxTypeCode = new List<CodeContentDTO>
+                                                        {
+                                                            new CodeContentDTO
+                                                            {
+                                                                CodeContent = "VAT"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                            }
+                                        },
+                                    },
+                                },
+                            }
+                        },
+                        LineExtensionAmount = new List<AmountContentDTO>
+                        {
+                            new AmountContentDTO
+                            {
+                                AmountContent = comprobante.nValorTotal,
+                                AmountCurrencyIdentifier = comprobante.sSunatMoneda
+                            }
+                        },
+                        Item = new List<ItemEfactDTO>
+                        {
+                            new ItemEfactDTO
+                            {
+                                Description = new List<TextContentDTO>
                                 {
-                                    IdentifierContent = "1"
+                                    new TextContentDTO
+                                    {
+                                        TextContent = item.sDescripcion.Replace("#n#","%5D")
+                                    }
+                                },
+                                SellersItemIdentification = new List<PartyIdentificationDTO>
+                                {
+                                    new PartyIdentificationDTO
+                                    {
+                                        ID = new List<IdentifierContentPartyDTO>
+                                        {
+                                            new IdentifierContentPartyDTO
+                                            {
+                                                IdentifierContent = "1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        Price = new List<PriceDTO>
+                        {
+                            new PriceDTO
+                            {
+                                PriceAmount = new List<AmountContentDTO>
+                                {
+                                    new AmountContentDTO {
+                                        AmountContent = comprobante.nValorTotal,
+                                        AmountCurrencyIdentifier = comprobante.sSunatMoneda
+                                    }
                                 }
                             }
                         }
                     }
-                });
+                );
             }
 
             efactComprobante._D = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2";
@@ -543,166 +706,7 @@ namespace backend.services.Utils
             };
             invoice.LegalMonetaryTotal = new List<LegalMonetaryTotalDTO> { legalMonetaryTotal };
 
-            InvoiceLineDTO invoiceLine = new InvoiceLineDTO()
-            {
-                ID = new List<IdentifierContentInvoiceDTO>()
-                        {
-                            new IdentifierContentInvoiceDTO
-                            {
-                                IdentifierContent = 1,
-                            }
-                        },
-                Note = new List<NoteDTO>()
-                        {
-                            new NoteDTO{
-                                TextContent = "UNIDAD"
-                            }
-                        },
-                InvoicedQuantity = new List<QuantityContentDTO>
-                        {
-                            new QuantityContentDTO
-                            {
-                                QuantityContent = 1,
-                                QuantityUnitCode = "ZZ",
-                                QuantityUnitCodeListIdentifier = "UN/ECE rec 20",
-                                QuantityUnitCodeListAgencyNameText = "United Nations Economic Commission for Europe"
-                            }
-                        },
-                PricingReference = new List<PricingReferenceDTO>
-                {
-                    new PricingReferenceDTO
-                    {
-                        AlternativeConditionPrice = new List<AlternativeConditionPriceDTO>(){
-                            new AlternativeConditionPriceDTO
-                            {
-                                PriceAmount = new List<AmountContentDTO>
-                                {
-                                    new AmountContentDTO
-                                    {
-                                        AmountContent = comprobante.nValorTotal,
-                                        AmountCurrencyIdentifier = comprobante.sSunatMoneda,
-                                    }
-                                },
-                                PriceTypeCode = new List<InvoiceTypeCodeDTO>
-                                {
-                                    new InvoiceTypeCodeDTO
-                                    {
-                                        CodeContent = "01",
-                                        CodeListNameText = "Tipo de Precio",
-                                        CodeListAgencyNameText = "PE:SUNAT",
-                                        CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo16"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-
-                TaxTotal = new List<TaxTotalDTO>
-                {
-                    new TaxTotalDTO{
-                        TaxAmount = new List<AmountContentDTO>{
-                            new AmountContentDTO
-                            {
-                                AmountContent = comprobante.nValorIgv,
-                                AmountCurrencyIdentifier = comprobante.sSunatMoneda,
-                            }
-                        },
-                        TaxSubtotal = new List<TaxSubtotalDTO>{
-                            new TaxSubtotalDTO
-                            {
-                                TaxableAmount = new List<AmountContentDTO>{
-                                    new AmountContentDTO
-                                    {
-                                        AmountContent = comprobante.nValorTotal,
-                                        AmountCurrencyIdentifier = comprobante.sSunatMoneda,
-                                    }
-                                },
-                                TaxAmount = new List<AmountContentDTO>{
-                                    new AmountContentDTO
-                                    {
-                                        AmountContent = comprobante.nValorIgv,
-                                        AmountCurrencyIdentifier = comprobante.sSunatMoneda,
-                                    }
-                                },
-                                TaxCategory = new List<TaxCategoryDTO>{
-                                    new TaxCategoryDTO
-                                    {
-                                        Percent = new List<NumericContentDTO>{
-                                            new NumericContentDTO{
-                                                NumericContent = 18,
-                                            }
-                                        },
-                                        TaxExemptionReasonCode = new List<CodeContentDTO>
-                                        {
-                                            new CodeContentDTO
-                                            {
-                                                CodeContent = "10",
-                                                CodeListAgencyNameText = "PE:SUNAT",
-                                                CodeListNameText = "Afectacion del IGV",
-                                                CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo07",
-                                            }
-                                        },
-                                        TaxScheme = new List<TaxSchemeDTO>
-                                        {
-                                            new TaxSchemeDTO
-                                            {
-                                                ID = new List<IdentifierContentDTO>
-                                                {
-                                                    new IdentifierContentDTO
-                                                    {
-                                                        IdentifierContent = "1000",
-                                                        IdentificationSchemeNameText = "Codigo de tributos",
-                                                        IdentificationSchemeUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo05",
-                                                        IdentificationSchemeAgencyNameText = "PE:SUNAT"
-                                                    }
-                                                },
-                                                Name = new List<TextContentDTO>
-                                                {
-                                                    new TextContentDTO
-                                                    {
-                                                        TextContent = "IGV"
-                                                    }
-                                                },
-                                                TaxTypeCode = new List<CodeContentDTO>
-                                                {
-                                                    new CodeContentDTO
-                                                    {
-                                                        CodeContent = "VAT"
-                                                    }
-                                                }
-                                            }
-                                        },
-                                    }
-                                },
-                            },
-                        },
-                    }
-                },
-                LineExtensionAmount = new List<AmountContentDTO>
-                        {
-                            new AmountContentDTO
-                            {
-                                AmountContent = comprobante.nValorTotal,
-                                AmountCurrencyIdentifier = comprobante.sSunatMoneda
-                            }
-                        },
-                Item = items,
-                Price = new List<PriceDTO>
-                        {
-                            new PriceDTO
-                            {
-                                PriceAmount = new List<AmountContentDTO>
-                                {
-                                    new AmountContentDTO {
-                                        AmountContent = comprobante.nValorTotal,
-                                        AmountCurrencyIdentifier = comprobante.sSunatMoneda
-                                    }
-                                }
-                            }
-                        }
-            };
-            invoice.InvoiceLine = new List<InvoiceLineDTO> { invoiceLine };
+            invoice.InvoiceLine = invoiceLines;
 
             efactComprobante.Invoice = new List<Invoice> { invoice };
 
