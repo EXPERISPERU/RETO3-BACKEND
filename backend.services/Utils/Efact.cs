@@ -43,7 +43,7 @@ namespace backend.services.Utils
                     {
                         new TextContentDTO
                         {
-                            TextContent = item.sDescripcion
+                            TextContent = item.sDescripcion.Replace("#n#","%5D")
                         }
                     },
                     SellersItemIdentification = new List<PartyIdentificationDTO>
