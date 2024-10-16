@@ -88,7 +88,7 @@ namespace backend.repository.Contabilidad
             return res;
         }
 
-        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat)
+        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
 
@@ -101,6 +101,7 @@ namespace backend.repository.Contabilidad
                 parameters.Add("sMensaje", sMensaje);
                 parameters.Add("sCodigoSunat", sCodigoSunat);
                 parameters.Add("sMensajeSunat", sMensajeSunat);
+                parameters.Add("sToken", sToken);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
