@@ -241,9 +241,10 @@ namespace backend.services.Controllers.Contabilidad
 
                 if (comprobante.nCodigoCompania == 1)
                 {
-                    new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+
+                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
                     
-                    //service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat);
+                    service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null);
                 }
 
                 if (comprobante.nCodigoCompania == 2)
@@ -254,7 +255,7 @@ namespace backend.services.Controllers.Contabilidad
                     response.errMsj = sres.MensajeError;
                     response.data = new SqlRspDTO() { nCod = (sres.Exito == true ? int.Parse(sres.CodigoEstadoSicfac) : 0), sMsj = "" };
 
-                    service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat);
+                    service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat, null);
                 }
 
                 return StatusCode(200, response);
