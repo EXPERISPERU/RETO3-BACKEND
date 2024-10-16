@@ -88,7 +88,7 @@ namespace backend.repository.Contabilidad
             return res;
         }
 
-        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken)
+        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken, bool bExito)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
 
@@ -102,11 +102,28 @@ namespace backend.repository.Contabilidad
                 parameters.Add("sCodigoSunat", sCodigoSunat);
                 parameters.Add("sMensajeSunat", sMensajeSunat);
                 parameters.Add("sToken", sToken);
+                parameters.Add("bExito", bExito);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
+        }
+
+        public async Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania)
+        {
+            IEnumerable<int> res = new List<int>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
+                parameters.Add("nCodigoCompania", nCodigoCompania);
+
+                res = await connection.QueryAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
         }
     }
 }
