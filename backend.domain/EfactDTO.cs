@@ -235,8 +235,8 @@ namespace backend.domain
 
     public class AmountContentDTO
     {
-        public decimal AmountContent { get; set; }
-        public string AmountCurrencyIdentifier { get; set; }
+        public decimal? AmountContent { get; set; }
+        public string? AmountCurrencyIdentifier { get; set; }
     }
 
     public class TaxSubtotalDTO
