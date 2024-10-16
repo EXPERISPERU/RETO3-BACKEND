@@ -8,10 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Interfaces.Contabilidad;
 using System.Globalization;
-using System.Drawing;
-using iText.Barcodes;
-using iText.Kernel.Colors;
-using iText.Kernel.Pdf.Xobject;
 using QRCoder;
 
 namespace backend.services.Controllers.Contabilidad
@@ -243,7 +239,7 @@ namespace backend.services.Controllers.Contabilidad
                 {
 
                     efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
-                    
+
                     service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null);
                 }
 

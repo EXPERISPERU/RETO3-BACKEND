@@ -35,7 +35,7 @@ namespace backend.services.Utils
 
             var invoiceLines = new List<InvoiceLineDTO>();
 
-            foreach (var item in comprobanteDet)
+            for (int i = 0; i < comprobanteDet.Count; i++)
             {
                 invoiceLines.Add(
                     new InvoiceLineDTO
@@ -44,12 +44,13 @@ namespace backend.services.Utils
                         {
                             new IdentifierContentInvoiceDTO
                             {
-                                IdentifierContent = 1,
+                                IdentifierContent = i + 1,
                             }
                         },
                         Note = new List<NoteDTO>()
                         {
-                            new NoteDTO{
+                            new NoteDTO
+                            {
                                 TextContent = "UNIDAD"
                             }
                         },
@@ -57,24 +58,33 @@ namespace backend.services.Utils
                         {
                             new QuantityContentDTO
                             {
-                                QuantityContent = 1,
+                                QuantityContent = comprobanteDet[i].nCantidad,
                                 QuantityUnitCode = "ZZ",
                                 QuantityUnitCodeListIdentifier = "UN/ECE rec 20",
                                 QuantityUnitCodeListAgencyNameText = "United Nations Economic Commission for Europe"
+                            }
+                        },
+                        LineExtensionAmount = new List<AmountContentDTO>
+                        {
+                            new AmountContentDTO
+                            {
+                                AmountContent = Math.Round(comprobanteDet[i].nValorSubTotal.Value,2),
+                                AmountCurrencyIdentifier = comprobante.sSunatMoneda
                             }
                         },
                         PricingReference = new List<PricingReferenceDTO>
                         {
                             new PricingReferenceDTO
                             {
-                                AlternativeConditionPrice = new List<AlternativeConditionPriceDTO>(){
+                                AlternativeConditionPrice = new List<AlternativeConditionPriceDTO>()
+                                {
                                     new AlternativeConditionPriceDTO
                                     {
                                         PriceAmount = new List<AmountContentDTO>
                                         {
                                             new AmountContentDTO
                                             {
-                                                AmountContent = comprobante.nValorTotal,
+                                                AmountContent = Math.Round(comprobanteDet[i].nValorTotal,2),
                                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                                             }
                                         },
@@ -92,14 +102,13 @@ namespace backend.services.Utils
                                 }
                             }
                         },
-
                         TaxTotal = new List<TaxTotalDTO>
                         {
                             new TaxTotalDTO{
                                 TaxAmount = new List<AmountContentDTO>{
                                     new AmountContentDTO
                                     {
-                                        AmountContent = comprobante.nValorIgv,
+                                        AmountContent = Math.Round(comprobanteDet[i].nValorIgv.Value,2),
                                         AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                                     }
                                 },
@@ -109,14 +118,14 @@ namespace backend.services.Utils
                                         TaxableAmount = new List<AmountContentDTO>{
                                             new AmountContentDTO
                                             {
-                                                AmountContent = comprobante.nValorTotal,
+                                                AmountContent = Math.Round(comprobanteDet[i].nValorSubTotal.Value,2),
                                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                                             }
                                         },
                                         TaxAmount = new List<AmountContentDTO>{
                                             new AmountContentDTO
                                             {
-                                                AmountContent = comprobante.nValorIgv,
+                                                AmountContent = Math.Round(comprobanteDet[i].nValorIgv.Value,2),
                                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                                             }
                                         },
@@ -174,14 +183,6 @@ namespace backend.services.Utils
                                 },
                             }
                         },
-                        LineExtensionAmount = new List<AmountContentDTO>
-                        {
-                            new AmountContentDTO
-                            {
-                                AmountContent = comprobante.nValorTotal,
-                                AmountCurrencyIdentifier = comprobante.sSunatMoneda
-                            }
-                        },
                         Item = new List<ItemEfactDTO>
                         {
                             new ItemEfactDTO
@@ -190,7 +191,7 @@ namespace backend.services.Utils
                                 {
                                     new TextContentDTO
                                     {
-                                        TextContent = item.sDescripcion.Replace("#n#","%5D")
+                                        TextContent = comprobanteDet[i].sDescripcion.Replace("#n#","%5D")
                                     }
                                 },
                                 SellersItemIdentification = new List<PartyIdentificationDTO>
@@ -201,7 +202,7 @@ namespace backend.services.Utils
                                         {
                                             new IdentifierContentPartyDTO
                                             {
-                                                IdentifierContent = "1"
+                                                IdentifierContent = $"{i + 1}",
                                             }
                                         }
                                     }
@@ -215,7 +216,7 @@ namespace backend.services.Utils
                                 PriceAmount = new List<AmountContentDTO>
                                 {
                                     new AmountContentDTO {
-                                        AmountContent = comprobante.nValorTotal,
+                                        AmountContent = Math.Round(comprobanteDet[i].nValorSubTotal.Value,2),
                                         AmountCurrencyIdentifier = comprobante.sSunatMoneda
                                     }
                                 }
@@ -263,7 +264,7 @@ namespace backend.services.Utils
 
             List<NoteDTO> notes = new List<NoteDTO>(){
                 new NoteDTO(){
-                    TextContent = new NumerosLetras().sConvertir(comprobante.nValorTotal)
+                    TextContent = new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal,2))
                     ,
                     LanguageLocaleIdentifier = "1000"
                 },
@@ -615,7 +616,7 @@ namespace backend.services.Utils
                         {
                             new AmountContentDTO
                             {
-                                AmountContent = comprobante.nValorIgv,
+                                AmountContent = Math.Round(Math.Round(comprobante.nValorIgv,2),2),
                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                             }
                         },
@@ -627,7 +628,7 @@ namespace backend.services.Utils
                                 {
                                     new AmountContentDTO
                                     {
-                                        AmountContent = comprobante.nValorTotal,
+                                        AmountContent = Math.Round(comprobante.nValorSubTotal,2),
                                         AmountCurrencyIdentifier = comprobante.sSunatMoneda
                                     }
                                 },
@@ -635,7 +636,7 @@ namespace backend.services.Utils
                                 {
                                     new AmountContentDTO
                                     {
-                                        AmountContent = comprobante.nValorIgv,
+                                        AmountContent = Math.Round(Math.Round(comprobante.nValorIgv,2),2),
                                         AmountCurrencyIdentifier = comprobante.sSunatMoneda
                                     }
                                 },
@@ -685,21 +686,21 @@ namespace backend.services.Utils
                 LineExtensionAmount = new List<AmountContentDTO>()
                         {
                             new AmountContentDTO{
-                                AmountContent = comprobante.nValorTotal,
+                                AmountContent = Math.Round(comprobante.nValorSubTotal,2),
                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                             }
                         },
                 TaxInclusiveAmount = new List<AmountContentDTO>()
                         {
                             new AmountContentDTO{
-                                AmountContent = comprobante.nValorTotal,
+                                AmountContent = Math.Round(comprobante.nValorTotal,2),
                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                             }
                         },
                 PayableAmount = new List<AmountContentDTO>()
                         {
                             new AmountContentDTO{
-                                AmountContent = comprobante.nValorTotal,
+                                AmountContent = Math.Round(comprobante.nValorTotal,2),
                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda,
                             }
                         }
@@ -795,7 +796,7 @@ namespace backend.services.Utils
                     var response = await httpClient.PostAsync(urlFinal, content);
                     int status = (int)response.StatusCode;
 
-                    // File.Delete(filePath);
+                    File.Delete(filePath);
 
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<efactResponseDTO>(res);
