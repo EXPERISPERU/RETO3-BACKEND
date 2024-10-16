@@ -66,7 +66,7 @@ namespace backend.domain
         public string? IdentifierContent { get; set; }
         public string? IdentificationSchemeAgencyNameText { get; set; }
         public string? IdentificationSchemeNameText { get; set; }
-        public string? IdentificationSchemeIdentifier { get; set; }
+        public object? IdentificationSchemeIdentifier { get; set; }
         public string? IdentificationSchemeUniformResourceIdentifier { get; set; }
     }
 

@@ -241,8 +241,10 @@ namespace backend.services.Controllers.Contabilidad
 
                 if (comprobante.nCodigoCompania == 1)
                 {
-                    new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
-                    
+                    var res = new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+
+                    Console.WriteLine("" + res.Result.code + " - " + res.Result.description);
+
                     //service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat);
                 }
 
