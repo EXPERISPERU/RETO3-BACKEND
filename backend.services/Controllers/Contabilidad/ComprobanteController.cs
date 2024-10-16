@@ -241,6 +241,7 @@ namespace backend.services.Controllers.Contabilidad
 
                 if (comprobante.nCodigoCompania == 1)
                 {
+
                     efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
                     
                     service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null);
