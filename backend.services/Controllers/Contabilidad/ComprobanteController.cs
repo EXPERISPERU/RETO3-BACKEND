@@ -225,6 +225,7 @@ namespace backend.services.Controllers.Contabilidad
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<SqlRspDTO>>> certificarComprobante(int nIdComprobante)
         {
@@ -240,7 +241,7 @@ namespace backend.services.Controllers.Contabilidad
 
                     efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
 
-                    service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null);
+                    service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
                 }
 
                 if (comprobante.nCodigoCompania == 2)
@@ -251,9 +252,31 @@ namespace backend.services.Controllers.Contabilidad
                     response.errMsj = sres.MensajeError;
                     response.data = new SqlRspDTO() { nCod = (sres.Exito == true ? int.Parse(sres.CodigoEstadoSicfac) : 0), sMsj = "" };
 
-                    service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat, null);
+                    service.InsCertificacionComprobante(nIdComprobante, sres.CodigoEstadoSicfac, sres.MensajeError, sres.CodigoRespuestaSunat, sres.MensajeRespuestaSunat, null, sres.Exito ?? false);
                 }
 
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<int>>>> getComprobantesPendientesCertByCompania(int nCodigoCompania)
+        {
+            ApiResponse<List<int>> response = new ApiResponse<List<int>>();
+
+            try
+            {
+                var result = await service.getComprobantesPendientesCertByCompania(nCodigoCompania);
+
+                response.success = true;
+                response.data = (List<int>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
