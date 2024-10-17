@@ -234,11 +234,18 @@ namespace backend.services.Controllers.Contabilidad
             {
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
+                ComprobanteDTO comprobanteOrigen = new ComprobanteDTO();
+
+
+                if (comprobante.sCodigoTipoComprobante == "7")
+                {
+                    comprobanteOrigen = await service.getComprobanteById(comprobante.nIdComprobanteOrigen);
+                }
 
                 if (comprobante.nCodigoCompania == 1)
                 {
 
-                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet, comprobanteOrigen);
 
                     service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null);
                 }

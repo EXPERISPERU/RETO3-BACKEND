@@ -17,6 +17,7 @@ namespace backend.domain
         public int nIdTipoComprobante { get; set; }
         public string? sTipoComprobante { get; set; }
         public string? sCodigoTipoComprobante { get; set; }
+        public int? nIdComprobanteOrigen { get; set; }
         public string sSerie { get; set; }
         public int nCorrelativo { get; set; }
         public string sComprobante { get; set; }
@@ -27,12 +28,14 @@ namespace backend.domain
         public string? sCelular { get; set; }
         public string? sTelefono { get; set; }
         public string? sCorreo { get; set; }
-        public string sNombreCompleto { get; set; }
+        public string? sNombreCompleto { get; set; }
         public string sDireccion { get; set; }
         public string sUbigeo { get; set; }
         public decimal nValorNoGravado { get; set; }
         public decimal nValorInafecto { get; set; }
         public decimal nValorSubTotal { get; set; }
+        public int? nIdTipoOperacionNcd { get; set; }
+        public string? sMotivoNotaCd { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
         public int nIdMoneda { get; set; }
