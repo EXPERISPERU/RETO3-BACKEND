@@ -60,5 +60,16 @@ namespace backend.repository.Comercial
 
             return list.ToList();   
         }
+
+        public async Task liberarInmuebles()
+        {
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_lotes_disponibles]", 3);
+                
+                await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

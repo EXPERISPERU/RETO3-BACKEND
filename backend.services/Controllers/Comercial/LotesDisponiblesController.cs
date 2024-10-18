@@ -59,5 +59,27 @@ namespace backend.services.Controllers.Comercial
                 return StatusCode(500, response);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<string>>> liberarInmuebles()
+        {
+            ApiResponse<string> response = new ApiResponse<string>();
+
+            try
+            {
+                await service.liberarInmuebles();
+                response.success = true;
+                response.errMsj = "";
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

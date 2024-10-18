@@ -11,5 +11,6 @@ namespace backend.businesslogic.Interfaces.Comercial
     {
         Task<IList<LotesDisponiblesFiltrosDTO>> getListFiltros(int nIdCompania, int nIdUsuario);
         Task<IList<LotesDisponiblesDTO>> getListLotesDisponibles(SelectLotesDisponiblesDTO select);
+        Task liberarInmuebles();
     }
 }
