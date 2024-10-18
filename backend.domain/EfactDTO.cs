@@ -19,8 +19,8 @@ namespace backend.domain
 
     public class efactResponseDTO
     {
-        public string code { get; set; }
-        public string description { get; set; }
+        public string? code { get; set; }
+        public string? description { get; set; }
     }
 
     #region COMPROBANTE EFACT DTO
@@ -54,43 +54,65 @@ namespace backend.domain
 
     public class IdentifierContentDTO
     {
-        public string IdentifierContent { get; set; }
+        public string? IdentifierContent { get; set; }
+        public string? IdentificationSchemeAgencyNameText { get; set; }
+        public string? IdentificationSchemeNameText { get; set; }
+        public int? IdentificationSchemeIdentifier { get; set; }
+        public string? IdentificationSchemeUniformResourceIdentifier { get; set; }
+    }
+
+    public class IdentifierContentPartyDTO
+    {
+        public string? IdentifierContent { get; set; }
+        public string? IdentificationSchemeAgencyNameText { get; set; }
+        public string? IdentificationSchemeNameText { get; set; }
+        public object? IdentificationSchemeIdentifier { get; set; }
+        public string? IdentificationSchemeUniformResourceIdentifier { get; set; }
+    }
+
+    public class IdentifierContentInvoiceDTO
+    {
+        public int? IdentifierContent { get; set; }
+        public string? IdentificationSchemeIdentifier { get; set; }
+        public string? IdentificationSchemeNameText { get; set; }
+        public string? IdentificationSchemeAgencyNameText { get; set; }
+        public string? IdentificationSchemeUniformResourceIdentifier { get; set; }
     }
 
     public class DateContentDTO
     {
-        public string DateContent { get; set; }
+        public string? DateContent { get; set; }
     }
 
     public class DateTimeContentDTO
     {
-        public string DateTimeContent { get; set; }
+        public string? DateTimeContent { get; set; }
     }
 
     public class InvoiceTypeCodeDTO
     {
-        public string CodeContent { get; set; }
-        public string CodeListNameText { get; set; }
-        public string CodeListSchemeUniformResourceIdentifier { get; set; }
-        public string CodeListIdentifier { get; set; }
-        public string CodeNameText { get; set; }
-        public string CodeListUniformResourceIdentifier { get; set; }
-        public string CodeListAgencyNameText { get; set; }
+        public string? CodeContent { get; set; }
+        public string? CodeListNameText { get; set; }
+        public string? CodeListSchemeUniformResourceIdentifier { get; set; }
+        public string? CodeListIdentifier { get; set; }
+        public string? CodeNameText { get; set; }
+        public string? CodeListUniformResourceIdentifier { get; set; }
+        public string? CodeListAgencyNameText { get; set; }
     }
 
     public class NoteDTO
     {
-        public string TextContent { get; set; }
-        public string LanguageLocaleIdentifier { get; set; }
-        public string LanguageIdentifier { get; set; }
+        public string? TextContent { get; set; }
+        public string? LanguageLocaleIdentifier { get; set; }
+        public string? LanguageIdentifier { get; set; }
     }
 
     public class DocumentCurrencyCodeDTO
     {
-        public string CodeContent { get; set; }
-        public string CodeListIdentifier { get; set; }
-        public string CodeListNameText { get; set; }
-        public string CodeListAgencyNameText { get; set; }
+        public string? CodeContent { get; set; }
+        public string? CodeListIdentifier { get; set; }
+        public string? CodeListNameText { get; set; }
+        public string? CodeListAgencyNameText { get; set; }
     }
 
     public class NumericContentDTO
@@ -107,13 +129,23 @@ namespace backend.domain
 
     public class SignatoryPartyDTO
     {
-        public List<PartyIdentificationDTO> PartyIdentification { get; set; }
+        public List<PartyIdentificationSignatureDTO> PartyIdentification { get; set; }
         public List<PartyNameDTO> PartyName { get; set; }
     }
 
     public class PartyIdentificationDTO
     {
-        public List<IdentifierContentDTO> ID { get; set; }
+        public List<IdentifierContentPartyDTO> ID { get; set; }
+    }
+
+    public class PartyIdentificationSignatureDTO
+    {
+        public List<TextContentDTO> ID { get; set; }
+    }
+
+    public class PartyIdentificationSupplierDTO
+    {
+        public List<IdentifierContentPartyDTO> ID { get; set; }
     }
 
     public class PartyNameDTO
@@ -123,7 +155,12 @@ namespace backend.domain
 
     public class TextContentDTO
     {
-        public string TextContent { get; set; }
+        public string? TextContent { get; set; }
+    }
+
+    public class TextContentPartyDTO
+    {
+        public string? TextContent { get; set; }
     }
 
     public class DigitalSignatureAttachmentDTO
@@ -168,7 +205,11 @@ namespace backend.domain
 
     public class CodeContentDTO
     {
-        public string CodeContent { get; set; }
+        public string? CodeContent { get; set; }
+        public string? CodeListAgencyNameText { get; set; }
+        public string? CodeListNameText { get; set; }
+        public string? CodeListUniformResourceIdentifier { get; set; }
+        public string? CodeListIdentifier { get; set; }
     }
 
     public class AddressLineDTO
@@ -194,8 +235,8 @@ namespace backend.domain
 
     public class AmountContentDTO
     {
-        public decimal AmountContent { get; set; }
-        public string AmountCurrencyIdentifier { get; set; }
+        public decimal? AmountContent { get; set; }
+        public string? AmountCurrencyIdentifier { get; set; }
     }
 
     public class TaxSubtotalDTO
@@ -207,9 +248,9 @@ namespace backend.domain
 
     public class TaxCategoryDTO
     {
-        public List<TaxSchemeDTO> TaxScheme { get; set; }
-        public List<CodeContentDTO> TaxExemptionReasonCode { get; set; }
         public List<NumericContentDTO> Percent { get; set; }
+        public List<CodeContentDTO> TaxExemptionReasonCode { get; set; }
+        public List<TaxSchemeDTO> TaxScheme { get; set; }
     }
 
     public class TaxSchemeDTO
@@ -228,7 +269,7 @@ namespace backend.domain
 
     public class InvoiceLineDTO
     {
-        public List<IdentifierContentDTO> ID { get; set; }
+        public List<IdentifierContentInvoiceDTO> ID { get; set; }
         public List<NoteDTO> Note { get; set; }
         public List<QuantityContentDTO> InvoicedQuantity { get; set; }
         public List<AmountContentDTO> LineExtensionAmount { get; set; }

@@ -1,6 +1,7 @@
 ﻿using backend.businesslogic.Interfaces.Contabilidad;
 using backend.domain;
 using backend.repository.Interfaces.Contabilidad;
+using Newtonsoft.Json.Linq;
 
 namespace backend.businesslogic.Contabilidad
 {
@@ -33,9 +34,14 @@ namespace backend.businesslogic.Contabilidad
             return await repository.InsComprobanteAdjunto(nIdComprobante, sRutaFtp);
         }
 
-        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat)
+        public async Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken, bool bExito)
         {
-            return await repository.InsCertificacionComprobante(nIdComprobante, sCodigo, sMensaje, sCodigoSunat, sMensajeSunat);
+            return await repository.InsCertificacionComprobante(nIdComprobante, sCodigo, sMensaje, sCodigoSunat, sMensajeSunat, sToken, bExito);
+        }
+
+        public async Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania)
+        {
+            return await repository.getComprobantesPendientesCertByCompania(nCodigoCompania);
         }
     }
 }
