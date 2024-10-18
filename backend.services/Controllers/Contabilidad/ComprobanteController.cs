@@ -29,6 +29,27 @@ namespace backend.services.Controllers.Contabilidad
         }
 
         [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobante(int nIdCompania, int pagina, int cantPagina)
+        {
+            ApiResponse<List<ComprobanteDTO>> response = new ApiResponse<List<ComprobanteDTO>>();
+
+            try
+            {
+                var result = await service.getListComprobante(nIdCompania, pagina, cantPagina);
+
+                response.success = true;
+                response.data = (List<ComprobanteDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
         public async Task<ActionResult> getFormatoComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante)
         {
             try

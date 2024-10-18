@@ -21,7 +21,7 @@ namespace backend.repository.Contabilidad
             _configuration = configuration;
         }
 
-        public async Task<IList<ComprobanteDTO>> getListComprobante(int pagina, int cantpagina)
+        public async Task<IList<ComprobanteDTO>> getListComprobante(int nIdCompania, int pagina, int cantpagina)
         {
             IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
 
@@ -29,6 +29,7 @@ namespace backend.repository.Contabilidad
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
+                parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("PageNumber", pagina);
                 parameters.Add("RowspPage", cantpagina);
 
