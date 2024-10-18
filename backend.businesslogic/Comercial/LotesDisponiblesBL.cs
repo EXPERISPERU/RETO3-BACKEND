@@ -33,5 +33,10 @@ namespace backend.businesslogic.Comercial
             }
             return list;
         }
+
+        public async Task liberarInmuebles()
+        { 
+            await repository.liberarInmuebles();
+        }
     }
 }
