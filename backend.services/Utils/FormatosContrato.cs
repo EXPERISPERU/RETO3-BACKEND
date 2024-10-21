@@ -43,7 +43,7 @@ namespace backend.services.Utils
                         .Replace("img/firma_luis_gutierrez_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Gutierrez.png"))    )
                         .Replace("img/logo_inmobitec.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png")))
                         .Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
-                        .Replace("#sCodigoContrato#", contrato.sCodigo)
+                        .Replace("#sCodigoContrato#", "")
                         .Replace("#sProyecto#", contrato.sProyecto)
                         .Replace("#sApellidoPaterno#", contrato.sApePaterno)
                         .Replace("#sApellidoMaterno#", contrato.sApeMaterno)
@@ -272,8 +272,20 @@ namespace backend.services.Utils
 
                 HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
 
-                byte[] file = SetPagination(path, pdfDocument);
-                return file;
+                byte[] pdfWithPagination = SetPagination(path);
+
+                // Usar un MemoryStream para pasar el PDF con paginación a la función del código del contrato
+                using (MemoryStream ms = new MemoryStream(pdfWithPagination))
+                {
+                    // Guardar el PDF con el código del contrato en el archivo
+                    File.WriteAllBytes(path, ms.ToArray());
+
+                    // Aplicar el código del contrato
+                    byte[] finalPdf = SetCodContrato(path, contrato.sCodigo);
+
+                    return finalPdf;
+                }
+
             }
             catch (Exception)
             {
@@ -281,28 +293,59 @@ namespace backend.services.Utils
             }
         }
 
-        private byte[] SetPagination(String path, PdfDocument pdfDocument) {
+        private byte[] SetCodContrato(string path, string sCodigoContrato)
+        {
             try
             {
-                string path2 = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
-                PdfDocument pdfDoc = new PdfDocument(new PdfReader(path), new PdfWriter(path2));
+                string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+
+                PdfDocument pdfDoc = new PdfDocument(new PdfReader(path), new PdfWriter(tempPath));
+                Document doc = new Document(pdfDoc);
+
+                int numberOfPages = pdfDoc.GetNumberOfPages();
+
+                for (int i = 1; i <= numberOfPages; i++)
+                {
+                    doc.ShowTextAligned(new Paragraph(sCodigoContrato).SetFontSize(10), pdfDoc.GetDefaultPageSize().GetWidth() - 70, pdfDoc.GetDefaultPageSize().GetHeight() - 50, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                }
+
+                doc.Close();
+                return File.ReadAllBytes(tempPath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al aplicar código del contrato", ex);
+            }
+        }
+
+        private byte[] SetPagination(String path) {
+            try
+            {
+                string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+
+                PdfDocument pdfDoc = new PdfDocument(new PdfReader(path), new PdfWriter(tempPath));
                 Document doc = new Document(pdfDoc);
 
                 int numberOfPages = pdfDoc.GetNumberOfPages();
                 for (int i = 1; i <= numberOfPages; i++)
                 {
-                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 2), 48, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                    //doc.ShowTextAligned(new Paragraph(sCodigoContrato).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 1) - 70, (pdfDocument.GetDefaultPageSize().GetWidth() / 1) + 185, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDoc.GetDefaultPageSize().GetWidth() / 2), 48, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                    //doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), pdfDoc.GetDefaultPageSize().GetWidth() / 2, 48, i, TextAlignment.CENTER, VerticalAlignment.BOTTOM, 0);
                 }
 
                 doc.Close();
-            
-                return File.ReadAllBytes(path2);
+
+                return File.ReadAllBytes(tempPath);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+
+
     }
 
     public class BackgroundImageHandler : IEventHandler
