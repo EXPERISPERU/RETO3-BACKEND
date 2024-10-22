@@ -274,10 +274,8 @@ namespace backend.services.Utils
 
                 byte[] pdfWithPagination = SetPagination(path);
 
-                // Usar un MemoryStream para pasar el PDF con paginación a la función del código del contrato
                 using (MemoryStream ms = new MemoryStream(pdfWithPagination))
                 {
-                    // Guardar el PDF con el código del contrato en el archivo
                     File.WriteAllBytes(path, ms.ToArray());
 
                     // Aplicar el código del contrato
@@ -304,8 +302,7 @@ namespace backend.services.Utils
 
                 int numberOfPages = pdfDoc.GetNumberOfPages();
 
-                for (int i = 1; i <= numberOfPages; i++)
-                {
+                for (int i = 1; i <= numberOfPages; i++) {
                     doc.ShowTextAligned(new Paragraph(sCodigoContrato).SetFontSize(10), pdfDoc.GetDefaultPageSize().GetWidth() - 70, pdfDoc.GetDefaultPageSize().GetHeight() - 50, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
                 }
 
@@ -327,11 +324,8 @@ namespace backend.services.Utils
                 Document doc = new Document(pdfDoc);
 
                 int numberOfPages = pdfDoc.GetNumberOfPages();
-                for (int i = 1; i <= numberOfPages; i++)
-                {
-                    //doc.ShowTextAligned(new Paragraph(sCodigoContrato).SetFontSize(10), (pdfDocument.GetDefaultPageSize().GetWidth() / 1) - 70, (pdfDocument.GetDefaultPageSize().GetWidth() / 1) + 185, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                for (int i = 1; i <= numberOfPages; i++){
                     doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDoc.GetDefaultPageSize().GetWidth() / 2), 48, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
-                    //doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), pdfDoc.GetDefaultPageSize().GetWidth() / 2, 48, i, TextAlignment.CENTER, VerticalAlignment.BOTTOM, 0);
                 }
 
                 doc.Close();
