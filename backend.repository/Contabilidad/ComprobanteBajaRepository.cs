@@ -22,6 +22,24 @@ namespace backend.repository.Contabilidad
             _configuration = configuration;
         }
 
+        public async Task<IList<ComprobanteBajaDTO>> getListComprobanteBaja(SelectComprobanteBajaDTO select)
+        {
+            IEnumerable<ComprobanteBajaDTO> list = new List<ComprobanteBajaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante_baja]", 8);
+                parameters.Add("nIdCompania", select.nIdCompania);
+                parameters.Add("PageNumber", select.PageNumber);
+                parameters.Add("RowspPage", select.RowspPage);
+
+                list = await connection.QueryAsync<ComprobanteBajaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
         public async Task<IList<ComprobanteDTO>> getComprobanteById(int nIdComprobante)
         {
 
@@ -52,7 +70,7 @@ namespace backend.repository.Contabilidad
             return list.ToList();
         }
 
-        public async Task<SqlRspDTO> InsComprobanteCaja(ComprobanteBajaDTO comprobanteBaja)
+        public async Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja)
         {
             SqlRspDTO resp = new SqlRspDTO();
 
@@ -60,7 +78,6 @@ namespace backend.repository.Contabilidad
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante_baja]", 3);
-                parameters.Add("nTipo", comprobanteBaja.nTipo);
                 parameters.Add("nIdCobranza", comprobanteBaja.nIdCobranza);
                 parameters.Add("nIdComprobante", comprobanteBaja.nIdComprobante);
                 parameters.Add("sCodigoBaja", comprobanteBaja.sCodigoBaja);

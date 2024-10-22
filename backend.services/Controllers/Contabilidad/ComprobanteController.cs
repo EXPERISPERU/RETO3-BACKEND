@@ -28,6 +28,27 @@ namespace backend.services.Controllers.Contabilidad
             this.hostingEnvironment = _hostingEnvironment;
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobante(SelectComprobanteDTO selectComprobante)
+        {
+            ApiResponse<List<ComprobanteDTO>> response = new ApiResponse<List<ComprobanteDTO>>();
+
+            try
+            {
+                var result = await service.getListComprobante(selectComprobante);
+
+                response.success = true;
+                response.data = (List<ComprobanteDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
         [HttpGet("[action]")]
         public async Task<ActionResult> getFormatoComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante)
         {
@@ -235,11 +256,18 @@ namespace backend.services.Controllers.Contabilidad
             {
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
+                ComprobanteDTO comprobanteOrigen = new ComprobanteDTO();
+
+
+                if (comprobante.sCodigoTipoComprobante == "7")
+                {
+                    comprobanteOrigen = await service.getComprobanteById(comprobante.nIdComprobanteOrigen.Value);
+                }
 
                 if (comprobante.nCodigoCompania == 1)
                 {
 
-                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet);
+                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet, comprobanteOrigen);
 
                     service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
                 }

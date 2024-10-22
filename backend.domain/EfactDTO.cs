@@ -43,13 +43,16 @@ namespace backend.domain
         public List<InvoiceTypeCodeDTO>? InvoiceTypeCode { get; set; }
         public List<NoteDTO> Note { get; set; }
         public List<DocumentCurrencyCodeDTO> DocumentCurrencyCode { get; set; }
-        public List<NumericContentDTO> LineCountNumeric { get; set; }
+        public List<DiscrepancyResponseDTO>? DiscrepancyResponse { get; set; }
+        public List<BillingReferenceDTO>? BillingReference { get; set; }
+        public List<NumericContentDTO>? LineCountNumeric { get; set; }
         public List<SignatureDTO> Signature { get; set; }
         public List<AccountingPartyDTO> AccountingSupplierParty { get; set; }
         public List<AccountingPartyDTO> AccountingCustomerParty { get; set; }
         public List<TaxTotalDTO> TaxTotal { get; set; }
         public List<LegalMonetaryTotalDTO> LegalMonetaryTotal { get; set; }
-        public List<InvoiceLineDTO> InvoiceLine { get; set; }
+        public List<InvoiceLineDTO>? InvoiceLine { get; set; }
+        public List<InvoiceLineDTO>? CreditNoteLine { get; set; }
     }
 
     public class IdentifierContentDTO
@@ -114,6 +117,28 @@ namespace backend.domain
         public string? CodeListNameText { get; set; }
         public string? CodeListAgencyNameText { get; set; }
     }
+
+
+    #region DTO PARA NOTA DE CREDITO
+    public class DiscrepancyResponseDTO
+    {
+        public List<CodeContentDTO>? ResponseCode { get; set; }
+        public List<TextContentDTO>? Description { get; set; }
+    }
+
+    public class BillingReferenceDTO
+    {
+        public List<DocumentReferenceDTO>? InvoiceDocumentReference { get; set; }
+    }
+
+    public class DocumentReferenceDTO
+    {
+        public List<IdentifierContentDTO>? ID { get; set; }
+        public List<DateContentDTO>? IssueDate { get; set; }
+        public List<CodeContentDTO>? DocumentTypeCode { get; set; }
+    }
+    #endregion
+
 
     public class NumericContentDTO
     {
@@ -209,6 +234,7 @@ namespace backend.domain
         public string? CodeListAgencyNameText { get; set; }
         public string? CodeListNameText { get; set; }
         public string? CodeListUniformResourceIdentifier { get; set; }
+        public string? CodeListSchemeUniformResourceIdentifier { get; set; }
         public string? CodeListIdentifier { get; set; }
     }
 

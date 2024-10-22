@@ -23,6 +23,27 @@ namespace backend.services.Controllers.Contabilidad
             this.hostingEnvironment = _hostingEnvironment;
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteBajaDTO>>>> getListComprobanteBaja(SelectComprobanteBajaDTO selectComprobanteBaja)
+        {
+            ApiResponse<List<ComprobanteBajaDTO>> response = new ApiResponse<List<ComprobanteBajaDTO>>();
+
+            try
+            {
+                var result = await service.getListComprobanteBaja(selectComprobanteBaja);
+
+                response.success = true;
+                response.data = (List<ComprobanteBajaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
 
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getComprobanteById(int nIdComprobante)
@@ -69,13 +90,13 @@ namespace backend.services.Controllers.Contabilidad
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsComprobanteCaja([FromBody] ComprobanteBajaDTO comprobanteBaja)
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsComprobanteBaja([FromBody] ComprobanteBajaDTO comprobanteBaja)
         {
             ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
 
             try
             {
-                var result = await service.InsComprobanteCaja(comprobanteBaja);
+                var result = await service.InsComprobanteBaja(comprobanteBaja);
 
                 response.success = result.nCod == 0 ? false : true;
                 response.data = result;

@@ -1,10 +1,7 @@
 ﻿using backend.domain;
-using iText.Kernel.Utils;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using System.util.zlib;
-using System.Xml;
 
 namespace backend.services.Utils
 {
@@ -25,7 +22,7 @@ namespace backend.services.Utils
             eFactUrlDocument = configuration["EfacConfig:urlDocument"];
         }
 
-        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet)
+        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet, ComprobanteDTO? comprobanteOrigen)
         {
 
             EfactComprobanteDTO efactComprobante = new EfactComprobanteDTO();
@@ -260,8 +257,6 @@ namespace backend.services.Utils
                 CodeListAgencyNameText = "PE:SUNAT"
             };
 
-            invoice.InvoiceTypeCode = new List<InvoiceTypeCodeDTO> { invoiceTypeCode };
-
             List<NoteDTO> notes = new List<NoteDTO>(){
                 new NoteDTO(){
                     TextContent = new NumerosLetras().sConvertir(Math.Round(comprobante.nValorTotal,2))
@@ -291,7 +286,6 @@ namespace backend.services.Utils
                     LanguageIdentifier = "BG"
                 }
             };
-
             invoice.Note = notes;
 
             DocumentCurrencyCodeDTO documentCurrencyCode = new DocumentCurrencyCodeDTO()
@@ -303,11 +297,69 @@ namespace backend.services.Utils
             };
             invoice.DocumentCurrencyCode = new List<DocumentCurrencyCodeDTO> { documentCurrencyCode };
 
+            #region OBJETOS PARA NOTA DE CREDITO
+
+            DiscrepancyResponseDTO discrepancyResponse = new DiscrepancyResponseDTO()
+            {
+                ResponseCode = new List<CodeContentDTO>()
+                {
+                    new CodeContentDTO
+                    {
+                        CodeContent = comprobanteOrigen?.nIdTipoOperacionNcd.ToString(),
+                        CodeListAgencyNameText = "PE:SUNAT",
+                        CodeListNameText = "Tipo de nota de credito",
+                        CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo09"
+                    }
+                },
+                Description = new List<TextContentDTO>()
+                {
+                    new TextContentDTO
+                    {
+                        TextContent = "CLIENTE NO DESEA PARTICIPAR EN EL PROYECTO SAUCES"
+                    }
+                }
+            };
+
+            BillingReferenceDTO billingReference = new BillingReferenceDTO()
+            {
+                InvoiceDocumentReference = new List<DocumentReferenceDTO>()
+                {
+                    new DocumentReferenceDTO
+                    {
+                        ID = new List<IdentifierContentDTO>
+                        {
+                            new IdentifierContentDTO
+                            {
+                                IdentifierContent = comprobanteOrigen?.sComprobante
+                            }
+                        },
+                        IssueDate = new List<DateContentDTO>
+                        {
+                            new DateContentDTO
+                            {
+                                DateContent = comprobanteOrigen?.sFecha_crea
+                            }
+                        },
+                        DocumentTypeCode = new List<CodeContentDTO>
+                        {
+                            new CodeContentDTO
+                            {
+                                CodeContent = new Sunat().TipoDocumento(comprobanteOrigen?.sCodigoTipoComprobante),
+                                CodeListNameText = "Tipo de Documento",
+                                CodeListSchemeUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01",
+                                CodeListAgencyNameText = "PE:SUNAT"
+                            }
+                        }
+                    }
+                }
+            };
+
+            #endregion
+
             NumericContentDTO numericContent = new NumericContentDTO()
             {
                 NumericContent = 1
             };
-            invoice.LineCountNumeric = new List<NumericContentDTO> { numericContent };
 
             SignatureDTO signature = new SignatureDTO
             {
@@ -707,12 +759,25 @@ namespace backend.services.Utils
             };
             invoice.LegalMonetaryTotal = new List<LegalMonetaryTotalDTO> { legalMonetaryTotal };
 
-            invoice.InvoiceLine = invoiceLines;
+            if (comprobante.sCodigoTipoComprobante == "3")
+            {
+                invoice.InvoiceTypeCode = new List<InvoiceTypeCodeDTO> { invoiceTypeCode };
+                invoice.LineCountNumeric = new List<NumericContentDTO> { numericContent };
+                invoice.InvoiceLine = invoiceLines;
+            }
+
+            if (comprobante.sCodigoTipoComprobante == "7")
+            {
+                invoice.DiscrepancyResponse = new List<DiscrepancyResponseDTO> { discrepancyResponse };
+                invoice.BillingReference = new List<BillingReferenceDTO> { billingReference };
+                invoice.CreditNoteLine = invoiceLines;
+            }
 
             efactComprobante.Invoice = new List<Invoice> { invoice };
 
             return efactComprobante;
         }
+
 
         private async Task<efactAuthResponseDTO> eFactGetToken()
         {
@@ -745,11 +810,11 @@ namespace backend.services.Utils
             }
         }
 
-        public async Task<efactResponseDTO> GenerarDocumento(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet)
+        public async Task<efactResponseDTO> GenerarDocumento(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet, ComprobanteDTO? comprobanteOrigen)
         {
             try
             {
-                EfactComprobanteDTO comprobanteEfact = this.comprobanteEfact(comprobante, comprobanteDet);
+                EfactComprobanteDTO comprobanteEfact = this.comprobanteEfact(comprobante, comprobanteDet, comprobanteOrigen);
 
                 string tipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
                 string nombreDocumento = comprobante.sRUCCompania + "-" + tipoDocumento + "-" + comprobante.sSerie + "-" + comprobante.nCorrelativo.ToString().PadLeft(8, '0') + ".json";
@@ -807,7 +872,7 @@ namespace backend.services.Utils
                     }
                     else
                     {
-                        return new efactResponseDTO() { code = result.code, description = result.description };
+                        return new efactResponseDTO() { code = result?.code, description = result?.description };
                     }
                 }
             }
