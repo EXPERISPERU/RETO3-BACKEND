@@ -2,13 +2,8 @@
 using backend.repository.Interfaces.Contabilidad;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.repository.Contabilidad
 {
@@ -19,6 +14,24 @@ namespace backend.repository.Contabilidad
         public ComprobanteRepository(IConfiguration configuration)
         {
             _configuration = configuration;
+        }
+
+        public async Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO select)
+        {
+            IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
+                parameters.Add("nIdCompania", select.nIdCompania);
+                parameters.Add("PageNumber", select.PageNumber);
+                parameters.Add("RowspPage", select.RowspPage);
+
+                list = await connection.QueryAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
 
         public async Task<ComprobanteDTO> getComprobanteById(int nIdComprobante)
