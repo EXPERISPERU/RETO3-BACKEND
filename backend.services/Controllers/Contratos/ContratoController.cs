@@ -403,7 +403,6 @@ namespace backend.services.Controllers.Contratos
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
