@@ -8,6 +8,7 @@ namespace backend.domain
 {
     public class ComprobanteDTO
     {
+        public int? nTotalTabla { get; set; }
         public int nIdComprobante { get; set; }
         public int nIdOrdenPago { get; set; }
         public int nCodigoCompania { get; set; }
@@ -18,6 +19,8 @@ namespace backend.domain
         public string? sTipoComprobante { get; set; }
         public string? sCodigoTipoComprobante { get; set; }
         public int? nIdComprobanteOrigen { get; set; }
+        public int? nIdComprobanteBaja { get; set; }
+        public int? nIdCobranza { get; set; }
         public string sSerie { get; set; }
         public int nCorrelativo { get; set; }
         public string sComprobante { get; set; }
@@ -90,5 +93,12 @@ namespace backend.domain
         public string sUsuario_crea { get; set; }
         public DateTime dFecha_crea { get; set; }
         public string sFecha_crea { get; set; }
+    }
+
+    public class SelectComprobanteDTO
+    {
+        public int nIdCompania { get; set; }
+        public int PageNumber { get; set; }
+        public int RowspPage { get; set; }
     }
 }
