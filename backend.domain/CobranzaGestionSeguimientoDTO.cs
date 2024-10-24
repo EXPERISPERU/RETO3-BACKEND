@@ -208,5 +208,12 @@ namespace backend.domain
         public string? sAno { get; set; }
     }
 
+    public class DescartarReferidoDTO
+    {
+        public int nIdReferido { get; set; }
+        public int nIdSeguimiento { get; set; }
+    }
+    
+
 
 }

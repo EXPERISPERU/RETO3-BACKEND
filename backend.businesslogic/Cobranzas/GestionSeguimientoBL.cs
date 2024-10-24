@@ -163,5 +163,10 @@ namespace backend.businesslogic.Cobranzas
             return await repository.postListSeguimientoChart(seguimientoChartFilter);
         }
 
+        public async Task<SqlRspDTO> InsDescartarReferido(DescartarReferidoDTO descartarRef)
+        {
+            return await repository.InsDescartarReferido(descartarRef);
+        }
+
     }
 }
