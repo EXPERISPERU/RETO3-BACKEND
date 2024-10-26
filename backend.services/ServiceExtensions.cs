@@ -148,6 +148,8 @@ namespace backend.services
             services.AddScoped<ICronogramaRepository, CronogramaRepository>();
 
             services.AddScoped<IMapaRepository, MapaRepository>();
+
+            services.AddScoped<IIzipayRepository, IzipayRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -242,6 +244,8 @@ namespace backend.services
             services.AddScoped<ICronogramaBL, CronogramaBL>();
 
             services.AddScoped<IMapaBL, MapaBL>();
+
+            services.AddScoped<IIzipayBL, IzipayBL>();
         }
     }
 }
