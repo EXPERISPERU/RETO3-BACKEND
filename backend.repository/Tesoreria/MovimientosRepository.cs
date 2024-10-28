@@ -19,6 +19,7 @@ namespace backend.repository.Tesoreria
         {
             _configuration = configuration;
         }
+
         public async Task<IList<MovimientosDTO>> getAllListMovimientosByCaja(int nIdCaja, int nIdUsuario)
         {
             IEnumerable<MovimientosDTO> list = new List<MovimientosDTO>();
@@ -34,7 +35,6 @@ namespace backend.repository.Tesoreria
             }
             return list.ToList();
         }
-
 
         public async Task<IList<SelectDTO>> getAllTipoMovimiento()
         {
@@ -373,7 +373,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdMoneda", preContrato.nIdMoneda);
                 //parameters.Add("nMedioPago", preContrato.nMedioPago);
                 parameters.Add("nIdMedioPago", preContrato.nIdMedioPago);
-                
+
                 parameters.Add("nIdAsignacionPrecio", preContrato.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", preContrato.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", preContrato.nIdInicialLote);

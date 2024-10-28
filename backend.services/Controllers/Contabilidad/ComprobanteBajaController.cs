@@ -130,11 +130,5 @@ namespace backend.services.Controllers.Contabilidad
                 return StatusCode(500, response);
             }
         }
-
-
-
-
-
-
     }
 }
