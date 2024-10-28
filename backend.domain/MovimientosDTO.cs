@@ -15,6 +15,7 @@ namespace backend.domain
         public int nIdTipoItem { get; set;}
         public int? nIdOrdenPago { get; set;} 
         public int? nIdComprobante { get; set;}
+        public string? sComprobante { get; set; }
         public int? nIdCobranza { get; set;}
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set;}

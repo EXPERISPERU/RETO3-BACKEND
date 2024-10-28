@@ -42,13 +42,13 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<AgenteDealerDTO>>> getAgenteDealerByID(int nIdAgenteDealer)
+        public async Task<ActionResult<ApiResponse<AgenteDealerDTO>>> getAgenteDealerByID(int nIdAgenteDealer, int nIdCompania)
         {
             ApiResponse<AgenteDealerDTO> response = new ApiResponse<AgenteDealerDTO>();
 
             try
             {
-                var result = await service.getAgenteDealerByID(nIdAgenteDealer);
+                var result = await service.getAgenteDealerByID(nIdAgenteDealer, nIdCompania);
 
                 response.success = (result == null ? false : true);
                 response.data = (AgenteDealerDTO) result;
@@ -168,5 +168,29 @@ namespace backend.services.Controllers.Dealers
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListPerfilDealer()
+        {
+
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getListPerfilDealer();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
     }
 }
