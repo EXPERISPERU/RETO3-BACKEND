@@ -219,16 +219,16 @@ namespace backend.services.Controllers.Tesoreria
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher)
+        public async Task<ActionResult<ApiResponse<List<IzipayComercioDTO>>>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher)
         {
-            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            ApiResponse<List<IzipayComercioDTO>> response = new ApiResponse<List<IzipayComercioDTO>>();
 
             try
             {
                 var result = await service.getSelectVoucherComercioByTipoProyecto(nIdUsuario, nIdProyecto, nIdTipoVoucher);
 
                 response.success = true;
-                response.data = (List<SelectDTO>)result;
+                response.data = (List<IzipayComercioDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

@@ -174,9 +174,9 @@ namespace backend.repository.Tesoreria
             return list.ToList();
         }
 
-        public async Task<IList<SelectDTO>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher)
+        public async Task<IList<IzipayComercioDTO>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher)
         {
-            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+            IEnumerable<IzipayComercioDTO> list = new List<IzipayComercioDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -186,7 +186,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdProyecto", nIdProyecto);
                 parameters.Add("nIdTipoVoucher", nIdTipoVoucher);
 
-                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<IzipayComercioDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
             return list.ToList();
         }

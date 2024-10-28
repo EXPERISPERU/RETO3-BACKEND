@@ -18,7 +18,7 @@ namespace backend.businesslogic.Interfaces.Tesoreria
         Task<IzipayVoucherDTO> getVoucherById(int nIdVoucher);
         Task<IList<SelectDTO>> getSelectVoucherTipo();
         Task<IList<SelectDTO>> getSelectVoucherProyectoByCompania(int nIdUsuario, int nIdCompania);
-        Task<IList<SelectDTO>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher);
+        Task<IList<IzipayComercioDTO>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher);
         Task<IList<SelectDTO>> getSelectVoucherMoneda(int nIdUsuario, int nIdCompania);
         Task<SqlRspDTO> InsIzipayVoucher(IzipayVoucherDTO voucher);
         Task<SqlRspDTO> UpdIzipayVoucher(IzipayVoucherDTO voucher);

@@ -64,7 +64,7 @@ namespace backend.businesslogic.Tesoreria
             return await repository.getSelectVoucherProyectoByCompania(nIdUsuario, nIdCompania);
         }
 
-        public async Task<IList<SelectDTO>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher)
+        public async Task<IList<IzipayComercioDTO>> getSelectVoucherComercioByTipoProyecto(int nIdUsuario, int nIdProyecto, int nIdTipoVoucher)
         {
             return await repository.getSelectVoucherComercioByTipoProyecto(nIdUsuario, nIdProyecto, nIdTipoVoucher);
         }
