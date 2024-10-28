@@ -314,5 +314,30 @@ namespace backend.services.Controllers.Contabilidad
                 return StatusCode(500, response);
             }
         }
+
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> posInsNotaCredito([FromBody] NotaCreditoDTO notaCredito)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.posInsNotaCredito(notaCredito);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+
+        }
+
     }
 }
