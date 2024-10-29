@@ -20,14 +20,14 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<AgenteDealerDTO>>>> getListAgenteDealer()
+        public async Task<ActionResult<ApiResponse<List<AgenteDealerDTO>>>> getListAgenteDealer(int nIdUsuario, int nIdCompania)
         {
 
             ApiResponse<List<AgenteDealerDTO>> response = new ApiResponse<List<AgenteDealerDTO>>();
 
             try
             {
-                var result = await service.getListAgenteDealer();
+                var result = await service.getListAgenteDealer(nIdUsuario, nIdCompania);
 
                 response.success = true;
                 response.data = (List<AgenteDealerDTO>)result;
@@ -181,6 +181,28 @@ namespace backend.services.Controllers.Dealers
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postBajaAgenteDealer([FromBody] AgenteDealerDTO agenteDealer)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.BajaAgenteDealer(agenteDealer);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
