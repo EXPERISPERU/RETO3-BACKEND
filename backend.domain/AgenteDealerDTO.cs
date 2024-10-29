@@ -4,5 +4,6 @@
     {
         public int? nIdAgenteDealer { get; set; }
         public string? sProveedor { get; set; }
+        public int? nIdPerfil { get; set; }
     }
 }

@@ -283,7 +283,6 @@ namespace backend.services.Utils
 
                     return finalPdf;
                 }
-
             }
             catch (Exception)
             {

@@ -567,6 +567,22 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+        public async Task<SqlRspDTO> InsDescartarReferido(DescartarReferidoDTO descartarRef)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 40);
+                parameters.Add("nIdReferido", descartarRef.nIdReferido);
+                parameters.Add("nIdSeguimiento", descartarRef.nIdSeguimiento);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return res;
+        }
+
 
     }
 }

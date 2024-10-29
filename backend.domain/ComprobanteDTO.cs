@@ -44,11 +44,14 @@ namespace backend.domain
         public int nIdMoneda { get; set; }
         public string sMoneda { get; set; }
         public string sSunatMoneda { get; set; }
+        public string? sEstadoComprobante { get; set; }
+        public int? nIdEstado { get; set; }
         public string sSimbolo { get; set; }
         public int? nIdAdjunto { get; set; }
         public string? sRutaFtp { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string sUsuario_crea { get; set; }
+        public int? nIdNotaCredito { get; set; }
         public DateTime dFecha_crea { get; set; }
         public string sFecha_crea { get; set; }
         #region   AUXILIARES PARA FORMATO COMPROBANTE
@@ -101,4 +104,16 @@ namespace backend.domain
         public int PageNumber { get; set; }
         public int RowspPage { get; set; }
     }
+
+    public class NotaCreditoDTO
+    {
+        public int? nIdComprobanteOrigen { get; set; }
+        public int? nIdTipoComprobante { get; set; }
+        public int nIdCompania { get; set; }
+        public string? sMotivoNotaCd { get; set; }
+        public int? nIdTipoOperacionNcd { get; set; }
+        public int nIdUsuario_crea { get; set; }
+    }
+
+
 }
