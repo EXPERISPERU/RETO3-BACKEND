@@ -23,9 +23,9 @@ namespace backend.businesslogic.Dealers
             return await repository.getListAgenteDealer();
         }
 
-        public async Task<AgenteDealerDTO> getAgenteDealerByID(int nIdAgenteDealer)
+        public async Task<AgenteDealerDTO> getAgenteDealerByID(int nIdAgenteDealer, int nIdCompania)
         {
-            return await repository.getAgenteDealerByID(nIdAgenteDealer);
+            return await repository.getAgenteDealerByID(nIdAgenteDealer, nIdCompania);
         }
 
         public async Task<AgenteDealerDTO> findAgenteDealer(string? sDNI, string? sCE)
@@ -51,6 +51,10 @@ namespace backend.businesslogic.Dealers
         public async Task<SqlRspDTO> UpdAgenteDealer(AgenteDealerDTO agenteDealer)
         {
             return await repository.UpdAgenteDealer(agenteDealer);
+        }
+        public async Task<IList<SelectDTO>> getListPerfilDealer()
+        {
+            return await repository.getListPerfilDealer();
         }
     }
 }
