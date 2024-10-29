@@ -138,5 +138,26 @@ namespace backend.repository.Contabilidad
 
             return res.ToList();
         }
+
+        public async Task<SqlRspDTO> posInsNotaCredito(NotaCreditoDTO notaCredito)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 9);
+                parameters.Add("nIdComprobanteOrigen", notaCredito.nIdComprobanteOrigen);
+                parameters.Add("nIdTipoComprobante", notaCredito.nIdTipoComprobante);
+                parameters.Add("nIdCompania", notaCredito.nIdCompania);
+                parameters.Add("sMotivoNotaCd", notaCredito.sMotivoNotaCd?.ToString());
+                parameters.Add("nIdTipoOperacionNcd", notaCredito.nIdTipoOperacionNcd);
+                parameters.Add("nIdUsuario_crea", notaCredito.nIdUsuario_crea);
+
+                res = await connection.QuerySingleOrDefaultAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
