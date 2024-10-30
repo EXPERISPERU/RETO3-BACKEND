@@ -30,6 +30,7 @@
         public int nIdUsuario_crea { get; set; }
         public int? nIdOperacionBancaria { get; set; }
         public string? sIdOperacionBancaria { get; set; }
+        public string? sIdOperacionIzzipay { get; set; }
     }
 
     public class OrdenPagoContratoDTO
