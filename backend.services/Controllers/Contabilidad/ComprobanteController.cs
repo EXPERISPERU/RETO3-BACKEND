@@ -50,7 +50,7 @@ namespace backend.services.Controllers.Contabilidad
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult> getFormatoComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante)
+        public async Task<ActionResult> getFormatoComprobante(int nIdComprobante)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace backend.services.Controllers.Contabilidad
 
                 if (comprobante.nIdAdjunto == null)
                 {
-                    var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
+                    var sCuerpo = await service.formatoComprobanteByIdComprobante(nIdComprobante);
 
                     var html = "";
 

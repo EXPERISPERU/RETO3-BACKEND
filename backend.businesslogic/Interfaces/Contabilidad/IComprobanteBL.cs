@@ -13,7 +13,7 @@ namespace backend.businesslogic.Interfaces.Contabilidad
         Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO selectComprobante);
         Task<ComprobanteDTO> getComprobanteById(int nIdComprobante);
         Task<List<ComprobanteDetDTO>> getComprobanteDetById(int nIdComprobante);
-        Task<string> formatoComprobanteByIdComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante);
+        Task<string> formatoComprobanteByIdComprobante(int nIdComprobante);
         Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp);
         Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken, bool bExito);
         Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania);
