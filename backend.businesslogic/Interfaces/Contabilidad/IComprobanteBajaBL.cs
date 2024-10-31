@@ -9,9 +9,10 @@ namespace backend.businesslogic.Interfaces.Contabilidad
 {
     public interface IComprobanteBajaBL
     {
+        Task<IList<ComprobanteBajaDTO>> getListComprobanteBaja(SelectComprobanteBajaDTO selectComprobanteBaja);
         Task<IList<ComprobanteDTO>> getComprobanteById(int nIdComprobante);
         Task<IList<SelectDTO>> getSelectTipoMotivos();
-        Task<SqlRspDTO> InsComprobanteCaja(ComprobanteBajaDTO comprobanteBaja);
+        Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja);
         Task<IList<LoginDTO>> AuthUserSuperAnulaCompro(string sUsuario, string sContrasena);
     }
 }

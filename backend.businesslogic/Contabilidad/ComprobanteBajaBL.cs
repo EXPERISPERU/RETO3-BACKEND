@@ -19,6 +19,11 @@ namespace backend.businesslogic.Contabilidad
             this.repository = _repository;
         }
 
+        public async Task<IList<ComprobanteBajaDTO>> getListComprobanteBaja(SelectComprobanteBajaDTO selectComprobanteBaja)
+        {
+            return await repository.getListComprobanteBaja(selectComprobanteBaja);
+        }
+
         public async Task<IList<ComprobanteDTO>> getComprobanteById(int nIdComprobante)
         {
             return await repository.getComprobanteById(nIdComprobante);
@@ -29,9 +34,9 @@ namespace backend.businesslogic.Contabilidad
             return await repository.getSelectTipoMotivos();
         }
 
-        public async Task<SqlRspDTO> InsComprobanteCaja(ComprobanteBajaDTO comprobanteBaja)
+        public async Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja)
         {
-            return await repository.InsComprobanteCaja(comprobanteBaja);
+            return await repository.InsComprobanteBaja(comprobanteBaja);
         }
 
         public async Task<IList<LoginDTO>> AuthUserSuperAnulaCompro(string sUsuario, string sContrasena)

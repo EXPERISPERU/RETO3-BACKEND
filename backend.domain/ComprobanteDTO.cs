@@ -8,6 +8,7 @@ namespace backend.domain
 {
     public class ComprobanteDTO
     {
+        public int? nTotalTabla { get; set; }
         public int nIdComprobante { get; set; }
         public int nIdOrdenPago { get; set; }
         public int nCodigoCompania { get; set; }
@@ -17,6 +18,9 @@ namespace backend.domain
         public int nIdTipoComprobante { get; set; }
         public string? sTipoComprobante { get; set; }
         public string? sCodigoTipoComprobante { get; set; }
+        public int? nIdComprobanteOrigen { get; set; }
+        public int? nIdComprobanteBaja { get; set; }
+        public int? nIdCobranza { get; set; }
         public string sSerie { get; set; }
         public int nCorrelativo { get; set; }
         public string sComprobante { get; set; }
@@ -27,22 +31,27 @@ namespace backend.domain
         public string? sCelular { get; set; }
         public string? sTelefono { get; set; }
         public string? sCorreo { get; set; }
-        public string sNombreCompleto { get; set; }
+        public string? sNombreCompleto { get; set; }
         public string sDireccion { get; set; }
         public string sUbigeo { get; set; }
         public decimal nValorNoGravado { get; set; }
         public decimal nValorInafecto { get; set; }
         public decimal nValorSubTotal { get; set; }
+        public int? nIdTipoOperacionNcd { get; set; }
+        public string? sMotivoNotaCd { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
         public int nIdMoneda { get; set; }
         public string sMoneda { get; set; }
         public string sSunatMoneda { get; set; }
+        public string? sEstadoComprobante { get; set; }
+        public int? nIdEstado { get; set; }
         public string sSimbolo { get; set; }
         public int? nIdAdjunto { get; set; }
         public string? sRutaFtp { get; set; }
         public int nIdUsuario_crea { get; set; }
         public string sUsuario_crea { get; set; }
+        public int? nIdNotaCredito { get; set; }
         public DateTime dFecha_crea { get; set; }
         public string sFecha_crea { get; set; }
         #region   AUXILIARES PARA FORMATO COMPROBANTE
@@ -88,4 +97,23 @@ namespace backend.domain
         public DateTime dFecha_crea { get; set; }
         public string sFecha_crea { get; set; }
     }
+
+    public class SelectComprobanteDTO
+    {
+        public int nIdCompania { get; set; }
+        public int PageNumber { get; set; }
+        public int RowspPage { get; set; }
+    }
+
+    public class NotaCreditoDTO
+    {
+        public int? nIdComprobanteOrigen { get; set; }
+        public int? nIdTipoComprobante { get; set; }
+        public int nIdCompania { get; set; }
+        public string? sMotivoNotaCd { get; set; }
+        public int? nIdTipoOperacionNcd { get; set; }
+        public int nIdUsuario_crea { get; set; }
+    }
+
+
 }

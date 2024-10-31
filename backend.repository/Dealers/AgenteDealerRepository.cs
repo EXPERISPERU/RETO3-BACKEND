@@ -21,7 +21,7 @@ namespace backend.repository.Dealers
             _configuration = configuration;
         }
 
-        public async Task<IList<AgenteDealerDTO>> getListAgenteDealer()
+        public async Task<IList<AgenteDealerDTO>> getListAgenteDealer(int nIdUsuario, int nIdCompania)
         {
             IEnumerable<AgenteDealerDTO> list = new List<AgenteDealerDTO>();
 
@@ -29,6 +29,8 @@ namespace backend.repository.Dealers
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_agente_dealer]", 1);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 list = await connection.QueryAsync<AgenteDealerDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -36,7 +38,7 @@ namespace backend.repository.Dealers
             return list.ToList();
         }
 
-        public async Task<AgenteDealerDTO> getAgenteDealerByID(int nIdAgenteDealer)
+        public async Task<AgenteDealerDTO> getAgenteDealerByID(int nIdAgenteDealer, int nIdCompania)
         {
             AgenteDealerDTO resp = new AgenteDealerDTO();
 
@@ -45,6 +47,7 @@ namespace backend.repository.Dealers
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_agente_dealer]", 2);
                 parameters.Add("nIdAgenteDealer", nIdAgenteDealer);
+                parameters.Add("nIdCompania", nIdCompania);
 
                 resp = await connection.QuerySingleOrDefaultAsync<AgenteDealerDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -120,6 +123,8 @@ namespace backend.repository.Dealers
                 parameters.Add("sCelular", agenteDealer.sCelular);
                 parameters.Add("sDNI", agenteDealer.sDNI);
                 parameters.Add("sCE", agenteDealer.sCE);
+                parameters.Add("nIdPerfil", agenteDealer.nIdPerfil);
+                parameters.Add("nIdCompania", agenteDealer.nIdCompania);
                 parameters.Add("nIdUsuario_crea", agenteDealer.nIdUsuario_crea);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -157,5 +162,37 @@ namespace backend.repository.Dealers
 
             return res;
         }
+
+        public async Task<IList<SelectDTO>> getListPerfilDealer()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_agente_dealer]", 8);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> BajaAgenteDealer(AgenteDealerDTO agenteDealer)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_agente_dealer]", 9);
+                parameters.Add("nIdAgenteDealer", agenteDealer.nIdAgenteDealer);
+                parameters.Add("nIdUsuario_mod", agenteDealer.nIdUsuario_mod);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return res;
+        }
+
     }
 }

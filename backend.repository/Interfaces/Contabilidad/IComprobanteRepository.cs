@@ -9,6 +9,8 @@ namespace backend.repository.Interfaces.Contabilidad
 {
     public interface IComprobanteRepository
     {
+        Task<SqlRspDTO> posInsNotaCredito(NotaCreditoDTO notaCredito);
+        Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO selectComprobante);
         Task<ComprobanteDTO> getComprobanteById(int nIdComprobante);
         Task<List<ComprobanteDetDTO>> getComprobanteDetById(int nIdComprobante);
         Task<string> formatoComprobanteByIdComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante);
