@@ -34,9 +34,9 @@ namespace backend.businesslogic.Contabilidad
             return await repository.getComprobanteDetById(nIdComprobante);
         }
 
-        public async Task<string> formatoComprobanteByIdComprobante(int nIdCompania, int nIdProyecto, int nIdComprobante)
+        public async Task<string> formatoComprobanteByIdComprobante(int nIdComprobante)
         {
-            return await repository.formatoComprobanteByIdComprobante(nIdCompania, nIdProyecto, nIdComprobante);
+            return await repository.formatoComprobanteByIdComprobante(nIdComprobante);
         }
 
         public async Task<SqlRspDTO> InsComprobanteAdjunto(int nIdComprobante, string sRutaFtp)
