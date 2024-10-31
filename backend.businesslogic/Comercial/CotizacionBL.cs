@@ -190,6 +190,7 @@ namespace backend.businesslogic.Comercial
                             List<SelectDTO> listCuota1 = (List<SelectDTO>)await getSelectCuotaLote(selectCotizacionDTO);
                             cuota = (CuotaLoteDTO)await cuotaLoteRepository.getCuotaLoteByID(listCuota1.Count > 0 ? listCuota1.ToList()[0].nCod : 0);
 
+                            selectCotizacionDTO.nIdInicialLote = selectCotizacionDTO.nIdInicialLote ?? inicial.nIdInicialLote; 
                             List<InicialDescuentoDTO> listDescuentoFin1 = (List<InicialDescuentoDTO>)await getListDescuentoFinLote(selectCotizacionDTO);
                             descuentoFin = (DescuentoLoteDTO)await descuentoLoteRepository.getDescuentoLoteByID(listDescuentoFin1.Count > 0 ? listDescuentoFin1.ToList()[0].nId : 0);
 
