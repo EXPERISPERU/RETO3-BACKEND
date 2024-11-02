@@ -312,6 +312,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdUsuario_crea", ventaLote.nIdUsuario_crea);
                 parameters.Add("nTipoInteresCuotaAplicado", ventaLote.nTipoInteresCuotaAplicado);
                 parameters.Add("sIdOperacionBancaria", ventaLote.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", ventaLote.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", ventaLote.nIdCaja);
                 parameters.Add("nIdCompania", ventaLote.nIdCompania);
