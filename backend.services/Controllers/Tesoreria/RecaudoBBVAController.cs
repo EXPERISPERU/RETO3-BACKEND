@@ -167,10 +167,10 @@ namespace backend.services.Controllers.Tesoreria
                         else
                         {
                             nIdOrdenPago = nCodigo;
-                            if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(ordenPago.importeDeuda))
-                            {
-                                throw new Exception();
-                            }
+                            //if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(ordenPago.importeDeuda))
+                            //{
+                            //    throw new Exception();
+                            //}
                         }
                         break;
                     case "CRO2":
@@ -182,10 +182,10 @@ namespace backend.services.Controllers.Tesoreria
                         else
                         {
                             nIdCronopago = nCodigo;
-                            if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(cronograma.importeDeuda)) 
-                            {
-                                throw new Exception();
-                            }
+                            //if (request.NotificarPago.recaudosRq.detalle.transaccion.importeDeudaPagada != Decimal.Parse(cronograma.importeDeuda)) 
+                            //{
+                            //    throw new Exception();
+                            //}
                         }
                         break;
                     default:
