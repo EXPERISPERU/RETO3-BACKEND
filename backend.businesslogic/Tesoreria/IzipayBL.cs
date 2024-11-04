@@ -83,5 +83,10 @@ namespace backend.businesslogic.Tesoreria
         { 
             return await repository.UpdIzipayVoucher(voucher);
         }
+
+        public async Task<IzipayVoucherDTO> getVoucherByReferenciaLote(int nIdCompania, int nIdUsuario, int nIdComercio, int nReferencia, int nLote)
+        {
+            return await repository.getVoucherByReferenciaLote(nIdCompania, nIdUsuario, nIdComercio, nReferencia, nLote);
+        }
     }
 }
