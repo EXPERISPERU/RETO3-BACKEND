@@ -22,5 +22,6 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<IList<SelectDTO>> getSelectVoucherMoneda(int nIdUsuario, int nIdCompania);
         Task<SqlRspDTO> InsIzipayVoucher(IzipayVoucherDTO voucher);
         Task<SqlRspDTO> UpdIzipayVoucher(IzipayVoucherDTO voucher);
+        Task<IzipayVoucherDTO> getVoucherByReferenciaLote(int nIdCompania, int nIdUsuario, int nIdComercio, int nReferencia, int nLote);
     }
 }

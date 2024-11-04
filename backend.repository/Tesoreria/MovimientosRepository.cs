@@ -294,7 +294,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdAgenteDealer", ventaLote.nIdAgenteDealer);
                 parameters.Add("nIdEmpleado", ventaLote.nIdEmpleado);
                 parameters.Add("nIdMoneda", ventaLote.nIdMoneda);
-                parameters.Add("nMedioPago", ventaLote.nMedioPago);
+                parameters.Add("nIdMedioPago", ventaLote.nIdMedioPago);
                 parameters.Add("nIdAsignacionPrecio", ventaLote.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", ventaLote.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", ventaLote.nIdInicialLote);
@@ -312,6 +312,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdUsuario_crea", ventaLote.nIdUsuario_crea);
                 parameters.Add("nTipoInteresCuotaAplicado", ventaLote.nTipoInteresCuotaAplicado);
                 parameters.Add("sIdOperacionBancaria", ventaLote.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", ventaLote.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", ventaLote.nIdCaja);
                 parameters.Add("nIdCompania", ventaLote.nIdCompania);
@@ -343,6 +344,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdUsuario", cuota.nIdUsuario_crea);
                 parameters.Add("nIdCronograma", cuota.nIdCronograma);
                 parameters.Add("sIdOperacionBancaria", cuota.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", cuota.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", cuota.nIdCaja);
                 parameters.Add("nIdCompania", cuota.nIdCompania);
@@ -373,20 +375,15 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdMoneda", preContrato.nIdMoneda);
                 //parameters.Add("nMedioPago", preContrato.nMedioPago);
                 parameters.Add("nIdMedioPago", preContrato.nIdMedioPago);
-
                 parameters.Add("nIdAsignacionPrecio", preContrato.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", preContrato.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", preContrato.nIdInicialLote);
-
                 parameters.Add("nIdInteresCuota", preContrato.nIdInteresCuota);//nuevo
-
                 parameters.Add("nMontoVenta", preContrato.nMontoVenta);
                 parameters.Add("nMontoDescuento", preContrato.nMontoDescuento);
                 parameters.Add("nMontoFinal", preContrato.nMontoFinal);
                 parameters.Add("nMontoInicial", preContrato.nMontoInicial);
-
                 parameters.Add("nMontoInteresCuota", preContrato.nMontoInteresCuota);//nuevo
-
                 parameters.Add("nMontoFinanciado", preContrato.nMontoFinanciado);
                 parameters.Add("nIdCuota", preContrato.nIdCuota);
                 parameters.Add("nCuotas", preContrato.nCuotas);
@@ -394,6 +391,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdUsuario_crea", preContrato.nIdUsuario_crea);
                 //parameters.Add("nTipoInteresCuotaAplicado", preContrato.nTipoInteresCuotaAplicado);
                 parameters.Add("sIdOperacionBancaria", preContrato.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", preContrato.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", preContrato.nIdCaja);
                 parameters.Add("nIdCompania", preContrato.nIdCompania);
@@ -419,8 +417,9 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdUsuario_crea", reserva.nIdUsuario_crea);
                 parameters.Add("nIdMonedaP", reserva.nIdMoneda);
                 parameters.Add("nIdTipoComprobante", reserva.nIdTipoComprobante);
-                parameters.Add("nMedioPago", reserva.nMedioPago);
+                parameters.Add("nIdMedioPago", reserva.nIdMedioPago);
                 parameters.Add("sIdOperacionBancaria", reserva.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", reserva.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", reserva.nIdCaja);
                 parameters.Add("nIdCompania", reserva.nIdCompania);
