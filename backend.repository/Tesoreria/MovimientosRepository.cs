@@ -336,7 +336,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdCliente", cuota.nIdCliente);
                 parameters.Add("nIdTipoComprobante", cuota.nIdTipoComprobante);
                 parameters.Add("nIdMoneda", cuota.nIdMoneda);
-                parameters.Add("nMedioPago", cuota.nMedioPago);
+                parameters.Add("nIdMedioPago", cuota.nIdMedioPago);
                 parameters.Add("nValorContrato", cuota.nValorContrato);
                 parameters.Add("nMontoCuota", cuota.nMontoCuota);
                 parameters.Add("nTipoFinanciamiento", cuota.nTipoFinanciamiento);
@@ -469,6 +469,7 @@ namespace backend.repository.Tesoreria
 
                 parameters.Add("nIdUsuario_crea", preContrato.nIdUsuario_crea);
                 parameters.Add("sIdOperacionBancaria", preContrato.nIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", preContrato.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", preContrato.nIdCaja);
                 //parameters.Add("nIdCompania", preContrato.nIdCompania);
