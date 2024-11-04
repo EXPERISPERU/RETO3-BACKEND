@@ -44,6 +44,8 @@ builder.Services.AddCors(options => {
                 , "https://miportal2.inmobitec.pe"
                 , "http://imbtest.inmobitec.pe"
                 , "https://imbtest.inmobitec.pe"
+                , "http://imbqa.inmobitec.pe"
+                , "https://imbqa.inmobitec.pe"
                 , "http://sauces.inmobitec.pe"
                 , "https://sauces.inmobitec.pe"
                 , "http://gardenias.inmobitec.pe"
