@@ -294,7 +294,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdAgenteDealer", ventaLote.nIdAgenteDealer);
                 parameters.Add("nIdEmpleado", ventaLote.nIdEmpleado);
                 parameters.Add("nIdMoneda", ventaLote.nIdMoneda);
-                parameters.Add("nMedioPago", ventaLote.nMedioPago);
+                parameters.Add("nIdMedioPago", ventaLote.nIdMedioPago);
                 parameters.Add("nIdAsignacionPrecio", ventaLote.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", ventaLote.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", ventaLote.nIdInicialLote);
@@ -417,8 +417,9 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nIdUsuario_crea", reserva.nIdUsuario_crea);
                 parameters.Add("nIdMonedaP", reserva.nIdMoneda);
                 parameters.Add("nIdTipoComprobante", reserva.nIdTipoComprobante);
-                parameters.Add("nMedioPago", reserva.nMedioPago);
+                parameters.Add("nIdMedioPago", reserva.nIdMedioPago);
                 parameters.Add("sIdOperacionBancaria", reserva.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", reserva.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", reserva.nIdCaja);
                 parameters.Add("nIdCompania", reserva.nIdCompania);
