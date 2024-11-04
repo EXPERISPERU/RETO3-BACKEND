@@ -301,6 +301,28 @@ namespace backend.services.Controllers.Tesoreria
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<IzipayVoucherDTO>>> getVoucherByReferenciaLote(int nIdCompania, int nIdUsuario, int nIdComercio, int nReferencia, int nLote)
+        {
+            ApiResponse<IzipayVoucherDTO> response = new ApiResponse<IzipayVoucherDTO>();
+
+            try
+            {
+                var result = await service.getVoucherByReferenciaLote(nIdCompania, nIdUsuario, nIdComercio, nReferencia, nLote);
+
+                response.success = true;
+                response.data = (IzipayVoucherDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
         #endregion
+
     }
 }
