@@ -80,6 +80,7 @@ namespace backend.domain
         public int? nIdUsuario_crea { get; set; }
         public int? nIdCronograma { get; set; }
         public string? sIdOperacionBancaria { get; set; }
+        public string? sIdOperacionIzzipay { get; set; }
         public int nIdCaja { get; set; }
         public int nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }
@@ -115,6 +116,7 @@ namespace backend.domain
         public decimal? nTipoInteresCuotaAplicado { get; set; }
         public int? nIdOperacionBancaria { get; set; }
         public string? sIdOperacionBancaria { get; set; }
+        public string? sIdOperacionIzzipay { get; set; }
         public int nIdCaja { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }
@@ -135,7 +137,7 @@ namespace backend.domain
         public int? nIdAgenteDealer { get; set; }
         public int? nIdEmpleado { get; set; }
         public int nIdMoneda { get; set; }
-        public int nMedioPago { get; set; }
+        public int nIdMedioPago { get; set; }
         public int nIdAsignacionPrecio { get; set; }
         public int? nIdDescuentoLote { get; set; }
         public int? nIdInicialLote { get; set; }
@@ -151,6 +153,7 @@ namespace backend.domain
         public int nIdUsuario_crea { get; set; }
         public decimal? nTipoInteresCuotaAplicado { get; set; }
         public string? sIdOperacionBancaria { get; set; }
+        public string? sIdOperacionIzzipay { get; set; }
         public int nIdCaja { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }
@@ -166,8 +169,9 @@ namespace backend.domain
         public int nIdUsuario_crea { get; set; }
         public int nIdMoneda { get; set; }
         public int nIdTipoComprobante { get; set; }
-        public int nMedioPago { get; set; }
+        public int nIdMedioPago { get; set; }
         public string? sIdOperacionBancaria { get; set; }
+        public string? sIdOperacionIzzipay { get; set; }
         public int nIdCaja { get; set; }
         public int? nIdCompania { get; set; }
         public int nIdTipoItem { get; set; }

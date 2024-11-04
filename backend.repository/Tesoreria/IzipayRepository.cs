@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace backend.repository.Tesoreria
 {
@@ -254,5 +255,26 @@ namespace backend.repository.Tesoreria
 
             return res;
         }
+
+        public async Task<IzipayVoucherDTO> getVoucherByReferenciaLote(int nIdCompania, int nIdUsuario, int nIdComercio, int nReferencia, int nLote)
+        {
+            IzipayVoucherDTO resp = new IzipayVoucherDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_izipay_voucher]", 9);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdComercio", nIdComercio);
+                parameters.Add("nReferencia", nReferencia);
+                parameters.Add("nLote", nLote);
+
+                resp = await connection.QuerySingleOrDefaultAsync<IzipayVoucherDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
     }
 }

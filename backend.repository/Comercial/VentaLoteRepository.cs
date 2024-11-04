@@ -72,7 +72,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdAgenteDealer", insVentaLoteDTO.nIdAgenteDealer);
                 parameters.Add("nIdEmpleado", insVentaLoteDTO.nIdEmpleado);
                 parameters.Add("nIdMoneda", insVentaLoteDTO.nIdMoneda);
-                parameters.Add("nMedioPago", insVentaLoteDTO.nMedioPago);
+                parameters.Add("nIdMedioPago", insVentaLoteDTO.nIdMedioPago);
                 parameters.Add("nIdAsignacionPrecio", insVentaLoteDTO.nIdAsignacionPrecio);
                 parameters.Add("nIdDescuentoLote", insVentaLoteDTO.nIdDescuentoLote);
                 parameters.Add("nIdInicialLote", insVentaLoteDTO.nIdInicialLote);
@@ -89,6 +89,7 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCicloPago", insVentaLoteDTO.nIdCicloPago);
                 parameters.Add("nIdUsuario_crea", insVentaLoteDTO.nIdUsuario_crea);
                 parameters.Add("sIdOperacionBancaria", insVentaLoteDTO.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", insVentaLoteDTO.sIdOperacionIzzipay);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
