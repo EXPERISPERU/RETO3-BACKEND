@@ -72,7 +72,7 @@ namespace backend.domain
         public int? nIdCliente { get; set; }
         public int? nIdTipoComprobante { get; set; }
         public int? nIdMoneda { get; set; }
-        public int? nMedioPago { get; set; }
+        public int? nIdMedioPago { get; set; }
         public decimal? nValorContrato { get; set; }
         public decimal? nMontoCuota { get; set; }
         public int? nTipoFinanciamiento { get; set; }
