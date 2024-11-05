@@ -257,6 +257,8 @@ namespace backend.services.Controllers.Contabilidad
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
                 ComprobanteDTO comprobanteOrigen = new ComprobanteDTO();
+                List<ComprobanteMetodoPagoDTO> metodosPago = await service.getMetodoPagoById(nIdComprobante);
+
 
 
                 if (comprobante.sCodigoTipoComprobante == "7")
@@ -267,9 +269,9 @@ namespace backend.services.Controllers.Contabilidad
                 if (comprobante.nCodigoCompania == 1)
                 {
 
-                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet, comprobanteOrigen);
+                    efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet, comprobanteOrigen, metodosPago);
 
-                    service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
+                    // service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
                 }
 
                 if (comprobante.nCodigoCompania == 2)
@@ -338,6 +340,5 @@ namespace backend.services.Controllers.Contabilidad
             }
 
         }
-
     }
 }

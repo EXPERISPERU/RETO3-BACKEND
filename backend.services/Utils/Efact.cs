@@ -22,10 +22,25 @@ namespace backend.services.Utils
             eFactUrlDocument = configuration["EfacConfig:urlDocument"];
         }
 
-        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet, ComprobanteDTO? comprobanteOrigen)
+        private EfactComprobanteDTO comprobanteEfact(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet, ComprobanteDTO? comprobanteOrigen, List<ComprobanteMetodoPagoDTO>? metodosPago)
         {
 
             EfactComprobanteDTO efactComprobante = new EfactComprobanteDTO();
+
+            string observaciones = "Celular: 967 283 715 %5D Fijo: 694 - 8518";
+
+            if (metodosPago.Count() > 0)
+            {
+                observaciones += " %5D Metodo de Pago:%5D";
+
+                for (int i = 0; i < metodosPago.Count(); i++)
+                {
+                    observaciones += $"{metodosPago[i].sAbrev} - {metodosPago[i].sDetalle}";
+                }
+
+                observaciones += "%5D";
+            }
+
 
             string[] ubigeoCliente = comprobante.sUbigeo.Split(',').Select(s => s.Trim()).ToArray();
             string[] ubigeoCompania = comprobante.sUbigeoCompania.Split(',').Select(i => i.Trim()).ToArray();
@@ -265,7 +280,7 @@ namespace backend.services.Utils
                 },
                 new NoteDTO()
                 {
-                    TextContent = "Celular: 967 283 715%5D Fijo: 694-8518"
+                    TextContent = observaciones
                 },
                 new NoteDTO()
                 {
@@ -810,11 +825,11 @@ namespace backend.services.Utils
             }
         }
 
-        public async Task<efactResponseDTO> GenerarDocumento(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet, ComprobanteDTO? comprobanteOrigen)
+        public async Task<efactResponseDTO> GenerarDocumento(ComprobanteDTO comprobante, List<ComprobanteDetDTO> comprobanteDet, ComprobanteDTO? comprobanteOrigen, List<ComprobanteMetodoPagoDTO>? metodoPago)
         {
             try
             {
-                EfactComprobanteDTO comprobanteEfact = this.comprobanteEfact(comprobante, comprobanteDet, comprobanteOrigen);
+                EfactComprobanteDTO comprobanteEfact = this.comprobanteEfact(comprobante, comprobanteDet, comprobanteOrigen, metodoPago);
 
                 string tipoDocumento = new Sunat().TipoDocumento(comprobante.sCodigoTipoComprobante);
                 string nombreDocumento = comprobante.sRUCCompania + "-" + tipoDocumento + "-" + comprobante.sSerie + "-" + comprobante.nCorrelativo.ToString().PadLeft(8, '0') + ".json";

@@ -157,5 +157,21 @@ namespace backend.repository.Contabilidad
 
             return res;
         }
+
+        public async Task<List<ComprobanteMetodoPagoDTO>> getMetodoPagoById(int nIdComprobante)
+        {
+            IEnumerable<ComprobanteMetodoPagoDTO> res = new List<ComprobanteMetodoPagoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 11);
+                parameters.Add("nIdComprobante", nIdComprobante);
+
+                res = await connection.QueryAsync<ComprobanteMetodoPagoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
     }
 }
