@@ -35,7 +35,11 @@ namespace backend.services.Utils
 
                 for (int i = 0; i < metodosPago.Count(); i++)
                 {
-                    observaciones += $"{metodosPago[i].sAbrev} - {metodosPago[i].sDetalle}";
+                    observaciones += $"{metodosPago[i].sAbrev} ";
+                    if (metodosPago[i].sAbrev != "Efectivo")
+                    {
+                        observaciones += $"- {metodosPago[i].sDetalle}";
+                    }
                 }
 
                 observaciones += "%5D";
