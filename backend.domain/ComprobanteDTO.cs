@@ -115,5 +115,14 @@ namespace backend.domain
         public int nIdUsuario_crea { get; set; }
     }
 
+    #region DTO AUXILIAR PARA FORMATO COMPROBANTE
+    public class ComprobanteMetodoPagoDTO
+    {
+        public string? sAbrev { get; set; }
+        public string? sDetalle { get; set; }
+    }
+    #endregion
+
+
 
 }
