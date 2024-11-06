@@ -14,5 +14,7 @@ namespace backend.repository.Interfaces.Comercial
         Task<int> getCantReferenciaActivaByPersona(int nIdCompania, int nIdPersona);
         Task<SqlRspDTO> InsReferidoByPersona(PersonaDTO persona);
         Task<IList<ReferidoChartDTO>> postListReferidoChart(ReferidoChartFilterDTO referidoChartFilter);
+        Task<PersonaDTO> getPersonaClienteByReferido(int nIdReferido);
+        Task<SqlRspDTO> UpdReferidoByPersona(PersonaDTO persona);
     }
 }
