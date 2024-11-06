@@ -53,5 +53,10 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.getComprobantesPendientesCertByCompania(nCodigoCompania);
         }
+
+        public async Task<List<ComprobanteMetodoPagoDTO>> getMetodoPagoById(int nIdComprobante)
+        {
+            return await repository.getMetodoPagoById(nIdComprobante);
+        }
     }
 }
