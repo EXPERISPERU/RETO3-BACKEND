@@ -16,24 +16,6 @@ namespace backend.repository.Contabilidad
             _configuration = configuration;
         }
 
-        public async Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO select)
-        {
-            IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
-                parameters.Add("nIdCompania", select.nIdCompania);
-                parameters.Add("PageNumber", select.PageNumber);
-                parameters.Add("RowspPage", select.RowspPage);
-
-                list = await connection.QueryAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
         public async Task<ComprobanteDTO> getComprobanteById(int nIdComprobante)
         {
             ComprobanteDTO res = new ComprobanteDTO(); ;
@@ -121,20 +103,22 @@ namespace backend.repository.Contabilidad
             return res;
         }
 
-        public async Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania)
+        public async Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO select)
         {
-            IEnumerable<int> res = new List<int>();
+            IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
-                parameters.Add("nCodigoCompania", nCodigoCompania);
+                parameters.Add("nIdCompania", select.nIdCompania);
+                parameters.Add("PageNumber", select.PageNumber);
+                parameters.Add("RowspPage", select.RowspPage);
 
-                res = await connection.QueryAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
-            return res.ToList();
+            return list.ToList();
         }
 
         public async Task<SqlRspDTO> posInsNotaCredito(NotaCreditoDTO notaCredito)
@@ -157,6 +141,22 @@ namespace backend.repository.Contabilidad
 
             return res;
         }
+        
+        public async Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania)
+        {
+            IEnumerable<int> res = new List<int>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 10);
+                parameters.Add("nCodigoCompania", nCodigoCompania);
+
+                res = await connection.QueryAsync<int>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res.ToList();
+        }
 
         public async Task<List<ComprobanteMetodoPagoDTO>> getMetodoPagoById(int nIdComprobante)
         {
@@ -165,6 +165,7 @@ namespace backend.repository.Contabilidad
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
+
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 11);
                 parameters.Add("nIdComprobante", nIdComprobante);
 
