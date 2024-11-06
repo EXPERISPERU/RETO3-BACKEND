@@ -41,7 +41,7 @@ namespace backend.repository.Comercial.ParametrosVentaLote
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cuota_lote]", 2);
                 parameters.Add("nIdCuotaLote", nIdCuotaLote);
 
-                resp = await connection.QuerySingleAsync<CuotaLoteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                resp = await connection.QuerySingleOrDefaultAsync<CuotaLoteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return resp;
