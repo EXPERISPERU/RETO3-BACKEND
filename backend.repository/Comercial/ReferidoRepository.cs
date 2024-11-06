@@ -201,5 +201,43 @@ namespace backend.repository.Comercial
             return list.ToList();
         }
 
+        public async Task<PersonaDTO> getPersonaClienteByReferido(int nIdReferido)
+        {
+            PersonaDTO res = new PersonaDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 15);
+                parameters.Add("nIdReferido", nIdReferido);
+
+                res = await connection.QuerySingleAsync<PersonaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<SqlRspDTO> UpdReferidoByPersona(PersonaDTO persona)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 16);
+                parameters.Add("nIdPersona", persona.nIdPersona);
+                parameters.Add("nIdUbigeoNac", persona.nIdUbigeoNac);
+                parameters.Add("sCorreo", persona.sCorreo);
+                parameters.Add("sCelular", persona.sCelular);
+                parameters.Add("nIdDireccion", persona.nIdDireccion);
+                parameters.Add("sDireccion", persona.sDireccion);
+                parameters.Add("nIdUbigeoDir", persona.nIdUbigeoDir);
+                parameters.Add("nIdUsuario_mod", persona.nIdUsuario_mod);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
