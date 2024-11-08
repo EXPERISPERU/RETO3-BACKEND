@@ -18,5 +18,9 @@ namespace backend.businesslogic.Interfaces.Contabilidad
         Task<SqlRspDTO> InsCertificacionComprobante(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken, bool bExito);
         Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania);
         Task<List<ComprobanteMetodoPagoDTO>> getMetodoPagoById(int nIdComprobante);
+        Task<IList<SelectDTO>> getListTipoNotaCredito();
+        Task<IList<SelectDTO>> getSelectTipoMotivoBaja();
+        Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja);
+        Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena);
     }
 }
