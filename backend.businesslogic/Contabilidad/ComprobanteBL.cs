@@ -58,5 +58,25 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.getMetodoPagoById(nIdComprobante);
         }
+
+        public async Task<IList<SelectDTO>> getListTipoNotaCredito()
+        {
+            return await repository.getListTipoNotaCredito();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoMotivoBaja()
+        {
+            return await repository.getSelectTipoMotivoBaja();
+        }
+
+        public async Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja)
+        {
+            return await repository.InsComprobanteBaja(comprobanteBaja);
+        }
+
+        public async Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena)
+        {
+            return await repository.AuthUserBaja(sUsuario, sContrasena);
+        }
     }
 }
