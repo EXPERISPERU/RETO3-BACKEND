@@ -337,4 +337,8 @@ namespace backend.domain
         public List<AmountContentDTO> PriceAmount { get; set; }
     }
     #endregion
+
+    #region Comprobante BAJA EFACT
+    public class EfactComprobanteBajaDTO { }
+    #endregion
 }
