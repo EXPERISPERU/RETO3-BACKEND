@@ -833,7 +833,7 @@ namespace backend.services.Utils
 
         private EfactComprobanteBajaDTO comprobanteBajaEfact(ComprobanteBajaDTO comprobanteBaja)
         {
-            return new EfactComprobanteDTO();
+            return new EfactComprobanteBajaDTO();
         }
 
         private async Task<efactAuthResponseDTO> eFactGetToken()
