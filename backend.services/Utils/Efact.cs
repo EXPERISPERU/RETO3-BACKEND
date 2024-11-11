@@ -908,7 +908,7 @@ namespace backend.services.Utils
                     var response = await httpClient.PostAsync(urlFinal, content);
                     int status = (int)response.StatusCode;
 
-                    // File.Delete(filePath);
+                    File.Delete(filePath);
 
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<efactResponseDTO>(res);
