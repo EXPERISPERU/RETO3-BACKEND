@@ -38,6 +38,7 @@ namespace backend.domain
         public decimal nValorInafecto { get; set; }
         public decimal nValorSubTotal { get; set; }
         public int? nIdTipoOperacionNcd { get; set; }
+        public string? sCodigoTipoOperacionNcd { get; set; }
         public string? sMotivoNotaCd { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }

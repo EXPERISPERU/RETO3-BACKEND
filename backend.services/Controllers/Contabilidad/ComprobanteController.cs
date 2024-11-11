@@ -261,7 +261,7 @@ namespace backend.services.Controllers.Contabilidad
 
 
 
-                if (comprobante.sCodigoTipoComprobante == "7")
+                if (comprobante.sCodigoTipoComprobante == "18")
                 {
                     comprobanteOrigen = await service.getComprobanteById(comprobante.nIdComprobanteOrigen.Value);
                 }
