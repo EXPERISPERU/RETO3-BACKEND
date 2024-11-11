@@ -123,7 +123,7 @@ namespace backend.repository.Contabilidad
 
         public async Task<SqlRspDTO> posInsNotaCredito(NotaCreditoDTO notaCredito)
         {
-            SqlRspDTO res = new SqlRspDTO(); ;
+            SqlRspDTO res = new SqlRspDTO();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
@@ -135,13 +135,14 @@ namespace backend.repository.Contabilidad
                 parameters.Add("sMotivoNotaCd", notaCredito.sMotivoNotaCd?.ToString());
                 parameters.Add("nIdTipoOperacionNcd", notaCredito.nIdTipoOperacionNcd);
                 parameters.Add("nIdUsuario_crea", notaCredito.nIdUsuario_crea);
+                parameters.Add("nMontoNotaCredito", notaCredito.nMontoNotaCredito);
 
                 res = await connection.QuerySingleOrDefaultAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
         }
-        
+
         public async Task<List<int>> getComprobantesPendientesCertByCompania(int nCodigoCompania)
         {
             IEnumerable<int> res = new List<int>();
@@ -173,6 +174,74 @@ namespace backend.repository.Contabilidad
             }
 
             return res.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getListTipoNotaCredito()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 12);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoMotivoBaja()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 13);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 14);
+                parameters.Add("nIdCobranza", comprobanteBaja.nIdCobranza);
+                parameters.Add("nIdComprobante", comprobanteBaja.nIdComprobante);
+                parameters.Add("sCodigoBaja", comprobanteBaja.sCodigoBaja);
+                parameters.Add("nIdMotivo", comprobanteBaja.nIdMotivo);
+                parameters.Add("sMotivo", comprobanteBaja.sMotivo);
+                parameters.Add("nIdUsuario_crea", comprobanteBaja.nIdUsuario_crea);
+                parameters.Add("nIdUsuario_autoriza", comprobanteBaja.nIdUsuario_autoriza);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena)
+        {
+            IEnumerable<LoginDTO> list = new List<LoginDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 15);
+                parameters.Add("sUsuario", sUsuario);
+                parameters.Add("sPassword", sContrasena);
+
+                list = await connection.QueryAsync<LoginDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
         }
     }
 }

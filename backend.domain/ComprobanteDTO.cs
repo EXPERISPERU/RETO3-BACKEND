@@ -110,6 +110,7 @@ namespace backend.domain
         public int? nIdComprobanteOrigen { get; set; }
         public int? nIdTipoComprobante { get; set; }
         public int nIdCompania { get; set; }
+        public decimal? nMontoNotaCredito { get; set; }
         public string? sMotivoNotaCd { get; set; }
         public int? nIdTipoOperacionNcd { get; set; }
         public int nIdUsuario_crea { get; set; }
