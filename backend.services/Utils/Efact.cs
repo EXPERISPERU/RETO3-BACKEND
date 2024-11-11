@@ -53,34 +53,23 @@ namespace backend.services.Utils
 
             for (int i = 0; i < comprobanteDet.Count; i++)
             {
-                invoiceLines.Add(
-                    new InvoiceLineDTO
-                    {
-                        ID = new List<IdentifierContentInvoiceDTO>()
+                var line = new InvoiceLineDTO
+                {
+                    ID = new List<IdentifierContentInvoiceDTO>()
                         {
                             new IdentifierContentInvoiceDTO
                             {
                                 IdentifierContent = i + 1,
                             }
                         },
-                        Note = new List<NoteDTO>()
+                    Note = new List<NoteDTO>()
                         {
                             new NoteDTO
                             {
                                 TextContent = "UNIDAD"
                             }
                         },
-                        InvoicedQuantity = new List<QuantityContentDTO>
-                        {
-                            new QuantityContentDTO
-                            {
-                                QuantityContent = comprobanteDet[i].nCantidad,
-                                QuantityUnitCode = "ZZ",
-                                QuantityUnitCodeListIdentifier = "UN/ECE rec 20",
-                                QuantityUnitCodeListAgencyNameText = "United Nations Economic Commission for Europe"
-                            }
-                        },
-                        LineExtensionAmount = new List<AmountContentDTO>
+                    LineExtensionAmount = new List<AmountContentDTO>
                         {
                             new AmountContentDTO
                             {
@@ -88,7 +77,7 @@ namespace backend.services.Utils
                                 AmountCurrencyIdentifier = comprobante.sSunatMoneda
                             }
                         },
-                        PricingReference = new List<PricingReferenceDTO>
+                    PricingReference = new List<PricingReferenceDTO>
                         {
                             new PricingReferenceDTO
                             {
@@ -118,7 +107,7 @@ namespace backend.services.Utils
                                 }
                             }
                         },
-                        TaxTotal = new List<TaxTotalDTO>
+                    TaxTotal = new List<TaxTotalDTO>
                         {
                             new TaxTotalDTO{
                                 TaxAmount = new List<AmountContentDTO>{
@@ -199,7 +188,7 @@ namespace backend.services.Utils
                                 },
                             }
                         },
-                        Item = new List<ItemEfactDTO>
+                    Item = new List<ItemEfactDTO>
                         {
                             new ItemEfactDTO
                             {
@@ -225,7 +214,7 @@ namespace backend.services.Utils
                                 }
                             }
                         },
-                        Price = new List<PriceDTO>
+                    Price = new List<PriceDTO>
                         {
                             new PriceDTO
                             {
@@ -238,15 +227,47 @@ namespace backend.services.Utils
                                 }
                             }
                         }
-                    }
-                );
+                };
+
+                if (comprobante.sCodigoTipoComprobante == "18")
+                {
+                    line.CreditedQuantity = new List<QuantityContentDTO>
+                        {
+                            new QuantityContentDTO
+                            {
+                                QuantityContent = comprobanteDet[i].nCantidad,
+                                QuantityUnitCode = "ZZ",
+                                QuantityUnitCodeListIdentifier = "UN/ECE rec 20",
+                                QuantityUnitCodeListAgencyNameText = "United Nations Economic Commission for Europe"
+                            }
+                        };
+                }
+                else
+                {
+                    line.InvoicedQuantity = new List<QuantityContentDTO>
+                        {
+                            new QuantityContentDTO
+                            {
+                                QuantityContent = comprobanteDet[i].nCantidad,
+                                QuantityUnitCode = "ZZ",
+                                QuantityUnitCodeListIdentifier = "UN/ECE rec 20",
+                                QuantityUnitCodeListAgencyNameText = "United Nations Economic Commission for Europe"
+                            }
+                        };
+                }
+
+                invoiceLines.Add(line);
             }
 
+
             efactComprobante._D = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2";
+            if (comprobante.sCodigoTipoComprobante == "18")
+            {
+                efactComprobante._D = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2";
+            }
             efactComprobante._S = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
             efactComprobante._B = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2";
             efactComprobante._E = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
-            efactComprobante.Invoice = new List<Invoice>();
 
             var invoice = new Invoice();
 
@@ -324,7 +345,7 @@ namespace backend.services.Utils
                 {
                     new CodeContentDTO
                     {
-                        CodeContent = comprobanteOrigen?.nIdTipoOperacionNcd.ToString(),
+                        CodeContent = comprobante?.sCodigoTipoOperacionNcd.ToString(),
                         CodeListAgencyNameText = "PE:SUNAT",
                         CodeListNameText = "Tipo de nota de credito",
                         CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo09"
@@ -334,7 +355,7 @@ namespace backend.services.Utils
                 {
                     new TextContentDTO
                     {
-                        TextContent = "CLIENTE NO DESEA PARTICIPAR EN EL PROYECTO SAUCES"
+                        TextContent = comprobante.sMotivoNotaCd
                     }
                 }
             };
@@ -356,7 +377,7 @@ namespace backend.services.Utils
                         {
                             new DateContentDTO
                             {
-                                DateContent = comprobanteOrigen?.sFecha_crea
+                                DateContent = comprobanteOrigen?.dFecha_crea.ToString("yyyy-MM-dd")
                             }
                         },
                         DocumentTypeCode = new List<CodeContentDTO>
@@ -785,14 +806,21 @@ namespace backend.services.Utils
                 invoice.InvoiceLine = invoiceLines;
             }
 
-            if (comprobante.sCodigoTipoComprobante == "7")
+            if (comprobante.sCodigoTipoComprobante == "18")
             {
                 invoice.DiscrepancyResponse = new List<DiscrepancyResponseDTO> { discrepancyResponse };
                 invoice.BillingReference = new List<BillingReferenceDTO> { billingReference };
                 invoice.CreditNoteLine = invoiceLines;
             }
 
-            efactComprobante.Invoice = new List<Invoice> { invoice };
+            if (comprobante.sCodigoTipoComprobante == "18")
+            {
+                efactComprobante.CreditNote = new List<Invoice> { invoice };
+            }
+            else
+            {
+                efactComprobante.Invoice = new List<Invoice> { invoice };
+            }
 
             return efactComprobante;
         }
