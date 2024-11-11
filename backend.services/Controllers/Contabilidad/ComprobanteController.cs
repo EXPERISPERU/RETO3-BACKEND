@@ -338,7 +338,132 @@ namespace backend.services.Controllers.Contabilidad
                 response.errMsj = ex.Message;
                 return StatusCode(500, response);
             }
+        }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListTipoNotaCredito()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getListTipoNotaCredito();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoMotivoBaja()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getSelectTipoMotivoBaja();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postInsComprobanteBaja([FromBody] ComprobanteBajaDTO comprobanteBaja)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsComprobanteBaja(comprobanteBaja);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<LoginDTO>>>> getAuthUserBaja(string sUsuario, string sContrasena)
+        {
+            ApiResponse<List<LoginDTO>> response = new ApiResponse<List<LoginDTO>>();
+
+            try
+            {
+                var result = await service.AuthUserBaja(sUsuario, sContrasena);
+
+                response.success = true;
+                response.data = (List<LoginDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<ComprobanteDTO>>> getComprobanteById(int nIdComprobante)
+        {
+            ApiResponse<ComprobanteDTO> response = new ApiResponse<ComprobanteDTO>();
+
+            try
+            {
+                var result = await service.getComprobanteById(nIdComprobante);
+
+                response.success = true;
+                response.data = (ComprobanteDTO)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDetDTO>>>> getComprobanteDetyId(int nIdComprobante)
+        {
+            ApiResponse<List<ComprobanteDetDTO>> response = new ApiResponse<List<ComprobanteDetDTO>>();
+
+            try
+            {
+                var result = await service.getComprobanteDetById(nIdComprobante);
+
+                response.success = true;
+                response.data = (List<ComprobanteDetDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
         }
     }
 }
