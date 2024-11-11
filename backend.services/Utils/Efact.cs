@@ -1,4 +1,5 @@
-﻿using backend.domain;
+﻿using backend.businesslogic.Contabilidad;
+using backend.domain;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
@@ -339,26 +340,31 @@ namespace backend.services.Utils
 
             #region OBJETOS PARA NOTA DE CREDITO
 
-            DiscrepancyResponseDTO discrepancyResponse = new DiscrepancyResponseDTO()
+            DiscrepancyResponseDTO discrepancyResponse = new DiscrepancyResponseDTO();
+
+            if (comprobante.sCodigoTipoComprobante == "18")
             {
-                ResponseCode = new List<CodeContentDTO>()
+                discrepancyResponse = new DiscrepancyResponseDTO()
                 {
-                    new CodeContentDTO
+                    ResponseCode = new List<CodeContentDTO>()
                     {
-                        CodeContent = comprobante?.sCodigoTipoOperacionNcd.ToString(),
-                        CodeListAgencyNameText = "PE:SUNAT",
-                        CodeListNameText = "Tipo de nota de credito",
-                        CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo09"
-                    }
-                },
-                Description = new List<TextContentDTO>()
-                {
-                    new TextContentDTO
+                        new CodeContentDTO
+                        {
+                            CodeContent = comprobante?.sCodigoTipoOperacionNcd.ToString(),
+                            CodeListAgencyNameText = "PE:SUNAT",
+                            CodeListNameText = "Tipo de nota de credito",
+                            CodeListUniformResourceIdentifier = "urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo09"
+                        }
+                    },
+                    Description = new List<TextContentDTO>()
                     {
-                        TextContent = comprobante.sMotivoNotaCd
+                        new TextContentDTO
+                        {
+                            TextContent = comprobante.sMotivoNotaCd
+                        }
                     }
-                }
-            };
+                    };
+            }
 
             BillingReferenceDTO billingReference = new BillingReferenceDTO()
             {
@@ -825,6 +831,10 @@ namespace backend.services.Utils
             return efactComprobante;
         }
 
+        private EfactComprobanteBajaDTO comprobanteBajaEfact(ComprobanteBajaDTO comprobanteBaja)
+        {
+            return new EfactComprobanteDTO();
+        }
 
         private async Task<efactAuthResponseDTO> eFactGetToken()
         {
@@ -922,6 +932,22 @@ namespace backend.services.Utils
                         return new efactResponseDTO() { code = result?.code, description = result?.description };
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                return new efactResponseDTO() { code = "BACKEND", description = ex.Message };
+            }
+        }
+        
+        public async Task<efactResponseDTO> BajaDocumento(ComprobanteBajaDTO comprobanteBaja) 
+        {
+            try
+            {
+                //TODO
+                //Llamar al metodo para generar el JSON para BAJA
+                EfactComprobanteBajaDTO comprobanteBajaDTO = this.comprobanteBajaEfact(comprobanteBaja);
+                //comunicarnos con servicio de EFACT
+                return new efactResponseDTO() { code = "BACKEND", description = "TEST" };
             }
             catch (Exception ex)
             {
