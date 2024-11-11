@@ -30,7 +30,8 @@ namespace backend.domain
         public string _S { get; set; }
         public string _B { get; set; }
         public string _E { get; set; }
-        public List<Invoice> Invoice { get; set; }
+        public List<Invoice>? Invoice { get; set; }
+        public List<Invoice>? CreditNote { get; set; }
     }
 
     public class Invoice
@@ -297,7 +298,8 @@ namespace backend.domain
     {
         public List<IdentifierContentInvoiceDTO> ID { get; set; }
         public List<NoteDTO> Note { get; set; }
-        public List<QuantityContentDTO> InvoicedQuantity { get; set; }
+        public List<QuantityContentDTO>? InvoicedQuantity { get; set; }
+        public List<QuantityContentDTO>? CreditedQuantity { get; set; }
         public List<AmountContentDTO> LineExtensionAmount { get; set; }
         public List<PricingReferenceDTO> PricingReference { get; set; }
         public List<TaxTotalDTO> TaxTotal { get; set; }
