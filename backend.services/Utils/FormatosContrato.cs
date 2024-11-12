@@ -43,7 +43,7 @@ namespace backend.services.Utils
                         .Replace("img/firma_luis_gutierrez_2023.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "firma_Luis_Gutierrez.png"))    )
                         .Replace("img/logo_inmobitec.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png")))
                         .Replace("img/logo_villa_azul.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png")))
-                        .Replace("#sCodigoContrato#", "")
+                        .Replace("#sCodigoContrato#", contrato.sCodigo)
                         .Replace("#sProyecto#", contrato.sProyecto)
                         .Replace("#sApellidoPaterno#", contrato.sApePaterno)
                         .Replace("#sApellidoMaterno#", contrato.sApeMaterno)
@@ -272,17 +272,30 @@ namespace backend.services.Utils
 
                 HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
 
-                byte[] pdfWithPagination = SetPagination(path);
+                int paginationVerticalPosition;
 
+                if (sCodigo == "5" || sCodigo == "19" || sCodigo == "17") {
+                    paginationVerticalPosition = 48;
+                }
+                else 
+                {
+                    paginationVerticalPosition = 15;
+                }
+
+                byte[] pdfWithPagination = SetPagination(path, paginationVerticalPosition);
+
+                byte[] finalPdf = pdfWithPagination;
+
+                if(sCodigo == "5" || sCodigo == "19" || sCodigo == "17")
                 using (MemoryStream ms = new MemoryStream(pdfWithPagination))
                 {
                     File.WriteAllBytes(path, ms.ToArray());
 
                     // Aplicar el código del contrato
-                    byte[] finalPdf = SetCodContrato(path, contrato.sCodigo);
+                    finalPdf = SetCodContrato(path, contrato.sCodigo);
 
-                    return finalPdf;
                 }
+                return finalPdf;
             }
             catch (Exception)
             {
@@ -314,7 +327,7 @@ namespace backend.services.Utils
             }
         }
 
-        private byte[] SetPagination(String path) {
+        private byte[] SetPagination(String path, int verticalPosition) {
             try
             {
                 string tempPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
@@ -324,7 +337,7 @@ namespace backend.services.Utils
 
                 int numberOfPages = pdfDoc.GetNumberOfPages();
                 for (int i = 1; i <= numberOfPages; i++){
-                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDoc.GetDefaultPageSize().GetWidth() / 2), 48, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
+                    doc.ShowTextAligned(new Paragraph(i + "/" + numberOfPages).SetFontSize(10), (pdfDoc.GetDefaultPageSize().GetWidth() / 2), verticalPosition, i, TextAlignment.RIGHT, VerticalAlignment.BOTTOM, 0);
                 }
 
                 doc.Close();
