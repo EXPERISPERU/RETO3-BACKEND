@@ -243,5 +243,21 @@ namespace backend.repository.Contabilidad
 
             return list.ToList();
         }
+
+        public async Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja)
+        {
+            ComprobanteBajaDTO res = new ComprobanteBajaDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 16);
+                parameters.Add("nIdComprobanteBaja", nIdComprobanteBaja);
+
+                res = await connection.QuerySingleAsync<ComprobanteBajaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }

@@ -22,5 +22,7 @@ namespace backend.repository.Interfaces.Contabilidad
         Task<IList<SelectDTO>> getSelectTipoMotivoBaja();
         Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja);
         Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena);
+        Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja);
+
     }
 }

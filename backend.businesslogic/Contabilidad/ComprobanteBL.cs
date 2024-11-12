@@ -78,5 +78,10 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.AuthUserBaja(sUsuario, sContrasena);
         }
+
+        public async Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja)
+        {
+            return await repository.getComprobanteBajaById(nIdComprobanteBaja);
+        }
     }
 }

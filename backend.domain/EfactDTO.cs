@@ -39,6 +39,7 @@ namespace backend.domain
         public List<IdentifierContentDTO> UBLVersionID { get; set; }
         public List<IdentifierContentDTO> CustomizationID { get; set; }
         public List<IdentifierContentDTO> ID { get; set; }
+        public List<DateContentDTO>? ReferenceDate { get; set; }
         public List<DateContentDTO> IssueDate { get; set; }
         public List<DateTimeContentDTO> IssueTime { get; set; }
         public List<InvoiceTypeCodeDTO>? InvoiceTypeCode { get; set; }
@@ -54,11 +55,24 @@ namespace backend.domain
         public List<LegalMonetaryTotalDTO> LegalMonetaryTotal { get; set; }
         public List<InvoiceLineDTO>? InvoiceLine { get; set; }
         public List<InvoiceLineDTO>? CreditNoteLine { get; set; }
+        public List<VoidedDocumentsLineDTO>? VoidedDocumentsLine { get; set; }
+    }
+
+    public class Voided
+    {
+        public List<IdentifierContentDTO> UBLVersionID { get; set; }
+        public List<IdentifierContentDTO> CustomizationID { get; set; }
+        public List<IdentifierContentDTO> ID { get; set; }
+        public List<DateContentDTO>? ReferenceDate { get; set; }
+        public List<DateContentDTO> IssueDate { get; set; }
+        public List<SignatureVoidedDTO> Signature { get; set; }
+        public List<AccountingPartyVoidedDTO> AccountingSupplierParty { get; set; }
+        public List<VoidedDocumentsLineDTO>? VoidedDocumentsLine { get; set; }
     }
 
     public class IdentifierContentDTO
     {
-        public string? IdentifierContent { get; set; }
+        public object? IdentifierContent { get; set; }
         public string? IdentificationSchemeAgencyNameText { get; set; }
         public string? IdentificationSchemeNameText { get; set; }
         public int? IdentificationSchemeIdentifier { get; set; }
@@ -153,9 +167,22 @@ namespace backend.domain
         public List<DigitalSignatureAttachmentDTO> DigitalSignatureAttachment { get; set; }
     }
 
+    public class SignatureVoidedDTO
+    {
+        public List<IdentifierContentDTO> ID { get; set; }
+        public List<SignatoryPartyVoidedDTO> SignatoryParty { get; set; }
+        public List<DigitalSignatureAttachmentDTO> DigitalSignatureAttachment { get; set; }
+    }
+
     public class SignatoryPartyDTO
     {
         public List<PartyIdentificationSignatureDTO> PartyIdentification { get; set; }
+        public List<PartyNameDTO> PartyName { get; set; }
+    }
+
+    public class SignatoryPartyVoidedDTO
+    {
+        public List<PartyIdentificationSignatureVoidedDTO> PartyIdentification { get; set; }
         public List<PartyNameDTO> PartyName { get; set; }
     }
 
@@ -167,6 +194,11 @@ namespace backend.domain
     public class PartyIdentificationSignatureDTO
     {
         public List<TextContentDTO> ID { get; set; }
+    }
+
+    public class PartyIdentificationSignatureVoidedDTO
+    {
+        public List<IdentifierContentDTO> ID { get; set; }
     }
 
     public class PartyIdentificationSupplierDTO
@@ -204,12 +236,25 @@ namespace backend.domain
         public List<PartyDTO> Party { get; set; }
     }
 
+    public class AccountingPartyVoidedDTO
+    {
+        public List<IdentifierContentDTO> CustomerAssignedAccountID { get; set; }
+        public List<IdentifierContentDTO> AdditionalAccountID { get; set; }
+        public List<PostalAddressDTO> Party { get; set; }
+    }
+
     public class PartyDTO
     {
         public List<PartyIdentificationDTO> PartyIdentification { get; set; }
         public List<PartyNameDTO> PartyName { get; set; }
         public List<PartyLegalEntityDTO> PartyLegalEntity { get; set; }
         public List<ContactDTO> Contact { get; set; }
+    }
+
+    public class PostalAddressDTO
+    {
+        public List<RegistrationAddressDTO> PostalAddress { get; set; }
+        public List<PartyLegalEntityDTO> PartyLegalEntity { get; set; }
     }
 
     public class PartyLegalEntityDTO
@@ -223,6 +268,7 @@ namespace backend.domain
         public List<IdentifierContentDTO> ID { get; set; }
         public List<CodeContentDTO> AddressTypeCode { get; set; }
         public List<TextContentDTO> CityName { get; set; }
+        public List<TextContentDTO> StreetName { get; set; }
         public List<TextContentDTO> CountrySubentity { get; set; }
         public List<TextContentDTO> District { get; set; }
         public List<AddressLineDTO> AddressLine { get; set; }
@@ -307,6 +353,15 @@ namespace backend.domain
         public List<PriceDTO> Price { get; set; }
     }
 
+    public class VoidedDocumentsLineDTO
+    {
+        public List<IdentifierContentDTO> LineID { get; set; }
+        public List<CodeContentDTO> DocumentTypeCode { get; set; }
+        public List<TextContentDTO>? DocumentSerialID { get; set; }
+        public List<TextContentDTO>? DocumentNumberID { get; set; }
+        public List<TextContentDTO> VoidReasonDescription { get; set; }
+    }
+
     public class QuantityContentDTO
     {
         public decimal QuantityContent { get; set; }
@@ -339,6 +394,15 @@ namespace backend.domain
     #endregion
 
     #region Comprobante BAJA EFACT
-    public class EfactComprobanteBajaDTO { }
+    public class EfactComprobanteBajaDTO
+    {
+        public string _D { get; set; }
+        public string _S { get; set; }
+        public string _B { get; set; }
+        public string _E { get; set; }
+        public string _SUNAT { get; set; }
+        public List<Voided>? VoidedDocuments { get; set; }
+
+    }
     #endregion
 }
