@@ -104,4 +104,14 @@
     {
         public bbvaResponse NotificarPagoResponse { get; set; }
     }
+
+    public class bbvaExtornarPagoRq
+    {
+        public bbvaRequest ExtornarPago { get; set; }
+    }
+
+    public class bbvaExtornarPagoRs
+    {
+        public bbvaResponse ExtornarPagoResponse { get; set; }
+    }
 }

@@ -241,6 +241,79 @@ namespace backend.services.Controllers.Tesoreria
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<bbvaExtornarPagoRs>> extornarPago([FromBody] bbvaExtornarPagoRq request)
+        {
+            bbvaExtornarPagoRs response = new bbvaExtornarPagoRs()
+            {
+                ExtornarPagoResponse = new bbvaResponse()
+                {
+                    recaudosRs = new bbvaRecaudo()
+                    {
+                        cabecera = request.ExtornarPago.recaudosRq.cabecera
+                        ,
+                        detalle = new bbvaDetalle()
+                    }
+                }
+            };
+
+            try
+            {
+                var sReferencia = request.ExtornarPago.recaudosRq.detalle.transaccion.numeroDocumento;
+                var sTipo = sReferencia.Split('-')[0];
+                var nCodigo = int.Parse(sReferencia.Split('-')[1]);
+
+                var operacionBancaria = await operacionBancariaService.getOperacionBancariaByReferencia(sReferencia);
+
+                if (operacionBancaria == null)
+                {
+                    throw new Exception();
+                }
+
+                var updOb = new UpdOperacionBancariaRecaudoDTO() {
+                    nIdOperacionBancaria = operacionBancaria.nIdOperacionBancaria.Value
+                    , nIdOrdenPago = (sTipo == "OPV2" ? nCodigo : null)
+                    , nIdCronograma = (sTipo == "CRO2" ? nCodigo : null)
+                };
+
+                var res = await operacionBancariaService.UpdAnularOperacionBancariaRecaudo(updOb);
+
+                if (res.nCod > 0)
+                {
+                    response.ExtornarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                    {
+                        codigo = "0001",
+                        descripcion = "TRANSACCION REALIZADA CON EXITO"
+                    };
+
+                    response.ExtornarPagoResponse.recaudosRs.detalle.transaccion = request.ExtornarPago.recaudosRq.detalle.transaccion;
+                }
+                else
+                {
+                    throw new Exception();
+                }
+
+                JsonSerializerOptions options = new JsonSerializerOptions()
+                {
+                    ReferenceHandler = ReferenceHandler.IgnoreCycles
+                    ,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
+
+                return StatusCode(200, limpiarJson(response));
+            }
+            catch (Exception ex)
+            {
+                response.ExtornarPagoResponse.recaudosRs.detalle.respuesta = new bbvaRespuesta()
+                {
+                    codigo = "3014",
+                    descripcion = "EXTORNO NO PROCESADO PORQUE NO EXISTE REGISTRO DEL PAGO"
+                };
+
+                return StatusCode(200, limpiarJson(response));
+            }
+        }
+
         [HttpGet("[action]")]
         public async Task<ActionResult<OperacionBancariaDTO>> getAllOperacionBancariaRecaudoDisponibles() 
         {
