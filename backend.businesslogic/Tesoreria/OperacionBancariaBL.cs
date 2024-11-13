@@ -43,18 +43,28 @@ namespace backend.businesslogic.Tesoreria
         }
 
         public async Task<SqlRspDTO> InsOperacionBancariaRecaudoBBVA(InsOperacionBancariaRecaudoBBVA operacionBancariaRecaudoBBVA)
-        { 
+        {
             return await repository.InsOperacionBancariaRecaudoBBVA(operacionBancariaRecaudoBBVA);
         }
 
         public async Task<IList<OperacionBancariaDTO>> getAllOperacionBancariaRecaudoDisponibles()
-        { 
+        {
             return await repository.getAllOperacionBancariaRecaudoDisponibles();
         }
 
         public async Task<SqlRspDTO> UpdOperacionBancariaRecaudo(UpdOperacionBancariaRecaudoDTO updOperacionBancariaRecaudoDTO)
         {
             return await repository.UpdOperacionBancariaRecaudo(updOperacionBancariaRecaudoDTO);
+        }
+
+        public async Task<OperacionBancariaDTO> getOperacionBancariaByReferencia(string sReferencia)
+        {
+            return await repository.getOperacionBancariaByReferencia(sReferencia);
+        }
+
+        public async Task<SqlRspDTO> UpdAnularOperacionBancariaRecaudo(UpdOperacionBancariaRecaudoDTO updOperacionBancariaRecaudoDTO)
+        {
+            return await repository.UpdAnularOperacionBancariaRecaudo(updOperacionBancariaRecaudoDTO);
         }
     }
 }
