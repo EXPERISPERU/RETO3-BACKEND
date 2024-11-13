@@ -63,7 +63,6 @@
     public class PreContratoChartFilterDTO
     {
         public int? nIdUsuario { get; set; }
-        
         public int nIdCompania { get; set; }
         public int? nIdTipoFilter { get; set; }
         public int? nIdProyecto { get; set; }

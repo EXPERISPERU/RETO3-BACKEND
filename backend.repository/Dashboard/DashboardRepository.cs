@@ -21,7 +21,7 @@ namespace backend.repository.Dashboard
             _configuration = configuration;
         }
 
-        public async Task<IList<SelectDTO>> getListUsuarios(int nIdCompania, int nIdUsuario)
+        public async Task<IList<SelectDTO>> getListUsuarios(int nIdProveedor)
         {
             IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
@@ -29,8 +29,7 @@ namespace backend.repository.Dashboard
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 1);
-                parameters.Add("nIdCompania", nIdCompania);
-                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdProveedor", nIdProveedor);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
