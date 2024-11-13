@@ -187,5 +187,39 @@ namespace backend.repository.Tesoreria
 
             return resp;
         }
+        
+        public async Task<OperacionBancariaDTO> getOperacionBancariaByReferencia(string sReferencia)
+        {
+            OperacionBancariaDTO resp = new OperacionBancariaDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[bancos].[pa_operacion_bancaria]", 10);
+                parameters.Add("sReferencia", sReferencia);
+
+                resp = await connection.QuerySingleOrDefaultAsync<OperacionBancariaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<SqlRspDTO> UpdAnularOperacionBancariaRecaudo(UpdOperacionBancariaRecaudoDTO updOperacionBancariaRecaudoDTO)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[bancos].[pa_operacion_bancaria]", 11);
+                parameters.Add("nIdOperacionBancaria", updOperacionBancariaRecaudoDTO.nIdOperacionBancaria);
+                parameters.Add("nIdOrdenPago", updOperacionBancariaRecaudoDTO.nIdOrdenPago);
+                parameters.Add("nIdCronograma", updOperacionBancariaRecaudoDTO.nIdCronograma);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }
