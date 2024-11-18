@@ -10,7 +10,7 @@ namespace backend.businesslogic.Interfaces.Contabilidad
     public interface IComprobanteBL
     {
         Task<SqlRspDTO> posInsNotaCredito(NotaCreditoDTO notaCredito);
-        Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO selectComprobante);
+        Task<IList<ComprobanteDTO>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro);
         Task<ComprobanteDTO> getComprobanteById(int nIdComprobante);
         Task<List<ComprobanteDetDTO>> getComprobanteDetById(int nIdComprobante);
         Task<string> formatoComprobanteByIdComprobante(int nIdComprobante);
