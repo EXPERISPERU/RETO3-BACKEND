@@ -202,20 +202,15 @@ namespace backend.services.Utils
                 {
                     Byte[] imageBytes = { };
 
-                    if (sCodigo.Equals("1") && contrato.nCodigoProyecto == 1)
+                    if (contrato.nCodigoProyecto == 1 && sCodigo.Equals("1"))
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_gardenias.png")));
 
                     }
 
-                    if (sCodigo.Equals("1") && contrato.nCodigoProyecto == 3)
+                    if (contrato.nCodigoProyecto == 3 && sCodigo.Equals("1"))
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_obras_sauces.png")));
-                    }
-
-                    if ( (sCodigo.Equals("1") || sCodigo.Equals("5") || sCodigo.Equals("17") || sCodigo.Equals("19")) && contrato.nCodigoProyecto == 3)
-                    {
-                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "membretado_inmobitec.png")));
                     }
 
                     if (contrato.nCodigoProyecto == 2 && (sCodigo.Equals("5") || sCodigo.Equals("15") || sCodigo.Equals("16") || sCodigo.Equals("17")) )
@@ -223,8 +218,22 @@ namespace backend.services.Utils
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "background_cesion_flores.png")));
                     }
 
-                    /*****/
-                    if ( contrato.nCodigoProyecto == 1 && (sCodigo.Equals("5") || sCodigo.Equals("17") || sCodigo.Equals("19")) )
+                    if (contrato.nCodigoProyecto == 3 && sCodigo.Equals("5"))
+                    {
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "membretado_psvds.png")));
+                    }
+
+                    if (contrato.nCodigoProyecto == 3 && (sCodigo.Equals("17") || sCodigo.Equals("19")))
+                    {
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "membretado_inmobitec.png")));
+                    }
+
+                    if (contrato.nCodigoProyecto == 1 && sCodigo.Equals("5"))
+                    {
+                        imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "membretado_psvds.png")));
+                    }
+
+                    if ( contrato.nCodigoProyecto == 1 && (sCodigo.Equals("17") || sCodigo.Equals("19")) )
                     {
                         imageBytes = Convert.FromBase64String(new ImagesData().GetImageWithoutBase(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "membretado_inmobitec.png")));
                     }
@@ -315,7 +324,7 @@ namespace backend.services.Utils
                 int numberOfPages = pdfDoc.GetNumberOfPages();
 
                 for (int i = 1; i <= numberOfPages; i++) {
-                    doc.ShowTextAligned(new Paragraph(sCodigoContrato).SetFontSize(10), pdfDoc.GetDefaultPageSize().GetWidth() - 70, pdfDoc.GetDefaultPageSize().GetHeight() - 50, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                    doc.ShowTextAligned(new Paragraph(sCodigoContrato).SetFontSize(10), pdfDoc.GetDefaultPageSize().GetWidth() - 70, pdfDoc.GetDefaultPageSize().GetHeight() - 25, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
                 }
 
                 doc.Close();
