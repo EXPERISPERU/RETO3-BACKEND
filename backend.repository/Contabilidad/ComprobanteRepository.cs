@@ -103,7 +103,7 @@ namespace backend.repository.Contabilidad
             return res;
         }
 
-        public async Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO select)
+        public async Task<IList<ComprobanteDTO>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
         {
             IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
 
@@ -111,9 +111,11 @@ namespace backend.repository.Contabilidad
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
-                parameters.Add("nIdCompania", select.nIdCompania);
-                parameters.Add("PageNumber", select.PageNumber);
-                parameters.Add("RowspPage", select.RowspPage);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("PageNumber", pagina);
+                parameters.Add("RowspPage", cantpagina);
+                parameters.Add("sFiltro", sFiltro);
+                parameters.Add("nIdTipoComprobante", nIdTipoComprobante);
 
                 list = await connection.QueryAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -242,6 +244,22 @@ namespace backend.repository.Contabilidad
             }
 
             return list.ToList();
+        }
+
+        public async Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja)
+        {
+            ComprobanteBajaDTO res = new ComprobanteBajaDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 16);
+                parameters.Add("nIdComprobanteBaja", nIdComprobanteBaja);
+
+                res = await connection.QuerySingleAsync<ComprobanteBajaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
         }
     }
 }
