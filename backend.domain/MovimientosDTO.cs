@@ -33,6 +33,7 @@ namespace backend.domain
         public int? nIdContrato { get; set; }
 
         //OTROS
+        public string? sCodigoTipoMovimiento { get; set; }
         public string? sTipoMovimiento { get; set; }
         public string? sItem { get; set; }
         public string? sNombreCliente { get; set; }
@@ -187,4 +188,10 @@ namespace backend.domain
 
     }
 
+    public class MovEgresoDTO 
+    {
+        public int nIdComprobante { get; set; }
+        public int nIdUsuario_crea { get; set; }
+        public int nIdCaja { get; set; }
+    }
 }

@@ -23,5 +23,6 @@ namespace backend.businesslogic.Interfaces.Contabilidad
         Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja);
         Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena);
         Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja);
+        Task<IList<ComprobanteDTO>> getListComprobanteEgresosCaja(SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja);
     }
 }
