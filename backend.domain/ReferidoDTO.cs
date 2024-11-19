@@ -52,9 +52,12 @@ namespace backend.domain
     {
         public int nIdUsuario { get; set; }
         public int nIdCompania { get; set; }
+        public int? nIdTipoFilter { get; set; }
         public string? sCodTrimestre { get; set; }
         public string? sMes { get; set; }
         public string? sAno { get; set; }
+        public int? nIdSubordinado { get; set; }
+        public int? nIdProveedor { get; set; }
     }
 
 }
