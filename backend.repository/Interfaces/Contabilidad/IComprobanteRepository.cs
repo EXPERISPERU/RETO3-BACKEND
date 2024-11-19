@@ -10,7 +10,7 @@ namespace backend.repository.Interfaces.Contabilidad
     public interface IComprobanteRepository
     {
         Task<SqlRspDTO> posInsNotaCredito(NotaCreditoDTO notaCredito);
-        Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO selectComprobante);
+        Task<IList<ComprobanteDTO>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro);
         Task<ComprobanteDTO> getComprobanteById(int nIdComprobante);
         Task<List<ComprobanteDetDTO>> getComprobanteDetById(int nIdComprobante);
         Task<string> formatoComprobanteByIdComprobante(int nIdComprobante);
@@ -22,5 +22,7 @@ namespace backend.repository.Interfaces.Contabilidad
         Task<IList<SelectDTO>> getSelectTipoMotivoBaja();
         Task<SqlRspDTO> InsComprobanteBaja(ComprobanteBajaDTO comprobanteBaja);
         Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena);
+        Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja);
+
     }
 }

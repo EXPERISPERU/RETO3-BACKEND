@@ -363,7 +363,7 @@ namespace backend.services.Utils
                             TextContent = comprobante.sMotivoNotaCd
                         }
                     }
-                    };
+                };
             }
 
             BillingReferenceDTO billingReference = new BillingReferenceDTO()
@@ -833,7 +833,220 @@ namespace backend.services.Utils
 
         private EfactComprobanteBajaDTO comprobanteBajaEfact(ComprobanteBajaDTO comprobanteBaja)
         {
-            return new EfactComprobanteBajaDTO();
+            EfactComprobanteBajaDTO efactComprobanteBaja = new EfactComprobanteBajaDTO();
+
+            string[] ubigeoCompania = comprobanteBaja.sUbigeoCompania.Split(',').Select(i => i.Trim()).ToArray();
+
+
+            efactComprobanteBaja._D = "urn:oasis:names:specification:ubl:schema:xsd:VoidedDocuments-2";
+            efactComprobanteBaja._S = "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2";
+            efactComprobanteBaja._B = "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2";
+            efactComprobanteBaja._E = "urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2";
+            efactComprobanteBaja._SUNAT = "urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1";
+
+            var invoice = new Voided();
+
+
+            IdentifierContentDTO icUBL = new IdentifierContentDTO() { IdentifierContent = "2.0" };
+            invoice.UBLVersionID = new List<IdentifierContentDTO> { icUBL };
+
+            IdentifierContentDTO icCustomizationID = new IdentifierContentDTO() { IdentifierContent = "1.0" };
+            invoice.CustomizationID = new List<IdentifierContentDTO> { icCustomizationID };
+
+            IdentifierContentDTO icID = new IdentifierContentDTO() { IdentifierContent = "RA-" + comprobanteBaja.dFecha_crea?.ToString("yyyyMMdd") + "-" + comprobanteBaja.nCorrelativo };
+            invoice.ID = new List<IdentifierContentDTO> { icID };
+
+            DateContentDTO creationDate = new DateContentDTO { DateContent = comprobanteBaja.dFecha_crea?.ToString("yyyy-MM-dd") };
+            invoice.ReferenceDate = new List<DateContentDTO> { creationDate };
+
+            DateContentDTO dateContent = new DateContentDTO { DateContent = DateTime.Now.ToString("yyyy-MM-dd") };
+            invoice.IssueDate = new List<DateContentDTO> { dateContent };
+
+            SignatureVoidedDTO signature = new SignatureVoidedDTO
+            {
+                ID = new List<IdentifierContentDTO>()
+                {
+                    new IdentifierContentDTO { IdentifierContent = "IDSignature" }
+                },
+                SignatoryParty = new List<SignatoryPartyVoidedDTO>()
+                {
+                    new SignatoryPartyVoidedDTO
+                    {
+                        PartyIdentification = new List<PartyIdentificationSignatureVoidedDTO>()
+                        {
+                            new PartyIdentificationSignatureVoidedDTO
+                            {
+                                ID = new List<IdentifierContentDTO>()
+                                {
+                                    new IdentifierContentDTO { IdentifierContent = comprobanteBaja.sRUCCompania }
+                                }
+                            }
+                        },
+                        PartyName = new List<PartyNameDTO>()
+                        {
+                            new PartyNameDTO
+                            {
+                                Name = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO
+                                    {
+                                        TextContent = comprobanteBaja.sRazonSocialCompania
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                DigitalSignatureAttachment = new List<DigitalSignatureAttachmentDTO>()
+                {
+                    new DigitalSignatureAttachmentDTO
+                    {
+                        ExternalReference = new List<ExternalReferenceDTO>()
+                        {
+                            new ExternalReferenceDTO
+                            {
+                                URI = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO { TextContent = "IDSignature" }
+                                }
+                            }
+                        }
+                    }
+                },
+            };
+            invoice.Signature = new List<SignatureVoidedDTO> { signature };
+
+            AccountingPartyVoidedDTO accountingSupplierParty = new AccountingPartyVoidedDTO
+            {
+                CustomerAssignedAccountID = new List<IdentifierContentDTO>()
+                {
+                    new IdentifierContentDTO()
+                    {
+                        IdentifierContent = comprobanteBaja.sRUCCompania
+                    }
+                },
+                AdditionalAccountID = new List<IdentifierContentDTO>()
+                {
+                    new IdentifierContentDTO()
+                    {
+                        IdentifierContent = "6"
+                    }
+                },
+                Party = new List<PostalAddressDTO>()
+                {
+                    new PostalAddressDTO()
+                    {
+                        PostalAddress = new List<RegistrationAddressDTO>()
+                        {
+                            new RegistrationAddressDTO
+                            {
+                                ID = new List<IdentifierContentDTO>()
+                                {
+                                    new IdentifierContentDTO
+                                    {
+                                        IdentifierContent = "150122",
+                                    }
+                                },
+                                StreetName = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO()
+                                    {
+                                        TextContent = comprobanteBaja.sDireccionCompania
+                                    }
+                                },
+                                CityName = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO { TextContent = ubigeoCompania[0].ToString() },
+                                },
+                                CountrySubentity = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO { TextContent = ubigeoCompania[1].ToString() },
+                                },
+                                District  = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO { TextContent = ubigeoCompania[2].ToString() },
+                                },
+                                Country = new List<CountryDTO>
+                                {
+                                    new CountryDTO
+                                    {
+                                        IdentificationCode = new List<CodeContentDTO>
+                                        {
+                                            new CodeContentDTO
+                                            {
+                                                CodeContent = "PE",
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        PartyLegalEntity = new List<PartyLegalEntityDTO>()
+                        {
+                            new PartyLegalEntityDTO()
+                            {
+                                RegistrationName = new List<TextContentDTO>()
+                                {
+                                    new TextContentDTO
+                                    {
+                                        TextContent = comprobanteBaja.sRazonSocialCompania
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            };
+
+            invoice.AccountingSupplierParty = new List<AccountingPartyVoidedDTO> { accountingSupplierParty };
+
+            var voidedDocumentsLine = new List<VoidedDocumentsLineDTO>();
+
+            VoidedDocumentsLineDTO voidedLine = new VoidedDocumentsLineDTO()
+            {
+                LineID = new List<IdentifierContentDTO>()
+                {
+                    new IdentifierContentDTO
+                    {
+                        IdentifierContent = 1,
+                    }
+                },
+                DocumentTypeCode = new List<CodeContentDTO>()
+                {
+                    new CodeContentDTO
+                    {
+                        CodeContent = "01"
+                    }
+                },
+                DocumentSerialID = new List<TextContentDTO>()
+                {
+                    new TextContentDTO()
+                    {
+                        TextContent = comprobanteBaja.sSerieC
+                    }
+                },
+                DocumentNumberID = new List<TextContentDTO>()
+                {
+                    new TextContentDTO()
+                    {
+                        TextContent = comprobanteBaja.nCorrelativoC?.ToString().PadLeft(8, '0')
+                    }
+                },
+                VoidReasonDescription = new List<TextContentDTO>()
+                {
+                    new TextContentDTO()
+                    {
+                        TextContent = comprobanteBaja.sMotivoBaja
+                    }
+                }
+            };
+
+            invoice.VoidedDocumentsLine = new List<VoidedDocumentsLineDTO>() { voidedLine };
+
+            efactComprobanteBaja.VoidedDocuments = new List<Voided> { invoice };
+
+
+            return efactComprobanteBaja;
         }
 
         private async Task<efactAuthResponseDTO> eFactGetToken()
@@ -938,14 +1151,72 @@ namespace backend.services.Utils
                 return new efactResponseDTO() { code = "BACKEND", description = ex.Message };
             }
         }
-        
-        public async Task<efactResponseDTO> BajaDocumento(ComprobanteBajaDTO comprobanteBaja) 
+
+        public async Task<efactResponseDTO> BajaDocumento(ComprobanteBajaDTO comprobanteBaja)
         {
             try
             {
                 //TODO
                 //Llamar al metodo para generar el JSON para BAJA
-                EfactComprobanteBajaDTO comprobanteBajaDTO = this.comprobanteBajaEfact(comprobanteBaja);
+                EfactComprobanteBajaDTO comprobanteBajaEfact = this.comprobanteBajaEfact(comprobanteBaja);
+                string nombreDocumento = comprobanteBaja.sRUCCompania + "-RA-" + comprobanteBaja.dFecha_crea?.ToString("yyyyMMdd") + "-" + comprobanteBaja.nCorrelativo + ".json";
+
+                string tmpFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "tmp");
+
+                if (!Directory.Exists(tmpFolderPath))
+                {
+                    Directory.CreateDirectory(tmpFolderPath);
+                }
+
+                // Serializar el objeto a JSON con configuración de ignorar valores nulos
+                var jsonString = JsonConvert.SerializeObject(
+                    comprobanteBajaEfact,
+                    Newtonsoft.Json.Formatting.None,
+                    new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    }
+                );
+
+                // Ruta completa del archivo
+                string filePath = Path.Combine(tmpFolderPath, nombreDocumento);
+
+                // Escribir el JSON en el archivo
+                File.WriteAllText(filePath, jsonString);
+
+                string urlFinal = eFactUrlBase + eFactUrlDocument;
+                var authResponse = await this.eFactGetToken();
+
+                // CONSUMIR SERVICIO PARA ENVIAR ARCHIVO
+                //using (var httpClient = new HttpClient())
+                //{
+                //    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authResponse.access_token);
+
+                //    var content = new MultipartFormDataContent();
+
+                //    byte[] xmlBytes = await File.ReadAllBytesAsync(filePath);
+                //    var fileContent = new ByteArrayContent(xmlBytes);
+                //    fileContent.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+                //    content.Add(fileContent, "file", nombreDocumento);
+
+                //    var response = await httpClient.PostAsync(urlFinal, content);
+                //    int status = (int)response.StatusCode;
+
+                //    File.Delete(filePath);
+
+                //    string res = await response.Content.ReadAsStringAsync();
+                //    var result = JsonConvert.DeserializeObject<efactResponseDTO>(res);
+
+                //    if (status == 200)
+                //    {
+                //        return result;
+                //    }
+                //    else
+                //    {
+                //        return new efactResponseDTO() { code = result?.code, description = result?.description };
+                //    }
+                //}
+
                 //comunicarnos con servicio de EFACT
                 return new efactResponseDTO() { code = "BACKEND", description = "TEST" };
             }
