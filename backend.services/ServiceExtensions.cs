@@ -50,6 +50,10 @@ using backend.businesslogic.Interfaces.Tesoreria;
 using backend.businesslogic.Tesoreria;
 using backend.repository.Interfaces.Tesoreria;
 using backend.repository.Tesoreria;
+using backend.repository.Dashboard;
+using backend.businesslogic.Dashboard;
+using backend.businesslogic.Interfaces.Dashboard;
+using backend.repository.Interfaces.Dashboard;
 
 namespace backend.services
 {
@@ -150,6 +154,9 @@ namespace backend.services
             services.AddScoped<IMapaRepository, MapaRepository>();
 
             services.AddScoped<IIzipayRepository, IzipayRepository>();
+
+            //DASHBOARD
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -246,6 +253,9 @@ namespace backend.services
             services.AddScoped<IMapaBL, MapaBL>();
 
             services.AddScoped<IIzipayBL, IzipayBL>();
+
+            //DASHBOARD
+            services.AddScoped<IDashboardBL, DashboardBL>();
         }
     }
 }

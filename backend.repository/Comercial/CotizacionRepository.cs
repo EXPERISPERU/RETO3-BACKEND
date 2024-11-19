@@ -48,7 +48,6 @@ namespace backend.repository.Comercial
 
                 list = await connection.QueryAsync<InicialDescuentoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
@@ -82,7 +81,6 @@ namespace backend.repository.Comercial
 
                 list = await connection.QueryAsync<InicialDescuentoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
@@ -264,7 +262,6 @@ namespace backend.repository.Comercial
 
                 list = await connection.QueryAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
@@ -315,10 +312,14 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 17);
                 parameters.Add("nIdUsuario", cotizacionChartFilter.nIdUsuario);
                 parameters.Add("nIdCompania", cotizacionChartFilter.nIdCompania);
+                
+                parameters.Add("nIdTipoFilter", cotizacionChartFilter.nIdTipoFilter);
                 parameters.Add("nIdProyecto", cotizacionChartFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", cotizacionChartFilter.sCodTrimestre);
                 parameters.Add("sMes", cotizacionChartFilter.sMes);
                 parameters.Add("sAno", cotizacionChartFilter.sAno);
+                parameters.Add("nIdSubordinado", cotizacionChartFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", cotizacionChartFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<CotizacionChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
