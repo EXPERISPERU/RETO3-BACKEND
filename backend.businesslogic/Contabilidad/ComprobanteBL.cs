@@ -19,9 +19,9 @@ namespace backend.businesslogic.Contabilidad
             return await repository.posInsNotaCredito(notaCredito);
         }
 
-        public async Task<IList<ComprobanteDTO>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
+        public async Task<IList<ComprobanteDTO>> getListComprobante(FilterComprobanteDTO filtroComprobante)
         {
-            return await repository.getListComprobante(nIdTipoComprobante, nIdCompania, pagina, cantpagina, sFiltro);
+            return await repository.getListComprobante(filtroComprobante);
         }
 
         public async Task<ComprobanteDTO> getComprobanteById(int nIdComprobante)
