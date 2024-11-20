@@ -28,14 +28,14 @@ namespace backend.services.Controllers.Contabilidad
             this.hostingEnvironment = _hostingEnvironment;
         }
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobante([FromBody] FilterComprobanteDTO filtroComprobante)
         {
             ApiResponse<List<ComprobanteDTO>> response = new ApiResponse<List<ComprobanteDTO>>();
 
             try
             {
-                var result = await service.getListComprobante(nIdTipoComprobante, nIdCompania, pagina, cantpagina, sFiltro);
+                var result = await service.getListComprobante(filtroComprobante);
 
                 response.success = true;
                 response.data = (List<ComprobanteDTO>)result;

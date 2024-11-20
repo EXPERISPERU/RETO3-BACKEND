@@ -99,9 +99,12 @@ namespace backend.domain
         public string sFecha_crea { get; set; }
     }
 
-    public class SelectComprobanteDTO
+    public class FilterComprobanteDTO
     {
         public int nIdCompania { get; set; }
+        public int nIdTipoComprobante { get; set; }
+        public string? sSerie { get; set; }
+        public int? nCorrelativo { get; set; }
         public int PageNumber { get; set; }
         public int RowspPage { get; set; }
     }

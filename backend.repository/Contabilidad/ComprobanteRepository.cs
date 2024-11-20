@@ -103,7 +103,7 @@ namespace backend.repository.Contabilidad
             return res;
         }
 
-        public async Task<IList<ComprobanteDTO>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
+        public async Task<IList<ComprobanteDTO>> getListComprobante(FilterComprobanteDTO filtroComprobante)
         {
             IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
 
@@ -111,11 +111,12 @@ namespace backend.repository.Contabilidad
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 8);
-                parameters.Add("nIdCompania", nIdCompania);
-                parameters.Add("PageNumber", pagina);
-                parameters.Add("RowspPage", cantpagina);
-                parameters.Add("sFiltro", sFiltro);
-                parameters.Add("nIdTipoComprobante", nIdTipoComprobante);
+                parameters.Add("nIdCompania", filtroComprobante.nIdCompania);
+                parameters.Add("PageNumber", filtroComprobante.PageNumber);
+                parameters.Add("RowspPage", filtroComprobante.RowspPage);
+                parameters.Add("nIdTipoComprobante", filtroComprobante.nIdTipoComprobante);
+                parameters.Add("sSerie", filtroComprobante.sSerie);
+                parameters.Add("nCorrelativo", filtroComprobante.nCorrelativo);
 
                 list = await connection.QueryAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
