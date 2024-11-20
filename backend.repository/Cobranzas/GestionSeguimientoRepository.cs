@@ -558,9 +558,12 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 37);
                 parameters.Add("nIdUsuario", seguimientoChartFilter.nIdUsuario);
                 parameters.Add("nIdCompania", seguimientoChartFilter.nIdCompania);
+                parameters.Add("nIdTipoFilter", seguimientoChartFilter.nIdTipoFilter);
                 parameters.Add("sCodTrimestre", seguimientoChartFilter.sCodTrimestre);
                 parameters.Add("sMes", seguimientoChartFilter.sMes);
                 parameters.Add("sAno", seguimientoChartFilter.sAno);
+                parameters.Add("nIdSubordinado", seguimientoChartFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", seguimientoChartFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<SeguimientoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

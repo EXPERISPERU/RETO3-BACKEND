@@ -125,6 +125,12 @@ namespace backend.domain
     }
     #endregion
 
-
+    public class SelectComprobanteEgresoCajaDTO
+    { 
+        public int? nIdCompania { get; set; }
+        public int? nIdCliente { get; set; }
+        public string? sSerie { get; set; }
+        public int? nCorrelativo { get; set; }
+    }
 
 }

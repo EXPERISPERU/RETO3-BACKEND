@@ -480,5 +480,23 @@ namespace backend.repository.Tesoreria
 
             return resp;
         }
+
+        public async Task<SqlRspDTO> InsMovimientosEgreso(MovEgresoDTO movEgreso)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 21);
+                parameters.Add("nIdComprobante", movEgreso.nIdComprobante);
+                parameters.Add("nIdUsuario_crea", movEgreso.nIdUsuario_crea);
+                parameters.Add("nIdCaja", movEgreso.nIdCaja);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
     }
 }

@@ -19,9 +19,9 @@ namespace backend.businesslogic.Contabilidad
             return await repository.posInsNotaCredito(notaCredito);
         }
 
-        public async Task<IList<ComprobanteDTO>> getListComprobante(SelectComprobanteDTO selectComprobante)
+        public async Task<IList<ComprobanteDTO>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
         {
-            return await repository.getListComprobante(selectComprobante);
+            return await repository.getListComprobante(nIdTipoComprobante, nIdCompania, pagina, cantpagina, sFiltro);
         }
 
         public async Task<ComprobanteDTO> getComprobanteById(int nIdComprobante)
@@ -77,6 +77,16 @@ namespace backend.businesslogic.Contabilidad
         public async Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena)
         {
             return await repository.AuthUserBaja(sUsuario, sContrasena);
+        }
+
+        public async Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja)
+        {
+            return await repository.getComprobanteBajaById(nIdComprobanteBaja);
+        }
+
+        public async Task<IList<ComprobanteDTO>> getListComprobanteEgresosCaja(SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja)
+        {
+            return await repository.getListComprobanteEgresosCaja(selectComprobanteEgresoCaja);
         }
     }
 }

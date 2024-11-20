@@ -15,6 +15,6 @@ namespace backend.businesslogic.Interfaces.Comercial
         Task<ContratoDTO> getDataPreContratoByLote(int nIdLote, int nIdProyecto, int nIdUsuario);
         Task<IList<OrdenPagoPreContratoDTO>> getListOPsPreContratoByContrato(int nIdContrato, int nIdMoneda);
         Task<SqlRspDTO> postInsAdicPreContratoLote(InsPreContratoLoteDTO insPreContratoLote);
-        Task<IList<PreContratoChartDTO>> postListPreContratoChart(PreContratoFilterDTO preContratoFilter);
+        Task<IList<PreContratoChartDTO>> postListPreContratoChart(PreContratoChartFilterDTO preContratoFilter);
     }
 }

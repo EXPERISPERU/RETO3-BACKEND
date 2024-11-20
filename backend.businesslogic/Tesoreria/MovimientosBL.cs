@@ -126,5 +126,10 @@ namespace backend.businesslogic.Tesoreria
         {
             return await repository.InsMovimientosAdicionPrecontrato(preContrato);
         }
+
+        public async Task<SqlRspDTO> InsMovimientosEgreso(MovEgresoDTO movEgreso)
+        {
+            return await repository.InsMovimientosEgreso(movEgreso);
+        }
     }
 }

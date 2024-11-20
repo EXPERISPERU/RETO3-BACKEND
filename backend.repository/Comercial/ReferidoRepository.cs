@@ -192,8 +192,12 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_referido]", 12);
                 parameters.Add("nIdUsuario", referidoChartFilter.nIdUsuario);
                 parameters.Add("nIdCompania", referidoChartFilter.nIdCompania);
+                parameters.Add("nIdTipoFilter", referidoChartFilter.nIdTipoFilter);
+                parameters.Add("sCodTrimestre", referidoChartFilter.sCodTrimestre);
                 parameters.Add("sMes", referidoChartFilter.sMes);
                 parameters.Add("sAno", referidoChartFilter.sAno);
+                parameters.Add("nIdSubordinado", referidoChartFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", referidoChartFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<ReferidoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

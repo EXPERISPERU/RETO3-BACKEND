@@ -28,14 +28,14 @@ namespace backend.services.Controllers.Contabilidad
             this.hostingEnvironment = _hostingEnvironment;
         }
 
-        [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobante(SelectComprobanteDTO selectComprobante)
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobante(int nIdTipoComprobante, int nIdCompania, int pagina, int cantpagina, string? sFiltro)
         {
             ApiResponse<List<ComprobanteDTO>> response = new ApiResponse<List<ComprobanteDTO>>();
 
             try
             {
-                var result = await service.getListComprobante(selectComprobante);
+                var result = await service.getListComprobante(nIdTipoComprobante, nIdCompania, pagina, cantpagina, sFiltro);
 
                 response.success = true;
                 response.data = (List<ComprobanteDTO>)result;
@@ -456,6 +456,62 @@ namespace backend.services.Controllers.Contabilidad
 
                 response.success = true;
                 response.data = (List<ComprobanteDetDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> certificarComprobanteBaja(int nIdComprobanteBaja)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                ComprobanteBajaDTO comprobanteBaja = await service.getComprobanteBajaById(nIdComprobanteBaja);
+
+                efactResponseDTO res = await new Efact(configuration).BajaDocumento(comprobanteBaja);
+
+                // if (comprobante.sCodigoTipoComprobante == "18")
+                // {
+                //     comprobanteOrigen = await service.getComprobanteById(comprobante.nIdComprobanteOrigen.Value);
+                // }
+
+                // if (comprobante.nCodigoCompania == 1)
+                // {
+
+                //     efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet, comprobanteOrigen, metodosPago);
+
+                //     service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
+                // }
+
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobanteEgresosCaja([FromBody] SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja)
+        {
+            ApiResponse<List<ComprobanteDTO>> response = new ApiResponse<List<ComprobanteDTO>>();
+
+            try
+            {
+                var result = await service.getListComprobanteEgresosCaja(selectComprobanteEgresoCaja);
+
+                response.success = true;
+                response.data = (List<ComprobanteDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
