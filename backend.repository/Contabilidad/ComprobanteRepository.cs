@@ -261,5 +261,24 @@ namespace backend.repository.Contabilidad
 
             return res;
         }
+
+        public async Task<IList<ComprobanteDTO>> getListComprobanteEgresosCaja(SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja)
+        {
+            IEnumerable<ComprobanteDTO> list = new List<ComprobanteDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_comprobante]", 17);
+                parameters.Add("nIdCompania", selectComprobanteEgresoCaja.nIdCompania);
+                parameters.Add("nIdCliente", selectComprobanteEgresoCaja.nIdCliente);
+                parameters.Add("sSerie", selectComprobanteEgresoCaja.sSerie);
+                parameters.Add("nCorrelativo", selectComprobanteEgresoCaja.nCorrelativo);
+
+                list = await connection.QueryAsync<ComprobanteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }

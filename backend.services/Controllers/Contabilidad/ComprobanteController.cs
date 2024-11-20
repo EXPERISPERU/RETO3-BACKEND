@@ -501,6 +501,25 @@ namespace backend.services.Controllers.Contabilidad
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ComprobanteDTO>>>> getListComprobanteEgresosCaja([FromBody] SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja)
+        {
+            ApiResponse<List<ComprobanteDTO>> response = new ApiResponse<List<ComprobanteDTO>>();
 
+            try
+            {
+                var result = await service.getListComprobanteEgresosCaja(selectComprobanteEgresoCaja);
+
+                response.success = true;
+                response.data = (List<ComprobanteDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
