@@ -44,7 +44,7 @@ namespace backend.repository.Dashboard
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 4);
+                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 2);
                 parameters.Add("nIdCompania", nIdCompania);
                 parameters.Add("nIdUsuario", nIdUsuario);
 
@@ -61,7 +61,7 @@ namespace backend.repository.Dashboard
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 5);
+                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 3);
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
