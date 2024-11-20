@@ -108,10 +108,14 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_venta_lote]", 4);
                 parameters.Add("nIdUsuario", ventaChartFilter.nIdUsuario);
                 parameters.Add("nIdCompania", ventaChartFilter.nIdCompania);
+                parameters.Add("nIdTipoFilter", ventaChartFilter.nIdTipoFilter);
+
                 parameters.Add("nIdProyecto", ventaChartFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", ventaChartFilter.sCodTrimestre);
                 parameters.Add("sMes", ventaChartFilter.sMes);
                 parameters.Add("sAno", ventaChartFilter.sAno);
+                parameters.Add("nIdSubordinado", ventaChartFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", ventaChartFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<VentaLoteChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
