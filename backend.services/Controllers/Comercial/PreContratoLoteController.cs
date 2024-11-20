@@ -147,7 +147,7 @@ namespace backend.services.Controllers.Comercial
 
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> postListPreContratoChart(PreContratoFilterDTO preContratoFilter)
+        public async Task<ActionResult<ApiResponse<List<PreContratoChartDTO>>>> postListPreContratoChart(PreContratoChartFilterDTO preContratoFilter)
         {
             ApiResponse<List<PreContratoChartDTO>> response = new ApiResponse<List<PreContratoChartDTO>>();
 

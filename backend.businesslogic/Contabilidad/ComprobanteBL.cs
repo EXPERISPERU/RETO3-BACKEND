@@ -83,5 +83,10 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.getComprobanteBajaById(nIdComprobanteBaja);
         }
+
+        public async Task<IList<ComprobanteDTO>> getListComprobanteEgresosCaja(SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja)
+        {
+            return await repository.getListComprobanteEgresosCaja(selectComprobanteEgresoCaja);
+        }
     }
 }
