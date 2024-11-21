@@ -225,8 +225,14 @@ namespace backend.repository.Comercial
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cliente]", 10);
                 parameters.Add("nIdUsuario", clienteTrazabilidadFilter.nIdUsuario);
                 parameters.Add("nIdCompania", clienteTrazabilidadFilter.nIdCompania);
+
+                parameters.Add("nIdTipoFilter", clienteTrazabilidadFilter.nIdTipoFilter);
                 parameters.Add("nIdProyecto", clienteTrazabilidadFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", clienteTrazabilidadFilter.sCodTrimestre);
+                parameters.Add("sMes", clienteTrazabilidadFilter.sMes);
+                parameters.Add("sAno", clienteTrazabilidadFilter.sAno);
+                parameters.Add("nIdSubordinado", clienteTrazabilidadFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", clienteTrazabilidadFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<ClienteTrazabilidadDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
