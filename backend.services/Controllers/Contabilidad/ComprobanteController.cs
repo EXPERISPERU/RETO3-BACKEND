@@ -67,6 +67,7 @@ namespace backend.services.Controllers.Contabilidad
                     var html = "";
 
                     var logoCompania = "";
+                    var logoNC = "";
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
@@ -125,8 +126,13 @@ namespace backend.services.Controllers.Contabilidad
 
                     }
 
-                    if (comprobante.sCodigoTipoComprobante == "3")
+                    if (comprobante.sCodigoTipoComprobante == "3" || comprobante.sCodigoTipoComprobante == "18")
                     {
+                        if (comprobante.nCodigoCompania == 1)
+                        {
+                            logoNC = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec_nc.png"));
+                        }
+
                         if (comprobante.nCodigoCompania == 2)
                         {
                             logoCompania = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_leon_beach.png"));
@@ -154,6 +160,7 @@ namespace backend.services.Controllers.Contabilidad
                         html = "<style>.page-break { page-break-after: always; } @page { margin: 0pt; margin-top: 15pt }</style>";
                         html += "<div class=\"page-break\">";
                         html += sCuerpo
+                        .Replace("#sLogoNotaCredito#", logoNC)
                         .Replace("#sLogoData#", logoCompania)
                         .Replace("ComprobanteHeader.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "header_boleta_inmobitec.png")))
                         .Replace("BbvaLogo.png", new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_bbva.png")))
