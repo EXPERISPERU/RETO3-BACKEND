@@ -41,6 +41,7 @@ namespace backend.services.Controllers.Proyectos
         }
 
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public async Task<ActionResult<ApiResponse<ProyectoDTO>>> getProyectoByID(int nIdProyecto)
         {
             ApiResponse<ProyectoDTO> response = new ApiResponse<ProyectoDTO>();
