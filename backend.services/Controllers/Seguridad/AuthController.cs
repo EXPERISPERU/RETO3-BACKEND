@@ -25,7 +25,7 @@ namespace backend.services.Controllers.Seguridad
         {
             secretKey = _configuration["JWTConfig:secretKey"];
             service = _service;
-            expirationMin = 10;
+            expirationMin = 30;
         }
 
         [HttpPost("[action]")]
