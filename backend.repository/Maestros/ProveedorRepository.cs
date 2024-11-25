@@ -86,6 +86,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sApePaterno", proveedor.sApePaterno);
                 parameters.Add("sApeMaterno", proveedor.sApeMaterno);
                 parameters.Add("sNombreCompleto", proveedor.sNombreCompleto);
+                parameters.Add("sAlias", proveedor.sAlias);
                 parameters.Add("sCorreo", proveedor.sCorreo);
                 parameters.Add("sCelular", proveedor.sCelular);
                 parameters.Add("sTelefono", proveedor.sTelefono);
@@ -114,6 +115,7 @@ namespace backend.repository.Maestros
                 parameters.Add("sApePaterno", proveedor.sApePaterno);
                 parameters.Add("sApeMaterno", proveedor.sApeMaterno);
                 parameters.Add("sNombreCompleto", proveedor.sNombreCompleto);
+                parameters.Add("sAlias", proveedor.sAlias);
                 parameters.Add("sCorreo", proveedor.sCorreo);
                 parameters.Add("sCelular", proveedor.sCelular);
                 parameters.Add("sTelefono", proveedor.sTelefono);

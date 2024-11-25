@@ -11,6 +11,7 @@ namespace backend.domain
         public int? nIdProveedor { get; set; }
         public int? nIdTipo { get; set; }
         public int? nIdPersona { get; set; }
+        public string? sAlias { get; set; }
         public string? sDNI { get; set; }
         public string sRUC { get; set; }
         public string? sPriNombre { get; set; }

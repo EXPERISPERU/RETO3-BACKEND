@@ -63,6 +63,7 @@
         public DateTime? dFecha_crea { get; set; }
         public string? sPeriodo { get; set; }
         public string? sPredio { get; set; }
+        public string sNombreAsesor { get; set; }
         public int? nDiasSinContacto { get; set; }
 
     }
@@ -73,6 +74,10 @@
         public int nIdCompania { get; set; }
         public int? nIdProyecto { get; set; }
         public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
+        public int? nIdSubordinado { get; set; }
+        public int? nIdProveedor { get; set; }
     }
 
 
