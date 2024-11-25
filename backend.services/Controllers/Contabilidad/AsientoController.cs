@@ -66,6 +66,7 @@ namespace backend.services.Controllers.Contabilidad
 
         }
 
+        [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<List<AsientoBoletasDTO>>>> getAsientoBoletas(AsientoFilterDTO filter)
         {
             ApiResponse<List<AsientoBoletasDTO>> response = new ApiResponse<List<AsientoBoletasDTO>>();
@@ -89,6 +90,7 @@ namespace backend.services.Controllers.Contabilidad
 
         }
 
+        [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<List<AsientoDevolucionDTO>>>> getAsientoDevoluciones(AsientoFilterDTO filter)
         {
             ApiResponse<List<AsientoDevolucionDTO>> response = new ApiResponse<List<AsientoDevolucionDTO>>();
