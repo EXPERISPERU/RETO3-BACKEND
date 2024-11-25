@@ -65,5 +65,53 @@ namespace backend.services.Controllers.Contabilidad
             }
 
         }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<AsientoBoletasDTO>>>> getAsientoBoletas(AsientoFilterDTO filter)
+        {
+            ApiResponse<List<AsientoBoletasDTO>> response = new ApiResponse<List<AsientoBoletasDTO>>();
+
+            try
+            {
+                var result = await service.getAsientoBoletas(filter);
+
+                Console.WriteLine(result);
+
+                response.success = true;
+                response.data = (List<AsientoBoletasDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<AsientoDevolucionDTO>>>> getAsientoDevoluciones(AsientoFilterDTO filter)
+        {
+            ApiResponse<List<AsientoDevolucionDTO>> response = new ApiResponse<List<AsientoDevolucionDTO>>();
+
+            try
+            {
+                var result = await service.getAsientoDevoluciones(filter);
+
+                Console.WriteLine(result);
+
+                response.success = true;
+                response.data = (List<AsientoDevolucionDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+
+        }
     }
 }

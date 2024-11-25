@@ -10,5 +10,7 @@ namespace backend.repository.Interfaces.Contabilidad
     {
         Task<IList<AsientoCajaDTO>> getAsientoCaja(AsientoFilterDTO filter);
         Task<IList<AsientoBancoDTO>> getAsientoBancos(AsientoFilterDTO filter);
+        Task<IList<AsientoBoletasDTO>> getAsientoBoletas(AsientoFilterDTO filter);
+        Task<IList<AsientoDevolucionDTO>> getAsientoDevoluciones(AsientoFilterDTO filter);
     }
 }

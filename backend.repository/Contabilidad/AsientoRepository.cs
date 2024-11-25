@@ -56,5 +56,41 @@ namespace backend.repository.Contabilidad
 
             return list.ToList();
         }
+
+        public async Task<IList<AsientoBoletasDTO>> getAsientoBoletas(AsientoFilterDTO filter)
+        {
+            IEnumerable<AsientoBoletasDTO> list = new List<AsientoBoletasDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_contable]", 3);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+
+                list = await connection.QueryAsync<AsientoBoletasDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<AsientoDevolucionDTO>> getAsientoDevoluciones(AsientoFilterDTO filter)
+        {
+            IEnumerable<AsientoDevolucionDTO> list = new List<AsientoDevolucionDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_contable]", 4);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+
+                list = await connection.QueryAsync<AsientoDevolucionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }
