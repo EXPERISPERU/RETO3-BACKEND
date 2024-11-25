@@ -93,6 +93,7 @@ namespace backend.domain
         public string? sCodAsientoProyecto { get; set; }
         public string? sSubdiario { get; set; }
         public string? sCuentaContable { get; set; }
+        public string? sMovimiento{ get; set; }
         public string? sCuentaIgv { get; set; }
         public string? sFechaDocumento { get; set; }
         public int nIdCompania { get; set; }
