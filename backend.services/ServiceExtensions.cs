@@ -140,7 +140,7 @@ namespace backend.services
             services.AddScoped<IVigenciaServicioRepository, VigenciaServicioRepository>();
 
             services.AddScoped<ICondicionesRepository, CondicionesRepository>();
-          
+
             services.AddScoped<ICajaRepository, CajaRepository>();
 
             services.AddScoped<IMovimientosRepository, MovimientosRepository>();
@@ -157,6 +157,9 @@ namespace backend.services
 
             //DASHBOARD
             services.AddScoped<IDashboardRepository, DashboardRepository>();
+
+            //Asiento Contable
+            services.AddScoped<IAsientoRepository, AsientoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -239,7 +242,7 @@ namespace backend.services
             services.AddScoped<IVigenciaServicioBL, VigenciaServicioBL>();
 
             services.AddScoped<ICondicionesBL, CondicionesBL>();
-          
+
             services.AddScoped<ICajaBL, CajaBL>();
 
             services.AddScoped<IMovimientosBL, MovimientosBL>();
@@ -256,6 +259,9 @@ namespace backend.services
 
             //DASHBOARD
             services.AddScoped<IDashboardBL, DashboardBL>();
+
+            //Asiento Contable
+            services.AddScoped<IAsientoBL, AsientoBL>();
         }
     }
 }
