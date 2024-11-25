@@ -7,7 +7,7 @@ namespace backend.businesslogic.Utils.Asientos
         public Boletas() { }
         public string Debe(AsientoBoletasDTO asiento, int indice)
         {
-            return $"{asiento.sCuentaContable}|{asiento.sAnioMes}|{asiento.sSubdiario}|{indice.ToString().PadLeft(4, '0')}|{asiento.sFechaDocumento}|02|{(asiento.sDNI ?? asiento.sRUC ?? asiento.sCE ?? "")}|TR|{asiento.sMovimiento}|{asiento.sFechaDocumento}|MN|{asiento.nValorTotal}|VTA|{asiento.sFechaDocumento}|{asiento.nValorIgv}|{asiento.sDescripcionItem}||{asiento.sDescripcionItem}|{asiento.bAnulado}|D|003";
+            return $"{asiento.sCuentaContable}|{asiento.sAnioMes}|{asiento.sSubdiario}|{indice.ToString().PadLeft(4, '0')}|{asiento.sFechaDocumento}|02|{(asiento.sDNI ?? asiento.sRUC ?? asiento.sCE ?? "")}|{asiento.sComprobante}|{asiento.sFechaDocumento}|||{asiento.nValorIgv}|{asiento.nValorTotal}|VTA|{asiento.sFechaDocumento}|{asiento.nValorIgv}|{asiento.sDescripcionItem}||{asiento.sDescripcionItem}|{asiento.bAnulado}|D|003";
         }
 
         public string Igv(AsientoBoletasDTO asiento, int indice)
