@@ -252,6 +252,10 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCompania", clienteInactivoFilter.nIdCompania);
                 parameters.Add("nIdProyecto", clienteInactivoFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", clienteInactivoFilter.sCodTrimestre);
+                parameters.Add("sMes", clienteInactivoFilter.sMes);
+                parameters.Add("sAno", clienteInactivoFilter.sAno);
+                parameters.Add("nIdSubordinado", clienteInactivoFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", clienteInactivoFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<ClienteActivoInactivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -270,6 +274,10 @@ namespace backend.repository.Comercial
                 parameters.Add("nIdCompania", clienteActivoFilter.nIdCompania);
                 parameters.Add("nIdProyecto", clienteActivoFilter.nIdProyecto);
                 parameters.Add("sCodTrimestre", clienteActivoFilter.sCodTrimestre);
+                parameters.Add("sMes", clienteActivoFilter.sMes);
+                parameters.Add("sAno", clienteActivoFilter.sAno);
+                parameters.Add("nIdSubordinado", clienteActivoFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", clienteActivoFilter.nIdProveedor);
 
                 list = await connection.QueryAsync<ClienteActivoInactivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
