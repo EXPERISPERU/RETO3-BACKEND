@@ -58,6 +58,7 @@
         public string? sNombreAsesor { get; set; }
         public DateTime? dFecha { get; set; }
         public int? nCountPreContrato { get; set; }
+        public decimal? nSumPreContrato { get; set; }
     }
 
     public class PreContratoChartFilterDTO
@@ -71,5 +72,6 @@
         public string? sAno { get; set; }
         public int? nIdSubordinado { get; set; }
         public int? nIdProveedor { get; set; }
+        public int? nTipoMonto { get; set; }
     }
 }
