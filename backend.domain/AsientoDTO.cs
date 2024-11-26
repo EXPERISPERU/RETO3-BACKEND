@@ -98,6 +98,7 @@ namespace backend.domain
         public string? sFechaDocumento { get; set; }
         public int nIdCompania { get; set; }
         public string? sAnioMes { get; set; }
+        public string? sCodProyecto { get; set; }
         public string? sTipoAnexo { get; set; }
         public string? sCodigoAnexo { get; set; }
         public int? bAnulado { get; set; }
@@ -113,7 +114,10 @@ namespace backend.domain
         public string sComprobante { get; set; }
         public string sDescripcionItem { get; set; }
         public int nIdCliente { get; set; }
+        public decimal nPorcentageIgv { get; set; }
         public string? sDNI { get; set; }
+        public string? sInmueble { get; set; }
+        public string? sProyecto { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
         public string? sNombreCompleto { get; set; }
@@ -123,6 +127,7 @@ namespace backend.domain
         public decimal nValorSubTotal { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
+        public decimal nTipoCambio { get; set; }
         public int nIdMoneda { get; set; }
         public string sSunatMoneda { get; set; }
     }
@@ -134,11 +139,19 @@ namespace backend.domain
         public string? sMovimiento { get; set; }
         public int nIdOrdenPago { get; set; }
         public int nIdProyecto { get; set; }
+        public string? sInmueble { get; set; }
         public string? sCajaEfectivo { get; set; }
+        public string? sProyecto { get; set; }
+        public string? sCodProyecto { get; set; }
         public string? sCodAsientoProyecto { get; set; }
+        public decimal nTipoCambio { get; set; }
         public string? sSubdiario { get; set; }
+        public decimal nPorcentageIgv { get; set; }
         public string? sFechaDocumento { get; set; }
+        public string? sFechaDocumentoOrigen { get; set; }
         public int nIdCompania { get; set; }
+        public string? sCuentaIgv { get; set; }
+        public string? sComprobanteOrigen { get; set; }
         public string? sAnioMes { get; set; }
         public string? sTipoAnexo { get; set; }
         public string? sCodigoAnexo { get; set; }

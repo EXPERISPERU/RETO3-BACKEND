@@ -8,9 +8,9 @@ namespace backend.businesslogic.Interfaces.Contabilidad
 {
     public interface IAsientoBL
     {
-        Task<IList<AsientoCajaDTO>> getAsientoCaja(AsientoFilterDTO filter);
-        Task<IList<AsientoBancoDTO>> getAsientoBancos(AsientoFilterDTO filter);
-        Task<IList<AsientoBoletasDTO>> getAsientoBoletas(AsientoFilterDTO filter);
-        Task<IList<AsientoDevolucionDTO>> getAsientoDevoluciones(AsientoFilterDTO filter);
+        Task<string> getAsientoCaja(AsientoFilterDTO filter);
+        Task<string> getAsientoBancos(AsientoFilterDTO filter);
+        Task<string> getAsientoBoletas(AsientoFilterDTO filter);
+        Task<string> getAsientoDevoluciones(AsientoFilterDTO filter);
     }
 }
