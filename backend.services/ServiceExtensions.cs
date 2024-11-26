@@ -160,6 +160,8 @@ namespace backend.services
 
             //Asiento Contable
             services.AddScoped<IAsientoRepository, AsientoRepository>();
+
+            services.AddScoped<IReporteDealerRepository, ReporteDealerRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -262,6 +264,8 @@ namespace backend.services
 
             //Asiento Contable
             services.AddScoped<IAsientoBL, AsientoBL>();
+
+            services.AddScoped<IReporteDealerBL, ReporteDealerBL>();
         }
     }
 }
