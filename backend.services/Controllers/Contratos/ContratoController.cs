@@ -502,5 +502,27 @@ namespace backend.services.Controllers.Contratos
                 return StatusCode(500, response);
             }
         }
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> UpdFinalizarFirmar(int nIdUsuario, int nIdCompania, int nIdContrato)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.UpdFinalizarFirmar(nIdUsuario, nIdCompania, nIdContrato);
+
+                response.success = true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }
