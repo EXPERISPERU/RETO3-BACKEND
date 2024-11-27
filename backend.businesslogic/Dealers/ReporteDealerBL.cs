@@ -23,9 +23,19 @@ namespace backend.businesslogic.Dealers
             return await repository.getListAgenteDealerByProveedor(nIdUsuario, nIdCompania, nIdProveedor);
         }
 
-        public async Task<IList<rdReporteReferidoDiaDTO>> getListReferenciasxDiaByAD(rdSelectReporteReferidosDTO rdSelectReporteReferidos)
+        public async Task<IList<rdReporteDataDiaDTO>> getListReferenciasxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte)
         {
-            return await repository.getListReferenciasxDiaByAD(rdSelectReporteReferidos);
+            return await repository.getListReferenciasxDiaByAD(rdSelectReporte);
+        }
+
+        public async Task<IList<rdReporteDataDiaDTO>> getListPrecontratoxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte)
+        {
+            return await repository.getListPrecontratoxDiaByAD(rdSelectReporte);
+        }
+
+        public async Task<IList<rdReporteDataDiaDTO>> getListVentaxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte)
+        {
+            return await repository.getListVentaxDiaByAD(rdSelectReporte);
         }
     }
 }
