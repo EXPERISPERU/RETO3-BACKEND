@@ -19,9 +19,9 @@ namespace backend.businesslogic.Dashboard
             repository = _repository;
         }
 
-        public async Task<IList<SelectDTO>> getListUsuarios(int nIdProveedor)
+        public async Task<IList<SelectDTO>> getListUsuarios(int nIdProveedor, int nIdCompania, int nIdUsuario)
         {
-            return await repository.getListUsuarios(nIdProveedor);
+            return await repository.getListUsuarios(nIdProveedor, nIdCompania, nIdUsuario);
         }
 
         public async Task<IList<SelectDTO>> getListProveedores(int nIdCompania, int nIdUsuario)

@@ -6,6 +6,8 @@ namespace backend.businesslogic.Interfaces.Dealers
     {
         Task<IList<ProveedorDTO>> getListProveedorDealer(int nIdUsuario, int nIdCompania);
         Task<IList<AgenteDealerDTO>> getListAgenteDealerByProveedor(int nIdUsuario, int nIdCompania, int nIdProveedor);
-        Task<IList<rdReporteReferidoDiaDTO>> getListReferenciasxDiaByAD(rdSelectReporteReferidosDTO rdSelectReporteReferidos);
+        Task<IList<rdReporteDataDiaDTO>> getListReferenciasxDiaByAD(rdSelectReporteDealerDTO rdSelectReporteReferidos);
+        Task<IList<rdReporteDataDiaDTO>> getListPrecontratoxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte);
+        Task<IList<rdReporteDataDiaDTO>> getListVentaxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte);
     }
 }

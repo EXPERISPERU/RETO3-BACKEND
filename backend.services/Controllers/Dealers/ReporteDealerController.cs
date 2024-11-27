@@ -61,16 +61,58 @@ namespace backend.services.Controllers.Dealers
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<rdReporteReferidoDiaDTO>>>> getListReferenciasxDiaByAD([FromBody] rdSelectReporteReferidosDTO rdSelectReporteReferidos)
+        public async Task<ActionResult<ApiResponse<List<rdReporteDataDiaDTO>>>> getListReferenciasxDiaByAD([FromBody] rdSelectReporteDealerDTO rdSelectReporte)
         {
-            ApiResponse<List<rdReporteReferidoDiaDTO>> response = new ApiResponse<List<rdReporteReferidoDiaDTO>>();
+            ApiResponse<List<rdReporteDataDiaDTO>> response = new ApiResponse<List<rdReporteDataDiaDTO>>();
 
             try
             {
-                var result = await service.getListReferenciasxDiaByAD(rdSelectReporteReferidos);
+                var result = await service.getListReferenciasxDiaByAD(rdSelectReporte);
 
                 response.success = true;
-                response.data = (List<rdReporteReferidoDiaDTO>)result;
+                response.data = (List<rdReporteDataDiaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<rdReporteDataDiaDTO>>>> getListPrecontratoxDiaByAD([FromBody] rdSelectReporteDealerDTO rdSelectReporte)
+        {
+            ApiResponse<List<rdReporteDataDiaDTO>> response = new ApiResponse<List<rdReporteDataDiaDTO>>();
+
+            try
+            {
+                var result = await service.getListPrecontratoxDiaByAD(rdSelectReporte);
+
+                response.success = true;
+                response.data = (List<rdReporteDataDiaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<rdReporteDataDiaDTO>>>> getListVentaxDiaByAD([FromBody] rdSelectReporteDealerDTO rdSelectReporte)
+        {
+            ApiResponse<List<rdReporteDataDiaDTO>> response = new ApiResponse<List<rdReporteDataDiaDTO>>();
+
+            try
+            {
+                var result = await service.getListVentaxDiaByAD(rdSelectReporte);
+
+                response.success = true;
+                response.data = (List<rdReporteDataDiaDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

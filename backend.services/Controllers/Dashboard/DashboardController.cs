@@ -19,14 +19,14 @@ namespace backend.services.Controllers.Dashboard
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListUsuarios(int nIdProveedor)
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListUsuarios(int nIdProveedor, int nIdCompania, int nIdUsuario)
         {
 
             ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
-                var result = await service.getListUsuarios(nIdProveedor);
+                var result = await service.getListUsuarios(nIdProveedor, nIdCompania, nIdUsuario);
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;

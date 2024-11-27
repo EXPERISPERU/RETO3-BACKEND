@@ -9,7 +9,7 @@ namespace backend.repository.Interfaces.Dashboard
 {
     public interface IDashboardRepository
     {
-        Task<IList<SelectDTO>> getListUsuarios(int nIdProveedor);
+        Task<IList<SelectDTO>> getListUsuarios(int nIdProveedor, int nIdCompania, int nIdUsuario);
         Task<IList<SelectDTO>> getListProveedores(int nIdCompania, int nIdUsuario);
         Task<IList<SelectDTO>> getListTipoUsuario();
     }
