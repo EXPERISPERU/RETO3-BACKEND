@@ -122,5 +122,10 @@ namespace backend.businesslogic.Contratos
         {
             return await repository.InsDocumentoContrato(documento);
         }
+
+        public async Task<SqlRspDTO> UpdFinalizarFirmar(int nIdUsuario, int nIdCompania, int nIdContrato)
+        {
+            return await repository.UpdFinalizarFirmar(nIdUsuario, nIdCompania, nIdContrato);
+        }
     }
 }

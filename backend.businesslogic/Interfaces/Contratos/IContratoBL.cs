@@ -26,5 +26,6 @@ namespace backend.businesslogic.Interfaces.Contratos
         Task<SqlRspDTO> UpdFirmaConyugueContrato(UpdFirmaContratoDTO updfirma);
         Task<bool> ValidFinalizarFirmar(int nIdContrato);
         Task<SqlRspDTO> InsDocumentoContrato(DocumentosContratoDTO documento);
+        Task<SqlRspDTO> UpdFinalizarFirmar(int nIdUsuario, int nIdCompania, int nIdContrato);
     }
 }
