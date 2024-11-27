@@ -382,5 +382,23 @@ namespace backend.repository.Contratos
 
             return res;
         }
+
+        public async Task<SqlRspDTO> UpdFinalizarFirmar(int nIdUsuario, int nIdCompania, int nIdContrato)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_contratos]", 23);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
