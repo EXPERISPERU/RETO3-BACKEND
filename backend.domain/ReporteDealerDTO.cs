@@ -1,6 +1,6 @@
 ﻿namespace backend.domain
 {
-    public class rdSelectReporteReferidosDTO
+    public class rdSelectReporteDealerDTO
     {
         public int nIdUsuario { get; set; }
         public int nIdCompania { get; set; }
@@ -10,9 +10,9 @@
         public DateTime dFechaFin { get; set; }
     }
 
-    public class rdReporteReferidoDiaDTO
+    public class rdReporteDataDiaDTO
     { 
         public DateTime dFecha { get; set; }
-        public int nReferidos { get; set; }
+        public int nCantidad { get; set; }
     }
 }

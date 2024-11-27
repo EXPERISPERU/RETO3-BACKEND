@@ -51,22 +51,64 @@ namespace backend.repository.Dealers
             return list.ToList();
         }
 
-        public async Task<IList<rdReporteReferidoDiaDTO>> getListReferenciasxDiaByAD(rdSelectReporteReferidosDTO rdSelectReporteReferidos)
+        public async Task<IList<rdReporteDataDiaDTO>> getListReferenciasxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte)
         {
-            IEnumerable<rdReporteReferidoDiaDTO> list = new List<rdReporteReferidoDiaDTO>();
+            IEnumerable<rdReporteDataDiaDTO> list = new List<rdReporteDataDiaDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_reporte]", 3);
-                parameters.Add("nIdUsuario", rdSelectReporteReferidos.nIdUsuario);
-                parameters.Add("nIdCompania", rdSelectReporteReferidos.nIdCompania);
-                parameters.Add("nIdProveedor", rdSelectReporteReferidos.nIdProveedor);
-                parameters.Add("nIdAgenteDealer", rdSelectReporteReferidos.nIdAgenteDealer);
-                parameters.Add("dFechaIni", rdSelectReporteReferidos.dFechaIni);
-                parameters.Add("dFechaFin", rdSelectReporteReferidos.dFechaFin);
+                parameters.Add("nIdUsuario", rdSelectReporte.nIdUsuario);
+                parameters.Add("nIdCompania", rdSelectReporte.nIdCompania);
+                parameters.Add("nIdProveedor", rdSelectReporte.nIdProveedor);
+                parameters.Add("nIdAgenteDealer", rdSelectReporte.nIdAgenteDealer);
+                parameters.Add("dFechaIni", rdSelectReporte.dFechaIni);
+                parameters.Add("dFechaFin", rdSelectReporte.dFechaFin);
 
-                list = await connection.QueryAsync<rdReporteReferidoDiaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<rdReporteDataDiaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<rdReporteDataDiaDTO>> getListPrecontratoxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte)
+        {
+            IEnumerable<rdReporteDataDiaDTO> list = new List<rdReporteDataDiaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_reporte]", 4);
+                parameters.Add("nIdUsuario", rdSelectReporte.nIdUsuario);
+                parameters.Add("nIdCompania", rdSelectReporte.nIdCompania);
+                parameters.Add("nIdProveedor", rdSelectReporte.nIdProveedor);
+                parameters.Add("nIdAgenteDealer", rdSelectReporte.nIdAgenteDealer);
+                parameters.Add("dFechaIni", rdSelectReporte.dFechaIni);
+                parameters.Add("dFechaFin", rdSelectReporte.dFechaFin);
+
+                list = await connection.QueryAsync<rdReporteDataDiaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<rdReporteDataDiaDTO>> getListVentaxDiaByAD(rdSelectReporteDealerDTO rdSelectReporte)
+        {
+            IEnumerable<rdReporteDataDiaDTO> list = new List<rdReporteDataDiaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_reporte]", 5);
+                parameters.Add("nIdUsuario", rdSelectReporte.nIdUsuario);
+                parameters.Add("nIdCompania", rdSelectReporte.nIdCompania);
+                parameters.Add("nIdProveedor", rdSelectReporte.nIdProveedor);
+                parameters.Add("nIdAgenteDealer", rdSelectReporte.nIdAgenteDealer);
+                parameters.Add("dFechaIni", rdSelectReporte.dFechaIni);
+                parameters.Add("dFechaFin", rdSelectReporte.dFechaFin);
+
+                list = await connection.QueryAsync<rdReporteDataDiaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
