@@ -33,5 +33,15 @@ namespace backend.businesslogic.Dashboard
         {
             return await repository.getListTipoUsuario();
         }
+
+        public async Task<IList<TrazabilidadVentasDTO>> postTrazabilidadVentas(TrazabilidadVentasFilterChartDTO trazabilidadVentasFilter)
+        {
+            return await repository.postTrazabilidadVentas(trazabilidadVentasFilter);
+        }
+
+        public async Task<IList<TrazabilidadPreContratosDTO>> postTrazabilidadPreContratos(TrazabilidadPreContratosFilterChartDTO trazabilidadPreContratosFilter)
+        {
+            return await repository.postTrazabilidadPreContratos(trazabilidadPreContratosFilter);
+        }
     }
 }

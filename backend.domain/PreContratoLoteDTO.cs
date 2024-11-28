@@ -74,4 +74,37 @@
         public int? nIdProveedor { get; set; }
         public int? nTipoMonto { get; set; }
     }
+
+
+    public class TrazabilidadPreContratosDTO
+    {
+        public int nIdCliente { get; set; }
+        public string sDNI { get; set; }
+        public string sCE { get; set; }
+        public string sRUC { get; set; }
+        public string sNombreCliente { get; set; }
+        public string sTipoFinanciamiento { get; set; }
+        public string sPredio { get; set; }
+        public string sSimbolo { get; set; }
+        public int nCantPreContratos { get; set; }
+        public int nTotalValorPreContratosVenta { get; set; }
+        public int? nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public int? nIdProveedor { get; set; }
+        public string? sNombreProveedor { get; set; }
+        public string? sPeriodo { get; set; }
+        public DateTime? dFechaVenta { get; set; }
+    }
+
+    public class TrazabilidadPreContratosFilterChartDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public int? nIdProyecto { get; set; }
+        public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
+        public int? nIdSubordinado { get; set; }
+        public int? nIdProveedor { get; set; }
+    }
 }
