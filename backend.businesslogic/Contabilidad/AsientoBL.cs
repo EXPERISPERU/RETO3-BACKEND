@@ -19,7 +19,7 @@ namespace backend.businesslogic.Contabilidad
             this.repository = _repository;
         }
 
-        public async Task<IList<AsientoCajaDTO>> getAsientoCaja(AsientoFilterDTO filter)
+        public async Task<string> getAsientoCaja(AsientoFilterDTO filter)
         {
             var asientos = await repository.getAsientoCaja(filter);
 
@@ -36,12 +36,10 @@ namespace backend.businesslogic.Contabilidad
                 indice++;
             }
 
-            this.EscribirArchivo(lineas, "AsientosCaja.txt");
-
-            return asientos;
+            return this.EscribirArchivo(lineas, "AsientosCaja.txt");
         }
 
-        public async Task<IList<AsientoBancoDTO>> getAsientoBancos(AsientoFilterDTO filter)
+        public async Task<string> getAsientoBancos(AsientoFilterDTO filter)
         {
             var asientos = await repository.getAsientoBancos(filter);
 
@@ -58,12 +56,10 @@ namespace backend.businesslogic.Contabilidad
                 indice++;
             }
 
-            this.EscribirArchivo(lineas, "AsientosBanco.txt");
-
-            return asientos;
+            return this.EscribirArchivo(lineas, "AsientosBanco.txt");
         }
 
-        public async Task<IList<AsientoBoletasDTO>> getAsientoBoletas(AsientoFilterDTO filter)
+        public async Task<string> getAsientoBoletas(AsientoFilterDTO filter)
         {
             var asientos = await repository.getAsientoBoletas(filter);
 
@@ -76,16 +72,15 @@ namespace backend.businesslogic.Contabilidad
             {
                 // Generar líneas Debe y Haber
                 lineas.Add(cajaUtils.Debe(asiento, indice));
+                lineas.Add(cajaUtils.Igv(asiento, indice));
                 lineas.Add(cajaUtils.Haber(asiento, indice));
                 indice++;
             }
 
-            this.EscribirArchivo(lineas, "AsientosBoletas.txt");
-
-            return asientos;
+            return this.EscribirArchivo(lineas, "AsientosBoletas.txt");
         }
 
-        public async Task<IList<AsientoDevolucionDTO>> getAsientoDevoluciones(AsientoFilterDTO filter)
+        public async Task<string> getAsientoDevoluciones(AsientoFilterDTO filter)
         {
             var asientos = await repository.getAsientoDevoluciones(filter);
 
@@ -98,16 +93,15 @@ namespace backend.businesslogic.Contabilidad
             {
                 // Generar líneas Debe y Haber
                 lineas.Add(cajaUtils.Debe(asiento, indice));
+                lineas.Add(cajaUtils.Igv(asiento, indice));
                 lineas.Add(cajaUtils.Haber(asiento, indice));
                 indice++;
             }
 
-            this.EscribirArchivo(lineas, "AsientosDevoluciones.txt");
-
-            return asientos;
+            return EscribirArchivo(lineas, "AsientosDevoluciones.txt");
         }
 
-        public void EscribirArchivo(List<string> lineas, string nombreArchivo)
+        public string EscribirArchivo(List<string> lineas, string nombreArchivo)
         {
             string rutaCarpeta = Path.Combine(Directory.GetCurrentDirectory(), "tmp");
 
@@ -119,6 +113,8 @@ namespace backend.businesslogic.Contabilidad
             string rutaArchivo = Path.Combine(rutaCarpeta, nombreArchivo);
 
             File.WriteAllLines(rutaArchivo, lineas);
+
+            return rutaArchivo;
         }
     }
 }

@@ -18,98 +18,96 @@ namespace backend.services.Controllers.Contabilidad
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<AsientoCajaDTO>>>> getAsientoCaja(AsientoFilterDTO filter)
+        public async Task<IActionResult> getAsientoCaja(AsientoFilterDTO filter)
         {
-            ApiResponse<List<AsientoCajaDTO>> response = new ApiResponse<List<AsientoCajaDTO>>();
-
             try
             {
                 var result = await service.getAsientoCaja(filter);
-
-                Console.WriteLine(result);
-
-                response.success = true;
-                response.data = (List<AsientoCajaDTO>)result;
-                return StatusCode(200, response);
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
             }
 
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<AsientoBancoDTO>>>> getAsientoBancos(AsientoFilterDTO filter)
+        public async Task<IActionResult> getAsientoBancos(AsientoFilterDTO filter)
         {
-            ApiResponse<List<AsientoBancoDTO>> response = new ApiResponse<List<AsientoBancoDTO>>();
-
             try
             {
                 var result = await service.getAsientoBancos(filter);
 
-                Console.WriteLine(result);
-
-                response.success = true;
-                response.data = (List<AsientoBancoDTO>)result;
-                return StatusCode(200, response);
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
             {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
             }
 
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<AsientoBoletasDTO>>>> getAsientoBoletas(AsientoFilterDTO filter)
+        public async Task<IActionResult>  getAsientoBoletas(AsientoFilterDTO filter)
         {
-            ApiResponse<List<AsientoBoletasDTO>> response = new ApiResponse<List<AsientoBoletasDTO>>();
-
             try
             {
                 var result = await service.getAsientoBoletas(filter);
 
-                Console.WriteLine(result);
-
-                response.success = true;
-                response.data = (List<AsientoBoletasDTO>)result;
-                return StatusCode(200, response);
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
             {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
             }
 
         }
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<AsientoDevolucionDTO>>>> getAsientoDevoluciones(AsientoFilterDTO filter)
+        public async Task<IActionResult> getAsientoDevoluciones(AsientoFilterDTO filter)
         {
-            ApiResponse<List<AsientoDevolucionDTO>> response = new ApiResponse<List<AsientoDevolucionDTO>>();
-
             try
             {
                 var result = await service.getAsientoDevoluciones(filter);
 
-                Console.WriteLine(result);
-
-                response.success = true;
-                response.data = (List<AsientoDevolucionDTO>)result;
-                return StatusCode(200, response);
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
             {
-                response.success = false;
-                response.errMsj = ex.Message;
-                return StatusCode(500, response);
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
             }
 
         }
