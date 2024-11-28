@@ -22,7 +22,7 @@ namespace backend.services.Controllers.Contabilidad
         {
             try
             {
-                var result = await service.getAsientoBancos(filter);
+                var result = await service.getAsientoCaja(filter);
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
                 var fileName = Path.GetFileName(result);
                 return File(fileBytes, "text/plain", fileName);

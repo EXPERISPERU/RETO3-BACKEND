@@ -29,6 +29,7 @@ namespace backend.domain
         public int nIdEstado { get; set; }
         public int? bAnulado { get; set; }
         public string sComprobante { get; set; }
+        public decimal? nTipoCambio { get; set; }
         public int nIdCliente { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
@@ -57,6 +58,7 @@ namespace backend.domain
         public string? sAnioMes { get; set; }
         public string? sTipoAnexo { get; set; }
         public string? sCodigoAnexo { get; set; }
+        public decimal? nTipoCambio { get; set; }
         public int? bAnulado { get; set; }
         public int? nIdComprobanteOrigen { get; set; }
         public int? nIdComprobanteBaja { get; set; }
@@ -127,7 +129,7 @@ namespace backend.domain
         public decimal nValorSubTotal { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
-        public decimal nTipoCambio { get; set; }
+        public decimal? nTipoCambio { get; set; }
         public int nIdMoneda { get; set; }
         public string sSunatMoneda { get; set; }
     }
@@ -144,7 +146,7 @@ namespace backend.domain
         public string? sProyecto { get; set; }
         public string? sCodProyecto { get; set; }
         public string? sCodAsientoProyecto { get; set; }
-        public decimal nTipoCambio { get; set; }
+        public decimal? nTipoCambio { get; set; }
         public string? sSubdiario { get; set; }
         public decimal nPorcentageIgv { get; set; }
         public string? sFechaDocumento { get; set; }
