@@ -25,6 +25,7 @@ namespace backend.services.Controllers.Contabilidad
                 var result = await service.getAsientoCaja(filter);
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
                 var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
                 return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
@@ -48,6 +49,7 @@ namespace backend.services.Controllers.Contabilidad
 
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
                 var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
                 return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
@@ -71,6 +73,7 @@ namespace backend.services.Controllers.Contabilidad
 
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
                 var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
                 return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
@@ -94,6 +97,7 @@ namespace backend.services.Controllers.Contabilidad
 
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
                 var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
                 return File(fileBytes, "text/plain", fileName);
             }
             catch (Exception ex)
