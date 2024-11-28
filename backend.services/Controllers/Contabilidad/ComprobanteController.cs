@@ -58,6 +58,7 @@ namespace backend.services.Controllers.Contabilidad
 
                 ComprobanteDTO comprobante = await service.getComprobanteById(nIdComprobante);
                 List<ComprobanteDetDTO> listComprobanteDet = await service.getComprobanteDetById(nIdComprobante);
+                List<ComprobanteMetodoPagoDTO> metodosPago = await service.getMetodoPagoById(nIdComprobante);
                 byte[] file;
 
                 if (comprobante.nIdAdjunto == null)
@@ -68,6 +69,20 @@ namespace backend.services.Controllers.Contabilidad
 
                     var logoCompania = "";
                     var logoNC = "";
+
+                    var metodos = "";
+
+                    if (metodosPago.Count() > 0)
+                    {
+                        for (int i = 0; i < metodosPago.Count(); i++)
+                        {
+                            metodos += $"{metodosPago[i].sAbrev} ";
+                            if (metodosPago[i].sAbrev != "Efectivo")
+                            {
+                                metodos += $"- {metodosPago[i].sDetalle}";
+                            }
+                        }
+                    }
 
                     if (comprobante.sCodigoTipoComprobante == "4")
                     {
@@ -174,6 +189,7 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sNombreCompleto#", comprobante.sNombreCompleto)
                         .Replace("#sDocumento#", String.IsNullOrEmpty(comprobante.sDNI) ? comprobante.sCE : comprobante.sDNI)
                         .Replace("#sDireccion#", comprobante.sDireccion)
+                        .Replace("#sMetodosPago#", metodos)
                         .Replace("#sUbigeo#", comprobante.sUbigeo)
                         .Replace("#sMoneda#", comprobante.sMoneda.ToUpper())
                         .Replace("#sIGV#", "18.00 %")
@@ -231,21 +247,21 @@ namespace backend.services.Controllers.Contabilidad
 
                     file = System.IO.File.ReadAllBytes(path);
 
-                    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
+                string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
-                    if (resFtp.success)
-                    {
-                        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
-                    }
-                }
-                else
+                if (resFtp.success)
                 {
-                    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+                    await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
                 }
+            }
+                else
+            {
+                file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+            }
 
-                return File(file, "application/pdf");
+            return File(file, "application/pdf");
             }
             catch (Exception)
             {
