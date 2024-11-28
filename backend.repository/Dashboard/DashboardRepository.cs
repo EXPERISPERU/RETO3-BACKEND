@@ -71,5 +71,51 @@ namespace backend.repository.Dashboard
             return list.ToList();
         }
 
+        public async Task<IList<TrazabilidadVentasDTO>> postTrazabilidadVentas(TrazabilidadVentasFilterChartDTO trazabilidadVentasFilter)
+        {
+            IEnumerable<TrazabilidadVentasDTO> list = new List<TrazabilidadVentasDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 4);
+                parameters.Add("nIdUsuario", trazabilidadVentasFilter.nIdUsuario);
+                parameters.Add("nIdCompania", trazabilidadVentasFilter.nIdCompania);
+
+                parameters.Add("nIdProyecto", trazabilidadVentasFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", trazabilidadVentasFilter.sCodTrimestre);
+                parameters.Add("sMes", trazabilidadVentasFilter.sMes);
+                parameters.Add("sAno", trazabilidadVentasFilter.sAno);
+                parameters.Add("nIdSubordinado", trazabilidadVentasFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", trazabilidadVentasFilter.nIdProveedor);
+
+                list = await connection.QueryAsync<TrazabilidadVentasDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<IList<TrazabilidadPreContratosDTO>> postTrazabilidadPreContratos(TrazabilidadPreContratosFilterChartDTO trazabilidadPreContratosFilter)
+        {
+            IEnumerable<TrazabilidadPreContratosDTO> list = new List<TrazabilidadPreContratosDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 5);
+                parameters.Add("nIdUsuario", trazabilidadPreContratosFilter.nIdUsuario);
+                parameters.Add("nIdCompania", trazabilidadPreContratosFilter.nIdCompania);
+
+                parameters.Add("nIdProyecto", trazabilidadPreContratosFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", trazabilidadPreContratosFilter.sCodTrimestre);
+                parameters.Add("sMes", trazabilidadPreContratosFilter.sMes);
+                parameters.Add("sAno", trazabilidadPreContratosFilter.sAno);
+                parameters.Add("nIdSubordinado", trazabilidadPreContratosFilter.nIdSubordinado);
+                parameters.Add("nIdProveedor", trazabilidadPreContratosFilter.nIdProveedor);
+
+                list = await connection.QueryAsync<TrazabilidadPreContratosDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }
