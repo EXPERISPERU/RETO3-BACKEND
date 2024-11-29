@@ -143,6 +143,7 @@ namespace backend.domain
         public DateTime? fechaInicio { get; set; }
         public DateTime? fechaFin { get; set; }
         public int? tipoListSeguimiento { get; set; }
+        public int? nIdTipoSeguimiento { get; set; }
     }
 
     public class SeguimientoHistoricoDTO
@@ -154,12 +155,14 @@ namespace backend.domain
         public string? sRUC { get; set; }
         public string? sNombreCliente { get; set; }
         public string? sNombreAsesor { get; set; }
+        public string? sNombreProveedor { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
+        public string? sTipoSeguimiento { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public DateTime? dFecha_crea { get; set; }
         public DateTime? dFecha_fin { get; set; }
-        public string? estado { get; set; }
+        public string? sEstado { get; set; }
     }
 
 

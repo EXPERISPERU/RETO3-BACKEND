@@ -143,9 +143,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListSeguimientoVentasByFilters(SeguimientoFiltros);
         }
 
-        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
+        public async Task<IList<SeguimientoHistoricoDTO>> ListSeguimientosByCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
         {
-            return await repository.getListSeguimientoAtencionCliente(SeguimientoFiltros);
+            return await repository.ListSeguimientosByCliente(SeguimientoFiltros);
         }
 
         public async Task<IList<SeguimientoProspectoHistoricoDTO>> postListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)

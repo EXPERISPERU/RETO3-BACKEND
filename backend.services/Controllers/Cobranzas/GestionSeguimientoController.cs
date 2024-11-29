@@ -546,12 +546,12 @@ namespace backend.services.Controllers.Cobranzas
 
 
         [HttpPost("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SeguimientoHistoricoDTO>>>> getListSeguimientoAtencionCliente([FromBody] SeguimientoFiltrosDTO SeguimientoFiltros)
+        public async Task<ActionResult<ApiResponse<List<SeguimientoHistoricoDTO>>>> postListSeguimientosByCliente([FromBody] SeguimientoFiltrosDTO SeguimientoFiltros)
         {
             ApiResponse<List<SeguimientoHistoricoDTO>> response = new ApiResponse<List<SeguimientoHistoricoDTO>>();
             try
             {
-                var result = await service.getListSeguimientoAtencionCliente(SeguimientoFiltros);
+                var result = await service.ListSeguimientosByCliente(SeguimientoFiltros);
                 response.success = true;
                 response.data = (List<SeguimientoHistoricoDTO>)result;
                 return StatusCode(200, response);

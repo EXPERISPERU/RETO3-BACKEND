@@ -489,7 +489,7 @@ namespace backend.repository.Cobranzas
         }
 
 
-        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
+        public async Task<IList<SeguimientoHistoricoDTO>> ListSeguimientosByCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
         {
             IEnumerable<SeguimientoHistoricoDTO> list = new List<SeguimientoHistoricoDTO>();
 
@@ -500,6 +500,7 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdCompania", SeguimientoFiltros.nIdCompania);
                 parameters.Add("nIdUsuario", SeguimientoFiltros.nIdUsuario);
                 parameters.Add("nIdCliente", SeguimientoFiltros.nIdCliente);
+                parameters.Add("nIdTipoSeguimiento", SeguimientoFiltros.nIdTipoSeguimiento);
 
                 list = await connection.QueryAsync<SeguimientoHistoricoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
