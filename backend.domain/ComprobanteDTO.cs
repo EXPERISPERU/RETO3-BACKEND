@@ -71,6 +71,9 @@ namespace backend.domain
         public string sProyecto { get; set; }
         public string sSector { get; set; }
         public string sManzana { get; set; }
+        public string sTipoComprobanteOrigen { get; set; }
+        public string sTipoOperacionNcd { get; set; }
+        public string sComprobanteOrigen { get; set; }
         public string sLote { get; set; }
         public int nMetraje { get; set; }
     }
@@ -129,7 +132,7 @@ namespace backend.domain
     #endregion
 
     public class SelectComprobanteEgresoCajaDTO
-    { 
+    {
         public int? nIdCompania { get; set; }
         public int? nIdCliente { get; set; }
         public string? sSerie { get; set; }
