@@ -143,9 +143,9 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getListSeguimientoVentasByFilters(SeguimientoFiltros);
         }
 
-        public async Task<IList<SeguimientoHistoricoDTO>> getListSeguimientoAtencionCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
+        public async Task<IList<SeguimientoHistoricoDTO>> ListSeguimientosByCliente(SeguimientoFiltrosDTO SeguimientoFiltros)
         {
-            return await repository.getListSeguimientoAtencionCliente(SeguimientoFiltros);
+            return await repository.ListSeguimientosByCliente(SeguimientoFiltros);
         }
 
         public async Task<IList<SeguimientoProspectoHistoricoDTO>> postListSeguimientoProspectoByFilters(SeguimientoProspectoFiltrosDTO SeguimientoFiltros)
@@ -156,6 +156,11 @@ namespace backend.businesslogic.Cobranzas
         public async Task<IList<SelectDTO>> getInfoContactoByMedioOfProspecto(int nIdProspecto, int nIdMedioContacto)
         {
             return await repository.getInfoContactoByMedioOfProspecto(nIdProspecto, nIdMedioContacto);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectTipoSeguimiento()
+        {
+            return await repository.getSelectTipoSeguimiento();
         }
 
         public async Task<IList<SeguimientoChartDTO>> postListSeguimientoChart(SeguimientoChartFilterDTO seguimientoChartFilter)
