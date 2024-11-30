@@ -198,6 +198,10 @@ namespace backend.services.Controllers.Contabilidad
                         .Replace("#sOrdenPago#", "")
                         .Replace("#sFechaVencimiento#", "")
                         .Replace("#sGuiaRemision#", "")
+                        .Replace("#sTipoComprobanteOrigen#", string.IsNullOrEmpty(comprobante.sTipoComprobanteOrigen) ? "" : comprobante.sTipoComprobanteOrigen)
+                        .Replace("#sComprobanteOrigen#", string.IsNullOrEmpty(comprobante.sComprobanteOrigen) ? "" : comprobante.sComprobanteOrigen)
+                        .Replace("#sTipoNCD#", String.IsNullOrEmpty(comprobante.sTipoOperacionNcd) ? "" : comprobante.sTipoOperacionNcd)
+                        .Replace("#sMotivoNCD#", String.IsNullOrEmpty(comprobante.sMotivoNotaCd) ? "" : comprobante.sMotivoNotaCd)
                         .Replace("#sOPGravadas#", comprobante.sSimbolo + " " + string.Format(ci_PE, "{0:0,0.00}", comprobante.nValorSubTotal))
                         .Replace("#sOPInafecta#", comprobante.sSimbolo + " 0.00")
                         .Replace("#sOPExonerada#", comprobante.sSimbolo + " 0.00")
@@ -247,21 +251,21 @@ namespace backend.services.Controllers.Contabilidad
 
                     file = System.IO.File.ReadAllBytes(path);
 
-                string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
+                    string sRutaFile = string.Format("comprobantes/{0}.pdf", nIdComprobante);
 
-                ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
+                    ApiResponse<string> resFtp = new FtpClient(configuration).UploadFile(new imbFile { sRutaFile = sRutaFile, data = file });
 
-                if (resFtp.success)
-                {
-                    await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
+                    if (resFtp.success)
+                    {
+                        await service.InsComprobanteAdjunto(nIdComprobante, sRutaFile);
+                    }
                 }
-            }
                 else
-            {
-                file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
-            }
+                {
+                    file = new FtpClient(configuration).DownloadFile(comprobante.sRutaFtp);
+                }
 
-            return File(file, "application/pdf");
+                return File(file, "application/pdf");
             }
             catch (Exception)
             {
