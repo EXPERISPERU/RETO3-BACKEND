@@ -548,6 +548,21 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
+        public async Task<IList<SelectDTO>> getSelectTipoSeguimiento()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_gestion_seguimiento]", 35);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
 
         public async Task<IList<SeguimientoChartDTO>> postListSeguimientoChart(SeguimientoChartFilterDTO seguimientoChartFilter)
         {

@@ -603,6 +603,25 @@ namespace backend.services.Controllers.Cobranzas
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectTipoSeguimiento()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            try
+            {
+                var result = await service.getSelectTipoSeguimiento();
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
 
         [HttpPost("[action]")]
         public async Task<ActionResult<ApiResponse<List<SeguimientoChartDTO>>>> postListSeguimientoChart(SeguimientoChartFilterDTO seguimientoChartFilter)

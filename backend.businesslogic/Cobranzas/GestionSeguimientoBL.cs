@@ -158,6 +158,11 @@ namespace backend.businesslogic.Cobranzas
             return await repository.getInfoContactoByMedioOfProspecto(nIdProspecto, nIdMedioContacto);
         }
 
+        public async Task<IList<SelectDTO>> getSelectTipoSeguimiento()
+        {
+            return await repository.getSelectTipoSeguimiento();
+        }
+
         public async Task<IList<SeguimientoChartDTO>> postListSeguimientoChart(SeguimientoChartFilterDTO seguimientoChartFilter)
         {
             return await repository.postListSeguimientoChart(seguimientoChartFilter);
