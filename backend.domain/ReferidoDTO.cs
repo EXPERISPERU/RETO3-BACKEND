@@ -18,6 +18,7 @@ namespace backend.domain
         public string? sCelular { get; set; }
         public string? sCelular2 { get; set; }
         public string? sCorreo { get; set; }
+        public string? sUbigeo { get; set; }
         public string? sDireccion { get; set; }
 
         public int nIdTipo { get; set; }
