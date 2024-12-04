@@ -80,6 +80,8 @@
         public int? nCuotasPendientes { get; set; }
         public decimal? tCuotasPendientes { get; set; }
         public decimal? nValorCuota { get; set; }
+        public decimal? nSumPreContrato { get; set; }
+        public int? nCountPreContrato { get; set; }
         public int? nIdCicloPago { get; set; }
 		public int? nDiaPago { get; set; }
 		public int nIdEstado { get; set; }
@@ -110,6 +112,7 @@
         public int? nIdCondicionPago { get; set; }
 		public int? nIdEstado { get; set; }
 		public bool? bEditable { get; set; }
+        public int? nIdCliente { get; set; }
     }
 
     public class OrdenPagoPreContratoDTO
