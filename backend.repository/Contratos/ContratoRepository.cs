@@ -143,6 +143,7 @@ namespace backend.repository.Contratos
                 parameters.Add("bEditable", contratoFiltros.bEditable);
                 parameters.Add("nIdCondicionPago", contratoFiltros.nIdCondicionPago);
                 parameters.Add("nIdEstado", contratoFiltros.nIdEstado);
+                parameters.Add("nIdCliente", contratoFiltros.nIdCliente);
 
                 list = await connection.QueryAsync<ContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
