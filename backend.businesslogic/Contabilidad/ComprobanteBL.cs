@@ -88,5 +88,10 @@ namespace backend.businesslogic.Contabilidad
         {
             return await repository.getListComprobanteEgresosCaja(selectComprobanteEgresoCaja);
         }
+
+        public async Task<SqlRspDTO> InsCertificacionComprobanteBaja(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken, bool bExito)
+        {
+            return await repository.InsCertificacionComprobanteBaja(nIdComprobante, sCodigo, sMensaje, sCodigoSunat, sMensajeSunat, sToken, bExito);
+        }
     }
 }

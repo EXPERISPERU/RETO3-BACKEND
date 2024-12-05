@@ -502,21 +502,14 @@ namespace backend.services.Controllers.Contabilidad
             try
             {
                 ComprobanteBajaDTO comprobanteBaja = await service.getComprobanteBajaById(nIdComprobanteBaja);
+                ComprobanteDTO comprobanteOrigen = await service.getComprobanteById(comprobanteBaja.nIdComprobante.Value);
 
-                efactResponseDTO res = await new Efact(configuration).BajaDocumento(comprobanteBaja);
+                if (comprobanteOrigen.nCodigoCompania == 1)
+                {
+                    efactResponseDTO res = await new Efact(configuration).BajaDocumento(comprobanteBaja);
 
-                // if (comprobante.sCodigoTipoComprobante == "18")
-                // {
-                //     comprobanteOrigen = await service.getComprobanteById(comprobante.nIdComprobanteOrigen.Value);
-                // }
-
-                // if (comprobante.nCodigoCompania == 1)
-                // {
-
-                //     efactResponseDTO res = await new Efact(configuration).GenerarDocumento(comprobante, listComprobanteDet, comprobanteOrigen, metodosPago);
-
-                //     service.InsCertificacionComprobante(nIdComprobante, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
-                // }
+                    service.InsCertificacionComprobanteBaja(nIdComprobanteBaja, res.code, res.description, null, null, res.code == "0" ? res.description : null, res.code == "0");
+                }
 
                 return StatusCode(200, response);
             }
