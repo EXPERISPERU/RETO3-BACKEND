@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.businesslogic.Comercial;
 using backend.services.Utils;
 using System.Globalization;
+using backend.businesslogic.Interfaces.Seguridad;
 
 namespace backend.services.Controllers.Comercial
 {
@@ -21,11 +22,13 @@ namespace backend.services.Controllers.Comercial
     public class CotizacionController : ControllerBase
     {
         private readonly ICotizacionBL service;
+        private readonly IUsuarioBL serviceUsuario;
         private readonly IWebHostEnvironment hostingEnvironment;
 
-        public CotizacionController(ICotizacionBL _service, IWebHostEnvironment hostingEnvironment)
+        public CotizacionController(ICotizacionBL _service, IUsuarioBL _serviceUsuario, IWebHostEnvironment hostingEnvironment)
         {
             this.service = _service;
+            this.serviceUsuario = _serviceUsuario;
             this.hostingEnvironment = hostingEnvironment;
         }
 
@@ -162,7 +165,7 @@ namespace backend.services.Controllers.Comercial
             {
                 CultureInfo ci_PE = new CultureInfo("es-PE");
                 CotizacionDTO cotizacion = await service.getCotizacionById(nIdCotizacion);
-                var sCuerpo = await service.formatoCotizacion(nIdCotizacion);
+                var sCuerpo = await service.formatoCotizacion(new getFormatoCotizacionDTO{ nIdCotizacion = nIdCotizacion});
                 var sLogo = "";
 
                 if (cotizacion.nCodigoProyecto == 4)
@@ -248,6 +251,105 @@ namespace backend.services.Controllers.Comercial
                 return File(file, "application/pdf");
             }
             catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult> getCotizacionLibreFormato([FromBody] CotizacionDTO cotizacion)
+        {
+            try
+            {
+                CultureInfo ci_PE = new CultureInfo("es-PE");
+                var usuario = await serviceUsuario.getUserById(cotizacion.nIdUsuario_crea);
+                var sCuerpo = await service.formatoCotizacion(new getFormatoCotizacionDTO { nIdProyecto = cotizacion.nIdProyecto, nIdCompania = cotizacion.nIdCompania});
+                var sLogo = "";
+
+                if (cotizacion.nCodigoProyecto == 4)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_villa_azul.png"));
+                }
+                else if (cotizacion.nCodigoProyecto == 7)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_leon_beach.png"));
+                }
+                else if (cotizacion.nCodigoProyecto == 1 || cotizacion.nCodigoProyecto == 2 || cotizacion.nCodigoProyecto == 3)
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_psvds.png"));
+                }
+                else
+                {
+                    sLogo = new ImagesData().GetImage(System.IO.Path.Combine(hostingEnvironment.ContentRootPath, "Images", "logo_inmobitec.png"));
+                }
+
+                var html = "<style>.page-break { page-break-after: always; }</style>";
+
+                html += "<div class=\"page-break\">";
+                html += sCuerpo
+                        .Replace("#sLogoData#", sLogo)
+                        .Replace("#sCorrelativo#", "")
+                        .Replace("#sFecha#", DateTime.Now.ToString("dd/MM/yyyy"))
+                        .Replace("#sNombreCliente#", "")
+                        .Replace("#sDocumentoCliente#", cotizacion.sDocumentoCliente)
+                        .Replace("#sProyecto#", cotizacion.sProyecto)
+                        .Replace("#sSector#", cotizacion.sSector)
+                        .Replace("#sManzana#", cotizacion.sManzana)
+                        .Replace("#sLote#", cotizacion.sLote)
+                        .Replace("#nMetraje#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nMetraje))
+                        .Replace("#sTerreno#", cotizacion.sTerreno)
+                        .Replace("#sZonificacion#", cotizacion.sZonificacion)
+                        .Replace("#sUbicacion#", cotizacion.sUbicacion)
+                        .Replace("#sDescripcion#", cotizacion.sDescripcion)
+                        .Replace("#sEstado#", cotizacion.sEstado)
+                        .Replace("#sSimbolo#", cotizacion.sSimbolo)
+                        .Replace("#nPrecioVenta#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nPrecioVenta))
+                        .Replace("#sValorInicial#", cotizacion.sSimboloIni + " " + string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorOriIni))
+                        .Replace("#nInicial#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nInicial))
+                        .Replace("#sValorDescuentoFin#", cotizacion.sSimboloDescuentoFin + " " + string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorOriDescuentoFin))
+                        .Replace("#nDescuentoFin#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nDescuentoFin))
+                        .Replace("#sValorDescuentoCon#", cotizacion.sSimboloDescuentoCon + " " + string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorOriDescuentoCon))
+                        .Replace("#nDescuentoCon#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nDescuentoCon))
+                        .Replace("#nValorFinanciado#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorFinanciado))
+                        .Replace("#nCuotas#", string.Format(ci_PE, "{0:0}", cotizacion.nCuotas))
+                        .Replace("#nValorCuota#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorCuota))
+                        .Replace("#sInteresFijo#", cotizacion.sInteresCuota)
+                        .Replace("#nValorContado#", string.Format(ci_PE, "{0:0,0.00}", cotizacion.nValorContado))
+                        .Replace("#sUsuario_crea#", string.IsNullOrEmpty(usuario.sNombreCompleto) ? "" : usuario.sNombreCompleto)
+                        .Replace("#sFecha_crea#", DateTime.Now.ToString("dd/MM/yyyy hh:mm"));
+                html += "</div>";
+
+                if (cotizacion.sInteresCuota != "")
+                {
+                    html = html
+                        .Replace("#iniInteresFijo#", "")
+                        .Replace("#finInteresFijo#", "");
+                }
+                else
+                {
+                    while (html.Contains("#iniInteresFijo#"))
+                    {
+                        string sIniInteresFijo = "#iniInteresFijo#";
+                        string sFinInteresFijo = "#finInteresFijo#";
+                        string sInteresFijo = html.Substring(html.IndexOf(sIniInteresFijo), (html.IndexOf(sFinInteresFijo) + sFinInteresFijo.Length) - html.IndexOf(sIniInteresFijo));
+                        html = html.Replace(sInteresFijo, "");
+                    }
+                }
+
+
+                string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+                ConverterProperties properties = new ConverterProperties();
+                properties.SetFontProvider(new DefaultFontProvider(true, true, true));
+                PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
+                pdfDocument.SetDefaultPageSize(new PageSize(PageSize.A4));
+
+                HtmlConverter.ConvertToPdf(html, pdfDocument, properties);
+
+                byte[] file = System.IO.File.ReadAllBytes(path);
+                return File(file, "application/pdf");
+            }
+            catch (Exception e)
             {
 
                 throw;

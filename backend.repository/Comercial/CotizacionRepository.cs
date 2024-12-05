@@ -156,7 +156,7 @@ namespace backend.repository.Comercial
             return res;
         }
 
-        public async Task<string> formatoCotizacion(int nIdCotizacion)
+        public async Task<string> formatoCotizacion(getFormatoCotizacionDTO getFormatoCotizacion)
         {
             string res;
 
@@ -164,7 +164,9 @@ namespace backend.repository.Comercial
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[comercial].[pa_cotizacion]", 8);
-                parameters.Add("nIdCotizacion", nIdCotizacion);
+                parameters.Add("nIdCotizacion", getFormatoCotizacion.nIdCotizacion);
+                parameters.Add("nIdProyecto", getFormatoCotizacion.nIdProyecto);
+                parameters.Add("nIdCompania", getFormatoCotizacion.nIdCompania);
 
                 res = await connection.QuerySingleAsync<string>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }

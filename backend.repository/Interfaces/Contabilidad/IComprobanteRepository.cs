@@ -24,6 +24,6 @@ namespace backend.repository.Interfaces.Contabilidad
         Task<IList<LoginDTO>> AuthUserBaja(string sUsuario, string sContrasena);
         Task<ComprobanteBajaDTO> getComprobanteBajaById(int nIdComprobanteBaja);
         Task<IList<ComprobanteDTO>> getListComprobanteEgresosCaja(SelectComprobanteEgresoCajaDTO selectComprobanteEgresoCaja);
-
+        Task<SqlRspDTO> InsCertificacionComprobanteBaja(int nIdComprobante, string sCodigo, string? sMensaje, string? sCodigoSunat, string? sMensajeSunat, string? sToken, bool bExito);
     }
 }
