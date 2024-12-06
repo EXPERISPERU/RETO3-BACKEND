@@ -9,7 +9,7 @@ namespace backend.repository.Interfaces.Dealers
 {
     public interface IAgenteDealerRepository
     {
-        Task<IList<AgenteDealerDTO>> getListAgenteDealer(int nIdUsuario, int nIdCompania);
+        Task<IList<AgenteDealerDTO>> getListAgenteDealer(selectListAgenteDealerDTO select);
         Task<AgenteDealerDTO> getAgenteDealerByID(int nIdAgenteDealer, int nIdCompania);
         Task<AgenteDealerDTO> findAgenteDealer(string? sDNI, string? sCE);
         Task<IList<SelectDTO>> getListGeneros();
@@ -18,5 +18,6 @@ namespace backend.repository.Interfaces.Dealers
         Task<SqlRspDTO> UpdAgenteDealer(AgenteDealerDTO agenteDealer);
         Task<IList<SelectDTO>> getListPerfilDealer();
         Task<SqlRspDTO> BajaAgenteDealer(AgenteDealerDTO agenteDealer);
+        Task<IList<ProveedorDTO>> getListProveedorDealer(int nIdUsuario, int nIdCompania);
     }
 }
