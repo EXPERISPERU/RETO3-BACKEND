@@ -21,7 +21,7 @@ namespace backend.repository.Dealers
             _configuration = configuration;
         }
 
-        public async Task<IList<AgenteDealerDTO>> getListAgenteDealer(int nIdUsuario, int nIdCompania)
+        public async Task<IList<AgenteDealerDTO>> getListAgenteDealer(selectListAgenteDealerDTO select)
         {
             IEnumerable<AgenteDealerDTO> list = new List<AgenteDealerDTO>();
 
@@ -29,8 +29,9 @@ namespace backend.repository.Dealers
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_agente_dealer]", 1);
-                parameters.Add("nIdUsuario", nIdUsuario);
-                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdUsuario", select.nIdUsuario);
+                parameters.Add("nIdCompania", select.nIdCompania);
+                parameters.Add("nIdProveedor", select.nIdProveedor);
 
                 list = await connection.QueryAsync<AgenteDealerDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -194,5 +195,21 @@ namespace backend.repository.Dealers
             return res;
         }
 
+        public async Task<IList<ProveedorDTO>> getListProveedorDealer(int nIdUsuario, int nIdCompania)
+        {
+            IEnumerable<ProveedorDTO> list = new List<ProveedorDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dealers].[pa_agente_dealer]", 10);
+                parameters.Add("nIdUsuario", nIdUsuario);
+                parameters.Add("nIdCompania", nIdCompania);
+
+                list = await connection.QueryAsync<ProveedorDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }
