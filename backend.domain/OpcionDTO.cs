@@ -9,6 +9,7 @@ namespace backend.domain
     public class OpcionDTO
     {
         public int? nIdOpcion { get; set; }
+        public string? sCodigo { get; set; }
         public int? nIdOpcionP { get; set; }
         public string sOpcion { get; set; }
         public string? sDescripcion { get; set; } 

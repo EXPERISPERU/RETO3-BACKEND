@@ -111,6 +111,7 @@ namespace backend.repository.Seguridad
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_opcion]", 6);
                 parameters.Add("nIdOpcionP", opcion.nIdOpcionP);
+                parameters.Add("sCodigo", opcion.sCodigo);
                 parameters.Add("sOpcion", opcion.sOpcion);
                 parameters.Add("sDescripcion", opcion.sDescripcion);
                 parameters.Add("sRuta", opcion.sRuta);
