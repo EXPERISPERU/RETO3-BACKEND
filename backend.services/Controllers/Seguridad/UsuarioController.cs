@@ -298,6 +298,7 @@ namespace backend.services.Controllers.Seguridad
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("[action]")]
         public async Task<ActionResult<ApiResponse<string>>> generateUsuariosNuevosClientes()
         {
