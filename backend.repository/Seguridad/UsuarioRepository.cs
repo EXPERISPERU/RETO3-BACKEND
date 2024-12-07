@@ -236,5 +236,15 @@ namespace backend.repository.Seguridad
             return resp;
         }
 
+        public async Task generateUsusariosNuevosClientes()
+        {
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_usuario]", 15);
+
+                await connection.QueryAsync(storedProcedure, commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }
 }
