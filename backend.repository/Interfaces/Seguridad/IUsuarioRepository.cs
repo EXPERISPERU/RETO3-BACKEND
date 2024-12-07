@@ -22,5 +22,6 @@ namespace backend.repository.Interfaces.Seguridad
         Task<IList<PerfilUsuarioDTO>> getPerfilByUsu(int nIdUsuario);
         Task<IList<OpcionDTO>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania);
         Task<UsuarioDTO> getUserById( int nIdUsuario );
+        Task generateUsusariosNuevosClientes();
     }
 }

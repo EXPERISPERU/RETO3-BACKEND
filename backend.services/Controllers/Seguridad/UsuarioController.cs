@@ -298,6 +298,25 @@ namespace backend.services.Controllers.Seguridad
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<string>>> generateUsusariosNuevosClientes()
+        {
+            ApiResponse<string> response = new ApiResponse<string>();
 
+            try
+            {
+                await service.generateUsusariosNuevosClientes();
+                response.success = true;
+                response.data = "OK";
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+
+            }
+        }
     }
 }
