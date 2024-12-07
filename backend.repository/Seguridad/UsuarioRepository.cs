@@ -236,7 +236,7 @@ namespace backend.repository.Seguridad
             return resp;
         }
 
-        public async Task generateUsusariosNuevosClientes()
+        public async Task generateUsuariosNuevosClientes()
         {
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {

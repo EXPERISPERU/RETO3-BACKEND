@@ -299,13 +299,13 @@ namespace backend.services.Controllers.Seguridad
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<string>>> generateUsusariosNuevosClientes()
+        public async Task<ActionResult<ApiResponse<string>>> generateUsuariosNuevosClientes()
         {
             ApiResponse<string> response = new ApiResponse<string>();
 
             try
             {
-                await service.generateUsusariosNuevosClientes();
+                await service.generateUsuariosNuevosClientes();
                 response.success = true;
                 response.data = "OK";
                 return StatusCode(200, response);
