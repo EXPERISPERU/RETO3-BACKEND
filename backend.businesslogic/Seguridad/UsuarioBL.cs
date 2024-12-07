@@ -82,9 +82,9 @@ namespace backend.businesslogic.Seguridad
             return await repository.getUserById(nIdUsuario);
         }
 
-        public async Task generateUsusariosNuevosClientes() 
+        public async Task generateUsuariosNuevosClientes() 
         { 
-            await repository.generateUsusariosNuevosClientes();
+            await repository.generateUsuariosNuevosClientes();
         }
     }
 }
