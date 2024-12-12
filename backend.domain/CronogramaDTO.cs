@@ -26,4 +26,12 @@ namespace backend.domain
         public string? sFechaPago { get; set; }
         public int? nIdComprobante { get; set; }
     }
+
+    public class UpdMoraCronogramaDTO
+    { 
+        public int nIdCronograma { get; set; }
+        public int nMontoMora { get; set; }
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+    }
 }

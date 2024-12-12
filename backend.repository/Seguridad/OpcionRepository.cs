@@ -134,6 +134,7 @@ namespace backend.repository.Seguridad
                 string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_opcion]", 7);
                 parameters.Add("nIdOpcion", opcion.nIdOpcion);
                 parameters.Add("nIdOpcionP", opcion.nIdOpcionP);
+                parameters.Add("sCodigo", opcion.sCodigo);
                 parameters.Add("sOpcion", opcion.sOpcion);
                 parameters.Add("sDescripcion", opcion.sDescripcion);
                 parameters.Add("sRuta", opcion.sRuta);

@@ -50,5 +50,35 @@ namespace backend.repository.Contratos
 
             return res;
         }
+
+        public async Task updateMoraCrogramaVencido()
+        {
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_cronograma]", 4);
+
+                await connection.QueryAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task<SqlRspDTO> UpdMoraCronograma(UpdMoraCronogramaDTO updMoraCronograma)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_cronograma]", 5);
+                parameters.Add("nIdCronograma", updMoraCronograma.nIdCronograma);
+                parameters.Add("nMontoMora", updMoraCronograma.nMontoMora);
+                parameters.Add("nIdUsuario", updMoraCronograma.nIdUsuario);
+                parameters.Add("nIdCompania", updMoraCronograma.nIdCompania);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
