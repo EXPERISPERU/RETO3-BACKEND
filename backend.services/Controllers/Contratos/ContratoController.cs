@@ -22,11 +22,13 @@ namespace backend.services.Controllers.Contratos
         private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IConfiguration configuration;
         private readonly IContratoBL service;
+        private readonly ICronogramaBL cronogramaService;
 
-        public ContratoController(IConfiguration _configuration, IContratoBL _service, IWebHostEnvironment hostingEnvironment)
+        public ContratoController(IConfiguration _configuration, IContratoBL _service, ICronogramaBL _cronogramaService, IWebHostEnvironment hostingEnvironment)
         {
             this.configuration = _configuration;
             this.service = _service;
+            this.cronogramaService = _cronogramaService;
             this.hostingEnvironment = hostingEnvironment;
         }
 
@@ -524,5 +526,49 @@ namespace backend.services.Controllers.Contratos
                 return StatusCode(500, response);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<string>>> updMoraCronogramaVencidos()
+        {
+            ApiResponse<string> response = new ApiResponse<string>();
+
+            try
+            {
+                await cronogramaService.updateMoraCrogramaVencido();
+                response.success = true;
+                response.data = "OK";
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdMoraCronograma([FromBody] UpdMoraCronogramaDTO updMoraCronograma)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await cronogramaService.UpdMoraCronograma(updMoraCronograma);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }
