@@ -2,6 +2,7 @@
 {
 	public class ContratoDTO
 	{
+		public int? nTotalTabla { get; set; }
 		public int nIdContrato { get; set; }
 		public int? nIdContratoO { get; set; }
 		public int nIdCondicionPago { get; set; }
@@ -113,6 +114,8 @@
 		public int? nIdEstado { get; set; }
 		public bool? bEditable { get; set; }
         public int? nIdCliente { get; set; }
+        public int PageNumber { get; set; }
+        public int RowspPage { get; set; }
     }
 
     public class OrdenPagoPreContratoDTO

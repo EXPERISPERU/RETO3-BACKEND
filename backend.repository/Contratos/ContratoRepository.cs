@@ -144,6 +144,8 @@ namespace backend.repository.Contratos
                 parameters.Add("nIdCondicionPago", contratoFiltros.nIdCondicionPago);
                 parameters.Add("nIdEstado", contratoFiltros.nIdEstado);
                 parameters.Add("nIdCliente", contratoFiltros.nIdCliente);
+                parameters.Add("PageNumber", contratoFiltros.PageNumber);
+                parameters.Add("RowspPage", contratoFiltros.RowspPage);
 
                 list = await connection.QueryAsync<ContratoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
