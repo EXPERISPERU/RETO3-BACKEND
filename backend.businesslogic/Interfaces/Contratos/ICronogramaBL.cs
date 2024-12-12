@@ -6,5 +6,7 @@ namespace backend.businesslogic.Interfaces.Contratos
     {
         Task<List<bbvaDocumento>> getListCronogramasRecaudoBBVAbyDocumento(string sDocumento, int nCodigoProyecto);
         Task<bbvaDocumento> getCronogramaRecaudoBBVAbyDocumentoAndID(string sDocumento, int nConvenio, int nIdCronograma);
+        Task updateMoraCrogramaVencido();
+        Task<SqlRspDTO> UpdMoraCronograma(UpdMoraCronogramaDTO updMoraCronograma);
     }
 }

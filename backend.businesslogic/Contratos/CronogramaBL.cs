@@ -22,5 +22,15 @@ namespace backend.businesslogic.Contratos
         {
             return await repository.getCronogramaRecaudoBBVAbyDocumentoAndID(sDocumento, nConvenio, nIdCronograma);
         }
+
+        public async Task updateMoraCrogramaVencido() 
+        { 
+              await repository.updateMoraCrogramaVencido();
+        }
+
+        public async Task<SqlRspDTO> UpdMoraCronograma(UpdMoraCronogramaDTO updMoraCronograma)
+        {
+            return await repository.UpdMoraCronograma(updMoraCronograma);
+        }
     }
 }
