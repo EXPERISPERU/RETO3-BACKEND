@@ -9,7 +9,7 @@ namespace backend.businesslogic.Interfaces.Prospectos
 {
     public interface IProspectoBL
     {
-        Task<IList<ProspectoDTO>> getListProspectoByIdUsuario(int nIdUsuario, int nIdCompania, int nTipoListProspecto);
+        Task<IList<ProspectoDTO>> postListProspectoByIdUsuario(ProspectoFilterDTO prospectoFilter);
         Task<SqlRspDTO> InsProspecto(ProspectoDTO prospecto);
         Task<IList<SelectDTO>> getListGeneros();
         Task<IList<SelectDTO>> getListEstadoCivil();

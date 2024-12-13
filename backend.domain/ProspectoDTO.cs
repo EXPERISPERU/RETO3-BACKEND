@@ -39,6 +39,16 @@ namespace backend.domain
         public string? sEmpleado { get; set; }
         public string? sAgenteDealer { get; set; }
         public string? sNombreAsesor { get; set; }
-
+        public string? sNombreProveedor { get; set; }
     }
+
+    public class ProspectoFilterDTO
+    {
+        public int? nIdUsuario { get; set; }
+        public int? nIdCompania { get; set; }
+        public int? nIdProveedor { get; set; }
+        public int? nTipoListProspecto { get; set; }
+    }
+
+
 }
