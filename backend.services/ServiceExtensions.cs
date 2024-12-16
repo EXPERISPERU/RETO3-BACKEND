@@ -162,6 +162,9 @@ namespace backend.services
             services.AddScoped<IAsientoRepository, AsientoRepository>();
 
             services.AddScoped<IReporteDealerRepository, ReporteDealerRepository>();
+
+            //Cartera Proveedor
+            services.AddScoped<ICarteraProveedorDealerRepository, CarteraProveedorDealerRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -266,6 +269,9 @@ namespace backend.services
             services.AddScoped<IAsientoBL, AsientoBL>();
 
             services.AddScoped<IReporteDealerBL, ReporteDealerBL>();
+
+            //Cartera Proveedor Dealer
+            services.AddScoped<ICarteraProveedorDealerBL, CarteraProveedorDealerBL>();
         }
     }
 }
