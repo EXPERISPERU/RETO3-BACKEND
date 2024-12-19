@@ -468,7 +468,7 @@ namespace backend.repository.Tesoreria
                 parameters.Add("nMontoInicial", preContrato.nMontoInicial);
 
                 parameters.Add("nIdUsuario_crea", preContrato.nIdUsuario_crea);
-                parameters.Add("sIdOperacionBancaria", preContrato.nIdOperacionBancaria);
+                parameters.Add("sIdOperacionBancaria", preContrato.sIdOperacionBancaria);
                 parameters.Add("sIdOperacionIzzipay", preContrato.sIdOperacionIzzipay);
                 //Movimientos
                 parameters.Add("nIdCaja", preContrato.nIdCaja);
