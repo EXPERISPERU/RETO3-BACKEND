@@ -189,5 +189,6 @@ namespace backend.domain
         public int? nIdProyecto { get; set; }
         public string? dFechaInicio { get; set; }
         public string? dFechaFin { get; set; }
+        public int? nIdCompania { get; set; }
     }
 }
