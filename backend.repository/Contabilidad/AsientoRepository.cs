@@ -32,7 +32,7 @@ namespace backend.repository.Contabilidad
                 parameters.Add("nIdProyecto", filter.nIdProyecto);
                 parameters.Add("dFechaInicio", filter.dFechaInicio);
                 parameters.Add("dFechaFin", filter.dFechaFin);
-
+                parameters.Add("nIdCompania", filter.nIdCompania);
                 list = await connection.QueryAsync<AsientoCajaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
@@ -50,7 +50,7 @@ namespace backend.repository.Contabilidad
                 parameters.Add("nIdProyecto", filter.nIdProyecto);
                 parameters.Add("dFechaInicio", filter.dFechaInicio);
                 parameters.Add("dFechaFin", filter.dFechaFin);
-
+                parameters.Add("nIdCompania", filter.nIdCompania);
                 list = await connection.QueryAsync<AsientoBancoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
@@ -68,7 +68,7 @@ namespace backend.repository.Contabilidad
                 parameters.Add("nIdProyecto", filter.nIdProyecto);
                 parameters.Add("dFechaInicio", filter.dFechaInicio);
                 parameters.Add("dFechaFin", filter.dFechaFin);
-
+                parameters.Add("nIdCompania", filter.nIdCompania);
                 list = await connection.QueryAsync<AsientoBoletasDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
@@ -86,7 +86,7 @@ namespace backend.repository.Contabilidad
                 parameters.Add("nIdProyecto", filter.nIdProyecto);
                 parameters.Add("dFechaInicio", filter.dFechaInicio);
                 parameters.Add("dFechaFin", filter.dFechaFin);
-
+                parameters.Add("nIdCompania", filter.nIdCompania);
                 list = await connection.QueryAsync<AsientoDevolucionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
