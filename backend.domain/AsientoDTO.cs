@@ -16,34 +16,24 @@ namespace backend.domain
         public string? sFechaDocumento { get; set; }
         public int nIdCompania { get; set; }
         public string? sAnioMes { get; set; }
-        public int? nIdComprobanteOrigen { get; set; }
-        public int? nIdComprobanteBaja { get; set; }
-        public int? nIdCobranza { get; set; }
-        public int? nIdMedioPago { get; set; }
-        public string? sMovimiento { get; set; }
-        public int? nIdTipoComprobante { get; set; }
-        public string sDescripcionItem { get; set; }
-        public string sAbrevTipoComprobante { get; set; }
-        public string sSerie { get; set; }
-        public int nCorrelativo { get; set; }
-        public int nIdEstado { get; set; }
+        public string? sTipoAnexo { get; set; }
+        public string? sCodigoAnexo { get; set; }
         public int? bAnulado { get; set; }
+        public string? sMovimiento { get; set; }
+        public string sAbrevTipoComprobante { get; set; }
         public string sComprobante { get; set; }
-        public decimal? nTipoCambio { get; set; }
+        public string sDescripcionItem { get; set; }
         public int nIdCliente { get; set; }
         public string? sDNI { get; set; }
         public string? sCE { get; set; }
         public string? sRUC { get; set; }
-        public string? sNombreCompleto { get; set; }
-        public int nIdNotaCredito { get; set; }
-        public decimal nValorNoGravado { get; set; }
-        public decimal nValorInafecto { get; set; }
-        public decimal nValorSubTotal { get; set; }
+        public decimal? nTipoCambio { get; set; }
         public decimal nValorIgv { get; set; }
         public decimal nValorTotal { get; set; }
         public int nIdMoneda { get; set; }
         public string sSunatMoneda { get; set; }
     }
+
 
     public class AsientoCajaDTO
     {
