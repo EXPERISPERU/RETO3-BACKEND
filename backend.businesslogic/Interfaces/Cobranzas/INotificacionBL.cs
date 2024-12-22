@@ -10,5 +10,8 @@ namespace backend.businesslogic.Interfaces.Cobranzas
     public interface INotificacionBL
     {
         Task<IList<NotificacionDTO>> getListNotificacion(NotificacionFilterDTO notificacionFilter);
+        Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion();
+        Task<SqlRspDTO> posInsNotificacion(NotificacionDataDTO notificacionData);
+        Task<SqlRspDTO> posEnviarNotificacion(int nIdNotificacion);
     }
 }

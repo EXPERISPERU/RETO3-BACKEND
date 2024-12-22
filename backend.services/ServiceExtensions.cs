@@ -165,6 +165,9 @@ namespace backend.services
 
             //Cartera Proveedor
             services.AddScoped<ICarteraProveedorDealerRepository, CarteraProveedorDealerRepository>();
+
+            //Notificacion
+            services.AddScoped<INotificacionRepository, NotificacionRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -272,6 +275,9 @@ namespace backend.services
 
             //Cartera Proveedor Dealer
             services.AddScoped<ICarteraProveedorDealerBL, CarteraProveedorDealerBL>();
+
+            //Notificacion
+            services.AddScoped<INotificacionBL, NotificacionBL>();
         }
     }
 }

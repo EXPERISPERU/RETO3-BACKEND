@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace backend.repository.Cobranzas
 {
-    public class NotificacionRepository: INotificacionRepository
+    public class NotificacionRepository : INotificacionRepository
     {
         private readonly IConfiguration _configuration;
 
@@ -28,7 +28,7 @@ namespace backend.repository.Cobranzas
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[cobranzas].[pa_notificacion]", 3);
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]");
                 parameters.Add("nTipoNotificacion", notificacionFilter.nTipoNotificacion);
                 parameters.Add("nGrupo", notificacionFilter.nGrupo);
 
@@ -36,6 +36,55 @@ namespace backend.repository.Cobranzas
             }
 
             return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> posInsNotificacion(NotificacionDataDTO notificacionData)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 2);
+                parameters.Add("nIdContrato", notificacionData.nIdContrato);
+                parameters.Add("nIdCliente", notificacionData.nIdCliente);
+                parameters.Add("nIdTipoNotificacion", notificacionData.nIdTipoNotificacion);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion()
+        {
+            IEnumerable<PlantillaNotificacionDTO> list = new List<PlantillaNotificacionDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 3);
+
+                list = await connection.QueryAsync<PlantillaNotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<SqlRspDTO> posEnviarNotificacion(int nIdNotificacion)
+        {
+            SqlRspDTO res = new SqlRspDTO(); ;
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 4);
+                parameters.Add("nIdNotificacion", nIdNotificacion);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
         }
     }
 }
