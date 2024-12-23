@@ -10,7 +10,7 @@ namespace backend.domain
     {
         public int? nIdAgendamiento { get; set; }
         public int nIdTipoAgendamiento { get; set; }
-        public int nIdSeguimientoCuota { get; set; }
+        public int? nIdSeguimientoCuota { get; set; }
         public string? sTipoAgendamiento { get; set; }
         public int? nIdSeguimiento { get; set; }
         public int? nIdSegFromAgen { get; set; }
