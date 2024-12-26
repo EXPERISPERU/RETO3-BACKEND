@@ -31,6 +31,7 @@ namespace backend.repository.Cobranzas
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_agendamiento]", 1);
                 parameters.Add("nIdCompania", AgendamientoFiltros.nIdCompania);
                 parameters.Add("nIdUsuario", AgendamientoFiltros.nIdUsuario);
+                parameters.Add("tipoListSeguimiento", AgendamientoFiltros.tipoListSeguimiento);
                 //parameters.Add("nIdAsesor", AgendamientoFiltros.nIdAsesor);
                 //parameters.Add("nIdTipoDocumento", AgendamientoFiltros.nIdTipoDocumento);
                 //parameters.Add("sDocumento", AgendamientoFiltros.sDocumento);
