@@ -144,6 +144,7 @@ namespace backend.domain
         public DateTime? fechaFin { get; set; }
         public int? tipoListSeguimiento { get; set; }
         public int? nIdTipoSeguimiento { get; set; }
+        public string? sEstado { get; set; }
     }
 
     public class SeguimientoHistoricoDTO
