@@ -133,6 +133,8 @@ namespace backend.repository.Cobranzas
                 parameters.Add("estadoMorosidad", AsignacionFiltros.estadoMorosidad);
                 parameters.Add("estadoAsignacion", AsignacionFiltros.estadoAsignacion);
                 parameters.Add("nIdPeriodoGestion", AsignacionFiltros.nIdPeriodoGestion);
+                parameters.Add("PageNumber", AsignacionFiltros.PageNumber);
+                parameters.Add("RowspPage", AsignacionFiltros.RowspPage);
 
                 list = await connection.QueryAsync<AsignacionClienteDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
