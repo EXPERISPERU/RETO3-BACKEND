@@ -47,6 +47,8 @@ namespace backend.domain
         public int? estadoMorosidad { get; set; }
         public int? estadoAsignacion { get; set; }
         public int? nIdPeriodoGestion { get; set; }
+        public int PageNumber { get; set; }
+        public int RowspPage { get; set; }
     }
 
 }
