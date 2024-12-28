@@ -41,4 +41,12 @@ namespace backend.domain
         public int nIdUsuario { get; set; }
         public int nIdCompania { get; set; }
     }
+
+    public class UpdReprogramacionCuotaDTO
+    {
+        public int nIdContrato { get; set; }
+        public int nMesesReprogramacion { get; set; }
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+    }
 }
