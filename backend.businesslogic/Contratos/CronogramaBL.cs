@@ -42,5 +42,10 @@ namespace backend.businesslogic.Contratos
         {
             return await repository.getSelectCicloPago(nIdContrato);
         }
+
+        public async Task<SqlRspDTO> UpdReprogramacionCuota(UpdReprogramacionCuotaDTO updReprogramacionCuota)
+        {
+            return await repository.UpdReprogramacionCuota(updReprogramacionCuota);
+        }
     }
 }
