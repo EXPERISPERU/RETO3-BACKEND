@@ -10,5 +10,6 @@ namespace backend.businesslogic.Interfaces.Contratos
         Task<SqlRspDTO> UpdMoraCronograma(UpdMoraCronogramaDTO updMoraCronograma);
         Task<SqlRspDTO> UpdCicloPago(UpdCicloPagoDTO updCicloPago);
         Task<IList<SelectDTO>> getSelectCicloPago(int nIdContrato);
+        Task<SqlRspDTO> UpdReprogramacionCuota(UpdReprogramacionCuotaDTO updReprogramacionCuota);
     }
 }

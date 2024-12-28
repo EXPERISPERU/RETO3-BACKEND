@@ -115,5 +115,24 @@ namespace backend.repository.Contratos
 
             return list.ToList();
         }
+
+        public async Task<SqlRspDTO> UpdReprogramacionCuota(UpdReprogramacionCuotaDTO updReprogramacionCuota)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_cronograma]", 8);
+                parameters.Add("nIdContrato", updReprogramacionCuota.nIdContrato);
+                parameters.Add("nMesesReprogramacion", updReprogramacionCuota.nMesesReprogramacion);
+                parameters.Add("nIdUsuario", updReprogramacionCuota.nIdUsuario);
+                parameters.Add("nIdCompania", updReprogramacionCuota.nIdCompania);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
     }
 }
