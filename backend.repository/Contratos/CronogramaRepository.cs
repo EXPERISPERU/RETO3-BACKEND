@@ -80,5 +80,40 @@ namespace backend.repository.Contratos
 
             return res;
         }
+
+        public async Task<SqlRspDTO> UpdCicloPago(UpdCicloPagoDTO updCicloPago)
+        {
+            SqlRspDTO res = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_cronograma]", 6);
+                parameters.Add("nIdContrato", updCicloPago.nIdContrato);
+                parameters.Add("nIdCicloPago", updCicloPago.nIdCicloPago);
+                parameters.Add("nIdUsuario", updCicloPago.nIdUsuario);
+                parameters.Add("nIdCompania", updCicloPago.nIdCompania);
+
+                res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return res;
+        }
+
+        public async Task<IList<SelectDTO>> getSelectCicloPago(int nIdContrato)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_cronograma]", 7);
+                parameters.Add("nIdContrato", nIdContrato);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
     }
 }
