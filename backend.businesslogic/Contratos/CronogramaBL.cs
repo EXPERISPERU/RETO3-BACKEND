@@ -32,5 +32,20 @@ namespace backend.businesslogic.Contratos
         {
             return await repository.UpdMoraCronograma(updMoraCronograma);
         }
+
+        public async Task<SqlRspDTO> UpdCicloPago(UpdCicloPagoDTO updCicloPago)
+        {
+            return await repository.UpdCicloPago(updCicloPago);
+        }
+
+        public async Task<IList<SelectDTO>> getSelectCicloPago(int nIdContrato)
+        {
+            return await repository.getSelectCicloPago(nIdContrato);
+        }
+
+        public async Task<SqlRspDTO> UpdReprogramacionCuota(UpdReprogramacionCuotaDTO updReprogramacionCuota)
+        {
+            return await repository.UpdReprogramacionCuota(updReprogramacionCuota);
+        }
     }
 }

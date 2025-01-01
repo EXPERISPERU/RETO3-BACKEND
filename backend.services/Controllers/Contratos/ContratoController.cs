@@ -570,5 +570,67 @@ namespace backend.services.Controllers.Contratos
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdCicloPago([FromBody] UpdCicloPagoDTO updCicloPago)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await cronogramaService.UpdCicloPago(updCicloPago);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getSelectCicloPago(int nIdContrato)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await cronogramaService.getSelectCicloPago(nIdContrato);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> postUpdReprogramacionCuota([FromBody] UpdReprogramacionCuotaDTO updReprogramacionCuota)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await cronogramaService.UpdReprogramacionCuota(updReprogramacionCuota);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace backend.domain
         public string? sNombreEmpleado { get; set; }
         public int? nIdUsuario_crea { get; set; }
         public int? nSeguimientos { get; set; }
+        public int nTotalTabla { get;}
     }
 
     public class PeriodoGestionDTO
