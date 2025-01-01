@@ -11,11 +11,13 @@ namespace backend.domain
         public int nIdNotificacion { get; set; }
         public int nIdTipoNotificacion { get; set; }
         public string? sTipoNotificacion { get; set; }
-        public int? nIdPlantilla { get; set; }
-        public int? nIdSeguimiento { get; set; }
-        public int? nIdCliente { get; set; }
-        public int? nIdContrato { get; set; }
+        public string? sContenido { get; set; }
+        public int nIdPlantilla { get; set; }
+        public int nIdSeguimiento { get; set; }
+        public int nIdCliente { get; set; }
+        public int nIdContrato { get; set; }
         public int? nIdEstado { get; set; }
+        public int? nIdFormato { get; set; }
         public DateTime? dFechaEnvio { get; set; }
         public int? nIdUsuarioCrea { get; set; }
         public DateTime dFechaCrea { get; set; }
@@ -74,7 +76,13 @@ namespace backend.domain
         public int? nIdCliente { get; set; }
         public int? nIdContrato { get; set; }
         public int? nIdTipoNotificacion { get; set; }
+        public int? nIdTipoSeguimiento { get; set; }
+        public int? nIdUsuario { get; set; }
+        public int? nIdCompania { get; set; }
         public int? nIdPlantilla { get; set; }
+        public int? nIdFormato { get; set; }
+        public int? nIdSeguimiento { get; set; }
+
     }
 
     public class NotificacionResponseDTO
@@ -83,5 +91,19 @@ namespace backend.domain
         public string? message { get; set; }
         public string? error { get; set; }
         public int? id { get; set; }
+    }
+
+    public class FormatoDTO
+    {
+        public int? nIdFormato { get; set; }
+        public int nIdDocumento { get; set; }
+        public int? nIdProyecto { get; set; }
+        public string? sCuerpo { get; set; }
+        public int? bActivo { get; set; }
+        public DateTime? dFechaCrea { get; set; }
+        public int? nIdUsuarioMod { get; set; }
+        public DateTime? dFechaMod { get; set; }
+        public DateTime? dFechaCreaUsuario { get; set; }
+        public int? nIdCompania { get; set; }
     }
 }

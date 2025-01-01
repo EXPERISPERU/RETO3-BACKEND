@@ -26,13 +26,33 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListPlantillaNotificacion();
         }
+        public async Task<NotificacionDTO> getNotificacionByID(int nIdNotificacion)
+        {
+            return await repository.getNotificacionByID(nIdNotificacion);
+        }
         public async Task<SqlRspDTO> posInsNotificacion(NotificacionDataDTO notificacionData)
         {
             return await repository.posInsNotificacion(notificacionData);
         }
-        public async Task<SqlRspDTO> posEnviarNotificacion(int nIdNotificacion)
+        public async Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int nIdPlantilla)
         {
-            return await repository.posEnviarNotificacion(nIdNotificacion);
+            return await repository.getPlantillaNotificacionByID(nIdPlantilla);
+        }
+        public async Task<SqlRspDTO> updNotificacionEstado(int nIdNotificacion, string message)
+        {
+            return await repository.updNotificacionEstado(nIdNotificacion, message);
+        }
+        public async Task<IList<SelectDTO>> getListFormatoCartas()
+        {
+            return await repository.getListFormatoCartas();
+        }
+        public async Task<FormatoDTO> getFormatoCartaByID(int nIdFormato)
+        {
+            return await repository.getFormatoCartaByID(nIdFormato);
+        }
+        public async Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int nIdSeguimiento)
+        {
+            return await repository.getList4CronogramaDeuda(nIdContrato, nIdSeguimiento);
         }
     }
 }

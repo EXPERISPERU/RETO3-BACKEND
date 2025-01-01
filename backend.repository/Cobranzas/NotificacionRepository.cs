@@ -2,8 +2,6 @@
 using backend.repository.Interfaces.Cobranzas;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
@@ -46,9 +44,13 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 2);
-                parameters.Add("nIdContrato", notificacionData.nIdContrato);
                 parameters.Add("nIdCliente", notificacionData.nIdCliente);
+                parameters.Add("nIdContrato", notificacionData.nIdContrato);
                 parameters.Add("nIdTipoNotificacion", notificacionData.nIdTipoNotificacion);
+                parameters.Add("nIdTipoSeguimiento", notificacionData.nIdTipoSeguimiento);
+                parameters.Add("nIdUsuario", notificacionData.nIdUsuario);
+                parameters.Add("nIdCompania", notificacionData.nIdCompania);
+                parameters.Add("nIdPlantilla", notificacionData.nIdPlantilla);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -71,7 +73,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<SqlRspDTO> posEnviarNotificacion(int nIdNotificacion)
+        public async Task<SqlRspDTO> updNotificacionEstado(int nIdNotificacion, string message)
         {
             SqlRspDTO res = new SqlRspDTO(); ;
 
@@ -80,11 +82,93 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 4);
                 parameters.Add("nIdNotificacion", nIdNotificacion);
+                parameters.Add("sCode", message);
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return res;
         }
+
+        public async Task<NotificacionDTO> getNotificacionByID(int nIdNotificacion)
+        {
+            NotificacionDTO resp = new NotificacionDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 6);
+                parameters.Add("nIdNotificacion", nIdNotificacion);
+
+                resp = await connection.QuerySingleAsync<NotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int nIdPlantilla)
+        {
+            PlantillaNotificacionDTO resp = new PlantillaNotificacionDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 7);
+                parameters.Add("nIdPlantilla", nIdPlantilla);
+
+
+                resp = await connection.QuerySingleAsync<PlantillaNotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<IList<SelectDTO>> getListFormatoCartas()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 8);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<FormatoDTO> getFormatoCartaByID(int nIdFormato)
+        {
+            FormatoDTO resp = new FormatoDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 9);
+                parameters.Add("nIdFormato", nIdFormato);
+
+                resp = await connection.QuerySingleAsync<FormatoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
+        public async Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int nIdSeguimiento)
+        {
+            IEnumerable<CronogramaDeudaDTO> list = new List<CronogramaDeudaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 10);
+                parameters.Add("nIdContrato", nIdContrato);
+                parameters.Add("nIdSeguimiento", nIdSeguimiento);
+
+                list = await connection.QueryAsync<CronogramaDeudaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }

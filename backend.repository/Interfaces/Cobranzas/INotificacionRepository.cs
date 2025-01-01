@@ -11,7 +11,12 @@ namespace backend.repository.Interfaces.Cobranzas
     {
         Task<IList<NotificacionDTO>> getListNotificacion(NotificacionFilterDTO notificacionFilter);
         Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion();
+        Task<NotificacionDTO> getNotificacionByID(int nIdNotificacion);
+        Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int nIdPlantilla);
         Task<SqlRspDTO> posInsNotificacion(NotificacionDataDTO notificacionData);
-        Task<SqlRspDTO> posEnviarNotificacion(int nIdNotificacion);
+        Task<SqlRspDTO> updNotificacionEstado(int nIdNotificacion, string message);
+        Task<IList<SelectDTO>> getListFormatoCartas();
+        Task<FormatoDTO> getFormatoCartaByID(int nIdFormato);
+        Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int nIdSeguimiento);
     }
 }
