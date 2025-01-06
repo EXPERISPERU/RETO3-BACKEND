@@ -19,7 +19,7 @@ namespace backend.repository.Cobranzas
             _configuration = configuration;
         }
 
-        public async Task<IList<NotificacionDTO>> getListNotificacion(NotificacionFilterDTO notificacionFilter)
+        public async Task<IList<NotificacionDTO>> getListNotificacion(NotificacionFilterDTO filter)
         {
             IEnumerable<NotificacionDTO> list = new List<NotificacionDTO>();
 
@@ -27,8 +27,8 @@ namespace backend.repository.Cobranzas
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]");
-                parameters.Add("nTipoNotificacion", notificacionFilter.nTipoNotificacion);
-                parameters.Add("nGrupo", notificacionFilter.nGrupo);
+                parameters.Add("nTipoNotificacion", filter.nIdTipoNotificacion);
+                parameters.Add("nGrupo", filter.nIdGrupo);
 
                 list = await connection.QueryAsync<NotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
@@ -48,6 +48,8 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdContrato", notificacionData.nIdContrato);
                 parameters.Add("nIdTipoNotificacion", notificacionData.nIdTipoNotificacion);
                 parameters.Add("nIdTipoSeguimiento", notificacionData.nIdTipoSeguimiento);
+                parameters.Add("nIdSeguimiento", notificacionData.nIdSeguimiento);
+                parameters.Add("nIdFormato", notificacionData.nIdFormato);
                 parameters.Add("nIdUsuario", notificacionData.nIdUsuario);
                 parameters.Add("nIdCompania", notificacionData.nIdCompania);
                 parameters.Add("nIdPlantilla", notificacionData.nIdPlantilla);
@@ -58,16 +60,16 @@ namespace backend.repository.Cobranzas
             return res;
         }
 
-        public async Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion()
+        public async Task<IList<SelectDTO>> getListPlantillaNotificacion()
         {
-            IEnumerable<PlantillaNotificacionDTO> list = new List<PlantillaNotificacionDTO>();
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 3);
 
-                list = await connection.QueryAsync<PlantillaNotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
@@ -90,7 +92,22 @@ namespace backend.repository.Cobranzas
             return res;
         }
 
-        public async Task<NotificacionDTO> getNotificacionByID(int nIdNotificacion)
+        public async Task<IList<SelectDTO>> getListMedioEnvio()
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 5);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<NotificacionDTO> getNotificacionByID(int? nIdNotificacion)
         {
             NotificacionDTO resp = new NotificacionDTO();
 
@@ -106,7 +123,7 @@ namespace backend.repository.Cobranzas
             return resp;
         }
 
-        public async Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int nIdPlantilla)
+        public async Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int? nIdPlantilla)
         {
             PlantillaNotificacionDTO resp = new PlantillaNotificacionDTO();
 
@@ -138,7 +155,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<FormatoDTO> getFormatoCartaByID(int nIdFormato)
+        public async Task<FormatoDTO> getFormatoCartaByID(int? nIdFormato)
         {
             FormatoDTO resp = new FormatoDTO();
 
@@ -154,7 +171,7 @@ namespace backend.repository.Cobranzas
             return resp;
         }
 
-        public async Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int nIdSeguimiento)
+        public async Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int? nIdSeguimiento)
         {
             IEnumerable<CronogramaDeudaDTO> list = new List<CronogramaDeudaDTO>();
 
@@ -169,6 +186,46 @@ namespace backend.repository.Cobranzas
             }
             return list.ToList();
         }
+
+        public async Task<IList<ClienteDeudaDTO>> getListMorosos(NotificacionFilterDTO filter)
+        {
+            IEnumerable<ClienteDeudaDTO> list = new List<ClienteDeudaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 11);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("nIdGrupo", filter.nIdGrupo);
+                parameters.Add("nIdCiclo", filter.nIdCiclo);
+                parameters.Add("nIdEstado", filter.nIdEstado);
+                parameters.Add("PageNumber", filter.PageNumber);
+                parameters.Add("RowspPage", filter.RowspPage);
+
+                list = await connection.QueryAsync<ClienteDeudaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
+        public async Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdCliente, int? nIdContrato)
+        {
+            ContratosDeudaDTO resp = new ContratosDeudaDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 12);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdCliente", nIdCliente);
+                parameters.Add("nIdContrato", nIdContrato);
+
+
+                resp = await connection.QuerySingleAsync<ContratosDeudaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
 
     }
 }

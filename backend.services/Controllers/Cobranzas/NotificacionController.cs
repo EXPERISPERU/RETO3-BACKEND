@@ -57,6 +57,34 @@ namespace backend.services.Controllers.Cobranzas
             {
                 var result = await service.posInsNotificacion(notificacionData);
 
+                if (notificacionData.bInmediato == true)
+                {
+                    NotificacionDTO notificacion = await service.getNotificacionByID(result.nCod);
+
+                    IList<CronogramaDeudaDTO> deudaCrono = null;
+
+                    ContratosDeudaDTO deudaContrato = null;
+
+                    FormatoDTO formatoCarta = new FormatoDTO();
+
+                    if (notificacion.nIdFormato.HasValue)
+                    {
+                        formatoCarta = await service.getFormatoCartaByID(notificacion.nIdFormato);
+                    }
+
+                    PlantillaNotificacionDTO plantilla = await service.getPlantillaNotificacionByID(notificacion.nIdPlantilla);
+
+                    ContratoDTO contrato = await contratoService.getContratoById(notificacion.nIdContrato);
+
+                    if (contrato.nCuotasPendientes > 0)
+                    {
+                        deudaCrono = await service.getList4CronogramaDeuda(contrato.nIdContrato, notificacion.nIdSeguimiento);
+                        deudaContrato = await service.getDeudaByContratoID(notificacionData.nIdCompania, notificacion.nIdCliente, contrato.nIdContrato);
+                    }
+
+                    NotificacionResponseDTO res = await new UltraMsg(configuration!, hostingEnvironment).enviarNotificacion(notificacion, contrato, plantilla, formatoCarta, deudaCrono, deudaContrato);
+                }
+
                 response.success = true;
                 response.data = result;
                 return StatusCode(200, response);
@@ -79,6 +107,7 @@ namespace backend.services.Controllers.Cobranzas
                 NotificacionDTO notificacion = await service.getNotificacionByID(nIdNotificacion);
 
                 IList<CronogramaDeudaDTO> deudaCrono = null;
+                ContratosDeudaDTO deudaContrato = null;
 
                 FormatoDTO formatoCarta = new FormatoDTO();
 
@@ -94,9 +123,10 @@ namespace backend.services.Controllers.Cobranzas
                 if (contrato.nCuotasPendientes > 0)
                 {
                     deudaCrono = await service.getList4CronogramaDeuda(contrato.nIdContrato, notificacion.nIdSeguimiento);
+                    deudaContrato = await service.getDeudaByContratoID(notificacion.nIdCompania, notificacion.nIdCliente, contrato.nIdContrato);
                 }
 
-                NotificacionResponseDTO res = await new UltraMsg(configuration!, hostingEnvironment).enviarNotificacion(notificacion, contrato, plantilla, formatoCarta, deudaCrono);
+                NotificacionResponseDTO res = await new UltraMsg(configuration!, hostingEnvironment).enviarNotificacion(notificacion, contrato, plantilla, formatoCarta, deudaCrono, deudaContrato);
 
                 var message = res.sent ? "SENT" : "ERROR";
 
@@ -114,9 +144,9 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<PlantillaNotificacionDTO>>>> getListPlantillaNotificacion()
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListPlantillaNotificacion()
         {
-            ApiResponse<List<PlantillaNotificacionDTO>> response = new ApiResponse<List<PlantillaNotificacionDTO>>();
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
 
             try
             {
@@ -125,7 +155,7 @@ namespace backend.services.Controllers.Cobranzas
                 Console.WriteLine(result);
 
                 response.success = true;
-                response.data = (List<PlantillaNotificacionDTO>)result;
+                response.data = (List<SelectDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -144,6 +174,48 @@ namespace backend.services.Controllers.Cobranzas
             try
             {
                 var result = await service.getListFormatoCartas();
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ClienteDeudaDTO>>>> getListMorosos([FromBody] NotificacionFilterDTO filter)
+        {
+            ApiResponse<List<ClienteDeudaDTO>> response = new ApiResponse<List<ClienteDeudaDTO>>();
+
+            try
+            {
+                var result = await service.getListMorosos(filter);
+
+                response.success = true;
+                response.data = (List<ClienteDeudaDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListMedioEnvio()
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getListMedioEnvio();
 
                 response.success = true;
                 response.data = (List<SelectDTO>)result;

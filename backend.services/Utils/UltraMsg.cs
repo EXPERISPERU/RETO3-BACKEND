@@ -37,7 +37,7 @@ namespace backend.services.Utils
             return layout;
         }
 
-        private async Task<string> crearFormato(ContratoDTO contrato, FormatoDTO formato, IList<CronogramaDeudaDTO> cronogramaDeudas)
+        private async Task<string> crearFormato(ContratoDTO contrato, FormatoDTO formato, IList<CronogramaDeudaDTO> cronogramaDeudas, ContratosDeudaDTO contratosDeuda)
         {
             try
             {
@@ -47,6 +47,8 @@ namespace backend.services.Utils
 
                 var fechaFormat = FormatearFecha(fechaActual);
                 var tablaCuotas = "";
+
+                var montoVencido = contratosDeuda.nMontoFinalVencido ?? 0;
 
                 var estructure = formato.sCuerpo ?? "";
 
@@ -71,10 +73,10 @@ namespace backend.services.Utils
                                 .Replace("#sLote#", contrato.sLote)
                                 .Replace("#sDireccion#", contrato.sDireccion)
                                 .Replace("#sCodigo#", contrato.sCodigo)
-                                .Replace("#nCuotasPendientes#", contrato.nCuotasPendientes.ToString())
+                                .Replace("#nCuotasPendientes#", contratosDeuda.nCuotasVencidas.ToString())
                                 .Replace("#tablaCuotas#", tablaCuotas)
-                                .Replace("#tCuotasPendientes#", Math.Round(contrato.tCuotasPendientes,2).ToString())
-                                .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(contrato.tCuotasPendientes, 2)));
+                                .Replace("#tCuotasPendientes#", Math.Round(montoVencido, 2).ToString())
+                                .Replace("#sMONTOLETRAS#", new NumerosLetras().sConvertir(Math.Round(montoVencido, 2)));
 
 
                 string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid() + ".pdf");
@@ -109,7 +111,7 @@ namespace backend.services.Utils
 
         }
 
-        private async Task<string> estructurarEnvio(ContratoDTO contrato, NotificacionDTO notificacion, PlantillaNotificacionDTO plantilla, FormatoDTO? formato, IList<CronogramaDeudaDTO> cronogramaDeudas)
+        private async Task<string> estructurarEnvio(NotificacionDTO notificacion, ContratoDTO contrato, PlantillaNotificacionDTO plantilla, FormatoDTO? formato, IList<CronogramaDeudaDTO>? cronogramaDeudas, ContratosDeudaDTO? contratosDeuda)
         {
             var mensaje = estructurarMensaje(contrato, plantilla);
 
@@ -137,7 +139,7 @@ namespace backend.services.Utils
 
             if (notificacion.nIdTipoNotificacion == 311) //DOCUMENT
             {
-                var archivo = await crearFormato(contrato, formato, cronogramaDeudas);
+                var archivo = await crearFormato(contrato, formato, cronogramaDeudas, contratosDeuda);
                 structureDc["document"] = archivo;
                 structureDc["filename"] = "archivo.pdf";
                 structureDc["caption"] = mensaje;
@@ -163,12 +165,12 @@ namespace backend.services.Utils
             return sUltraMsgUrl + sUltraMsgInstance + sUrlEndpoint;
         }
 
-        public async Task<NotificacionResponseDTO> enviarNotificacion(NotificacionDTO notificacion, ContratoDTO contrato, PlantillaNotificacionDTO plantilla, FormatoDTO? formato, IList<CronogramaDeudaDTO> cronogramaDeudas)
+        public async Task<NotificacionResponseDTO> enviarNotificacion(NotificacionDTO? notificacion, ContratoDTO contrato, PlantillaNotificacionDTO plantilla, FormatoDTO? formato, IList<CronogramaDeudaDTO> cronogramaDeudas, ContratosDeudaDTO contratosDeuda)
         {
             try
             {
 
-                var body = await estructurarEnvio(contrato, notificacion, plantilla, formato, cronogramaDeudas);
+                var body = await estructurarEnvio(notificacion, contrato, plantilla, formato, cronogramaDeudas, contratosDeuda);
 
                 var content = new StringContent(body, Encoding.UTF8, "application/json");
 

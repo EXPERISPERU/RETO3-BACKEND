@@ -4,12 +4,14 @@ namespace backend.services.Utils
 {
     public class NumerosLetras
     {
-        private string sUnidad(int unidad) {
-            string[] sUnidades = { "", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siente", "ocho", "nueve"};
+        private string sUnidad(int unidad)
+        {
+            string[] sUnidades = { "", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siente", "ocho", "nueve" };
             return sUnidades[unidad];
         }
 
-        private string sDecena(int decena) {
+        private string sDecena(int decena)
+        {
             string result = "";
             int unidad = decena % 10;
 
@@ -34,16 +36,17 @@ namespace backend.services.Utils
                         break;
                 }
             }
-            else if ( (decena / 10) < 3 && unidad == 0 )
+            else if ((decena / 10) < 3 && unidad == 0)
             {
-                if(decena/10 == 1) result = "diez";
-                if(decena/10 == 2) result = "veinte";
+                if (decena / 10 == 1) result = "diez";
+                if (decena / 10 == 2) result = "veinte";
             }
             else
             {
                 string[] sDecenas = { "", "dieci", "veinti", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa" };
                 result = sDecenas[decena / 10];
-                if (unidad > 0) {
+                if (unidad > 0)
+                {
                     if ((decena / 10) < 3)
                     {
                         result += sUnidad(unidad);
@@ -57,7 +60,8 @@ namespace backend.services.Utils
             return result;
         }
 
-        private string sCentena(int centena) {
+        private string sCentena(int centena)
+        {
             string result = "";
             int decena = centena % 100;
             if (centena > 100)
@@ -66,23 +70,25 @@ namespace backend.services.Utils
                 result = centenas[centena / 100];
                 if (decena > 0) result += " " + sDecena(decena);
             }
-            else 
+            else
             {
                 result = "cien";
             }
             return result;
         }
 
-        private string sConvertirGrupo(int numero) {
+        private string sConvertirGrupo(int numero)
+        {
             if ((numero / 100) > 0) return sCentena(numero);
             else if ((numero / 10) > 0) return sDecena(numero);
             else return sUnidad(numero);
         }
 
-        public string sConvertir(decimal numero) {
+        public string sConvertir(decimal numero)
+        {
             string result = "";
-            int entero = (int) Math.Truncate(numero);
-            string sDecimal = numero.ToString().Contains(".") ? "con " + Math.Round(numero, 2).ToString().Split('.')[1] + "/100" :  "con 00/100";
+            int entero = (int)Math.Truncate(numero);
+            string sDecimal = numero.ToString().Contains(".") ? "con " + Math.Round(numero, 2).ToString().Split('.')[1] + "/100" : "con 00/100";
 
             if ((entero / 1000000) > 0)
             {
