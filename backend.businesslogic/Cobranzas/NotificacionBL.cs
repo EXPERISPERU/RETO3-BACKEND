@@ -9,12 +9,68 @@ using System.Threading.Tasks;
 
 namespace backend.businesslogic.Cobranzas
 {
-    public class NotificacionBL: INotificacionBL
+    public class NotificacionBL : INotificacionBL
     {
-        INotificacionBL repository;
+        INotificacionRepository repository;
+
+        public NotificacionBL(INotificacionRepository _repository)
+        {
+            this.repository = _repository;
+        }
+
         public async Task<IList<NotificacionDTO>> getListNotificacion(NotificacionFilterDTO notificacionFilter)
         {
             return await repository.getListNotificacion(notificacionFilter);
         }
+        public async Task<IList<SelectDTO>> getListPlantillaNotificacion()
+        {
+            return await repository.getListPlantillaNotificacion();
+        }
+        public async Task<NotificacionDTO> getNotificacionByID(int? nIdNotificacion)
+        {
+            return await repository.getNotificacionByID(nIdNotificacion);
+        }
+        public async Task<SqlRspDTO> posInsNotificacion(NotificacionDataDTO notificacionData)
+        {
+            return await repository.posInsNotificacion(notificacionData);
+        }
+        public async Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int? nIdPlantilla)
+        {
+            return await repository.getPlantillaNotificacionByID(nIdPlantilla);
+        }
+        public async Task<SqlRspDTO> updNotificacionEstado(int nIdNotificacion, string message)
+        {
+            return await repository.updNotificacionEstado(nIdNotificacion, message);
+        }
+        public async Task<IList<SelectDTO>> getListMedioEnvio()
+        {
+            return await repository.getListMedioEnvio();
+        }
+        public async Task<IList<SelectDTO>> getListFormatoCartas()
+        {
+            return await repository.getListFormatoCartas();
+        }
+        public async Task<FormatoDTO> getFormatoCartaByID(int? nIdFormato)
+        {
+            return await repository.getFormatoCartaByID(nIdFormato);
+        }
+        public async Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int? nIdSeguimiento)
+        {
+            return await repository.getList4CronogramaDeuda(nIdContrato, nIdSeguimiento);
+        }
+        public async Task<IList<ClienteDeudaDTO>> getListMorosos(NotificacionFilterDTO filter)
+        {
+            return await repository.getListMorosos(filter);
+        }
+        public async Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdCliente, int? nIdContrato)
+        {
+            return await repository.getDeudaByContratoID(nIdCompania, nIdCliente, nIdContrato);
+        }
+
+        public async Task<IList<NotificacionDTO>> getListNotificacionBySeguimiento(int nIdSeguimiento)
+        {
+            return await repository.getListNotificacionBySeguimiento(nIdSeguimiento);
+        }
+
     }
 }
