@@ -49,7 +49,7 @@ namespace backend.domain
         public string? dFechaIni { get; set; }
         public int? nCuotasVencidas { get; set; }
         public int? nIdMoneda { get; set; }
-        public string? nMontoFinalVencido { get; set; }
+        public decimal? nMontoFinalVencido { get; set; }
     }
 
     public class CronogramaDeudaDTO
@@ -190,7 +190,7 @@ namespace backend.domain
         public DateTime? dFecha_Ini { get; set; }
         public DateTime? dFecha_Fin { get; set; }
         public string? sEstado { get; set; }
-        public int? nIdUsuario_crea { get; set; }        
+        public int? nIdUsuario_crea { get; set; }
     }
 
 
@@ -220,7 +220,7 @@ namespace backend.domain
         public int nIdReferido { get; set; }
         public int nIdSeguimiento { get; set; }
     }
-    
+
 
 
 }
