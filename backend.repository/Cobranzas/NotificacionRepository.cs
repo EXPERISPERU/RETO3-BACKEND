@@ -226,6 +226,21 @@ namespace backend.repository.Cobranzas
             return resp;
         }
 
+        public async Task<IList<NotificacionDTO>> getListNotificacionBySeguimiento(int? nIdSeguimiento)
+        {
+            IEnumerable<NotificacionDTO> list = new List<NotificacionDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 13);
+                parameters.Add("nIdSeguimiento", nIdSeguimiento);
+
+                list = await connection.QueryAsync<NotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
 
     }
 }

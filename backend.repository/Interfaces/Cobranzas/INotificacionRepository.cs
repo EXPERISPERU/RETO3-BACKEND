@@ -21,5 +21,6 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int? nIdSeguimiento);
         Task<IList<ClienteDeudaDTO>> getListMorosos(NotificacionFilterDTO notificacionFilter);
         Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdCliente, int? nIdContrato);
+        Task<IList<NotificacionDTO>> getListNotificacionBySeguimiento(int? nIdSeguimiento);
     }
 }

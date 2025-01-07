@@ -66,5 +66,11 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getDeudaByContratoID(nIdCompania, nIdCliente, nIdContrato);
         }
+
+        public async Task<IList<NotificacionDTO>> getListNotificacionBySeguimiento(int nIdSeguimiento)
+        {
+            return await repository.getListNotificacionBySeguimiento(nIdSeguimiento);
+        }
+
     }
 }
