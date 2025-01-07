@@ -57,6 +57,8 @@ namespace backend.services.Controllers.Cobranzas
             {
                 var result = await service.posInsNotificacion(notificacionData);
 
+                var message = "";
+
                 if (notificacionData.bInmediato == true)
                 {
                     NotificacionDTO notificacion = await service.getNotificacionByID(result.nCod);
@@ -83,9 +85,13 @@ namespace backend.services.Controllers.Cobranzas
                     }
 
                     NotificacionResponseDTO res = await new UltraMsg(configuration!, hostingEnvironment).enviarNotificacion(notificacion, contrato, plantilla, formatoCarta, deudaCrono, deudaContrato);
+
+                    message = res.sent ? "SENT" : "ERROR";
+                    await service.updNotificacionEstado(notificacion.nIdNotificacion, message);
                 }
 
-                response.success = true;
+
+                response.success = message == "SENT";
                 response.data = result;
                 return StatusCode(200, response);
             }

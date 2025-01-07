@@ -141,7 +141,7 @@ namespace backend.services.Utils
             {
                 var archivo = await crearFormato(contrato, formato, cronogramaDeudas, contratosDeuda);
                 structureDc["document"] = archivo;
-                structureDc["filename"] = "archivo.pdf";
+                structureDc["filename"] = $"{contrato.sProyecto} - MZ {contrato.sManzana} LT {contrato.sLote}.pdf";
                 structureDc["caption"] = mensaje;
 
             }

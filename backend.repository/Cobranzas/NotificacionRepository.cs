@@ -53,6 +53,8 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdUsuario", notificacionData.nIdUsuario);
                 parameters.Add("nIdCompania", notificacionData.nIdCompania);
                 parameters.Add("nIdPlantilla", notificacionData.nIdPlantilla);
+                parameters.Add("bInmediato", notificacionData.bInmediato);
+
 
                 res = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
