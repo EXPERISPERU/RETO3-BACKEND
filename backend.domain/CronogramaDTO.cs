@@ -18,7 +18,7 @@ namespace backend.domain
         public string? sMoneda { get; set; }
         public string? sSimbolo { get; set; }
         public decimal nMonto { get; set; }
-        public int nMontoMora { get; set; }
+        public int nValorMora { get; set; }
         public decimal nMontoFinal { get; set; }
         public DateTime dFechaVencimiento { get; set; }
         public string? sFechaVencimiento { get; set; }
@@ -30,7 +30,7 @@ namespace backend.domain
     public class UpdMoraCronogramaDTO
     { 
         public int nIdCronograma { get; set; }
-        public int nMontoMora { get; set; }
+        public int nValorMora { get; set; }
         public int nIdUsuario { get; set; }
         public int nIdCompania { get; set; }
     }

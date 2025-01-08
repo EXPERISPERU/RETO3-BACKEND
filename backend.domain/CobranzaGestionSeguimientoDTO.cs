@@ -66,8 +66,11 @@ namespace backend.domain
         public int? diasMora { get; set; }
         public Decimal? nValorMora { get; set; }
         public Decimal? montoTotal { get; set; }
+        public Decimal? nMontoFinal { get; set; }
         public int? nIdSeguimientoCuota { get; set; }
         public DateTime? dFechaCompromiso { get; set; }
+        public string sEstado { get; set; }
+        public string sSimbolo { get; set; }
     }
 
     public class SeguimientoDTO

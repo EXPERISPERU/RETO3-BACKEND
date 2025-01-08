@@ -71,7 +71,7 @@ namespace backend.repository.Contratos
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[contratos].[pa_cronograma]", 5);
                 parameters.Add("nIdCronograma", updMoraCronograma.nIdCronograma);
-                parameters.Add("nMontoMora", updMoraCronograma.nMontoMora);
+                parameters.Add("nMontoMora", updMoraCronograma.nValorMora);
                 parameters.Add("nIdUsuario", updMoraCronograma.nIdUsuario);
                 parameters.Add("nIdCompania", updMoraCronograma.nIdCompania);
 
