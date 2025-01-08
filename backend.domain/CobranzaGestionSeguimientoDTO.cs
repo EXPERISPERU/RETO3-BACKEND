@@ -112,6 +112,7 @@ namespace backend.domain
         public int? nIdSeguimientoCuota { get; set; }
         public int nIdSeguimiento { get; set; }
         public int nIdContrato { get; set; }
+        public string? sLote { get; set; }
         public string? sCodContrato { get; set; }
         public int nIdCronograma { get; set; }
         public int nIdMoneda { get; set; }
