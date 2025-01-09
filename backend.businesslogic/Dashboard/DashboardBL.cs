@@ -43,5 +43,10 @@ namespace backend.businesslogic.Dashboard
         {
             return await repository.postTrazabilidadPreContratos(trazabilidadPreContratosFilter);
         }
+
+        public async Task<IList<AgendamientoChartDTO>> postListAgendamientoChart(AgendamientoChartFilterDTO agendamientoChartFilter)
+        {
+            return await repository.postListAgendamientoChart(agendamientoChartFilter);
+        }
     }
 }
