@@ -56,7 +56,7 @@ namespace backend.domain
     {
         public int nIdCronograma { get; set; }
         public int nIdContrato { get; set; }
-        public string sCodContrato { get; set; }
+        public string? sCodContrato { get; set; }
         public int nIdSeguimiento { get; set; }
         public int? nIdAgendamiento { get; set; }
         public int nNroCuota { get; set; }
@@ -69,8 +69,9 @@ namespace backend.domain
         public Decimal? nMontoFinal { get; set; }
         public int? nIdSeguimientoCuota { get; set; }
         public DateTime? dFechaCompromiso { get; set; }
-        public string sEstado { get; set; }
-        public string sSimbolo { get; set; }
+        public string? sEstado { get; set; }
+        public string? sSimbolo { get; set; }
+        public int? nIdComprobante { get; set; }
     }
 
     public class SeguimientoDTO
