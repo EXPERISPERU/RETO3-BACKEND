@@ -149,7 +149,7 @@ namespace backend.services.Utils
                         .Replace("#sFecVenCuota#", cronogramas[i].dFechaVencimiento.ToString("dd/MM/yyyy"))
                         .Replace("#sSimboloCuota#", cronogramas[i].sSimbolo)
                         .Replace("#sMontoCuota#", cronogramas[i].nMontoFinal.ToString("N2"))
-                        .Replace("#sMoraCuota#", cronogramas[i].nMontoMora.ToString("N2"))
+                        .Replace("#sMoraCuota#", cronogramas[i].nValorMora.ToString("N2"))
                         .Replace("#sEstadoCuotaCuota#", cronogramas[i].sEstado)
                         .Replace("#sComprobanteCuota#", "")
                         .Replace("#sFormaPagoCuota#", "")

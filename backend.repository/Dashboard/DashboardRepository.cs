@@ -117,5 +117,27 @@ namespace backend.repository.Dashboard
             return list.ToList();
         }
 
+        public async Task<IList<AgendamientoChartDTO>> postListAgendamientoChart(AgendamientoChartFilterDTO agendamientoChartFilter)
+        {
+            IEnumerable<AgendamientoChartDTO> list = new List<AgendamientoChartDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[dashboard].[pa_dashboard]", 6);
+                parameters.Add("nIdCompania", agendamientoChartFilter.nIdCompania);
+                parameters.Add("nIdUsuario", agendamientoChartFilter.nIdUsuario);
+                parameters.Add("nIdProyecto", agendamientoChartFilter.nIdProyecto);
+                parameters.Add("sCodTrimestre", agendamientoChartFilter.sCodTrimestre);
+                parameters.Add("sMes", agendamientoChartFilter.sMes);
+                parameters.Add("sAno", agendamientoChartFilter.sAno);
+                parameters.Add("nIdSubordinado", agendamientoChartFilter.nIdSubordinado);
+
+                list = await connection.QueryAsync<AgendamientoChartDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }

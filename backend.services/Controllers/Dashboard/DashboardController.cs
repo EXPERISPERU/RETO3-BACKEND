@@ -125,5 +125,26 @@ namespace backend.services.Controllers.Dashboard
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<AgendamientoChartDTO>>>> postListAgendamientoChart(AgendamientoChartFilterDTO agendamientoChartFilter)
+        {
+            ApiResponse<List<AgendamientoChartDTO>> response = new ApiResponse<List<AgendamientoChartDTO>>();
+
+            try
+            {
+                var result = await service.postListAgendamientoChart(agendamientoChartFilter);
+
+                response.success = true;
+                response.data = (List<AgendamientoChartDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }
