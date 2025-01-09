@@ -53,4 +53,24 @@ namespace backend.domain
         public DateTime? fechaFin { get; set; }
         public int? tipoListSeguimiento { get; set; }
     }
+
+    public class AgendamientoChartDTO
+    {
+        public int nIdPersona { get; set; }
+        public int nIdAsesor { get; set; }
+        public string? sNombreAsesor { get; set; }
+        public DateTime dFecha { get; set; }
+        public int? nCountAgendamiento { get; set; }
+    }
+
+    public class AgendamientoChartFilterDTO
+    {
+        public int nIdUsuario { get; set; }
+        public int nIdCompania { get; set; }
+        public int? nIdProyecto { get; set; }
+        public string? sCodTrimestre { get; set; }
+        public string? sMes { get; set; }
+        public string? sAno { get; set; }
+        public int? nIdSubordinado { get; set; }
+    }
 }
