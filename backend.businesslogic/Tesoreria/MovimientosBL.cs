@@ -131,5 +131,11 @@ namespace backend.businesslogic.Tesoreria
         {
             return await repository.InsMovimientosEgreso(movEgreso);
         }
+
+        public async Task<IList<ItemDTO>> getAllItemProductos(int nIdCompania)
+        {
+            return await repository.getAllItemProductos(nIdCompania);
+        }
+
     }
 }
