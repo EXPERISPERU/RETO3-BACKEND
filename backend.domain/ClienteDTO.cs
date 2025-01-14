@@ -64,6 +64,7 @@
         public string? sPeriodo { get; set; }
         public string? sPredio { get; set; }
         public string sNombreAsesor { get; set; }
+        public string sNombreProveedor { get; set; }
         public int? nDiasSinContacto { get; set; }
 
     }
