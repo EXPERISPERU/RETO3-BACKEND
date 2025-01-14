@@ -137,5 +137,10 @@ namespace backend.businesslogic.Tesoreria
             return await repository.getAllItemProductos(nIdCompania);
         }
 
+        public async Task<IList<ListPrecioProductoDTO>> postPrecioProducto(ParamPrecioProductoDTO paramPrecioProducto)
+        {
+            return await repository.postPrecioProducto(paramPrecioProducto);
+        }
+
     }
 }

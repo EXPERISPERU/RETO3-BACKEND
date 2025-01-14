@@ -480,5 +480,24 @@ namespace backend.services.Controllers.Tesoreria
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ListPrecioProductoDTO>>>> postPrecioProducto([FromBody] ParamPrecioProductoDTO paramPrecioProducto)
+        {
+            ApiResponse<List<ListPrecioProductoDTO>> response = new ApiResponse<List<ListPrecioProductoDTO>>();
+            try
+            {
+                var result = await service.postPrecioProducto(paramPrecioProducto);
+                response.success = true;
+                response.data = (List<ListPrecioProductoDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }
