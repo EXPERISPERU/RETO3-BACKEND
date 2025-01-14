@@ -33,6 +33,8 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<IList<MovReporteArqueoDTO>> getAllReporteArqueoCaja(int nIdCompania, int nIdCaja, int nIdUsuario);
         Task<SqlRspDTO> InsMovimientosEgreso(MovEgresoDTO movEgreso);
 
+        Task<IList<ItemDTO>> getAllItemProductos(int nIdCompania);
+
 
     }
 }

@@ -168,6 +168,9 @@ namespace backend.services
 
             //Notificacion
             services.AddScoped<INotificacionRepository, NotificacionRepository>();
+
+            //PRECIO PRODUCTO
+            services.AddScoped<IPrecioProductoRepository, PrecioProductoRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -278,6 +281,9 @@ namespace backend.services
 
             //Notificacion
             services.AddScoped<INotificacionBL, NotificacionBL>();
+
+            //PRECIO PRODUCTO
+            services.AddScoped<IPrecioProductoBL, PrecioProductoBL>();
         }
     }
 }
