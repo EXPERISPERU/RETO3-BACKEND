@@ -22,7 +22,7 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListNotificacion(notificacionFilter);
         }
-        public async Task<IList<SelectDTO>> getListPlantillaNotificacion()
+        public async Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion()
         {
             return await repository.getListPlantillaNotificacion();
         }
@@ -62,9 +62,9 @@ namespace backend.businesslogic.Cobranzas
         {
             return await repository.getListMorosos(filter);
         }
-        public async Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdCliente, int? nIdContrato)
+        public async Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdContrato)
         {
-            return await repository.getDeudaByContratoID(nIdCompania, nIdCliente, nIdContrato);
+            return await repository.getDeudaByContratoID(nIdCompania, nIdContrato);
         }
 
         public async Task<IList<NotificacionDTO>> getListNotificacionBySeguimiento(int nIdSeguimiento)

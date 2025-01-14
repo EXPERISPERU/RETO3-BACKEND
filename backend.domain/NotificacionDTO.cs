@@ -71,7 +71,6 @@ namespace backend.domain
         public int? nIdCliente { get; set; }
         public int? nIdContrato { get; set; }
         public int? nIdTipoNotificacion { get; set; }
-        public int? nIdTipoSeguimiento { get; set; }
         public int? nIdUsuario { get; set; }
         public int? nIdCompania { get; set; }
         public int? nIdPlantilla { get; set; }
@@ -118,13 +117,12 @@ namespace backend.domain
     {
         public int nIdContrato { get; set; }
         public string sNombreCliente { get; set; }
+        public int nIdCliente { get; set; }
         public string sNombreProyecto { get; set; }
         public string sInmueble { get; set; }
         public int nCicloPago { get; set; }
-        public int nCantVencidas { get; set; }
-        public decimal nMontoDeuda { get; set; }
-        public int? nIdNotificacion { get; set; }
-        public int? nEstadoEnvio { get; set; }
+        public int nCantCuotas { get; set; }
+        public decimal nTotalDeuda { get; set; }
         public string sCelular { get; set; }
     }
 

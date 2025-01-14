@@ -47,7 +47,6 @@ namespace backend.repository.Cobranzas
                 parameters.Add("nIdCliente", notificacionData.nIdCliente);
                 parameters.Add("nIdContrato", notificacionData.nIdContrato);
                 parameters.Add("nIdTipoNotificacion", notificacionData.nIdTipoNotificacion);
-                parameters.Add("nIdTipoSeguimiento", notificacionData.nIdTipoSeguimiento);
                 parameters.Add("nIdSeguimiento", notificacionData.nIdSeguimiento);
                 parameters.Add("nIdFormato", notificacionData.nIdFormato);
                 parameters.Add("nIdUsuario", notificacionData.nIdUsuario);
@@ -62,16 +61,16 @@ namespace backend.repository.Cobranzas
             return res;
         }
 
-        public async Task<IList<SelectDTO>> getListPlantillaNotificacion()
+        public async Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion()
         {
-            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+            IEnumerable<PlantillaNotificacionDTO> list = new List<PlantillaNotificacionDTO>();
 
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 3);
 
-                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                list = await connection.QueryAsync<PlantillaNotificacionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
 
             return list.ToList();
@@ -209,7 +208,7 @@ namespace backend.repository.Cobranzas
             return list.ToList();
         }
 
-        public async Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdCliente, int? nIdContrato)
+        public async Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdContrato)
         {
             ContratosDeudaDTO resp = new ContratosDeudaDTO();
 
@@ -218,7 +217,6 @@ namespace backend.repository.Cobranzas
                 DynamicParameters parameters = new();
                 string storedProcedure = string.Format("{0};{1}", "[atencion].[pa_notificacion]", 12);
                 parameters.Add("nIdCompania", nIdCompania);
-                parameters.Add("nIdCliente", nIdCliente);
                 parameters.Add("nIdContrato", nIdContrato);
 
 

@@ -170,6 +170,7 @@ namespace backend.domain
         public string? sCuentaContable { get; set; }
         public string? sCodAsientoProyecto { get; set; }
         public string? sSubdiario { get; set; }
+        public string? sRucInmobitec { get; set; }
         public string? sFechaDocumento { get; set; }
         public int nIdCompania { get; set; }
         public string? sAnioMes { get; set; }
