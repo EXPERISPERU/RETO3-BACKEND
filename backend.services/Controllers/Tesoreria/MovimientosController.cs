@@ -458,5 +458,27 @@ namespace backend.services.Controllers.Tesoreria
                 return StatusCode(500, response);
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<ItemDTO>>>> getAllItemProductos(int nIdCompania)
+        {
+            ApiResponse<List<ItemDTO>> response = new ApiResponse<List<ItemDTO>>();
+
+            try
+            {
+                var result = await service.getAllItemProductos(nIdCompania);
+
+                response.success = true;
+                response.data = (List<ItemDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }
