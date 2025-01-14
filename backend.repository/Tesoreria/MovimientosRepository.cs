@@ -515,5 +515,24 @@ namespace backend.repository.Tesoreria
             return list.ToList();
         }
 
+
+        public async Task<IList<ListPrecioProductoDTO>> postPrecioProducto(ParamPrecioProductoDTO paramPrecioProducto)
+        {
+            IEnumerable<ListPrecioProductoDTO> list = new List<ListPrecioProductoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 23);
+                parameters.Add("nIdConcepto", paramPrecioProducto.nIdConcepto);
+                parameters.Add("nIdCompania", paramPrecioProducto.nIdCompania);
+                parameters.Add("nIdCliente", paramPrecioProducto.nIdCliente);
+                parameters.Add("nIdContrato", paramPrecioProducto.nIdContrato);
+
+                list = await connection.QueryAsync<ListPrecioProductoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+            return list.ToList();
+        }
+
     }
 }
