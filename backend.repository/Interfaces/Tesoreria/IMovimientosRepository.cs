@@ -34,7 +34,6 @@ namespace backend.repository.Interfaces.Tesoreria
         Task<SqlRspDTO> InsMovimientosEgreso(MovEgresoDTO movEgreso);
         Task<IList<ItemDTO>> getAllItemProductos(int nIdCompania);
         Task<IList<ListPrecioProductoDTO>> postPrecioProducto(ParamPrecioProductoDTO paramPrecioProducto);
-
-
+        Task<IList<SelectDTO>> getContratosByCLiente(int nIdCompania, int nIdCliente);
     }
 }
