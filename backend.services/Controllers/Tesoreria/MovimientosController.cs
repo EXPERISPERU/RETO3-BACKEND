@@ -499,5 +499,26 @@ namespace backend.services.Controllers.Tesoreria
             }
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getContratosByCLiente(int nIdCompania, int nIdCliente)
+        {
+            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+
+            try
+            {
+                var result = await service.getContratosByCLiente(nIdCompania, nIdCliente);
+
+                response.success = true;
+                response.data = (List<SelectDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
     }
 }

@@ -23,6 +23,7 @@ namespace backend.domain
         public int? nIdMoneda { get; set; }
         public string? sSimbolo { get; set; }
         public string? sMoneda { get; set; }
+        public string? sPrecioProducto { get; set; }
     }
 
 

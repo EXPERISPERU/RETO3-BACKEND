@@ -1,4 +1,6 @@
-﻿using iText.Kernel.Pdf.Canvas.Parser.ClipperLib;
+﻿using backend.businesslogic.Contabilidad;
+using iText.Kernel.Pdf.Canvas.Parser.ClipperLib;
+using System.Globalization;
 
 namespace backend.services.Utils
 {
@@ -86,9 +88,11 @@ namespace backend.services.Utils
 
         public string sConvertir(decimal numero)
         {
+            CultureInfo ci_PE = new CultureInfo("es-PE");
+            string sNumero = string.Format(ci_PE, "{0:0,0.00}", numero);
             string result = "";
             int entero = (int)Math.Truncate(numero);
-            string sDecimal = numero.ToString().Contains(".") ? "con " + Math.Round(numero, 2).ToString().Split('.')[1] + "/100" : "con 00/100";
+            string sDecimal = sNumero.Contains(".") ? "con " + string.Format(ci_PE, "{0:0,0.00}", Math.Round(numero, 2)).Split('.')[1] + "/100" : "con 00/100";
 
             if ((entero / 1000000) > 0)
             {
