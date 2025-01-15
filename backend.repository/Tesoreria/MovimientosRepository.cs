@@ -534,5 +534,22 @@ namespace backend.repository.Tesoreria
             return list.ToList();
         }
 
+        public async Task<IList<SelectDTO>> getContratosByCLiente(int nIdCompania, int nIdCliente)
+        {
+            IEnumerable<SelectDTO> list = new List<SelectDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 24);
+                parameters.Add("nIdCompania", nIdCompania);
+                parameters.Add("nIdCliente", nIdCliente);
+
+                list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
     }
 }
