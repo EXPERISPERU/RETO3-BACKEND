@@ -10,7 +10,7 @@ namespace backend.repository.Interfaces.Cobranzas
     public interface INotificacionRepository
     {
         Task<IList<NotificacionDTO>> getListNotificacion(NotificacionFilterDTO notificacionFilter);
-        Task<IList<SelectDTO>> getListPlantillaNotificacion();
+        Task<IList<PlantillaNotificacionDTO>> getListPlantillaNotificacion();
         Task<NotificacionDTO> getNotificacionByID(int? nIdNotificacion);
         Task<PlantillaNotificacionDTO> getPlantillaNotificacionByID(int? nIdPlantilla);
         Task<SqlRspDTO> posInsNotificacion(NotificacionDataDTO notificacionData);
@@ -20,7 +20,7 @@ namespace backend.repository.Interfaces.Cobranzas
         Task<FormatoDTO> getFormatoCartaByID(int? nIdFormato);
         Task<IList<CronogramaDeudaDTO>> getList4CronogramaDeuda(int nIdContrato, int? nIdSeguimiento);
         Task<IList<ClienteDeudaDTO>> getListMorosos(NotificacionFilterDTO notificacionFilter);
-        Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdCliente, int? nIdContrato);
+        Task<ContratosDeudaDTO> getDeudaByContratoID(int? nIdCompania, int? nIdContrato);
         Task<IList<NotificacionDTO>> getListNotificacionBySeguimiento(int? nIdSeguimiento);
     }
 }

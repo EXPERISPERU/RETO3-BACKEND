@@ -81,7 +81,7 @@ namespace backend.services.Controllers.Cobranzas
                     if (contrato.nCuotasPendientes > 0)
                     {
                         deudaCrono = await service.getList4CronogramaDeuda(contrato.nIdContrato, notificacion.nIdSeguimiento);
-                        deudaContrato = await service.getDeudaByContratoID(notificacionData.nIdCompania, notificacion.nIdCliente, contrato.nIdContrato);
+                        deudaContrato = await service.getDeudaByContratoID(notificacionData.nIdCompania, contrato.nIdContrato);
                     }
 
                     NotificacionResponseDTO res = await new UltraMsg(configuration!, hostingEnvironment).enviarNotificacion(notificacion, contrato, plantilla, formatoCarta, deudaCrono, deudaContrato);
@@ -129,7 +129,7 @@ namespace backend.services.Controllers.Cobranzas
                 if (contrato.nCuotasPendientes > 0)
                 {
                     deudaCrono = await service.getList4CronogramaDeuda(contrato.nIdContrato, notificacion.nIdSeguimiento);
-                    deudaContrato = await service.getDeudaByContratoID(notificacion.nIdCompania, notificacion.nIdCliente, contrato.nIdContrato);
+                    deudaContrato = await service.getDeudaByContratoID(notificacion.nIdCompania, contrato.nIdContrato);
                 }
 
                 NotificacionResponseDTO res = await new UltraMsg(configuration!, hostingEnvironment).enviarNotificacion(notificacion, contrato, plantilla, formatoCarta, deudaCrono, deudaContrato);
@@ -150,18 +150,16 @@ namespace backend.services.Controllers.Cobranzas
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<ApiResponse<List<SelectDTO>>>> getListPlantillaNotificacion()
+        public async Task<ActionResult<ApiResponse<List<PlantillaNotificacionDTO>>>> getListPlantillaNotificacion()
         {
-            ApiResponse<List<SelectDTO>> response = new ApiResponse<List<SelectDTO>>();
+            ApiResponse<List<PlantillaNotificacionDTO>> response = new ApiResponse<List<PlantillaNotificacionDTO>>();
 
             try
             {
                 var result = await service.getListPlantillaNotificacion();
 
-                Console.WriteLine(result);
-
                 response.success = true;
-                response.data = (List<SelectDTO>)result;
+                response.data = (List<PlantillaNotificacionDTO>)result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)
@@ -255,6 +253,5 @@ namespace backend.services.Controllers.Cobranzas
                 return StatusCode(500, response);
             }
         }
-
     }
 }

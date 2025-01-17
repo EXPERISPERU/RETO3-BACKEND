@@ -126,18 +126,18 @@ namespace backend.services.Utils
                 { "image", null },
             };
 
-            if (notificacion.nIdTipoNotificacion == 309) //IMAGE
+            if (notificacion.nIdTipoNotificacion == 317) //IMAGE
             {
                 structureDc["image"] = "";
                 structureDc["caption"] = "";
             }
 
-            if (notificacion.nIdTipoNotificacion == 310) //CHAT
+            if (notificacion.nIdTipoNotificacion == 318) //CHAT
             {
                 structureDc["body"] = mensaje;
             }
 
-            if (notificacion.nIdTipoNotificacion == 311) //DOCUMENT
+            if (notificacion.nIdTipoNotificacion == 319) //DOCUMENT
             {
                 var archivo = await crearFormato(contrato, formato, cronogramaDeudas, contratosDeuda);
                 structureDc["document"] = archivo;

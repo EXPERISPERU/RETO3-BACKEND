@@ -92,5 +92,99 @@ namespace backend.repository.Contabilidad
 
             return list.ToList();
         }
+
+        public async Task<IList<AsientoIzipayDTO>> getAsientoIzipay(AsientoFilterDTO filter)
+        {
+            IEnumerable<AsientoIzipayDTO> list = new List<AsientoIzipayDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_contable]", 6);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+                parameters.Add("nIdCompania", filter.nIdCompania);
+                list = await connection.QueryAsync<AsientoIzipayDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        #region VISITA GUIADA
+
+        public async Task<IList<VisitaGuiadaEfectivoDTO>> getVisitaGuiadaCaja(AsientoFilterDTO filter)
+        {
+            IEnumerable<VisitaGuiadaEfectivoDTO> list = new List<VisitaGuiadaEfectivoDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_visita_guiada]", 1);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+                parameters.Add("nIdCompania", filter.nIdCompania);
+                list = await connection.QueryAsync<VisitaGuiadaEfectivoDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<VisitaGuiadaBbvaDTO>> getVisitaGuiadaBanco(AsientoFilterDTO filter)
+        {
+            IEnumerable<VisitaGuiadaBbvaDTO> list = new List<VisitaGuiadaBbvaDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_visita_guiada]", 2);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+                parameters.Add("nIdCompania", filter.nIdCompania);
+                list = await connection.QueryAsync<VisitaGuiadaBbvaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<VisitaGuiadaBoletasDTO>> getVisitaGuiadaBoletas(AsientoFilterDTO filter)
+        {
+            IEnumerable<VisitaGuiadaBoletasDTO> list = new List<VisitaGuiadaBoletasDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_visita_guiada]", 3);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+                parameters.Add("nIdCompania", filter.nIdCompania);
+                list = await connection.QueryAsync<VisitaGuiadaBoletasDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        public async Task<IList<VisitaGuiadaNcDTO>> getVisitaGuiadaNotaC(AsientoFilterDTO filter)
+        {
+            IEnumerable<VisitaGuiadaNcDTO> list = new List<VisitaGuiadaNcDTO>();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[contabilidad].[pa_asiento_visita_guiada]", 4);
+                parameters.Add("nIdProyecto", filter.nIdProyecto);
+                parameters.Add("dFechaInicio", filter.dFechaInicio);
+                parameters.Add("dFechaFin", filter.dFechaFin);
+                parameters.Add("nIdCompania", filter.nIdCompania);
+                list = await connection.QueryAsync<VisitaGuiadaNcDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return list.ToList();
+        }
+
+        #endregion
     }
 }
