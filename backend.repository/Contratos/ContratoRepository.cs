@@ -144,6 +144,7 @@ namespace backend.repository.Contratos
                 parameters.Add("nIdCondicionPago", contratoFiltros.nIdCondicionPago);
                 parameters.Add("nIdEstado", contratoFiltros.nIdEstado);
                 parameters.Add("nIdCliente", contratoFiltros.nIdCliente);
+                parameters.Add("nIdUsuario", contratoFiltros.nIdUsuario);
                 parameters.Add("PageNumber", contratoFiltros.PageNumber);
                 parameters.Add("RowspPage", contratoFiltros.RowspPage);
 

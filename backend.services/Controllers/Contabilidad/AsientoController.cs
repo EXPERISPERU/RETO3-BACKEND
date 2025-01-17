@@ -65,7 +65,7 @@ namespace backend.services.Controllers.Contabilidad
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult>  getAsientoBoletas(AsientoFilterDTO filter)
+        public async Task<IActionResult> getAsientoBoletas(AsientoFilterDTO filter)
         {
             try
             {
@@ -111,5 +111,129 @@ namespace backend.services.Controllers.Contabilidad
             }
 
         }
+
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> getAsientoIzipay(AsientoFilterDTO filter)
+        {
+            try
+            {
+                var result = await service.getAsientoIzipay(filter);
+
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
+            }
+
+        }
+
+        #region VISITA GUIADA
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> getVisitaGuiadaBoletas(AsientoFilterDTO filter)
+        {
+            try
+            {
+                var result = await service.getVisitaGuiadaBoletas(filter);
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
+            }
+
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> getVisitaGuiadaBanco(AsientoFilterDTO filter)
+        {
+            try
+            {
+                var result = await service.getVisitaGuiadaBanco(filter);
+
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
+            }
+
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> getVisitaGuiadaCaja(AsientoFilterDTO filter)
+        {
+            try
+            {
+                var result = await service.getVisitaGuiadaCaja(filter);
+
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
+            }
+
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> getVisitaGuiadaNotaC(AsientoFilterDTO filter)
+        {
+            try
+            {
+                var result = await service.getVisitaGuiadaNotaC(filter);
+
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(result);
+                var fileName = Path.GetFileName(result);
+                System.IO.File.Delete(result);
+                return File(fileBytes, "text/plain", fileName);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Ocurrió un error al generar el archivo.",
+                    error = ex.Message
+                });
+            }
+
+        }
+
+        #endregion
     }
 }

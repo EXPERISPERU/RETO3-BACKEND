@@ -12,5 +12,10 @@ namespace backend.businesslogic.Interfaces.Contabilidad
         Task<string> getAsientoBancos(AsientoFilterDTO filter);
         Task<string> getAsientoBoletas(AsientoFilterDTO filter);
         Task<string> getAsientoDevoluciones(AsientoFilterDTO filter);
+        Task<string> getAsientoIzipay(AsientoFilterDTO filter);
+        Task<string> getVisitaGuiadaBoletas(AsientoFilterDTO filter);
+        Task<string> getVisitaGuiadaCaja(AsientoFilterDTO filter);
+        Task<string> getVisitaGuiadaBanco(AsientoFilterDTO filter);
+        Task<string> getVisitaGuiadaNotaC(AsientoFilterDTO filter);
     }
 }
