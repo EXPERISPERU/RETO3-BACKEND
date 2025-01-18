@@ -558,7 +558,7 @@ namespace backend.repository.Tesoreria
             using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
             {
                 DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 17);
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 25);
                 parameters.Add("nIdPrecioProducto", movVentaProducto.nIdPrecioProducto);
                 parameters.Add("nValorProducto", movVentaProducto.nValorProducto);
                 parameters.Add("nIdCliente", movVentaProducto.nIdCliente);
