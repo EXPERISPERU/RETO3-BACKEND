@@ -171,6 +171,9 @@ namespace backend.services
 
             //PRECIO PRODUCTO
             services.AddScoped<IPrecioProductoRepository, PrecioProductoRepository>();
+
+            //CARPETA ADMINISTRATIVA
+            services.AddScoped<ICarpetaAdministrativaLoteRepository, CarpetaAdministrativaLoteRepository>();
         }
 
         public static void ConfigureServicesManager(this IServiceCollection services)
@@ -284,6 +287,9 @@ namespace backend.services
 
             //PRECIO PRODUCTO
             services.AddScoped<IPrecioProductoBL, PrecioProductoBL>();
+
+            //CARPETA ADMINISTRATIVA
+            services.AddScoped<ICarpetaAdministrativaLoteBL, CarpetaAdministrativaLoteBL>();
         }
     }
 }

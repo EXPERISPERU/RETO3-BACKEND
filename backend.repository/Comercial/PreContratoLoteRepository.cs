@@ -35,7 +35,6 @@ namespace backend.repository.Comercial
 
                 list = await connection.QueryAsync<SelectDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             }
-
             return list.ToList();
         }
 
