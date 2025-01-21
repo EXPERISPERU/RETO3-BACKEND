@@ -551,5 +551,34 @@ namespace backend.repository.Tesoreria
             return list.ToList();
         }
 
+        public async Task<SqlRspDTO> postInsMovimientosProducto(MovVentaProductoDTO movVentaProducto)
+        {
+            SqlRspDTO resp = new SqlRspDTO();
+
+            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            {
+                DynamicParameters parameters = new();
+                string storedProcedure = string.Format("{0};{1}", "[tesoreria].[pa_movimientos]", 25);
+                parameters.Add("nIdPrecioProducto", movVentaProducto.nIdPrecioProducto);
+                parameters.Add("nValorProducto", movVentaProducto.nValorProducto);
+                parameters.Add("nIdCliente", movVentaProducto.nIdCliente);
+                parameters.Add("nIdTipoComprobante", movVentaProducto.nIdTipoComprobante);
+                parameters.Add("nIdMoneda", movVentaProducto.nIdMoneda);
+                parameters.Add("nIdMedioPago", movVentaProducto.nIdMedioPago);
+                parameters.Add("nIdUsuario_crea", movVentaProducto.nIdUsuario_crea);
+                parameters.Add("sIdOperacionBancaria", movVentaProducto.sIdOperacionBancaria);
+                parameters.Add("sIdOperacionIzzipay", movVentaProducto.sIdOperacionIzzipay);
+                //parameters.Add("nMedioPago", preContrato.nMedioPago);
+                parameters.Add("nIdCaja", movVentaProducto.nIdCaja);
+                parameters.Add("nIdCompania", movVentaProducto.nIdCompania);
+                parameters.Add("nIdTipoItem", movVentaProducto.nIdTipoItem);
+                parameters.Add("nIdContrato", movVentaProducto.nIdContrato);
+
+                resp = await connection.QuerySingleAsync<SqlRspDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            return resp;
+        }
+
     }
 }

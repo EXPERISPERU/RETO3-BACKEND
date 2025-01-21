@@ -35,5 +35,6 @@ namespace backend.businesslogic.Interfaces.Tesoreria
         Task<IList<ItemDTO>> getAllItemProductos(int nIdCompania);
         Task<IList<ListPrecioProductoDTO>> postPrecioProducto(ParamPrecioProductoDTO paramPrecioProducto);
         Task<IList<SelectDTO>> getContratosByCLiente(int nIdCompania, int nIdCliente);
+        Task<SqlRspDTO> postInsMovimientosProducto(MovVentaProductoDTO movVentaProducto);
     }
 }

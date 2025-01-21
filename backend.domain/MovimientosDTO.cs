@@ -194,4 +194,23 @@ namespace backend.domain
         public int nIdUsuario_crea { get; set; }
         public int nIdCaja { get; set; }
     }
+
+    public class MovVentaProductoDTO
+    {
+        public int nIdPrecioProducto { get; set; }
+        public decimal nValorProducto{ get; set; }
+        public int nIdCliente { get; set; }
+        public int nIdTipoComprobante { get; set; }
+        public int nIdMoneda { get; set; }
+        //public int nMedioPago { get; set; }
+        public int? nIdMedioPago { get; set; }
+        public int nIdUsuario_crea { get; set; }
+        //public int? nIdOperacionBancaria { get; set; }
+        public string? sIdOperacionBancaria { get; set; }
+        public string? sIdOperacionIzzipay { get; set; }
+        public int nIdCaja { get; set; }
+        public int? nIdCompania { get; set; }
+        public int nIdTipoItem { get; set; }
+        public int? nIdContrato { get; set; }
+    }
 }
