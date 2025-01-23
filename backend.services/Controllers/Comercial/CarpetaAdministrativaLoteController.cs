@@ -39,6 +39,47 @@ namespace backend.services.Controllers.Comercial
             }
         }
 
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> InsCarpetaAdministrativaLote([FromBody] CarpetaAdministrativaLoteDTO instCarpetaAdminLote)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsCarpetaAdministrativaLote(instCarpetaAdminLote);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> InsAdicCarpetaAdministrativaLote([FromBody] CarpetaAdministrativaLoteDTO instCarpetaAdminLote)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.InsAdicCarpetaAdministrativaLote(instCarpetaAdminLote);
+
+                response.success = result.nCod == 0 ? false : true;
+                response.data = result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+                return StatusCode(500, response);
+            }
+        }
 
     }
 }

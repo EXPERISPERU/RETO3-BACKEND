@@ -22,5 +22,16 @@ namespace backend.businesslogic.Comercial
         {
             return await repository.getSelectPrecioCarpetaAdministrativaLote(nIdLote, nValorInicial, nIdMoneda);
         }
+
+        public async Task<SqlRspDTO> InsCarpetaAdministrativaLote(CarpetaAdministrativaLoteDTO instCarpetaAdminLote)
+        {
+            return await repository.InsCarpetaAdministrativaLote(instCarpetaAdminLote);
+        }
+
+        public async Task<SqlRspDTO> InsAdicCarpetaAdministrativaLote(CarpetaAdministrativaLoteDTO instCarpetaAdminLote)
+        {
+            return await repository.InsAdicCarpetaAdministrativaLote(instCarpetaAdminLote);
+        }
+
     }
 }

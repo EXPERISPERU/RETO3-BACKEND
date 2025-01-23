@@ -10,5 +10,7 @@ namespace backend.repository.Interfaces.Comercial
     public interface ICarpetaAdministrativaLoteRepository
     {
         Task<IList<SelectDTO>> getSelectPrecioCarpetaAdministrativaLote(int nIdLote, decimal nValorInicial, int nIdMoneda);
+        Task<SqlRspDTO> InsCarpetaAdministrativaLote(CarpetaAdministrativaLoteDTO instCarpetaAdminLote);
+        Task<SqlRspDTO> InsAdicCarpetaAdministrativaLote(CarpetaAdministrativaLoteDTO instCarpetaAdminLote);
     }
 }
