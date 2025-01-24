@@ -146,5 +146,10 @@ namespace backend.businesslogic.Tesoreria
         {
             return await repository.getContratosByCLiente(nIdCompania, nIdCliente);
         }
+
+        public async Task<SqlRspDTO> postInsMovimientosProducto(MovVentaProductoDTO movVentaProducto)
+        {
+            return await repository.postInsMovimientosProducto(movVentaProducto);
+        }
     }
 }
