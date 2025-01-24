@@ -9,6 +9,7 @@ namespace backend.businesslogic.Interfaces.Dealers
     public interface ICarteraProveedorDealerBL
     {
         Task<IList<CarteraProveedorDealerDTO>> getListCarteraProveedorDealer(FilterCarteraDTO filter);
+        Task<SqlRspDTO> posAsignarCartera(AsignarCarteraDTO asignar);
 
     }
 }
