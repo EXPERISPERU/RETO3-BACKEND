@@ -23,5 +23,10 @@ namespace backend.businesslogic.Dealers
         {
             return await repository.getListCarteraProveedorDealer(filter);
         }
+
+        public async Task<SqlRspDTO> posAsignarCartera(AsignarCarteraDTO asignar)
+        {
+            return await repository.posAsignarCartera(asignar);
+        }
     }
 }
