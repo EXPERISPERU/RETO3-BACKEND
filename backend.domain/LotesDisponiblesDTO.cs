@@ -100,5 +100,6 @@ namespace backend.domain
         //Nuevos campos
         public int? nIdTipoItem { get; set; }
         public int? nIdCliente { get; set; }
+        public Boolean? bEstadoCarpetaAdmin {  get; set; }
     }
 }
