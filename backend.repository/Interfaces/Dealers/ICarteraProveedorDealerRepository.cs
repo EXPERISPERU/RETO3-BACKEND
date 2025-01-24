@@ -9,6 +9,7 @@ namespace backend.repository.Interfaces.Dealers
     public interface ICarteraProveedorDealerRepository
     {
         Task<IList<CarteraProveedorDealerDTO>> getListCarteraProveedorDealer(FilterCarteraDTO filter);
+        Task<SqlRspDTO> posAsignarCartera(AsignarCarteraDTO asignar);
 
     }
 }

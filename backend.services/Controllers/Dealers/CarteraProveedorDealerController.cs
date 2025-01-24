@@ -16,7 +16,7 @@ namespace backend.services.Controllers.Dealers
     public class CarteraProveedorDealerController : ControllerBase
     {
         public readonly ICarteraProveedorDealerBL service;
-        
+
         public CarteraProveedorDealerController(ICarteraProveedorDealerBL _service)
         {
             service = _service;
@@ -34,6 +34,30 @@ namespace backend.services.Controllers.Dealers
 
                 response.success = true;
                 response.data = (List<CarteraProveedorDealerDTO>)result;
+                return StatusCode(200, response);
+            }
+            catch (Exception ex)
+            {
+                response.success = false;
+                response.errMsj = ex.Message;
+
+                return StatusCode(500, response);
+            }
+
+        }
+
+        [HttpPost("[action]")]
+
+        public async Task<ActionResult<ApiResponse<SqlRspDTO>>> posAsignarCartera([FromBody] AsignarCarteraDTO asignar)
+        {
+            ApiResponse<SqlRspDTO> response = new ApiResponse<SqlRspDTO>();
+
+            try
+            {
+                var result = await service.posAsignarCartera(asignar);
+
+                response.success = true;
+                response.data = result;
                 return StatusCode(200, response);
             }
             catch (Exception ex)

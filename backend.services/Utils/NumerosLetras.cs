@@ -8,7 +8,7 @@ namespace backend.services.Utils
     {
         private string sUnidad(int unidad)
         {
-            string[] sUnidades = { "", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siente", "ocho", "nueve" };
+            string[] sUnidades = { "", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve" };
             return sUnidades[unidad];
         }
 
