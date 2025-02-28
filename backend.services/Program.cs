@@ -37,6 +37,7 @@ builder.Services.AddCors(options => {
                 , "http://127.0.0.1:5501"
                 , "http://127.0.0.1:8000"
                 , "https://127.0.0.1:8000"
+                , "http://127.0.0.1"
                 , "http://10.48.0.10"
                 , "https://inmobisoft.inmobitec.pe"
                 , "http://inmobisoft.inmobitec.pe"
