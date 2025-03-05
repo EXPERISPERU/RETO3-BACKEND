@@ -38,26 +38,10 @@ builder.Services.AddCors(options => {
                 , "http://127.0.0.1:8000"
                 , "https://127.0.0.1:8000"
                 , "http://127.0.0.1"
-                , "http://10.48.0.10"
-                , "https://inmobisoft.inmobitec.pe"
-                , "http://inmobisoft.inmobitec.pe"
-                , "http://miportal2.inmobitec.pe"
-                , "https://miportal2.inmobitec.pe"
-                , "http://imbtest.inmobitec.pe"
-                , "https://imbtest.inmobitec.pe"
-                , "http://imbqa.inmobitec.pe"
-                , "https://imbqa.inmobitec.pe"
-                , "http://sauces.inmobitec.pe"
-                , "https://sauces.inmobitec.pe"
-                , "http://gardenias.inmobitec.pe"
-                , "https://gardenias.inmobitec.pe"
-                , "http://sauces.psviviendasdelsur.pe"
-                , "https://sauces.psviviendasdelsur.pe"
-                , "http://gardenias.psviviendasdelsur.pe"
-                , "https://gardenias.psviviendasdelsur.pe"
                 )
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowAnyHeader()
+            .AllowCredentials();
         });
 });
 
@@ -67,7 +51,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Asignacion de Interfaces/Entidades y BD Conexion
-builder.Services.ConfigureRepositoryManager(builder.Configuration["ConnectionStrings:cnInmobisoft"]);
+var connectionString = builder.Configuration.GetConnectionString("cnPsql")
+    ?? throw new InvalidOperationException("La cadena de conexión no está configurada.");
+builder.Services.ConfigureRepositoryManager(connectionString);
+
+//builder.Services.ConfigureRepositoryManager(builder.Configuration["ConnectionStrings:cnPsql"]);
 builder.Services.ConfigureServicesManager();
 
 var app = builder.Build();

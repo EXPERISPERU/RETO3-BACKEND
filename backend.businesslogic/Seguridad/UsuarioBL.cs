@@ -22,16 +22,6 @@ namespace backend.businesslogic.Seguridad
             return await repository.getAllUsuario();
         }
 
-        public async Task<IList<SelectDTO>> getTipoUsuario()
-        {
-            return await repository.getTipoUsuario();
-        }
-
-        public async Task<IList<SelectDTO>> getPersonaByTipoUsuario(int nIdTipoUsuario)
-        {
-            return await repository.getPersonaByTipoUsuario(nIdTipoUsuario);
-        }
-
         public async Task<SqlRspDTO> InsUsuario(UsuarioDTO usuario)
         {
             return await repository.InsUsuario(usuario);
@@ -42,49 +32,14 @@ namespace backend.businesslogic.Seguridad
             return await repository.UpdUsuario(usuario);
         }
 
-        public async Task<SqlRspDTO> UpdUsuarioPortal(UsuarioDTO usuario)
+        public async Task<SqlRspDTO> dltUsuario(int nIdUsuario)
         {
-            return await repository.UpdUsuarioPortal(usuario);
-        }
-
-        public async Task<SqlRspDTO> InsUsuPerCom(PerfilUsuarioDTO perusu)
-        {
-            return await repository.InsUsuPerCom(perusu);
-        }
-
-        public async Task<SqlRspDTO> DelUsuPerCom(PerfilUsuarioDTO perusu)
-        {
-            return await repository.DelUsuPerCom(perusu);
-        }
-
-        public async Task<IList<SelectDTO>> getCompanias()
-        {
-            return await repository.getCompanias();
-        }
-
-        public async Task<IList<SelectDTO>> getPerfilDispByUsuComp(int nIdUsuario, int nIdCompania)
-        {
-            return await repository.getPerfilDispByUsuComp(nIdUsuario, nIdCompania);
-        }
-
-        public async Task<IList<PerfilUsuarioDTO>> getPerfilByUsu(int nIdUsuario)
-        {
-            return await repository.getPerfilByUsu(nIdUsuario);
-        }
-
-        public async Task<IList<OpcionDTO>> getOpcionByUsuComp(int nIdUsuario, int nIdCompania)
-        {
-            return await repository.getOpcionByUsuComp(nIdUsuario, nIdCompania);
+            return await repository.dltUsuario(nIdUsuario);
         }
 
         public async Task<UsuarioDTO> getUserById(int nIdUsuario)
         {
             return await repository.getUserById(nIdUsuario);
-        }
-
-        public async Task generateUsuariosNuevosClientes() 
-        { 
-            await repository.generateUsuariosNuevosClientes();
         }
     }
 }

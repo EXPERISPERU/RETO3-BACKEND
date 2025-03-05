@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using backend.repository.Interfaces.Seguridad;
+using Npgsql;
+using NpgsqlTypes;
 
 namespace backend.repository.Seguridad
 {
@@ -23,87 +25,26 @@ namespace backend.repository.Seguridad
 
         public async Task<LoginDTO> AuthUser(authLoginDTO authLogin)
         {
-            LoginDTO resp = new LoginDTO();
+            //LoginDTO resp = new LoginDTO();
 
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
+            // Conexión a PostgreSQL
+            using (var connection = new NpgsqlConnection(_configuration.GetConnectionString("cnPsql")))
             {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 1);
+                // Sentencia SQL que invoca a la función
+                var sql = "SELECT * FROM fn_pa_autentication(@sUsuario, @sPassword)";
+
+                // Parámetros
+                var parameters = new DynamicParameters();
                 parameters.Add("sUsuario", authLogin.sUsuario);
                 parameters.Add("sPassword", authLogin.sPassword);
 
-                resp = await connection.QuerySingleAsync<LoginDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                // Ejecutamos la consulta y mapeamos el resultado a LoginDTO
+                var result = await connection.QuerySingleOrDefaultAsync<LoginDTO>(
+                    sql,
+                    parameters
+                );
+                return result;
             }
-
-            return resp;
-        }
-
-        public async Task<LoginDTO> AuthPortalUser(authLoginDTO authLogin)
-        {
-            LoginDTO resp = new LoginDTO();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 4);
-                parameters.Add("sUsuario", authLogin.sUsuario);
-                parameters.Add("sPassword", authLogin.sPassword);
-
-                resp = await connection.QuerySingleAsync<LoginDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return resp;
-        }
-
-        public async Task<RecoverPasswordDTO> RecoverPassword(recoverPasswordDTO authRecover)
-        {
-            RecoverPasswordDTO resp = new RecoverPasswordDTO();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 5);
-                parameters.Add("sCorreoUser", authRecover.sCorreoUser);
-
-                resp = await connection.QuerySingleAsync<RecoverPasswordDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return resp;
-        }
-
-
-
-        public async Task<IList<OpcionDTO>> ListOpcionByIdUsuario(int nIdUsuario, int nIdCompania)
-        {
-            IEnumerable<OpcionDTO> list = new List<OpcionDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 2);
-                parameters.Add("nIdUsuario", nIdUsuario);
-                parameters.Add("nIdCompania", nIdCompania);
-
-                list = await connection.QueryAsync<OpcionDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
-
-        public async Task<IList<CompaniaDTO>> ListCompaniaByIdUsuario(int nIdUsuario)
-        {
-            IEnumerable<CompaniaDTO> list = new List<CompaniaDTO>();
-
-            using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("cnInmobisoft")))
-            {
-                DynamicParameters parameters = new();
-                string storedProcedure = string.Format("{0};{1}", "[seguridad].[pa_autentication]", 3);
-                parameters.Add("nIdUsuario", nIdUsuario);
-
-                list = await connection.QueryAsync<CompaniaDTO>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-            }
-
-            return list.ToList();
-        }
+        }   
     }
 }

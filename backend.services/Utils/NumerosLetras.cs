@@ -1,5 +1,4 @@
-﻿using backend.businesslogic.Contabilidad;
-using iText.Kernel.Pdf.Canvas.Parser.ClipperLib;
+﻿using iText.Kernel.Pdf.Canvas.Parser.ClipperLib;
 using System.Globalization;
 
 namespace backend.services.Utils
