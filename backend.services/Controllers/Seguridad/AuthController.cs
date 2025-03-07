@@ -41,6 +41,8 @@ namespace backend.services.Controllers.Seguridad
                 claims.AddClaim(new Claim("nIdUsuario", rsp.nIdUsuario.ToString()));
                 claims.AddClaim(new Claim("sNombreCompleto", rsp.sNombreCompleto));
                 claims.AddClaim(new Claim("nIdPersona", rsp.nIdPersona.ToString()));
+                claims.AddClaim(new Claim("sUsuario", rsp.sUsuario.ToString()));
+                claims.AddClaim(new Claim("dFechaNac", rsp.dFechaNac.ToString()));
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
