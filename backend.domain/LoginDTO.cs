@@ -11,7 +11,9 @@ namespace backend.domain
         public int nIdUsuario { get; set; }
         public string? sNombreCompleto { get; set; }
         public int? nIdPersona { get; set; }
+        public string? sUsuario { get; set; }
         public string? sMsj { get; set; }
+        public DateTime? dFechaNac { get; set; }
     }
 
     public class RecoverPasswordDTO
